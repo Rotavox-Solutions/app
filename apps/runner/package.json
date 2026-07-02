@@ -7,9 +7,11 @@
     "introspect": "tsx src/introspect-schema.ts",
     "probe-rest": "tsx src/probe-rest.ts",
     "sync-library": "tsx src/sync-library.ts",
-    "reconcile": "tsx src/reconcile-history.ts"
+    "reconcile": "tsx src/reconcile-history.ts",
+    "generate-log": "tsx src/generate-log.ts"
   },
   "dependencies": {
+    "@rotavox/engine": "*",
     "@rotavox/schema": "*",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.45.2",
