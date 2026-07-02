@@ -1,0 +1,40 @@
+{
+  "confirmedCommands": {
+    "StatusQueue": {
+      "ok": true,
+      "response": "13"
+    },
+    "EnableAutoDJ": {
+      "ok": true,
+      "response": "200"
+    },
+    "LoadTrackToBottom": {
+      "ok": null,
+      "note": "not probed here (mutates live queue) — verified by the §4c spike"
+    },
+    "LoadTrackToTop": {
+      "ok": null,
+      "note": "not probed here (mutates live queue) — verified by the §4c spike"
+    },
+    "RemovePlaylistTrack": {
+      "ok": null,
+      "note": "not probed here (mutates live queue) — verified by the §4c spike"
+    },
+    "ClearPlaylist": {
+      "ok": null,
+      "note": "not probed here (mutates live queue) — verified by the §4c spike"
+    }
+  },
+  "npFields": {
+    "ID": true,
+    "DatePlayed": true,
+    "ArtistPlayed": true,
+    "CountPlayed": true
+  },
+  "pFields": {
+    "ID": true,
+    "DatePlayed": true,
+    "ArtistPlayed": true,
+    "CountPlayed": true
+  }
+}

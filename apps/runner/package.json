@@ -1,0 +1,20 @@
+{
+  "name": "@rotavox/runner",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "introspect": "tsx src/introspect-schema.ts",
+    "probe-rest": "tsx src/probe-rest.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "fast-xml-parser": "^5.7.0",
+    "mysql2": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0"
+  }
+}
