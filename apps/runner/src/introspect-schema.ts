@@ -32,6 +32,8 @@ const CANONICAL_ALIASES: Record<string, string[]> = {
   weight: ["weight"],
   enabled: ["enabled"],
   song_type: ["song_type", "songtype", "type"],
+  date_modified: ["date_modified", "datemodified", "modified"],
+  date_added: ["date_added", "dateadded", "added"],
   date_played: ["date_played", "dateplayed", "lastplayed"],
   artist_played: ["artist_played", "artistplayed"],
   count_played: ["count_played", "countplayed", "playcount"],

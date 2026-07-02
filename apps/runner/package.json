@@ -5,12 +5,17 @@
   "type": "module",
   "scripts": {
     "introspect": "tsx src/introspect-schema.ts",
-    "probe-rest": "tsx src/probe-rest.ts"
+    "probe-rest": "tsx src/probe-rest.ts",
+    "sync-library": "tsx src/sync-library.ts",
+    "reconcile": "tsx src/reconcile-history.ts"
   },
   "dependencies": {
+    "@rotavox/schema": "*",
     "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.45.2",
     "fast-xml-parser": "^5.7.0",
-    "mysql2": "^3.11.0"
+    "mysql2": "^3.11.0",
+    "postgres": "^3.4.9"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",

@@ -130,6 +130,8 @@
     "weight": "weight",
     "enabled": "enabled",
     "song_type": "song_type",
+    "date_modified": "date_modified",
+    "date_added": "date_added",
     "date_played": "date_played",
     "artist_played": "artist_played",
     "count_played": "count_played",
