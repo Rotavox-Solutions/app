@@ -105,6 +105,14 @@ export interface EngineConfig {
   songTypeMap: Record<string, number[]>;
 }
 
+// Weight calibration: the positive weights sum to 0.95 — incidental, not a
+// constraint; only ratios matter since a uniform scale shifts every score equally.
+// The anchors are calibrated against the REST RANGE (0..rest = the entire
+// discriminating spread on an untagged library, where all other soft components
+// are a constant 0.5×weight): jitterMagnitude ±0.05 spans 12.5% of it, so jitter
+// shuffles near-ties but can't flip a well-rested pick; max near-separation bite
+// is nearSeparationPenalty × 0.5 = 0.125 ≈ 31% of it. Tune new values against
+// the rest range, not against a weight sum of 1.0.
 export const DEFAULT_CONFIG: EngineConfig = {
   searchDepth: 5,
   jitterMagnitude: 0.05,
