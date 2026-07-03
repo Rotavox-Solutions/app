@@ -94,3 +94,32 @@ export async function getQueue(): Promise<unknown> {
   const xml = await res.text();
   return xmlParser.parse(xml);
 }
+
+/** Fetches /RDJState (AutoDJ/Paused/QueueCount/...) and parses the XML into a plain object. */
+export async function getState(): Promise<unknown> {
+  const url = new URL(`${baseUrl()}${ENDPOINTS.state}`);
+  url.searchParams.set("auth", authKey());
+  const res = await fetchWithRetry(url);
+  const xml = await res.text();
+  return xmlParser.parse(xml);
+}
+
+/**
+ * Extracts the currently-playing rdj_song_id from a parsed /RDJnp response.
+ * ID 0 means nothing is playing (dead air, or between tracks) — callers should
+ * treat that as "no song," not as a real transition.
+ */
+export function extractNowPlayingId(parsedNowPlaying: unknown): number | null {
+  const id = (parsedNowPlaying as any)?.SongData?.ID;
+  if (id === undefined) return null;
+  const n = Number(id);
+  return n > 0 ? n : null;
+}
+
+/** Extracts the ordered list of rdj_song_ids from a parsed /RDJp (queue) response. */
+export function extractQueueSongIds(parsedQueue: unknown): number[] {
+  const root = (parsedQueue as any)?.ArrayOfSongData?.SongData;
+  if (!root) return [];
+  const arr = Array.isArray(root) ? root : [root];
+  return arr.map((s: any) => Number(s.ID)).filter((n) => !Number.isNaN(n));
+}
