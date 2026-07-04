@@ -8,7 +8,6 @@
     "probe-rest": "tsx src/probe-rest.ts",
     "sync-library": "tsx src/sync-library.ts",
     "reconcile": "tsx src/reconcile-history.ts",
-    "generate-log": "tsx src/generate-log.ts",
     "pace": "tsx src/pace.ts"
   },
   "dependencies": {

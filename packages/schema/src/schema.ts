@@ -147,6 +147,7 @@ export const logItems = pgTable("log_items", {
   rdjSongId: integer("rdj_song_id"),
   clockPositionId: uuid("clock_position_id").references(() => clockPositions.id),
   violations: jsonb("violations"),
+  locked: boolean("locked").default(false).notNull(),
   pushedAt: timestamp("pushed_at"),
   airedAt: timestamp("aired_at"),
 });

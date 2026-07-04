@@ -1,0 +1,1 @@
+ALTER TABLE "log_items" ADD COLUMN "locked" boolean DEFAULT false NOT NULL;
