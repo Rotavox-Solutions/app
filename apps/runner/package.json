@@ -9,7 +9,9 @@
     "sync-library": "tsx src/sync-library.ts",
     "reconcile": "tsx src/reconcile-history.ts",
     "pace": "tsx src/pace.ts",
-    "watchdog": "tsx src/watchdog.ts"
+    "watchdog": "tsx src/watchdog.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@rotavox/engine": "*",
@@ -23,6 +25,7 @@
   "devDependencies": {
     "@types/node": "^20.14.0",
     "tsx": "^4.19.0",
-    "typescript": "^5.5.0"
+    "typescript": "^5.5.0",
+    "vitest": "^3.0.0"
   }
 }

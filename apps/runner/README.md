@@ -22,6 +22,8 @@ npm run introspect  # §4a — writes schema-map.json
 npm run probe-rest   # §4b — writes rest-capabilities.json
 npm run pace         # §7  — the pace loop; owns AutoDJ while a log is current
 npm run watchdog     # M4.5 — independent AutoDJ fail-safe; run as a SEPARATE process
+npm test             # watchdog fail-safe unit tests (no rig or Postgres needed)
+npm run typecheck
 ```
 
 ## Fail-safe AutoDJ (M4.5)
