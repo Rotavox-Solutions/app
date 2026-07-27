@@ -135,9 +135,11 @@ JOIN category c ON c.ID = s.parentid
 ORDER BY c.name, s.name;
 ```
 
-Update the ID literals in the `song_categories` block of
-`packages/schema/seed/m2-clubfm-seed.sql` (and the comment header) to match. Commit
-that change — it is now the record of the current rig.
+**The seed already carries the mapping for the 2026-07 rebuild**, so for this rebuild
+you only need to confirm the query's output still matches the header comment in
+`packages/schema/seed/m2-clubfm-seed.sql`. If it doesn't — or the next time RadioDJ is
+reinstalled — update the ID literals in that file's `song_categories` block and its
+comment header, and commit it. That file is the record of the current rig.
 
 ### 7. Seed the format
 
@@ -145,9 +147,22 @@ that change — it is now the record of the current rig.
 psql "$DATABASE_URL" -f packages/schema/seed/m2-clubfm-seed.sql
 ```
 
-The seed ends with sanity counts. **`song_categories` must be non-zero** and should be
-close to the number of music tracks in the library. Zero means step 6's mapping is
-wrong. Expected: 12 categories, 21 clock positions, 168 format_grid rows, 6 rules.
+The seed ends with two verification queries.
+
+Counts, expected: **23 categories, 21 clock positions, 168 format_grid rows, 6 rules.**
+
+Then a per-pool breakdown, which is the one that actually catches a bad mapping — a
+single total hides one category having mapped to a subcategory ID that doesn't exist
+here. **Every category the clock references must be non-zero**: `A1 A2 B C N
+Recurrents G10 G00 G90 Discovery Sweepers` and `TOH IDs`. (`F H W Z ZN GDEEP` are
+seeded but unscheduled, so zero there is only worth noticing, not fixing.)
+
+That query also breaks membership down by `song_type`, because a pool can be mapped
+correctly and still schedule nothing: the engine filters on type independently of
+category — `category` positions take type 0, `sweeper` positions take 1 or 2. So the
+music pools need a non-zero `type_music`, and `Sweepers`/`TOH IDs` need a non-zero
+`type_imaging`. If `TOH IDs` shows its tracks under `type_other`, the top-of-hour
+position will silently never fill.
 
 ### 8. Backfill play history
 
