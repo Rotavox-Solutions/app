@@ -15,6 +15,7 @@ import {
 } from "./cursor.js";
 import { reconcileHistory } from "./reconcile-history.js";
 import { backfillAiredAt, matchAndStampAiredAt } from "./backfill-aired.js";
+import { writeHeartbeat } from "./heartbeat.js";
 
 const POLL_INTERVAL_MS = 5_000;
 const MIN_DEPTH = 3;
@@ -307,20 +308,66 @@ async function paceLoop(): Promise<void> {
     } catch (err) {
       console.error("[pace] tick error (continuing):", err);
     }
+    // Written every iteration regardless of tick outcome — this is a liveness signal
+    // for the watchdog ("the loop is still running"), not a "tick succeeded" signal.
+    // A transient DB hiccup that this loop is actively retrying is not the same thing
+    // as a hung/dead process, and shouldn't trip the watchdog's AutoDJ fail-safe.
+    try {
+      await writeHeartbeat();
+    } catch (err) {
+      console.error("[pace] failed to write heartbeat:", err);
+    }
     await new Promise((r) => setTimeout(r, POLL_INTERVAL_MS));
   }
 }
 
+/**
+ * Closes the one gap the in-loop hand-back (see tick()'s `!log` branch) can't cover:
+ * `currentLogId` starts `null`, and that branch only fires on a *transition* away from
+ * a log we were actively pacing. If a previous Runner instance died while AutoDJ was
+ * off and that log's window has since expired, a freshly-started Runner finds no
+ * current log, `currentLogId` is already null, and nothing would otherwise touch
+ * AutoDJ — leaving it off with nobody pacing. Run once, before the main loop starts.
+ */
+async function reconcileAutoDjOnStartup(): Promise<void> {
+  const log = await selectCurrentLog();
+  if (log) return; // normal startupForLog() path on the first tick will take it from here
+
+  const autoDj = extractAutoDj(await getState());
+  if (autoDj === false) {
+    console.log("[pace] startup reconciliation: no current log and AutoDJ is off — forcing EnableAutoDJ=1.");
+    await restCall("EnableAutoDJ", 1);
+  } else if (autoDj === null) {
+    console.warn("[pace] startup reconciliation: could not read AutoDJ state from /RDJState — leaving as-is.");
+  }
+}
+
 async function main(): Promise<void> {
+  await reconcileAutoDjOnStartup();
   await Promise.all([paceLoop(), watchNowPlaying()]);
 }
 
-process.on("SIGINT", async () => {
-  console.log("\n[pace] shutting down...");
+/**
+ * Shared graceful-stop path for SIGINT (Ctrl+C) and SIGTERM (plain `kill`,
+ * `systemctl stop`). Unconditionally hands playout back to AutoDJ before closing
+ * connections — the previous SIGINT-only handler skipped this entirely. Covers
+ * intentional stops; it cannot run for SIGKILL/a crash/an OOM kill/power loss, which
+ * is exactly what the independent watchdog (watchdog.ts) exists for.
+ */
+async function shutdown(signal: string): Promise<void> {
+  console.log(`\n[pace] ${signal} received — handing back to AutoDJ before shutdown...`);
+  try {
+    await restCall("EnableAutoDJ", 1);
+  } catch (err) {
+    console.error("[pace] failed to hand back to AutoDJ during shutdown (continuing shutdown):", err);
+  }
   await pool.end();
   await pgClient.end();
   process.exit(0);
-});
+}
+
+process.on("SIGINT", () => shutdown("SIGINT"));
+process.on("SIGTERM", () => shutdown("SIGTERM"));
 
 main().catch((err) => {
   console.error(err);

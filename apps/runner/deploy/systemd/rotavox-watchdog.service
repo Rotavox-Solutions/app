@@ -1,0 +1,23 @@
+[Unit]
+Description=Rotavox AutoDJ fail-safe watchdog
+# Intentionally has NO relationship (After=/Requires=/BindsTo=) to
+# rotavox-runner.service. Its entire job is to keep working when the runner unit is
+# wedged, crashed, or stopped — coupling its lifecycle to the runner's would defeat
+# the point. Only depends on the network path to RadioDJ's REST plugin.
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=rotavox
+WorkingDirectory=/opt/rotavox-app/apps/runner
+# Only needs RADIODJ_REST_* and (optionally) RUNNER_HEARTBEAT_PATH — reads the same
+# env file for convenience, but src/watchdog.ts never touches DATABASE_URL or
+# RADIODJ_DB_*.
+EnvironmentFile=/opt/rotavox-app/apps/runner/.env
+ExecStart=/opt/rotavox-app/apps/runner/node_modules/.bin/tsx src/watchdog.ts
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

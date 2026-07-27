@@ -1,0 +1,29 @@
+[Unit]
+Description=Rotavox Log Runner (pace loop)
+# Deliberately NOT ordered after/wanted-by rotavox-watchdog — the watchdog must stay
+# independently schedulable and must never be taken down by whatever takes this unit
+# down (see apps/runner/README.md and the M4.5 plan for why).
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=rotavox
+WorkingDirectory=/opt/rotavox-app/apps/runner
+EnvironmentFile=/opt/rotavox-app/apps/runner/.env
+ExecStart=/opt/rotavox-app/apps/runner/node_modules/.bin/tsx src/pace.ts
+# SIGTERM (systemd's default stop signal) is caught by pace.ts's graceful-stop
+# handler, which hands playout back to AutoDJ before exiting — give it real time to
+# do that REST round-trip rather than racing to SIGKILL.
+TimeoutStopSec=30
+# Fast recovery from an ordinary crash. This is a complement to the independent
+# watchdog (rotavox-watchdog.service), not a substitute for it: a restart alone
+# doesn't guarantee AutoDJ gets re-enabled quickly — pace.ts's own startup
+# reconciliation is what does that once this unit is back up. The watchdog is what
+# covers the gap *before* systemd notices and restarts (or if this unit is stopped
+# entirely, or the box can't restart it).
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
