@@ -81,12 +81,31 @@ Bring up an instance the Runner and web app can both reach. The repo's
 `rotavox`); on a Windows broadcast box a native service or a separate host is usually
 saner than Docker.
 
+The compose file creates the role and database for you. **A native install does not** —
+it gives you only the `postgres` superuser, so create them, and grant on the schema:
+
+```
+psql -U postgres -c "CREATE ROLE rotavox WITH LOGIN PASSWORD 'rotavox';"
+psql -U postgres -c "CREATE DATABASE rotavox OWNER rotavox;"
+psql -U postgres -d rotavox -c "GRANT ALL ON SCHEMA public TO rotavox;"
+psql -U postgres -d rotavox -c "ALTER SCHEMA public OWNER TO rotavox;"
+```
+
+Since PG15 a non-owner role has no `CREATE` on `public` by default, so without those
+last two the migration authenticates fine and then fails on the first `CREATE TABLE`
+with `permission denied for schema public` (42501). Note the `-d rotavox`: the grant is
+per-database, and running it without that silently grants on the wrong one.
+
 ```
 npm run migrate --workspace=@rotavox/schema
 ```
 
 Needs `DATABASE_URL` in the environment (see `packages/schema/.env.example`). It
 creates the `pgcrypto` extension and applies both migrations.
+
+Each component reads the `.env` in its own directory — `packages/schema/.env` here,
+`apps/runner/.env` in step 5, `apps/web/.env` in step 9. `DATABASE_URL` has to be
+correct in all three.
 
 ### 4. Station row
 
