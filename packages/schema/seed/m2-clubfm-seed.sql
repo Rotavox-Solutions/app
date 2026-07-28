@@ -17,8 +17,22 @@
 -- NOTE — 'Gold 2020s' is gone. The rebuilt install has no 2020s gold tier, and the
 -- old category's 30h turnover was recurrent rotation, not gold rotation (the real
 -- gold tiers sit at 72-96h). It is replaced by 'Recurrents' over R1/R2/R3, which is
--- what that tier evidently became. The clock's five direct Recurrents positions and
--- four Recurrents fallbacks are otherwise unchanged.
+-- what that tier evidently became.
+--
+-- CLOCK REBALANCE — the inherited clock hit that tier five times an hour, which only
+-- worked when it was a full gold pool. Here it is R1's 8 songs (R2/R3 are empty), and
+-- five slots an hour against a 150-minute title separation is unsatisfiable by
+-- pigeonhole: ~12.5 slots per window, 8 distinct songs. The ladder would have relaxed
+-- on nearly every recurrent pick. So:
+--   * Recurrents 5 positions -> 2 (sustainable on 8 songs)
+--   * H (heritage, 80s and older, 100 songs) gains 2 positions. The old install had
+--     no heritage tier, so the inherited clock had nowhere to put it and it sat
+--     entirely unscheduled.
+--   * G90 gains the remaining position (1 -> 2).
+--   * The four fallbacks that pointed at Recurrents now point at G10 — falling back
+--     into the pool that is itself the bottleneck defeats the purpose, and G10 is the
+--     closest era to the currents those positions serve.
+-- Music positions stay at 17 and the clock stays at 21.
 --
 -- WARNING — do NOT reuse a mapping across a RadioDJ reinstall. Under the old install
 -- C=27, G90=3, N=28 and Discovery=33; in this one those same IDs are G1990, C,
@@ -57,16 +71,22 @@ INSERT INTO categories (station_id, name, kind, parent_id, default_target_turnov
   (:'sid', 'B',  'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Currents'), 6),
   (:'sid', 'C',  'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Currents'), 8),
   (:'sid', 'N',  'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Currents'), 6),
-  -- Turnover carried over unchanged from the retired 'Gold 2020s'. If R1/R2/R3 are
-  -- meant to be a tiered rotation (R1 fastest), these want splitting — a programming
-  -- call, not a mechanical one, so the like-for-like value stands until it's made.
-  (:'sid', 'R1', 'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Recurrents'), 30),
-  (:'sid', 'R2', 'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Recurrents'), 30),
-  (:'sid', 'R3', 'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Recurrents'), 30),
+  -- 4h, not the 30h carried over from the retired 'Gold 2020s': the tier is only
+  -- R1's 8 songs (R2/R3 are empty on this install) against 2 positions an hour, so
+  -- 30h was fiction and would have skewed restScore for every recurrent pick. Raise
+  -- this back toward 30 — and restore the clock's other three Recurrent positions —
+  -- if R1/R2/R3 are ever filled out on the RadioDJ side.
+  (:'sid', 'R1', 'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Recurrents'), 4),
+  (:'sid', 'R2', 'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Recurrents'), 4),
+  (:'sid', 'R3', 'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Recurrents'), 4),
   (:'sid', 'G10',   'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Gold'), 72),
   (:'sid', 'G00',   'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Gold'), 72),
   (:'sid', 'G90',   'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Gold'), 96),
-  (:'sid', 'GDEEP', 'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Gold'), NULL);
+  (:'sid', 'GDEEP', 'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Gold'), NULL),
+  -- Heritage (80s and older). A gold tier the old install had no equivalent of, so
+  -- the inherited clock had nowhere to put it and its 100 songs sat unscheduled.
+  -- 50h ≈ 100 songs across 2 positions an hour.
+  (:'sid', 'H',     'music', (SELECT id FROM categories WHERE station_id = :'sid' AND name = 'Gold'), 50);
 
 INSERT INTO categories (station_id, name, kind, default_target_turnover_hours) VALUES
   (:'sid', 'Discovery', 'music',   12),
@@ -75,9 +95,10 @@ INSERT INTO categories (station_id, name, kind, default_target_turnover_hours) V
 
 -- Present so the pools exist and are pickable once the authoring UI lands; no clock
 -- position references them, so nothing schedules them yet.
+-- W is benched material and ZN is rested/killed new music — both are deliberately
+-- out of rotation, so their size (911 and 148) is correct, not a mapping error.
 INSERT INTO categories (station_id, name, kind, default_target_turnover_hours) VALUES
   (:'sid', 'F',  'music', NULL),
-  (:'sid', 'H',  'music', NULL),
   (:'sid', 'W',  'music', NULL),
   (:'sid', 'Z',  'music', NULL),
   (:'sid', 'ZN', 'music', NULL);
@@ -127,21 +148,21 @@ LATERAL (VALUES
   ( 4, 'sweeper',  'Sweepers',   NULL, NULL),
   ( 5, 'category', 'B',          NULL, NULL),
   ( 6, 'category', 'G10',        NULL, NULL),
-  ( 7, 'category', 'N',          NULL, 'Recurrents'),
-  ( 8, 'category', 'Recurrents', NULL, NULL),
+  ( 7, 'category', 'N',          NULL, 'G10'),
+  ( 8, 'category', 'H',          NULL, NULL),
   ( 9, 'sweeper',  'Sweepers',   NULL, NULL),
-  (10, 'category', 'C',          NULL, 'Recurrents'),
+  (10, 'category', 'C',          NULL, 'G10'),
   (11, 'category', 'G00',        NULL, NULL),
   (12, 'category', 'A1',         NULL, NULL),
   (13, 'category', 'Recurrents', NULL, NULL),
   (14, 'sweeper',  'Sweepers',   NULL, NULL),
-  (15, 'category', 'A2',         NULL, 'Recurrents'),
+  (15, 'category', 'A2',         NULL, 'G10'),
   (16, 'category', 'G90',        NULL, 'G00'),
-  (17, 'category', 'Discovery',  NULL, 'Recurrents'),
-  (18, 'category', 'Recurrents', NULL, NULL),
+  (17, 'category', 'Discovery',  NULL, 'G10'),
+  (18, 'category', 'H',          NULL, NULL),
   (19, 'category', 'B',          NULL, NULL),
   (20, 'category', 'G10',        NULL, NULL),
-  (21, 'category', 'Recurrents', NULL, NULL)
+  (21, 'category', 'G90',        NULL, NULL)
 ) AS p(sort_order, position_type, category_name, target_offset_seconds, fallback_name)
 JOIN categories cat ON cat.station_id = :'sid' AND cat.name = p.category_name
 WHERE c.station_id = :'sid' AND c.name = 'CHR Standard Hour';

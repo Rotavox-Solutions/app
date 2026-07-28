@@ -173,8 +173,12 @@ Counts, expected: **23 categories, 21 clock positions, 168 format_grid rows, 6 r
 Then a per-pool breakdown, which is the one that actually catches a bad mapping — a
 single total hides one category having mapped to a subcategory ID that doesn't exist
 here. **Every category the clock references must be non-zero**: `A1 A2 B C N
-Recurrents G10 G00 G90 Discovery Sweepers` and `TOH IDs`. (`F H W Z ZN GDEEP` are
-seeded but unscheduled, so zero there is only worth noticing, not fixing.)
+Recurrents H G10 G00 G90 Discovery Sweepers` and `TOH IDs`.
+
+Zero is expected and correct for `Currents`, `Recurrents` and `Gold` — those are
+parents, and membership lives on their children. `F W Z ZN GDEEP` are seeded but
+unscheduled (`W` is benched material, `ZN` rested/killed new music), so their counts
+matter only as a sanity check that they aren't swallowing rotation.
 
 That query also breaks membership down by `song_type`, because a pool can be mapped
 correctly and still schedule nothing: the engine filters on type independently of
