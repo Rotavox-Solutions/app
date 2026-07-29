@@ -7,6 +7,7 @@
     "introspect": "tsx src/introspect-schema.ts",
     "probe-rest": "tsx src/probe-rest.ts",
     "sync-library": "tsx src/sync-library.ts",
+    "prune-library": "tsx src/prune-library.ts",
     "reconcile": "tsx src/reconcile-history.ts",
     "pace": "tsx src/pace.ts",
     "watchdog": "tsx src/watchdog.ts",
