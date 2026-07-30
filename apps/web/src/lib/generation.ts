@@ -133,6 +133,7 @@ export async function loadGenerationInputs(
   const engineClocks: EngineClock[] = clockRows.map((c) => ({
     id: c.id,
     name: c.name,
+    lengthMinutes: c.lengthMinutes ?? 60,
     positions: positionRows
       .filter((row) => row.clock_positions.clockId === c.id)
       .map((row) => ({
@@ -152,7 +153,14 @@ export async function loadGenerationInputs(
     horizonEnd,
     seed: "", // set by the caller
     clocks: engineClocks,
-    grid: gridRows.map((g) => ({ dayOfWeek: g.dayOfWeek, hour: g.hour, clockId: g.clockId })),
+    grid: gridRows.map((g) => ({
+      dayOfWeek: g.dayOfWeek,
+      hour: g.hour,
+      weekInCycle: g.weekInCycle,
+      clockId: g.clockId,
+    })),
+    cycleWeeks: station.formatCycleWeeks ?? 1,
+    cycleEpoch: station.formatCycleEpoch ?? null,
     categories: catRows.map((c) => ({
       id: c.id,
       name: c.name,

@@ -15,6 +15,13 @@
       "when": 1783094599998,
       "tag": "0001_amazing_killraven",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1785387879689,
+      "tag": "0002_salty_cardiac",
+      "breakpoints": true
     }
   ]
 }

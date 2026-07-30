@@ -4,29 +4,22 @@ import type { EngineClock } from "../src/index.js";
 import { baseInput, category, position, rule, song } from "./fixtures.js";
 
 describe("daypart + max_per_hour evaluate at projected air time", () => {
-  it("does not leak a daypart-restricted song past its boundary when the clock overruns", () => {
-    // One long filler (55 min) pushes the hour's later slots past the 21:xx→22:00
-    // boundary. 'Restricted' songs are only allowed hours 6..21; the slot that
-    // projects into 22:0x must exclude them even though it belongs to the 21:00 clock.
+  it("excludes a daypart-restricted song when the slot's projected hour is outside its daypart", () => {
+    // The clock runs the 22:00 hour; 'restricted' is only allowed hours 6..21, so its
+    // single slot has no eligible song and comes back unfillable — daypart holds
+    // through last_resort rather than leaking a restricted title.
     const restricted = category({ id: "cat-restricted" });
-    const filler = category({ id: "cat-filler" });
     const clock: EngineClock = {
       id: "clock-1",
-      name: "Overrun Hour",
-      positions: [
-        position({ sortOrder: 1, categoryId: "cat-filler" }), // 55-min song → next slot lands 21:55
-        position({ sortOrder: 2, categoryId: "cat-filler" }), // 8-min song → next slot lands 22:03
-        position({ sortOrder: 3, categoryId: "cat-restricted" }), // projects 22:03 — restricted must not appear
-      ],
+      name: "Late Hour",
+      positions: [position({ sortOrder: 1, categoryId: "cat-restricted" })],
     };
     const input = baseInput({
-      horizonStart: new Date("2026-07-06T21:00:00.000Z"),
-      horizonEnd: new Date("2026-07-06T22:00:00.000Z"),
-      categories: [restricted, filler],
+      horizonStart: new Date("2026-07-06T22:00:00.000Z"),
+      horizonEnd: new Date("2026-07-06T23:00:00.000Z"),
+      categories: [restricted],
       clocks: [clock],
       songs: [
-        song({ rdjSongId: 1, durationMs: 55 * 60_000, categoryIds: ["cat-filler"], artist: "F1" }),
-        song({ rdjSongId: 2, durationMs: 8 * 60_000, categoryIds: ["cat-filler"], artist: "F2" }),
         song({ rdjSongId: 10, categoryIds: ["cat-restricted"], artist: "R1" }),
         song({ rdjSongId: 11, categoryIds: ["cat-restricted"], artist: "R2" }),
       ],
@@ -41,12 +34,9 @@ describe("daypart + max_per_hour evaluate at projected air time", () => {
       ],
     });
     const result = generateLog(input);
-    const third = result.items[2];
-    expect(third.projectedAirAt.getUTCHours()).toBe(22); // slot really overran
-    // Restricted songs are ineligible at 22:03 — daypart holds through last_resort,
-    // so the position is unfillable rather than leaking a restricted song.
-    expect([10, 11]).not.toContain(third.rdjSongId);
-    expect(third.violations.some((v) => v.step === "unfillable")).toBe(true);
+    const slot = result.items[0];
+    expect([10, 11]).not.toContain(slot.rdjSongId);
+    expect(slot.violations.some((v) => v.step === "unfillable")).toBe(true);
   });
 
   it("allows the same song at a slot projecting inside its daypart", () => {

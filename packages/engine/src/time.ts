@@ -51,6 +51,24 @@ export function localParts(at: Date, timezone: string): LocalParts {
   };
 }
 
+/** Integer index of an instant's station-local calendar date (days since 1970-01-01). */
+function localDayIndex(at: Date, timezone: string): number {
+  const parts = formatter(timezone).formatToParts(at);
+  const get = (type: string) => Number(parts.find((p) => p.type === type)?.value);
+  return Math.floor(Date.UTC(get("year"), get("month") - 1, get("day")) / 86_400_000);
+}
+
+/**
+ * Which week of the rotation cycle `at` falls in (0-based), counting whole
+ * station-local weeks from `epoch`'s local date. Calendar-day based, so DST-immune.
+ * Returns 0 when rotation is disabled (cycleWeeks ≤ 1).
+ */
+export function weekInCycle(at: Date, epoch: Date, cycleWeeks: number, timezone: string): number {
+  if (cycleWeeks <= 1) return 0;
+  const weeks = Math.floor((localDayIndex(at, timezone) - localDayIndex(epoch, timezone)) / 7);
+  return ((weeks % cycleWeeks) + cycleWeeks) % cycleWeeks;
+}
+
 export function assertHourAligned(d: Date, label: string): void {
   if (d.getTime() % HOUR_MS !== 0) {
     throw new Error(`${label} must be aligned to the top of an hour (got ${d.toISOString()})`);

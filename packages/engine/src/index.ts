@@ -4,7 +4,7 @@ export * from "./types.js";
 export { generateLog } from "./generate.js";
 export { SeparationState, normKey } from "./separation.js";
 export { createRng } from "./rng.js";
-export { localParts, iterateHours, assertHourAligned, HOUR_MS } from "./time.js";
+export { localParts, iterateHours, assertHourAligned, weekInCycle, HOUR_MS } from "./time.js";
 export {
   resolveRules,
   buildStationConstraints,

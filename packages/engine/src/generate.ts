@@ -10,7 +10,7 @@ import type {
 } from "./types.js";
 import { DEFAULT_CONFIG } from "./types.js";
 import { createRng } from "./rng.js";
-import { assertHourAligned, HOUR_MS, iterateHours, localParts } from "./time.js";
+import { assertHourAligned, iterateHours, localParts, weekInCycle } from "./time.js";
 import { SeparationState } from "./separation.js";
 import { ancestry, buildCategoryIndex, buildStationConstraints, resolveRules, subtree } from "./rules.js";
 import { basePool } from "./candidates.js";
@@ -52,9 +52,14 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
   const station = buildStationConstraints(input.rules, input.categories);
 
   const clockById = new Map(input.clocks.map((c) => [c.id, c]));
+  // Grid is keyed by (week-in-cycle, dow, hour). A static weekly grid leaves every
+  // cell at week 0, and with cycleWeeks≤1 every hour resolves to week 0 — identical
+  // to the pre-rotation lookup.
+  const cycleWeeks = input.cycleWeeks ?? 1;
+  const cycleEpoch = input.cycleEpoch ?? null;
   const gridMap = new Map<string, string>();
-  for (const slot of [...input.grid].sort((a, b) => a.dayOfWeek - b.dayOfWeek || a.hour - b.hour)) {
-    gridMap.set(`${slot.dayOfWeek}|${slot.hour}`, slot.clockId);
+  for (const slot of input.grid) {
+    gridMap.set(`${slot.weekInCycle ?? 0}|${slot.dayOfWeek}|${slot.hour}`, slot.clockId);
   }
 
   // Pool + rung caches are keyed per position id — static across hours.
@@ -68,24 +73,37 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
   const hourCounts = new Map<string, number>(); // `${localHourKey}|${categoryId}` → placed
   const recentMusic: EngineSong[] = []; // last 3 music items for era/flow context
 
-  let running = input.horizonStart.getTime();
   let sortOrder = 0;
+  let trimmed = 0;
 
   for (const hourStart of iterateHours(input.horizonStart, input.horizonEnd)) {
-    // Hard re-sync at each top of hour: underruns gap, overruns spill forward.
-    running = Math.max(running, hourStart.getTime());
+    // Each hour is independent: a hard top-of-hour re-sync (no spill-forward). A
+    // clock whose content overruns is trimmed from the tail (below); a clock that
+    // underruns simply leaves the hour short. Either way the next hour starts at :00.
+    let running = hourStart.getTime();
 
     const { dayOfWeek, hour } = localParts(hourStart, input.timezone);
-    const clockId = gridMap.get(`${dayOfWeek}|${hour}`);
+    const wic = cycleEpoch ? weekInCycle(hourStart, cycleEpoch, cycleWeeks, input.timezone) : 0;
+    const clockId = gridMap.get(`${wic}|${dayOfWeek}|${hour}`);
     const clock = clockId ? clockById.get(clockId) : undefined;
     if (!clock) {
-      warnings.push(`no clock mapped for local dow=${dayOfWeek} hour=${hour} (${hourStart.toISOString()}) — hour skipped`);
+      warnings.push(`no clock mapped for local week=${wic} dow=${dayOfWeek} hour=${hour} (${hourStart.toISOString()}) — hour skipped`);
       continue;
     }
 
-    for (const position of [...clock.positions].sort((a, b) => a.sortOrder - b.sortOrder)) {
+    const clockEnd = hourStart.getTime() + (clock.lengthMinutes ?? 60) * 60_000;
+    const sortedPositions = [...clock.positions].sort((a, b) => a.sortOrder - b.sortOrder);
+    for (let pi = 0; pi < sortedPositions.length; pi++) {
+      const position = sortedPositions[pi];
       if (position.targetOffsetSeconds != null) {
         running = Math.max(running, hourStart.getTime() + position.targetOffsetSeconds * 1000);
+      }
+      // Trim-to-fit: once a position's projected start reaches the clock's length,
+      // drop it and everything after it. Filler authored at the tail falls off first.
+      // (A future trim priority would reorder which positions survive here.)
+      if (running >= clockEnd) {
+        trimmed += sortedPositions.length - pi;
+        break;
       }
       const at = new Date(running);
 
@@ -208,6 +226,6 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
   return {
     items,
     warnings,
-    stats: { totalItems: items.length, violationCounts, unfillable },
+    stats: { totalItems: items.length, violationCounts, unfillable, trimmed },
   };
 }

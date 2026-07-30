@@ -53,12 +53,17 @@ export interface EnginePosition {
 export interface EngineClock {
   id: string;
   name: string;
+  /** Clock length in minutes. Positions whose projected start reaches this bound are
+   * trimmed from the tail. Defaults to 60 when omitted. */
+  lengthMinutes?: number;
   positions: EnginePosition[];
 }
 
 export interface GridSlot {
   dayOfWeek: number; // 0 = Sunday, station-local
   hour: number; // 0-23, station-local
+  /** Rotation week this cell applies to (0-based). Omit/0 for a static weekly grid. */
+  weekInCycle?: number;
   clockId: string;
 }
 
@@ -153,6 +158,11 @@ export interface GenerateLogInput {
   seed: string;
   clocks: EngineClock[];
   grid: GridSlot[];
+  /** Rotation cycle length in weeks; 1 (or omitted) = a static weekly grid. */
+  cycleWeeks?: number;
+  /** Instant whose station-local calendar date anchors week 0 of the rotation cycle.
+   * Null/omitted (or cycleWeeks≤1) disables rotation — the engine reads only week 0. */
+  cycleEpoch?: Date | null;
   categories: EngineCategory[];
   songs: EngineSong[];
   rules: EngineRule[];
@@ -167,5 +177,7 @@ export interface GenerateLogResult {
     totalItems: number;
     violationCounts: Record<string, number>;
     unfillable: number;
+    /** Clock positions dropped from the tail because the hour was full. */
+    trimmed: number;
   };
 }

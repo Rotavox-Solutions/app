@@ -47,7 +47,7 @@ describe("time model", () => {
     expect(result.items[2].projectedAirAt.toISOString()).toBe("2026-07-06T00:23:20.000Z");
   });
 
-  it("spills overruns forward and absorbs them at the next TOH", () => {
+  it("hard-snaps each hour to the top even when the previous hour's last track overruns", () => {
     const input = baseInput({
       horizonEnd: new Date("2026-07-06T02:00:00.000Z"),
       songs: [
@@ -64,12 +64,59 @@ describe("time model", () => {
       ],
     });
     const result = generateLog(input);
-    // hour 0 placed the 65-min song (never-played rest ties broken by id) → hour 1's
-    // slot projects at 01:05, not 01:00.
+    // Hour 0's single slot takes the 65-min song (never-played rest ties broken by id),
+    // which runs 5 min past the hour. There is no spill-forward: hour 1 starts at :00.
     expect(result.items[0].projectedAirAt.toISOString()).toBe("2026-07-06T00:00:00.000Z");
     if (result.items[0].rdjSongId === 1) {
-      expect(result.items[1].projectedAirAt.toISOString()).toBe("2026-07-06T01:05:00.000Z");
+      expect(result.items[1].projectedAirAt.toISOString()).toBe("2026-07-06T01:00:00.000Z");
     }
+  });
+
+  it("trims positions from the tail once the clock length is reached", () => {
+    // Four 25-min slots in a 60-min clock: slots project at :00, :25, :50 — the fourth
+    // would start at 1:15, past the hour, so it is trimmed from the tail.
+    const input = baseInput({
+      horizonEnd: new Date("2026-07-06T01:00:00.000Z"),
+      songs: Array.from({ length: 6 }, (_, i) =>
+        song({ rdjSongId: i + 1, durationMs: 25 * 60_000, categoryIds: ["cat-main"] })
+      ),
+      clocks: [
+        {
+          id: "clock-1",
+          name: "Full",
+          positions: [1, 2, 3, 4].map((n) => position({ sortOrder: n, categoryId: "cat-main" })),
+        } satisfies EngineClock,
+      ],
+    });
+    const result = generateLog(input);
+    expect(result.items).toHaveLength(3);
+    expect(result.stats.trimmed).toBe(1);
+    expect(
+      result.items.every(
+        (i) => i.projectedAirAt.getTime() < new Date("2026-07-06T01:00:00.000Z").getTime()
+      )
+    ).toBe(true);
+  });
+
+  it("honors an explicit clock lengthMinutes as the trim boundary", () => {
+    // Same 25-min songs but a 30-min clock: :00 and :25 fit, :50 is past → 2 kept, 2 trimmed.
+    const input = baseInput({
+      horizonEnd: new Date("2026-07-06T01:00:00.000Z"),
+      songs: Array.from({ length: 6 }, (_, i) =>
+        song({ rdjSongId: i + 1, durationMs: 25 * 60_000, categoryIds: ["cat-main"] })
+      ),
+      clocks: [
+        {
+          id: "clock-1",
+          name: "Half",
+          lengthMinutes: 30,
+          positions: [1, 2, 3, 4].map((n) => position({ sortOrder: n, categoryId: "cat-main" })),
+        } satisfies EngineClock,
+      ],
+    });
+    const result = generateLog(input);
+    expect(result.items).toHaveLength(2);
+    expect(result.stats.trimmed).toBe(2);
   });
 
   it("skips unmapped grid hours with a warning", () => {

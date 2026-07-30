@@ -19,6 +19,12 @@ export const stations = pgTable("stations", {
   timezone: text("timezone").notNull(),
   rdjConnectionRef: text("rdj_connection_ref"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  // Format rotation (§ clock scheduling): the format_grid repeats over this many
+  // weeks; 1 = a plain static weekly grid. `formatCycleEpoch` anchors week 0 of the
+  // cycle (its local calendar date only — time-of-day is ignored). Null epoch (or
+  // cycleWeeks=1) means no rotation and the engine only ever reads week_in_cycle=0.
+  formatCycleWeeks: integer("format_cycle_weeks").default(1).notNull(),
+  formatCycleEpoch: timestamp("format_cycle_epoch"),
 });
 
 // Mirror + Scheduler-owned extended metadata (spec §5). Core fields are written by
@@ -100,13 +106,20 @@ export const clockPositions = pgTable("clock_positions", {
   fixedRef: text("fixed_ref"),
 });
 
-export const formatGrid = pgTable("format_grid", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  stationId: uuid("station_id").notNull().references(() => stations.id),
-  dayOfWeek: integer("day_of_week").notNull(),
-  hour: integer("hour").notNull(),
-  clockId: uuid("clock_id").notNull().references(() => clocks.id),
-});
+export const formatGrid = pgTable(
+  "format_grid",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    stationId: uuid("station_id").notNull().references(() => stations.id),
+    dayOfWeek: integer("day_of_week").notNull(),
+    hour: integer("hour").notNull(),
+    // Which week of the station's rotation cycle this cell applies to (0-based).
+    // A non-rotating grid leaves every row at 0. See stations.formatCycleWeeks.
+    weekInCycle: integer("week_in_cycle").default(0).notNull(),
+    clockId: uuid("clock_id").notNull().references(() => clocks.id),
+  },
+  (t) => [unique("format_grid_cell_unique").on(t.stationId, t.weekInCycle, t.dayOfWeek, t.hour)]
+);
 
 export const rules = pgTable("rules", {
   id: uuid("id").defaultRandom().primaryKey(),
