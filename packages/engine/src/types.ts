@@ -125,7 +125,12 @@ export const DEFAULT_CONFIG: EngineConfig = {
   relaxationSteps: [0.75, 0.5, 0.25],
   defaultDurationMs: 210_000,
   defaultTurnoverHours: 24,
-  songTypeMap: { category: [0], sweeper: [1, 2], voicetrack: [3] },
+  // sweeper covers all imaging picked by a category-scoped sweeper position: RadioDJ
+  // song_type 1 (jingles/IDs), 2 (sweepers/liners), and 4 (station promos). Because
+  // these positions are always category-scoped, widening the type set can't cross
+  // content between imaging categories — it only lets a promo position (category
+  // "Station Promos", type 4) resolve at all.
+  songTypeMap: { category: [0], sweeper: [1, 2, 4], voicetrack: [3] },
 };
 
 export interface Violation {

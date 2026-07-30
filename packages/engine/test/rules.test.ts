@@ -91,4 +91,23 @@ describe("rule resolution & hard filters", () => {
     expect(result.items[1].rdjSongId).toBe(1);
     expect(result.items[1].elementType).toBe("music");
   });
+
+  it("sweeper positions can schedule song_type 4 (station promos)", () => {
+    const promos = category({ id: "cat-promos", kind: "imaging" });
+    const input = baseInput({
+      categories: [promos],
+      songs: [song({ rdjSongId: 9, songType: 4, categoryIds: ["cat-promos"] })],
+      clocks: [
+        {
+          id: "clock-1",
+          name: "Promo",
+          positions: [position({ sortOrder: 1, positionType: "sweeper", categoryId: "cat-promos" })],
+        } satisfies EngineClock,
+      ],
+      horizonEnd: new Date("2026-07-06T01:00:00.000Z"),
+    });
+    const result = generateLog(input);
+    expect(result.items[0].rdjSongId).toBe(9);
+    expect(result.items[0].elementType).toBe("sweeper");
+  });
 });
