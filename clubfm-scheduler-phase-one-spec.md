@@ -1,4 +1,4 @@
-# ClubFM Music Scheduler — Phase One Build Spec
+# CLUBFM Music Scheduler — Phase One Build Spec
 
 > Working codename: `scheduler` (product name TBD — placeholder throughout).
 > Target automation: **RadioDJ v3.0.0.1** (MariaDB/MySQL backend, .NET, REST plugin).

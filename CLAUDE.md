@@ -1,4 +1,4 @@
-# Rotavox — ClubFM Music Scheduler
+# Rotavox — CLUBFM Music Scheduler
 
 Replaces RadioDJ's AutoDJ with an external, log-based music scheduler: a rules/scoring
 engine builds a reviewable log, which is paced into RadioDJ by song ID so playout stays
