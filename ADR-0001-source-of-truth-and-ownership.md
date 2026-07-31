@@ -127,16 +127,67 @@ names, and must be explicitly opt-in per station.
 
 ### 3.4 Musical codes are derived by Rotavox, not read from RadioDJ
 
-RadioDJ's BPM/tempo fields are inconsistently populated and often hand-entered.
-The schema already commits to Rotavox owning this data; the sync already refuses to
-overwrite it.
+RadioDJ's musical-metadata fields are unreliable, and this is now measured rather
+than assumed. From a live census on 2026-07-31 (785 scheduler-visible music rows,
+excluding the W bench and the unmapped Z/ZN/F pools):
 
-Analysis (BPM, key, energy, loudness) is a batch job over `songs.path`. The Runner
-is the only component with filesystem access, so it belongs there as an **offline
-pass** that writes results to the Scheduler — never in the injection hot path.
+| Pool | Rows | With BPM |
+|---|---|---|
+| Currents (A1, A2, B1, B2, C, N) + Discovery | 79 | 77 |
+| Recurrents (R1–R3) | 98 | 68 |
+| **Gold (G1990, G2000, G2010, H, GDEEP)** | **608** | **4** |
 
-Until it exists, `tempo_clash` and `era_spread` are scoring against nulls and are
-effectively inert. This is a known, accepted gap, not a bug.
+BPM coverage on gold is **0.7%** — G1990 has 0 of 187, H has 0 of 101. Since gold is
+77% of the schedulable library, `tempo_clash` is not merely sparse, it is structurally
+inoperative exactly where the library is deepest. Coverage correlates with import
+provenance, not with musical reality: the ZN pool is 148/148 and Z is 5/5, indicating
+those arrived from a source that carried tags, while gold was ingested without them.
+
+**Release year is unreliable in a more dangerous way.** Nominal coverage is high
+(gold is ~100% populated), but the values are not trustworthy — confirmed by the PD,
+2026-07-31. This is worse than absence: the G1990/G2000/G2010 tier boundaries *are*
+release year, so wrong years mean songs are currently filed in the wrong gold decade,
+and `era_spread` scores against the same bad data. High coverage of untrustworthy
+values presents as healthy on any completeness metric.
+
+**Therefore Rotavox derives this data from two sources, neither of them RadioDJ:**
+
+1. **Local analysis** over `songs.path` — BPM, key, energy, loudness. The Runner is
+   the only component with filesystem access, so this is an **offline pass** there
+   that writes to the Scheduler; never in the injection hot path.
+2. **External metadata lookup** — release year and credits.
+
+**Original-release semantics are required, not incidental.** For a gold format the
+needed value is the earliest release date of the *recording*, not of the pressing on
+disk: a 2015 remaster of a 1994 single is a 90s gold record. MusicBrainz's
+`release-group.first-release-date` carries exactly this semantic and is the intended
+primary source. Discogs is a reasonable secondary for material MusicBrainz lacks.
+Album-date APIs whose values are reissue-contaminated (notably Spotify) must not be
+used as a year source.
+
+**Matching is the risk, not fetching.** If year tags are unreliable, artist/title
+tags may be too, and a bad match writes a confidently wrong year — which is worse
+than no year, because nothing downstream can detect it. Policy:
+
+- Require a scored match above an explicit threshold; leave the remainder
+  **unresolved** rather than guessing.
+- For unmatched residue, fingerprint the audio (AcoustID/Chromaprint) rather than
+  trusting tags. This shares the local-analysis pass: fingerprint once, resolve
+  BPM/key/loudness locally and year/credits remotely.
+- Store **provenance and confidence** alongside every derived value. "We do not know"
+  must be representable and distinguishable from "we know it is 1994." A numeric
+  `release_year` with source and confidence is required alongside the existing
+  Scheduler-owned `era`.
+- **Unresolved year excludes a song from era-tiered gold rotation** rather than
+  falling back to the RadioDJ tag. A wrong decade on air is worse than a marginally
+  shallower pool.
+
+Correcting years will reclassify a meaningful share of 608 gold rows across tiers.
+That reclassification is a **changeset** (§4) — reviewable and reversible — not a
+direct write.
+
+Until this pass exists, `tempo_clash` and `era_spread` are scoring against nulls and
+bad values respectively, and are effectively inert. This is a known, accepted gap.
 
 ### 3.5 Rules project downward, one way; the fallback's *selection* stays its own
 
@@ -268,10 +319,19 @@ seed, silently keeping that imaging off the air.
 
 ## 7. Open questions
 
-- **ZN (subcategory 39, 148 items)** — unmapped in both M2 and M3 seeds. Intent
-  unknown; needs a music-direction decision, not an engineering one.
-- **Sonic Logos (32) and Heritage Backsells (35)** — empty at last read, unmapped.
-  Harmless today, silently so. Map them when populated.
+- **ZN (subcategory 39, 148 items)** — unmapped in both M2 and M3 seeds. The
+  2026-07-31 census shows all 148 enabled, all `song_type=0` (music), 100% BPM and
+  year coverage, 202s average duration — i.e. a fully-tagged music pool roughly the
+  size of G2010, currently invisible to the scheduler. Intent unknown; needs a
+  music-direction decision, not an engineering one. Z (38, 5 items) and F (31, 5
+  items, 4 enabled) are likewise unmapped.
+- **Sonic Logos (32) and Heritage Backsells (35)** — confirmed still empty at the
+  2026-07-31 census, and unmapped. Harmless today, silently so. Map when populated.
+- **Disabled imaging** — TOH IDs hold 31 rows but only **12 enabled**; Relaunch
+  Sweepers hold 46 but only **12 enabled**. The engine filters on `enabled`
+  (`packages/engine/src/candidates.ts:28`), so those are the true depths against a
+  168-hour weekly grid. Whether the disabled items are deliberately retired or
+  incidentally switched off is a PD question with direct airbench consequences.
 - **Sequencing:** whether pool-assignment writeback lands before or after the M3
   deploy. Before makes the W reclassification reproducible; after gets the format
   on air sooner.
@@ -302,3 +362,23 @@ central purpose.
 thing it backstops — still holds, because the projection is written ahead of time
 rather than at fallback time. And the fallback's *selection* remains RadioDJ's own;
 only rules project.
+
+### 2026-07-31 — §3.4 extended: external metadata enrichment, and year declared untrusted
+
+**Originally:** §3.4 covered locally-derived codes only (BPM, key, energy, loudness)
+and asserted RadioDJ's fields were "inconsistently populated" without evidence.
+
+**Now:** the claim is backed by a live census, and the section additionally covers
+external metadata lookup for release year.
+
+**What prompted it.** The PD confirmed (2026-07-31) that RadioDJ's year codes are
+unreliable as values, not merely sparse. The same day's census quantified the BPM
+side: 0.7% coverage across 608 gold rows, versus near-total coverage on currents.
+
+**Why year is treated as a distinct problem class.** Missing data is safe — it scores
+as null and the rule goes inert. *Wrong* data is not: it scores confidently and
+incorrectly, and 100% nominal coverage makes the problem invisible to completeness
+checks. Because the gold tiers are defined by year, bad years mean current
+misfiling, not just future risk. This is why §3.4 now requires provenance and
+confidence on derived values, and why unresolved-year songs are excluded from
+era-tiered rotation rather than falling back to the RadioDJ tag.

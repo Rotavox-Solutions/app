@@ -1,0 +1,40 @@
+subcat_id	subcat	parent_id	parent	total	enabled	t_music	t_sweeper	t_vo	t_promo	has_bpm	has_year	avg_dur_s
+13	Sponsor Commercials	7	Commercials	0								
+14	Paid Commercials	7	Commercials	0								
+16	Music Interviews	9	Interviews	0								
+17	Political Interviews	9	Interviews	0								
+11	Station Jingles	5	Jingles	0								
+1	B1	1	Music	6	6	6	0	0	0	6	6	224
+2	A2	1	Music	10	10	10	0	0	0	10	10	210
+3	C	1	Music	23	22	23	0	0	0	21	21	197
+4	A1	1	Music	7	7	7	0	0	0	7	7	193
+5	B2	1	Music	13	13	13	0	0	0	13	13	212
+6	X	1	Music	12	12	12	0	0	0	12	12	227
+23	N	1	Music	8	8	8	0	0	0	8	8	224
+24	R1	1	Music	22	22	22	0	0	0	19	18	200
+25	R2	1	Music	34	34	34	0	0	0	20	24	197
+26	R3	1	Music	42	42	42	0	0	0	29	35	197
+27	G1990	1	Music	187	186	187	0	0	0	0	187	249
+28	G2000	1	Music	152	150	152	0	0	0	1	152	231
+29	G2010	1	Music	166	165	166	0	0	0	3	166	231
+30	H	1	Music	101	94	101	0	0	0	0	101	255
+31	F	1	Music	5	4	5	0	0	0	5	3	220
+36	W	1	Music	505	501	505	0	0	0	353	428	198
+37	GDEEP	1	Music	2	2	2	0	0	0	0	2	237
+38	Z	1	Music	5	5	5	0	0	0	5	5	207
+39	ZN	1	Music	148	148	148	0	0	0	148	148	202
+15	Daily News	8	News	0								
+12	Station Promos	6	Promos	14	14	0	0	0	14	0	14	16
+18	My First Show	10	Radio Shows	0								
+19	My Second Show	10	Radio Shows	0								
+20	Other	11	Radio Streams	0								
+21	Syndicated Shows	11	Radio Streams	0								
+22	Syndicated News	11	Radio Streams	0								
+7	Contest Effects	2	Sound Effects	0								
+10	TOH IDs	4	Station IDs	31	12	0	0	0	0	0	0	4
+8	Relaunch Sweepers	3	Sweepers	46	12	0	46	0	0	0	0	2
+9	Liners	3	Sweepers	41	41	0	41	0	0	0	0	2
+32	Sonic Logos	3	Sweepers	0								
+33	New-Music Sweepers	3	Sweepers	44	44	0	44	0	0	0	0	2
+34	Gold Backsells	3	Sweepers	26	26	0	26	0	0	0	0	3
+35	Heritage Backsells	3	Sweepers	0								
