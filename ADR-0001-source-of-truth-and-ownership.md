@@ -242,6 +242,39 @@ where the value is.
 Keep the adapter boundary clean so the door stays open. Revisit only if RadioDJ
 becomes the binding constraint.
 
+### 3.7 Rotation lifecycle is intent, and currently has no owner
+
+Pool assignment is not a static bucket. A song moves through a lifecycle — add →
+A1 → A2/B → N → rest → recurrent tier → gold → bench — and those *transitions* are
+the substance of music direction, more than any single assignment is.
+
+Today no component owns them. RadioDJ cannot express a lifecycle; Rotavox does not
+model one. The station has worked around this by encoding lifecycle state in
+subcategory names: the **`Z[x]` convention means "rested, and was in pool *x*
+immediately prior"** (PD, 2026-07-31). ZN is therefore rested-from-N, and its
+unmapped status in the M2/M3 seeds is **correct and intentional** — rested songs
+must not be schedulable.
+
+The convention works as a record. It does not work as a mechanism, and the census
+shows the cost: **ZN holds 148 songs while N holds 8.** Songs enter the rest state
+and do not leave it, because leaving requires a human to notice. The result is a
+reservoir of the library's best-qualified material — every ZN song already earned
+currents rotation, and the pool is 100% covered on BPM and year versus gold's ~0.7%
+— sitting inert while the currents that feed it stay shallow (67 across six pools,
+A1 at 7). The 2026-07-30 reclassification mined the 505-song W bench with 66 agents
+while this pool went unexamined.
+
+**Consequence for §3.2 and §4:** a changeset format that expresses only "move song X
+to pool Y" reproduces the manual problem in better packaging. Lifecycle transitions
+need to be expressible as *rules over state* — time rested, plays accumulated, tier
+of origin — with changesets as the reviewable output of applying those rules, not as
+the primitive. `Z[x]`'s "pool of origin" is already the state a transition rule would
+need; it should become a modeled field rather than a naming convention.
+
+Open: the intended exit path from rest (return to origin pool, promote to recurrent,
+or case-by-case) and whether rest has a duration. That answer determines whether
+§4 needs a time-based rule engine or only an audited move list.
+
 ---
 
 ## 4. Changesets: the missing artifact
@@ -257,6 +290,12 @@ state changes — pool moves, enable/disable, adds, drops — that is:
 - validated against the current mirror before application,
 - applied by the Runner (never by ad-hoc scripts), and
 - reversible, with the inverse derivable from the changeset plus the pre-state.
+
+A changeset is the *unit of application*, not the unit of authorship. Per §3.7,
+lifecycle transitions should be derived from rules over song state and emitted as
+changesets for review — the changeset records what will change and why, while the
+rule records the standing policy. A format that only supports hand-listed moves
+will scale no better than the scripts it replaces.
 
 This generalizes the 2026-07-30 W reclassification, which had all five properties
 informally and none of them structurally. It is the prerequisite for §3.2 step 2.
@@ -319,19 +358,26 @@ seed, silently keeping that imaging off the air.
 
 ## 7. Open questions
 
-- **ZN (subcategory 39, 148 items)** — unmapped in both M2 and M3 seeds. The
-  2026-07-31 census shows all 148 enabled, all `song_type=0` (music), 100% BPM and
-  year coverage, 202s average duration — i.e. a fully-tagged music pool roughly the
-  size of G2010, currently invisible to the scheduler. Intent unknown; needs a
-  music-direction decision, not an engineering one. Z (38, 5 items) and F (31, 5
-  items, 4 enabled) are likewise unmapped.
+- **Rest exit path** — what a `Z[x]` song's intended transition out of rest is
+  (return to *x*, promote to recurrent, or case-by-case), and whether rest carries a
+  duration. Blocks the §4 format decision; see §3.7.
 - **Sonic Logos (32) and Heritage Backsells (35)** — confirmed still empty at the
   2026-07-31 census, and unmapped. Harmless today, silently so. Map when populated.
-- **Disabled imaging** — TOH IDs hold 31 rows but only **12 enabled**; Relaunch
-  Sweepers hold 46 but only **12 enabled**. The engine filters on `enabled`
+- **F (31, 5 items, 4 enabled) and Z (38, 5 items)** — unmapped, intent unrecorded.
+  Small enough to defer, but should not stay unexplained indefinitely.
+
+### Resolved 2026-07-31
+
+- **ZN (39, 148 items)** — *not* a gap. Rested-from-N under the `Z[x]` convention;
+  correctly unmapped, since rested songs must not be schedulable. The lifecycle
+  concern it exposed is recorded in §3.7.
+- **Disabled imaging** — TOH IDs are 12-enabled of 31 and Relaunch Sweepers
+  12-enabled of 46. The engine filters on `enabled`
   (`packages/engine/src/candidates.ts:28`), so those are the true depths against a
-  168-hour weekly grid. Whether the disabled items are deliberately retired or
-  incidentally switched off is a PD question with direct airbench consequences.
+  168-hour weekly grid — each TOH ID airs roughly 14×/week. The disabled items are
+  **old copy, deliberately held pending a retirement decision** (PD, 2026-07-31), not
+  an oversight. They stay disabled for now. Revisit as an imaging-production question,
+  not a configuration one.
 - **Sequencing:** whether pool-assignment writeback lands before or after the M3
   deploy. Before makes the W reclassification reproducible; after gets the format
   on air sooner.
@@ -382,3 +428,22 @@ checks. Because the gold tiers are defined by year, bad years mean current
 misfiling, not just future risk. This is why §3.4 now requires provenance and
 confidence on derived values, and why unresolved-year songs are excluded from
 era-tiered rotation rather than falling back to the RadioDJ tag.
+
+### 2026-07-31 — §3.7 added: rotation lifecycle has no owner
+
+**Added** in response to the PD clarifying that `Z[x]` means "rested, was in *x*
+immediately prior." That resolved the ZN open question — its unmapped status is
+correct, not an oversight — but exposed a larger one: lifecycle *transitions* are
+unowned, so the rest state accumulates (ZN 148 vs N 8) and the library's
+best-qualified material sits inert.
+
+**Effect on other sections.** §4 gains a constraint: changesets are the unit of
+application, not authorship. If the format supports only hand-listed moves, it
+inherits the same failure — it will produce reviewable one-off lists forever rather
+than encoding the standing policy that generates them. This also strengthens §3.2's
+case for moving pool assignment sooner, since a state machine cannot live in a
+system that models only buckets.
+
+**Also recorded:** the disabled TOH IDs and Relaunch Sweepers are old copy held
+pending a retirement decision, not misconfiguration. Moved to §7 Resolved so the
+next reader does not re-flag them as a bug.
