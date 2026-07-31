@@ -1,6 +1,6 @@
 # ADR-0001 — Source of Truth & Ownership Boundaries
 
-- **Status:** Accepted
+- **Status:** Accepted (amended 2026-07-31 — §3.5 revised, see §8)
 - **Date:** 2026-07-31
 - **Context:** Rotavox / CLUBFM (station: The BOLT), post-M3 clockset, pre-airbench
 - **Supersedes:** nothing
@@ -76,7 +76,8 @@ adapter abstracts.
 | Separation & rotation rules | Rotavox | Rotavox | Never leaves Rotavox |
 | Log / running order | Rotavox | Rotavox | Injected by song ID only |
 | Playout, play history, counters | RadioDJ | RadioDJ | Rotavox reads history back |
-| Fallback rotation | RadioDJ | RadioDJ | **Deliberately unsynced** — see §3.5 |
+| Fallback rotation — *rules* | RadioDJ | **Rotavox** | One-way projection, written ahead of time — §3.5 |
+| Fallback rotation — *selection* | RadioDJ | RadioDJ | Unsynced by design; will sound worse — §3.5 |
 
 ---
 
@@ -137,20 +138,48 @@ pass** that writes results to the Scheduler — never in the injection hot path.
 Until it exists, `tempo_clash` and `era_spread` are scoring against nulls and are
 effectively inert. This is a known, accepted gap, not a bug.
 
-### 3.5 Rules flow in neither direction; the fallback keeps its own truth
+### 3.5 Rules project downward, one way; the fallback's *selection* stays its own
 
-**Do not mirror RadioDJ's rules into Rotavox, and do not push Rotavox's rules down.**
-Two engines evaluating rotation rules over the same library is nondeterminism that
-cannot be debugged under air pressure. Rotavox's log is the final word; RadioDJ's
-rules could only ever fight it.
+**Never read RadioDJ's rules into Rotavox.** Rotavox's log is the final word, and
+importing RadioDJ's rule state would create a second authority over the same intent.
+Rules are Rotavox-owned, full stop.
 
-The one exception is the fallback: RadioDJ needs a dumb, wide-gold rotation that
-fires when the queue runs dry (Runner crashed, network partition, log exhausted).
+**Do project the expressible subset of Rotavox's rules down into RadioDJ**, as a
+one-way, generated artifact.
 
-**That fallback is deliberately not synced.** A safety system must not depend on the
-thing it backstops. Configure it once against a deep gold pool, document it, and
-accept that it sounds worse than the scheduled format. Its divergence from Rotavox's
-intent is the point.
+The reason is that the fallback is not a rare event. `apps/runner/src/watchdog.ts`
+forces `EnableAutoDJ=1` after **20 seconds** of stale pacer heartbeat, automatically
+and without human involvement. Any pacer hiccup hands the station to RadioDJ's own
+engine. If its rules are unconfigured, the station goes to air with no separation
+enforcement at all — and the PD has to maintain two independent sets of rules to
+prevent that, which is precisely the duplicated-truth problem this ADR exists to
+eliminate.
+
+This does **not** reintroduce two competing engines. Injected tracks bypass RadioDJ's
+rotation rules entirely — those rules bind only when RadioDJ's own AutoDJ selects a
+track, which by definition is only when Rotavox is already not driving. And because
+the projection is written *ahead of time* rather than at fallback time, the safety
+property still holds: **the fallback does not depend on Rotavox being alive at the
+moment it engages.**
+
+**The projection is lossy, and must be honest about it.** RadioDJ's separation model
+is three columns on `songs` plus the live `queuelist` — coarse artist/title, no
+scoping, no weights, no soft rules. Rotavox's model has per-category scope,
+hard/soft hardness, and weights. Only a subset survives translation. Therefore:
+
+- Project only what RadioDJ can actually express; never approximate a soft or scoped
+  rule into a hard global one.
+- Mark projected config as **generated** in RadioDJ so it is never hand-edited.
+- Surface non-projectable rules explicitly in Rotavox, so the PD can see what the
+  fallback will *not* enforce. Silent omission is the failure mode to avoid — a PD
+  who believes the fallback enforces the full ruleset is worse off than one who
+  knows it doesn't.
+
+**Selection remains RadioDJ's.** The fallback should still point at a deep, wide gold
+pool of its own choosing rather than trying to mirror the format grid. Clock shape,
+dayparting, and imaging placement are not expressible in RadioDJ's model and should
+not be faked. The fallback will sound worse than the scheduled format; that is
+accepted, and is not the same thing as it sounding *broken*.
 
 ### 3.6 Rotavox does not become the playout system
 
@@ -202,7 +231,10 @@ tooling first, because it already owns that data and only lacks a UI.
 - The Runner gains a write path to RadioDJ (§3.3), relaxing the read-only posture.
   Mitigated by: runtime introspection, per-station opt-in, changeset review.
 - Soft rules stay inert until audio analysis lands (§3.4).
-- The fallback will diverge from the scheduled format, by design (§3.5).
+- The fallback's *selection* will diverge from the scheduled format, by design, and
+  its *rules* will enforce only a lossy subset of Rotavox's (§3.5).
+- Rule projection is a second Runner write path into RadioDJ, subject to the same
+  conditions as §3.3: runtime introspection, per-station opt-in, no hardcoded columns.
 - Clock authoring stays in SQL until the UI exists; the seed file remains the SoT
   for format shape and must be treated as production configuration.
 
@@ -211,8 +243,19 @@ tooling first, because it already owns that data and only lacks a UI.
 1. **Changesets as a first-class artifact** (§4) — highest leverage; unblocks §3.2.
 2. **Pool-assignment writeback** as an adapter capability (§3.3) — makes changesets
    round-trip instead of dead-ending in MariaDB.
-3. **Clock / rule authoring UI** — lifts format authorship out of hand-edited SQL.
-4. **Offline audio-analysis pass** (§3.4) — makes the soft rules meaningful.
+3. **Rule projection to RadioDJ** (§3.5) — so the auto-engaging fallback isn't blind,
+   and the PD maintains one ruleset instead of two. Pairs with:
+4. **Fallback-engagement alerting.** The watchdog currently forces `EnableAutoDJ=1`
+   and logs to console only. Nobody is notified that the fallback took over or for
+   how long — today you find out by listening. If the fallback is worth configuring,
+   its engagement is worth observing.
+5. **Clock / rule authoring UI** — lifts format authorship out of hand-edited SQL.
+6. **Offline audio-analysis pass** (§3.4) — makes the soft rules meaningful.
+
+**Also unaddressed:** the scheduler's Postgres has no documented backup/restore
+(`DEPLOY.md` covers neither). Once clocks, rules, and pool assignment all live there,
+it stops being a cache and becomes the station's format of record — losing it means
+losing the PD's accumulated work, not just a resyncable mirror.
 
 **Immediate, independent of the above:** record the library↔clockset contract. The
 seed's subcategory-ID map (`m3-clubfm-seed.sql:53-76`) and the pool depths it was
@@ -232,3 +275,30 @@ seed, silently keeping that imaging off the air.
 - **Sequencing:** whether pool-assignment writeback lands before or after the M3
   deploy. Before makes the W reclassification reproducible; after gets the format
   on air sooner.
+
+---
+
+## 8. Amendments
+
+### 2026-07-31 — §3.5 reversed: rules now project downward
+
+**Originally:** "Rules flow in neither direction; the fallback keeps its own truth."
+Rotavox's rules were not to be pushed into RadioDJ under any circumstance.
+
+**Now:** rules project one-way into RadioDJ as a generated, lossy artifact.
+
+**Why the original was wrong.** It conflated two distinct things: RadioDJ's engine
+running *concurrently* and fighting the log (a genuine problem) with a *projection of
+configuration* written ahead of time (not a problem). Injected tracks bypass RadioDJ's
+rotation rules, so projected rules cannot interfere while Rotavox is driving.
+
+**What changed the assessment.** `watchdog.ts` auto-engages AutoDJ after 20 seconds of
+stale heartbeat. Blind fallback is not an edge case being guarded against — it is an
+automatic behavior that fires on any pacer interruption. And the original position
+forced the PD to maintain two independent rulesets, contradicting this ADR's own
+central purpose.
+
+**What survived unchanged.** The safety argument — a backstop must not depend on the
+thing it backstops — still holds, because the projection is written ahead of time
+rather than at fallback time. And the fallback's *selection* remains RadioDJ's own;
+only rules project.
