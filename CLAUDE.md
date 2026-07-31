@@ -7,6 +7,10 @@ native (history/counters update as if RadioDJ chose the track itself).
 Full detail: `clubfm-scheduler-phase-one-spec.md` (repo root). Read it before doing
 non-trivial work here — this file only covers what changes how you build.
 
+Who owns which facts (Rotavox vs RadioDJ), and the sync policy for each:
+`ADR-0001-source-of-truth-and-ownership.md`. Read it before changing what the Runner
+syncs, before touching pool assignment, and before adding any write path to RadioDJ.
+
 ## Architecture (three components — only the Runner touches the station)
 
 ```
