@@ -5,17 +5,20 @@
 // dow: 0=Sun .. 6=Sat
 // Deep Night alternates two variants so G2000 averages 1.5/hr; the a/b split is
 // balanced to exactly 17/17 across the week (weekday 10/10, Sat 4/3, Sun 3/4).
+// Deep Night is only the US-leaning trough (weekday 22, weekend 22-23). Everything
+// from weekday 23:00 onward is European Morning — at 00:00 PT the block is 82% Europe
+// at 09:00 local. An array value cycles its variants across the days it occurs on.
 const WEEKDAY = [
-  "DNa","DNb","CO","CO","CO","ES","ES","ES","FF","FF","FF","FF",
-  "FF","FF","HD","HD","HD","WD","WD","WD","WD","GH","DNa","DNb",
+  "EM","EM","CO","CO","CO","ES","ES","ES","FF","FF","FF","FF",
+  "FF","FF","HD","HD","HD","WD","WD","WD","WD","GH",["DNa","DNb"],"EM",
 ];
 const SAT = [
-  "DNa","DNb","DNa","DNb","DNa","CO","CO","CO","WW","WW","WW","WW",
-  "WW","WW","WW","WW","WD","WD","WD","WD","WD","GH","DNa","DNb",
+  "EM","EM","EM","EM","EM","CO","CO","CO","WW","WW","WW","WW",
+  "WW","WW","WW","WW","WD","WD","WD","WD","WD","GH","DNb","DNa",
 ];
 const SUN = [
-  "DNa","DNb","DNa","DNb","DNa","CO","CO","CO","WW","WW","WW","WW",
-  "WW","WW","WW","WW","WD","WD","WD","WD","WD","GH","DNb","DNb",
+  "EM","EM","EM","EM","EM","CO","CO","CO","WW","WW","WW","WW",
+  "WW","WW","WW","WW","WD","WD","WD","WD","WD","GH","DNb","DNa",
 ];
 
 const BLOCKS = {
@@ -26,6 +29,7 @@ const BLOCKS = {
   WW: "Weekend Wide",
   WD: "Wind Down",
   GH: "Golden Hour",
+  EM: "European Morning",
   DNa: "Deep Night A",
   DNb: "Deep Night B",
 };
@@ -40,7 +44,12 @@ const SHAPES = {
   HD: { A1:3, A2:1, B:2, C:2, R1:1, R2:1, R3:1, G2010:2, G2000:1, G1990:1, Discovery:1 },
   CO: { A1:2, A2:1, B:2, C:1, R1:1, R2:2, R3:1, G2010:2, G2000:2, G1990:1, Discovery:1 },
   WW: { A1:2, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:1, H:1, Discovery:1 },
-  WD: { A1:1, A2:1, B:1, C:1, R1:1, R2:1, R3:2, G2010:2, G2000:2, G1990:2, H:1, Discovery:1 },
+  // Wind Down is ET 20-23 / PT 17-20 — the most US-dominant music block, so Heritage
+  // is sited here rather than in the Europe-heavy hours it used to lean on.
+  WD: { A1:1, A2:1, B:1, C:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:2, H:2, Discovery:1 },
+  // European Morning: CE 08-13, UK 07-12. Morning texture — currents and G2010 forward,
+  // Heritage as seasoning only (94 songs, the shallowest gold pool).
+  EM: { A1:1, A2:1, B:2, C:2, R1:1, R2:1, R3:1, G2010:2, G2000:1, G1990:2, H:1, Discovery:1 },
   // G2010 held at 2 — the 20-30 demo skews to off-schedule listening, so its tier
   // must not thin out in the off-hours blocks. G2000 averages 1.5; the remaining
   // 6.5 splits between G1990 and H, the deepest and the most underused pools.
@@ -61,6 +70,7 @@ const IMAGING = {
   DNa: { Liners:1, "Gold Backsells":1 },
   DNb: { Liners:1, "Gold Backsells":1 },
   GH:  { Liners:1, "Gold Backsells":2 },
+  EM:  { Liners:2, "New-Music Sweepers":1, "Station Promos":1 },
 };
 for (const code of Object.keys(IMAGING)) IMAGING[code][`TOH ${identityOf(code)}`] = 1;
 
@@ -76,7 +86,10 @@ const CUR = ["A1","A2","B","C","N"], REC = ["R1","R2","R3"], GOLD = ["G2010","G2
 
 // ---------- grid ----------
 const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-const cellFor = (dow, hour) => (dow === 0 ? SUN : dow === 6 ? SAT : WEEKDAY)[hour];
+const cellFor = (dow, hour) => {
+  const v = (dow === 0 ? SUN : dow === 6 ? SAT : WEEKDAY)[hour];
+  return Array.isArray(v) ? v[(dow - 1) % v.length] : v;
+};
 
 console.log("## Weekly grid (station-local, PT)\n");
 console.log("| Hr | " + DOW.join(" | ") + " |");
