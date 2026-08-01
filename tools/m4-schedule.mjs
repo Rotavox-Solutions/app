@@ -41,8 +41,11 @@ const SHAPES = {
   CO: { A1:2, A2:1, B:2, C:1, R1:1, R2:2, R3:1, G2010:2, G2000:2, G1990:1, Discovery:1 },
   WW: { A1:2, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:1, H:1, Discovery:1 },
   WD: { A1:1, A2:1, B:1, C:1, R1:1, R2:1, R3:2, G2010:2, G2000:2, G1990:2, H:1, Discovery:1 },
-  DNa: { A1:1, C:1, R2:1, R3:1, G2010:1, G2000:2, G1990:4, H:3, Discovery:1 },
-  DNb: { A1:1, C:1, R2:1, R3:1, G2010:0, G2000:1, G1990:5, H:4, Discovery:1 },
+  // G2010 held at 2 — the 20-30 demo skews to off-schedule listening, so its tier
+  // must not thin out in the off-hours blocks. G2000 averages 1.5; the remaining
+  // 6.5 splits between G1990 and H, the deepest and the most underused pools.
+  DNa: { A1:1, C:1, R2:1, R3:1, G2010:2, G2000:2, G1990:3, H:3, Discovery:1 },
+  DNb: { A1:1, C:1, R2:1, R3:1, G2010:2, G2000:1, G1990:4, H:3, Discovery:1 },
   GH:  { G2010:2, G2000:2, G1990:6, H:4, Discovery:1 },
 };
 
