@@ -3,13 +3,19 @@
 
 // ---------- 1. block assignment per (dow, hour), station-local (PT) ----------
 // dow: 0=Sun .. 6=Sat
+// Deep Night alternates two variants so G2000 averages 1.5/hr; the a/b split is
+// balanced to exactly 17/17 across the week (weekday 10/10, Sat 4/3, Sun 3/4).
 const WEEKDAY = [
-  "DN","DN","CO","CO","CO","ES","ES","ES","FF","FF","FF","FF",
-  "FF","FF","HD","HD","HD","WD","WD","WD","WD","GH","DN","DN",
+  "DNa","DNb","CO","CO","CO","ES","ES","ES","FF","FF","FF","FF",
+  "FF","FF","HD","HD","HD","WD","WD","WD","WD","GH","DNa","DNb",
 ];
-const WEEKEND = [
-  "DN","DN","DN","DN","DN","CO","CO","CO","WW","WW","WW","WW",
-  "WW","WW","WW","WW","WD","WD","WD","WD","WD","DN","DN","DN",
+const SAT = [
+  "DNa","DNb","DNa","DNb","DNa","CO","CO","CO","WW","WW","WW","WW",
+  "WW","WW","WW","WW","WD","WD","WD","WD","WD","GH","DNa","DNb",
+];
+const SUN = [
+  "DNa","DNb","DNa","DNb","DNa","CO","CO","CO","WW","WW","WW","WW",
+  "WW","WW","WW","WW","WD","WD","WD","WD","WD","GH","DNb","DNb",
 ];
 
 const BLOCKS = {
@@ -20,8 +26,12 @@ const BLOCKS = {
   WW: "Weekend Wide",
   WD: "Wind Down",
   GH: "Golden Hour",
-  DN: "Deep Night",
+  DNa: "Deep Night A",
+  DNb: "Deep Night B",
 };
+/** Blocks sharing one TOH ID set / one identity. */
+const IDENTITY = { DNa: "DN", DNb: "DN" };
+const identityOf = (code) => IDENTITY[code] ?? code;
 
 // ---------- 2. clock shapes: category -> positions per hour ----------
 const SHAPES = {
@@ -31,20 +41,25 @@ const SHAPES = {
   CO: { A1:2, A2:1, B:2, C:1, R1:1, R2:2, R3:1, G2010:2, G2000:2, G1990:1, Discovery:1 },
   WW: { A1:2, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:1, H:1, Discovery:1 },
   WD: { A1:1, A2:1, B:1, C:1, R1:1, R2:1, R3:2, G2010:2, G2000:2, G1990:2, H:1, Discovery:1 },
-  DN: { A1:1, C:1, R2:1, R3:1, G2010:2, G2000:1, G1990:4, H:3, Discovery:1 },
-  GH: { G2010:2, G2000:2, G1990:5, H:5, Discovery:1 },
+  DNa: { A1:1, C:1, R2:1, R3:1, G2010:1, G2000:2, G1990:4, H:3, Discovery:1 },
+  DNb: { A1:1, C:1, R2:1, R3:1, G2010:0, G2000:1, G1990:5, H:4, Discovery:1 },
+  GH:  { G2010:2, G2000:2, G1990:6, H:4, Discovery:1 },
 };
 
+// TOH IDs are per-block categories (one identity per block), so the top of the hour
+// reflects what the station is at that moment. `TOH *` depths are TBD — being produced.
 const IMAGING = {
-  ES: { "TOH IDs":1, Liners:3, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
-  FF: { "TOH IDs":1, Liners:3, "New-Music Sweepers":1, "Gold Backsells":1, "Station Promos":1 },
-  HD: { "TOH IDs":1, Liners:3, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
-  CO: { "TOH IDs":1, Liners:2, "Gold Backsells":1, "Station Promos":1 },
-  WW: { "TOH IDs":1, Liners:2, "Gold Backsells":1, "Station Promos":1 },
-  WD: { "TOH IDs":1, Liners:2, "Gold Backsells":1, "Station Promos":1 },
-  DN: { "TOH IDs":1, Liners:1, "Gold Backsells":1 },
-  GH: { "TOH IDs":1, Liners:1, "Gold Backsells":2 },
+  ES:  { Liners:3, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
+  FF:  { Liners:3, "New-Music Sweepers":1, "Gold Backsells":1, "Station Promos":1 },
+  HD:  { Liners:3, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
+  CO:  { Liners:2, "Gold Backsells":1, "Station Promos":1 },
+  WW:  { Liners:2, "Gold Backsells":1, "Station Promos":1 },
+  WD:  { Liners:2, "Gold Backsells":1, "Station Promos":1 },
+  DNa: { Liners:1, "Gold Backsells":1 },
+  DNb: { Liners:1, "Gold Backsells":1 },
+  GH:  { Liners:1, "Gold Backsells":2 },
 };
+for (const code of Object.keys(IMAGING)) IMAGING[code][`TOH ${identityOf(code)}`] = 1;
 
 // ---------- 3. enabled depth (live census 2026-07-31) ----------
 const DEPTH = {
@@ -58,7 +73,7 @@ const CUR = ["A1","A2","B","C","N"], REC = ["R1","R2","R3"], GOLD = ["G2010","G2
 
 // ---------- grid ----------
 const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-const cellFor = (dow, hour) => (dow === 0 || dow === 6 ? WEEKEND : WEEKDAY)[hour];
+const cellFor = (dow, hour) => (dow === 0 ? SUN : dow === 6 ? SAT : WEEKDAY)[hour];
 
 console.log("## Weekly grid (station-local, PT)\n");
 console.log("| Hr | " + DOW.join(" | ") + " |");
@@ -96,7 +111,8 @@ for (const code of Object.keys(BLOCKS)) {
 }
 
 console.log("\n## Clock shapes — imaging positions per hour\n");
-const allImg = ["TOH IDs","Liners","New-Music Sweepers","Relaunch Sweepers","Gold Backsells","Station Promos"];
+const tohCats = [...new Set(Object.keys(BLOCKS).map((c) => `TOH ${identityOf(c)}`))];
+const allImg = [...tohCats, "Liners","New-Music Sweepers","Relaunch Sweepers","Gold Backsells","Station Promos"];
 console.log("| Block | " + allImg.join(" | ") + " | total |");
 console.log("|---|" + allImg.map(() => "---").join("|") + "|---|");
 for (const code of Object.keys(BLOCKS)) {
@@ -117,8 +133,14 @@ console.log("\n## Weekly demand vs depth\n");
 console.log("| Category | Slots/wk | Enabled | Plays/song/wk | Plays/day | Turnover |");
 console.log("|---|---|---|---|---|---|");
 for (const cat of [...allCats, ...allImg]) {
-  const w = demand[cat] ?? 0, d = DEPTH[cat] ?? 0;
+  const w = demand[cat] ?? 0, d = DEPTH[cat];
   if (!w) continue;
+  if (d == null) {
+    // Depth TBD (TOH sets in production) — show what each count would yield.
+    const need = (perDay) => Math.ceil(w / 7 / perDay);
+    console.log(`| ${cat} | ${w} | *TBD* | — | — | ${need(1)} for 1.0/day, ${need(0.5)} for 0.5/day |`);
+    continue;
+  }
   const perWk = w / d, perDay = perWk / 7, turnover = (d / (w / 168));
   const flag = perDay > 5 ? " ⚠" : "";
   console.log(`| ${cat} | ${w} | ${d} | ${perWk.toFixed(1)} | ${perDay.toFixed(1)}${flag} | ${turnover.toFixed(1)}h |`);
