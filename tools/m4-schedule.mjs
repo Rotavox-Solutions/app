@@ -25,14 +25,14 @@ const BLOCKS = {
 
 // ---------- 2. clock shapes: category -> positions per hour ----------
 const SHAPES = {
-  ES: { A1:3, A2:1, B:3, C:1, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:1, Discovery:1 },
-  FF: { A1:3, A2:1, B:2, C:1, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:1, G1990:1, Discovery:1 },
+  ES: { A1:3, A2:2, B:3, C:1, N:1, R1:1, R2:1, R3:1, G2010:2, Discovery:1 },
+  FF: { A1:3, A2:2, B:2, C:1, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:1, Discovery:1 },
   HD: { A1:3, A2:1, B:2, C:2, R1:1, R2:1, R3:1, G2010:2, G2000:1, G1990:1, Discovery:1 },
   CO: { A1:2, A2:1, B:2, C:1, R1:1, R2:2, R3:1, G2010:2, G2000:2, G1990:1, Discovery:1 },
   WW: { A1:2, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:1, H:1, Discovery:1 },
   WD: { A1:1, A2:1, B:1, C:1, R1:1, R2:1, R3:2, G2010:2, G2000:2, G1990:2, H:1, Discovery:1 },
-  DN: { A1:1, C:1, R2:1, R3:1, G2010:3, G2000:3, G1990:3, H:1, Discovery:1 },
-  GH: { G2010:3, G2000:4, G1990:4, H:3, Discovery:1 },
+  DN: { A1:1, C:1, R2:1, R3:1, G2010:2, G2000:1, G1990:4, H:3, Discovery:1 },
+  GH: { G2010:2, G2000:2, G1990:5, H:5, Discovery:1 },
 };
 
 const IMAGING = {
