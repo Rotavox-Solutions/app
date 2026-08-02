@@ -75,6 +75,71 @@ LINE_RE = re.compile(
 
 TS_RE = re.compile(r'^(\d{2})/(\w{3})/(\d{4}):(\d{2}):(\d{2}):(\d{2})\s*([+-]\d{4})?$')
 
+# Icecast logs every request, not just listener connections. On a live AzuraCast host the
+# overwhelming majority of lines are its own internal polling -- /admin/listclients and
+# /admin/stats, which is the sampler that makes the API unsuitable for this question in
+# the first place. Counting those as connections would manufacture a huge bail rate out
+# of infrastructure traffic, since they all carry duration 0.
+INFRA_RE = re.compile(
+    r'^/(admin/|status-json|status\.xsl)|\.(xspf|m3u|m3u8|pls|xsl)$', re.I)
+
+# Only these mean "a client actually received audio". 206 is a range request, which some
+# players use for the initial connection; it is a real session.
+SESSION_STATUS = ("200", "206")
+
+
+def classify(mount):
+    """audio | infra | other -- 'other' covers OPTIONS '*' and malformed requests."""
+    if not mount.startswith("/"):
+        return "other"
+    return "infra" if INFRA_RE.search(mount) else "audio"
+
+
+def sessions_of(rows):
+    """The subset that represents a client connecting to a mount and receiving audio."""
+    return [r for r in rows
+            if r.kind == "audio" and r.status in SESSION_STATUS and r.duration is not None]
+
+
+BOT_UA_RE = re.compile(
+    r'python-requests|aiohttp|Censys|Palo Alto|mrtscan|FlowIQ|visionheight|TARV-|HisBot|'
+    r'Lavf/|DirMon|Go-http|curl|wget|Scrapy|bot\b|spider|scan|probe|monitor|check|'
+    r'^-$|^Mozilla/5\.0$', re.I)
+
+# A single machine cannot be a meaningful share of an audience. Requests-per-distinct-IP
+# is the strongest available bot discriminator on this data: real listeners spread across
+# many addresses at a handful of sessions each, while a scanner concentrates thousands of
+# requests onto one or two hosts.
+#
+# Gap-variance (periodicity) was tried first and is NOT sufficient on its own -- the two
+# largest scanners on The BOLT's log arrive irregularly (CV 7.8 and 32.1) and would pass
+# a timing test while accounting for 91% of all sessions. Concentration caught both.
+CONC_MIN_REQUESTS = 200
+CONC_PER_IP = 50
+
+
+def split_traffic(sess):
+    """(human, automated, per-UA diagnostics). Classification is heuristic and stated as
+    such wherever it is reported -- the residual 'human' set is an upper bound on
+    automation, never a clean population."""
+    by_ua_ips, by_ua = defaultdict(set), defaultdict(list)
+    for r in sess:
+        by_ua_ips[r.agent].add(r.ip)
+        by_ua[r.agent].append(r)
+
+    human, auto, diag = [], [], []
+    for ua, rs in by_ua.items():
+        ips = len(by_ua_ips[ua])
+        conc = len(rs) / max(1, ips)
+        named = bool(BOT_UA_RE.search(ua or "-"))
+        concentrated = len(rs) >= CONC_MIN_REQUESTS and conc >= CONC_PER_IP
+        is_bot = named or concentrated
+        reason = "named" if named else ("concentration" if concentrated else "")
+        diag.append((ua, len(rs), ips, conc, is_bot, reason))
+        (auto if is_bot else human).extend(rs)
+    diag.sort(key=lambda t: t[1], reverse=True)
+    return human, auto, diag
+
 
 def parse_ts(s):
     m = TS_RE.match(s.strip())
@@ -94,7 +159,7 @@ def parse_ts(s):
 
 
 class Row:
-    __slots__ = ("ip", "ts", "mount", "status", "bytes", "agent", "duration")
+    __slots__ = ("ip", "ts", "mount", "status", "bytes", "agent", "duration", "kind")
 
     def __init__(self, ip, ts, mount, status, nbytes, agent, duration):
         self.ip = ip
@@ -104,6 +169,7 @@ class Row:
         self.bytes = nbytes
         self.agent = agent
         self.duration = duration
+        self.kind = classify(mount)
 
 
 def parse_line(line):
@@ -117,7 +183,9 @@ def parse_line(line):
 
     request = m.group("request") or ""
     parts = request.split()
-    mount = parts[1] if len(parts) >= 2 else "?"
+    # AzuraCast appends a cache-busting query (?&_ic2=1); strip it so one mount is one
+    # mount rather than a long tail of near-duplicates.
+    mount = parts[1].split("?", 1)[0] if len(parts) >= 2 else "?"
 
     try:
         nbytes = int(m.group("bytes"))
@@ -338,13 +406,50 @@ def report_inspect(rows, failures, trailing_shapes, files_read, out):
 
     for path, n in files_read:
         w(f"  - `{os.path.basename(path)}` — {n:,} rows\n")
-    w("\n## Duration field\n\n")
-
-    with_dur = [r for r in rows if r.duration is not None]
     if not rows:
         w("No rows parsed. Nothing further can be said.\n")
         return
-    share = len(with_dur) / len(rows)
+
+    w("\n## Traffic composition\n\n")
+    w("Icecast logs every request. Most of them are not listeners.\n\n")
+    kinds = Counter(r.kind for r in rows)
+    w("| class | lines | share |\n|---|---|---|\n")
+    for k in ("audio", "infra", "other"):
+        n = kinds.get(k, 0)
+        w(f"| {k} | {n:,} | {n / len(rows):.1%} |\n")
+    w("\n")
+
+    infra = [r for r in rows if r.kind == "infra"]
+    if infra and len(rows) > 0:
+        top_infra = Counter(r.mount for r in infra).most_common(4)
+        w("Top infrastructure paths: "
+          + ", ".join(f"`{m}` ×{n:,}" for m, n in top_infra) + "\n\n")
+        poll = next((n for m, n in top_infra if "listclients" in m or "stats" in m), 0)
+        if poll and rows:
+            span = (max(r.ts for r in rows) - min(r.ts for r in rows)).total_seconds()
+            if span > 0:
+                w(f"> `/admin/*` polling runs roughly every **{span / poll:.1f}s**. That is\n"
+                  f"> AzuraCast's own listener sampler, and it is the reason the API cannot\n"
+                  f"> answer the bail-rate question: sessions shorter than that interval\n"
+                  f"> may never appear in its listener table at all.\n\n")
+
+    sess = sessions_of(rows)
+    audio = [r for r in rows if r.kind == "audio"]
+    w("## Sessions\n\n")
+    w(f"- Audio-mount requests: **{len(audio):,}**\n")
+    w(f"- Of those, successful with a duration (**real sessions**): **{len(sess):,}**\n")
+    failed = [r for r in audio if r.status not in SESSION_STATUS]
+    w(f"- Failed audio requests: **{len(failed):,}**\n\n")
+    if failed:
+        w("| mount | status | count |\n|---|---|---|\n")
+        for (m, s), n in Counter((r.mount, r.status) for r in failed).most_common(8):
+            w(f"| `{m}` | {s} | {n:,} |\n")
+        w("\n")
+
+    w("## Duration field\n\n")
+
+    with_dur = [r for r in audio if r.duration is not None]
+    share = len(with_dur) / len(audio) if audio else 0.0
     w(f"- Rows carrying a trailing integer (candidate duration): "
       f"**{len(with_dur):,} / {len(rows):,}** ({share:.1%})\n")
     w(f"- Trailing-field counts seen: "
@@ -358,7 +463,7 @@ def report_inspect(rows, failures, trailing_shapes, files_read, out):
           "> or whether a proxy is rewriting the log format.\n\n")
         return
 
-    durations = [r.duration for r in with_dur]
+    durations = [r.duration for r in sess]
     q = quantisation_check(durations)
     w("### Resolution check — event-driven or sampled?\n\n")
     if not q:
@@ -388,7 +493,7 @@ def report_inspect(rows, failures, trailing_shapes, files_read, out):
 
 def report_full(rows, failures, files_read, tz_offset, salt, out):
     w = out.write
-    with_dur = [r for r in rows if r.duration is not None]
+    with_dur = sessions_of(rows)
     tz = timezone(timedelta(hours=tz_offset))
 
     w("# Listener session digest\n\n")
@@ -397,15 +502,43 @@ def report_full(rows, failures, files_read, tz_offset, salt, out):
         return
     lo, hi = min(r.ts for r in rows), max(r.ts for r in rows)
     days = max(1, (hi - lo).total_seconds() / 86400)
+    audio = [r for r in rows if r.kind == "audio"]
+    failed = [r for r in audio if r.status not in SESSION_STATUS]
     w(f"- Window: **{lo:%Y-%m-%d} → {hi:%Y-%m-%d}** ({days:.0f} days)\n")
-    w(f"- Connections: **{len(rows):,}** ({len(rows) / days:.0f}/day)\n")
-    w(f"- With duration: **{len(with_dur):,}**\n")
+    w(f"- Log lines: **{len(rows):,}** "
+      f"({len(rows) - len(audio):,} infrastructure, excluded)\n")
+    w(f"- **Sessions: {len(with_dur):,}** ({len(with_dur) / days:.0f}/day)\n")
+    w(f"- Failed audio requests: **{len(failed):,}** — see *Rejected connections*\n")
     w(f"- Local hours reported at UTC{tz_offset:+d}\n\n")
 
     if len(with_dur) < 100:
         w("> Too few durations to analyse. Run `--inspect` — the log may not carry\n"
           "> the duration field.\n")
         return
+
+    # -------------------------------------------------------- automation separation
+    human, auto, diag = split_traffic(with_dur)
+    w("## Automation separation\n\n")
+    w(f"| | sessions | share | distinct IPs |\n|---|---|---|---|\n")
+    for label, group in (("Automated", auto), ("**Human (residual)**", human)):
+        ips = len({r.ip for r in group})
+        w(f"| {label} | {len(group):,} | {len(group) / len(with_dur):.1%} | {ips:,} |\n")
+    w("\n> **The human set is a residual, not a clean population.** Everything not\n"
+      "> positively identified as automated lands in it, so its bail rate is an *upper*\n"
+      "> bound and its survivor share a *lower* bound. The true audience is at least\n"
+      "> this good and probably better.\n\n")
+
+    w("| user agent | sessions | IPs | req/IP | verdict |\n|---|---|---|---|---|\n")
+    for ua, n, ips, conc, is_bot, reason in diag[:15]:
+        w(f"| `{short_agent(ua, 44)}` | {n:,} | {ips:,} | {conc:.0f} | "
+          f"{'auto — ' + reason if is_bot else 'human'} |\n")
+    w("\n")
+
+    if len(human) < 100:
+        w("> Too few human sessions for the analysis below; it runs on all sessions.\n\n")
+    else:
+        with_dur = human
+        w("**Everything below is the human residual only.**\n\n")
 
     durations = [r.duration for r in with_dur]
     sd = sorted(durations)
@@ -550,6 +683,25 @@ def report_full(rows, failures, files_read, tz_offset, salt, out):
       "> distinct listeners and a **ceiling** on repeat rate: CGNAT and mobile carriers\n"
       "> collapse many people onto one address, and dynamic IPs split one person across\n"
       "> several.\n\n")
+
+    # ---------------------------------------------------------------- rejected
+    w("## Rejected connections\n\n")
+    w("Requests to an audio mount that never received audio. **These are acquisition\n"
+      "losses, not listeners** — somebody tried to tune in and got nothing. A directory\n"
+      "listing pointed at a mount that does not exist will show up here and nowhere\n"
+      "else, because a 404 never becomes a session.\n\n")
+    if not failed:
+        w("None.\n\n")
+    else:
+        by_mount_status = Counter((r.mount, r.status) for r in failed)
+        w("| mount | status | count | share of failures |\n|---|---|---|---|\n")
+        for (m, s), n in by_mount_status.most_common(10):
+            w(f"| `{m}` | {s} | {n:,} | {n / len(failed):.0%} |\n")
+        w("\n**By client** — a human user agent here is a lost listener, not a bot:\n\n")
+        w("| user agent | count |\n|---|---|\n")
+        for ua, n in Counter(r.agent for r in failed).most_common(10):
+            w(f"| `{short_agent(ua)}` | {n:,} |\n")
+        w("\n")
 
     # ---------------------------------------------------------------- caveats
     w("## What this digest cannot tell you\n\n")
