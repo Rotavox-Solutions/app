@@ -297,9 +297,20 @@ station on its merits, not a requirement placed on them.
 | **2** | tier 1 + queue injection | Drive playout natively (RadioDJ: inject by song ID) |
 | **3** | tier 2 + library write | Push pool assignment down, keep the station's fallback rotation coherent |
 
-**The MVP must be valuable at tier 0.** A log a station ingests by hand, built from a
-format the station could not otherwise construct, is the core value proposition. Every
-tier above that is an upsell.
+**The core proposition, stated plainly: Rotavox is a digital PD/MD member of your
+staff, handling practically every aspect of the PD/MD role up to scheduling to air.**
+That has to hold at tier 0 — a log the station ingests by hand, built from a format
+they could not otherwise construct, must already be worth paying for.
+
+**Tiers 2 and 3 are where the product differentiates, and they should be built.** For a
+station on a playout system that supports it, having Rotavox drive playout natively is
+the single most compelling thing it does, and it is what this client wants most. They
+are "plus" features: priced and positioned separately, developed with real intent, and
+never load-bearing for the core.
+
+The rule is about *dependency*, not priority. Nothing above tier 0 may be **assumed**;
+everything above tier 0 is worth **building**. Sequencing follows from that — prove the
+core, capitalise on it, then reinvest in integration depth where demand pulls.
 
 Two consequences worth stating plainly. At tier 0 there is no as-played feed, so the
 engine must fall back to assuming its own approved log aired — usually true, and far
