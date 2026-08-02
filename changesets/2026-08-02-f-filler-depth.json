@@ -1,0 +1,572 @@
+{
+  "changeset_version": 1,
+  "id": "2026-08-02-f-filler-depth",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-08-02",
+  "intent": "Deepen F from 5 to 75 so it can absorb hour-length shortfall without becoming the hottest pool on the station. Ten of eleven M4 clocks are short before a song is drawn -- authored assuming ~3.5 min songs against a library averaging 3.2-3.6 -- leaving 55.6-58.4 min at the average draw and a 489 min/week deficit. That is ~144 F plays/week. At depth 5 F would run 4.1 plays/song/day, hotter than A1 at 4.54; at 75 it runs ~88h turnover and 0.27 plays/day. F is used rather than padding from gold or recurrents because it sits outside the depth solve: padding 144 plays/wk into G2010 (321 slots/wk) would be a 45% increase, cutting its turnover from 87h to ~60h and invalidating the drift and lock work. It also keeps filler VISIBLE in a log -- filler drawn from G1990 is indistinguishable from programmed gold, the same invisibility that hid M3's gold-heavy sound for an era. All picks are rock/alt genre, one per artist, no artist already in currents, 150-280s so they actually close a gap.",
+  "basis": {
+    "sheet_id": "2026-08-02-hour-length"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 42,
+      "artist": "100 Gecs",
+      "title": "Hollywood Baby",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternrock, 186s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 449,
+      "artist": "Amyl, The Sniffers",
+      "title": "U Should Not Be Doing That",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 199s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 551,
+      "artist": "Aranda",
+      "title": "You Don't Wanna Know",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Hard Rock, 177s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 450,
+      "artist": "Awolnation",
+      "title": "Barbarian",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 176s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 429,
+      "artist": "Ax, The Hatchetmen With Albert Hammond Jr.",
+      "title": "Blurry Lights",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 182s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 451,
+      "artist": "Bad Suns",
+      "title": "Communicating",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 186s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 43,
+      "artist": "Bakar",
+      "title": "Good News",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 189s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 242,
+      "artist": "Balu Brigada",
+      "title": "So Cold",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 199s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 531,
+      "artist": "Bike Routes",
+      "title": "World Apart",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 180s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 368,
+      "artist": "Black Stone Cherry, Jesse Leach",
+      "title": "Out Of Pocket",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 186s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 266,
+      "artist": "Black Veil Brides",
+      "title": "Bleeders",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 233s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 14,
+      "artist": "Caroline Lachek",
+      "title": "So Hot You're Hurting My Feelings",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternrock, 182s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 575,
+      "artist": "Chet Faker",
+      "title": "This Time For Real",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 187s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 44,
+      "artist": "Cigarettes After Sex",
+      "title": "Pistol",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 228s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 452,
+      "artist": "Coheed, Cambria",
+      "title": "Someone Who Can",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 223s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 598,
+      "artist": "Cruz Beckham",
+      "title": "Optics",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 170s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 45,
+      "artist": "Del Water Gap",
+      "title": "Ode To A Conversation Stuck In Your Throat",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 199s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 46,
+      "artist": "Devon Thompson",
+      "title": "Soft Like Water",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternrock, 219s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 309,
+      "artist": "Dexter, The Moonrocks",
+      "title": "Ritalin (Rado Edit)",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 208s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 267,
+      "artist": "Dorothy",
+      "title": "Mud",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 188s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 473,
+      "artist": "Durry",
+      "title": "This Movie Sucks",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 185s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 391,
+      "artist": "Ekoh, Lo Spirit",
+      "title": "Good Things",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 186s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 1378,
+      "artist": "Electric Callboy, The Offspring",
+      "title": "Let The Good Times Roll",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 209s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 474,
+      "artist": "Flipturn",
+      "title": "Rodeo Clown",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 194s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 248,
+      "artist": "Franz Ferdinand",
+      "title": "Audacious",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 202s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 17,
+      "artist": "Gang Of Youths",
+      "title": "In The Wake Of Your Leave",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternrock, 242s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 600,
+      "artist": "Geese",
+      "title": "Cobra",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 183s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 330,
+      "artist": "Ghost",
+      "title": "Lachryma",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 235s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 434,
+      "artist": "Gigi Perez",
+      "title": "Chemistry",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 188s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 331,
+      "artist": "Girl Tones",
+      "title": "Blame",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 197s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 271,
+      "artist": "Glass Animals",
+      "title": "A Tear In Space (Airlock)",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 197s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 535,
+      "artist": "Goo Goo Dolls",
+      "title": "Nothing Lasts Forever",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 199s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 313,
+      "artist": "Green Day",
+      "title": "One Eyed Bastard",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 171s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 435,
+      "artist": "Halestorm",
+      "title": "Darkness Always Wins",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 220s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 455,
+      "artist": "Half.Alive",
+      "title": "Automatic",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 192s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 581,
+      "artist": "Hatchie",
+      "title": "Sage",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 239s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 294,
+      "artist": "Highly Suspect",
+      "title": "Plastic Boxes",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 237s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 370,
+      "artist": "Hollywood Undead",
+      "title": "Hollywood Forever",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 245s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 394,
+      "artist": "Honestav, Mod Sun",
+      "title": "I'd Rather Overdose [Mod Sun Remix]",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 183s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 1847,
+      "artist": "I Prevail",
+      "title": "Into Hell",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 190s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 371,
+      "artist": "Idles",
+      "title": "Gift Horse",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 213s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 372,
+      "artist": "Inhaler",
+      "title": "Your House",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 209s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 582,
+      "artist": "Inoha",
+      "title": "Seventh Heaven",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 191s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 272,
+      "artist": "Jack White",
+      "title": "That's How I'm Feeling",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 186s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 274,
+      "artist": "Jane's Addiction",
+      "title": "Imminent Redemption",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 179s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 34,
+      "artist": "Joe Killington",
+      "title": "Cemetery",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternrock, 191s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 275,
+      "artist": "Jutes",
+      "title": "Sleepyhead",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 191s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 334,
+      "artist": "Kaleo",
+      "title": "Bloodline",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 187s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 78,
+      "artist": "Karly C",
+      "title": "In Love With Amazon Prime",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 196s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 479,
+      "artist": "Killswitch Engage",
+      "title": "I Believe",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 200s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 604,
+      "artist": "Kings Of Leon",
+      "title": "To Space",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 186s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 79,
+      "artist": "Koe Wetzel",
+      "title": "Creeps",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternrock, 224s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 47,
+      "artist": "Letdown.",
+      "title": "Crying In The Shower",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternrock, 182s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 480,
+      "artist": "Linkin Park",
+      "title": "Up From The Bottom",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 181s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 36,
+      "artist": "Lo Moon",
+      "title": "Dream Never Dies",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternrock, 216s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 414,
+      "artist": "Lola Young",
+      "title": "One Thing",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 206s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 415,
+      "artist": "Lord Huron",
+      "title": "Nothing I Need",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 208s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 51,
+      "artist": "MOD SUN",
+      "title": "Iris",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 176s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 481,
+      "artist": "Malcolm Todd, Omar Apollo",
+      "title": "Bleed",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 178s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 378,
+      "artist": "Mk.Gee",
+      "title": "Rockman",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 171s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 315,
+      "artist": "Momma",
+      "title": "I Want You (Fever)",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative Rock, 215s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 585,
+      "artist": "Morrissey",
+      "title": "Make-Up Is A Lie",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 186s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 336,
+      "artist": "Mumford, Sons",
+      "title": "Caroline",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 197s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 1568,
+      "artist": "NEEDTOBREATHE",
+      "title": "Who Am I",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 202s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 338,
+      "artist": "Nation Of Language",
+      "title": "Inept Apollo",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 235s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 482,
+      "artist": "Neiked, Portugal. The Man",
+      "title": "Glide",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 179s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 339,
+      "artist": "Nevertel",
+      "title": "Criminal",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 171s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 631,
+      "artist": "Noah Kahan",
+      "title": "Doors",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 223s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 276,
+      "artist": "Nothing More, David Draiman",
+      "title": "Angel Song",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Rock, 185s, unique artist, not in currents"
+    },
+    {
+      "rdj_song_id": 540,
+      "artist": "Ocean Alley",
+      "title": "Love Balloon",
+      "from_subcat": 36,
+      "to_subcat": 31,
+      "reason": "F filler \u2014 Alternative, 214s, unique artist, not in currents"
+    }
+  ]
+}

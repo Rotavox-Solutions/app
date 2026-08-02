@@ -70,6 +70,33 @@ export const SHAPES = {
 
 // TOH IDs are per-block categories (one identity per block), so the top of the hour
 // reflects what the station is at that moment. `TOH *` depths are TBD — being produced.
+/**
+ * TAIL FILLER — how many F positions each clock carries after its programmed content.
+ *
+ * Every clock is SHORT before a song is drawn. They were authored assuming ~3.5 min
+ * songs; the library averages 3.2-3.6 (A1 194s, C 205s, A2 208s), so 16 positions land
+ * at 55.6-58.4 min. That is a 489 min/week deficit at the average draw, and far worse on
+ * a short-song hour.
+ *
+ * The engine already has the mechanism: trim-to-fit drops positions once the projected
+ * start reaches the clock length, and "filler authored at the tail falls off first".
+ * Over-authoring is therefore free -- and it also PROTECTS programmed positions, which
+ * are currently what gets trimmed on a long hour.
+ *
+ * F is used rather than padding a scheduled category because F sits outside the depth
+ * solve. Padding 144 plays/wk into gold would raise G2010's 321 slots/wk by 45% and
+ * invalidate its turnover, drift and lock. It also keeps filler visible in a log: filler
+ * drawn from G1990 is indistinguishable from programmed gold.
+ *
+ * Five covers ~17 min of stretch. On an average hour 1-2 survive and the rest trim.
+ */
+export const TAIL_FILLER = {
+  ES: 5, FF: 5, HD: 5, CO: 5, WW: 5, WD: 5, EM: 5,
+  // Six, not five: these clocks carry 15 music positions rather than 16, so five tail
+  // slots still left them at 57.9-59.0 min on a short-song draw.
+  DNa: 6, DNb: 6, GHa: 6, GHb: 6,
+};
+
 export const IMAGING = {
   ES:  { Liners:4, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
   FF:  { Liners:4, "New-Music Sweepers":1, "Gold Backsells":1, "Station Promos":1 },

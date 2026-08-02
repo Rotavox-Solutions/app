@@ -10,7 +10,7 @@
 //
 // usage: node tools/clock-order.mjs [blockCode]
 import { pathToFileURL } from "node:url";
-import { SHAPES, IMAGING, BLOCKS, CUR, REC, GOLD } from "./m4-format.mjs";
+import { SHAPES, IMAGING, BLOCKS, CUR, REC, GOLD, TAIL_FILLER } from "./m4-format.mjs";
 
 // ---- fallback policy ------------------------------------------------------------
 // A position that cannot fill takes its fallback. The rule that matters: currents
@@ -281,7 +281,10 @@ function weave(music, imaging, code) {
  * format definition because both read the same function.
  */
 export function clockSequence(code) {
-  return weave(orderMusic(SHAPES[code], code), IMAGING[code], code);
+  const seq = weave(orderMusic(SHAPES[code], code), IMAGING[code], code);
+  // Tail filler last, so trim-to-fit removes it before any programmed position.
+  for (let i = 0; i < (TAIL_FILLER[code] ?? 0); i++) seq.push({ cat: "F", kind: "music" });
+  return seq;
 }
 
 export const fallbackFor = (cat, code) =>
