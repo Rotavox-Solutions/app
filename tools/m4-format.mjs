@@ -109,7 +109,7 @@ export const DEPTH_TARGET = {
   // reach low enough to sit under C without colliding with it.
   A1: 10, A2: 11, B: 14, N: 17, C: 20,
   R1: 30, R2: 48, R3: 72, Discovery: 37,
-  G2010: 148, G2000: 104, G1990: 145, H1: 24, H2: 100,
+  G2010: 148, G2000: 104, G1990: 145, H1: 24, H2: 97,
 };
 
 /**
@@ -146,7 +146,7 @@ export const HORIZONTAL = {
 export const DEPTH = {
   A1:7, A2:10, B:19, C:22, N:8, R1:22, R2:34, R3:42,
   G2010:165, G2000:150, G1990:186, Discovery:12,
-  H1:26, H2:75,
+  H1:26, H2:97,
   "TOH IDs":12, Liners:41, "New-Music Sweepers":44,
   "Relaunch Sweepers":12, "Gold Backsells":26, "Station Promos":14,
 };
