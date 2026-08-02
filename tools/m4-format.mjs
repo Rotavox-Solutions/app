@@ -98,6 +98,24 @@ export const DEPTH_TARGET = {
   //   depth   10 < 13 < 14 < 16 < 18
   //   plays/day 4.54 > 2.73 > 2.27 > 1.79 > 1.63
   //
+  // LEAD METRIC — proportional daily drift.
+  //
+  //     drift = frac(plays per day) = (24 mod turnover) / turnover
+  //
+  // How far a song's play pattern moves each day, expressed as a fraction of its own
+  // rotation. This is the metric to read first: it subsumes both of the tests below
+  // and carries magnitude, which they discard.
+  //
+  //   drift near 0 or 1  the pattern barely moves. The old "integer plays per day"
+  //                      test is just drift ~ 0, with the magnitude thrown away.
+  //   drift ~ p/q        the pattern realigns after q days. The multi-cycle hour
+  //                      return is this, found by search instead of by arithmetic.
+  //   drift ~ 0.618      golden — the value furthest from every simple rational,
+  //                      so the pattern takes longest to realign.
+  //
+  // Read the pair (drift, lock-days) together: drift says how fast it moves, lock-days
+  // how long before it comes back.
+  //
   // Depths must also clear the MULTI-CYCLE hour return: the earliest k where k x
   // turnover lands within an hour of a whole number of days. Single-cycle drift is
   // not sufficient — N at depth 20 has 7.7h of drift per play, which looks healthy,
