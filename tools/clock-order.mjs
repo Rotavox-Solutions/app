@@ -9,6 +9,7 @@
 //      before a new track, a Gold Backsell immediately after a gold one.
 //
 // usage: node tools/clock-order.mjs [blockCode]
+import { pathToFileURL } from "node:url";
 import { SHAPES, IMAGING, BLOCKS, CUR, REC, GOLD } from "./m4-format.mjs";
 
 // ---- fallback policy ------------------------------------------------------------
@@ -247,8 +248,21 @@ function weave(music, imaging, code) {
   return out;
 }
 
+/**
+ * The ordered position list for one block's clock: music placed by two-level
+ * proportional spread, imaging woven in contextually, TOH first. Exported so the M4 seed
+ * generator emits exactly what this tool reports -- the seed cannot drift from the
+ * format definition because both read the same function.
+ */
+export function clockSequence(code) {
+  return weave(orderMusic(SHAPES[code], code), IMAGING[code], code);
+}
+
+export const fallbackFor = (cat, code) =>
+  cat.startsWith("TOH ") ? tohFallback(code) : (FALLBACK[cat] ?? null);
+
 function render(code) {
-  const seq = weave(orderMusic(SHAPES[code], code), IMAGING[code], code);
+  const seq = clockSequence(code);
   const adjacentSame = seq.filter((x, i) => i > 0 && seq[i - 1].cat === x.cat).length;
   console.log(`\n### ${code} — ${BLOCKS[code]}  (${seq.length} positions)\n`);
   console.log("| # | Position | Type | Fallback |");
@@ -260,8 +274,13 @@ function render(code) {
   if (adjacentSame) console.log(`\n⚠ ${adjacentSame} adjacent same-category pair(s)`);
 }
 
-const only = process.argv[2];
-if (only) render(only);
+// Report only when run directly. Importing this module must have NO side effects --
+// tools/m4-seed.mjs imports clockSequence() and any top-level console.log here lands
+// in the middle of the generated SQL.
+const isMain = import.meta.url === pathToFileURL(process.argv[1] ?? "").href;
+const only = isMain ? process.argv[2] : undefined;
+if (!isMain) { /* imported: emit nothing */ }
+else if (only) render(only);
 else {
   for (const code of Object.keys(BLOCKS)) render(code);
   console.log("\n### Fallback policy\n");

@@ -1,0 +1,44 @@
+{
+  "changeset_version": 1,
+  "id": "2026-08-02-depth-topup",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-08-02",
+  "intent": "Close the last two depth gaps before the M4 seed. Both are knife-edge cases where being a few short collapses the lock period: R3 at 69 locks in 7 days against 56 at 72 \u2014 a 7-day lock pins records to the same hour of the WEEK, the exact failure the drift/lock work exists to prevent, and R3 carries 207 slots/wk. Discovery at 36 locks in 3 days against 20 at 37. Neither target is approximate: R3 at 70 gives 26d and 71 gives 12d, only 72 hits the peak. All four picks have zero artist match anywhere else in the enabled library, so they deepen their pools rather than making them shallower than their count.",
+  "basis": {
+    "sheet_id": "2026-08-02-currents-refresh"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 1782,
+      "artist": "Alter Bridge",
+      "title": "Silent Divide",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "R3 is almost entirely alt/indie (Vampire Weekend, Cigarettes After Sex, Soccer Mommy); Alter Bridge adds the rock weight the hybrid asks for. No artist match anywhere else in the library"
+    },
+    {
+      "rdj_song_id": 163,
+      "artist": "Bastille",
+      "title": "Blue Sky & The Painter",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "Major UK alt act \u2014 matches R3's international character (Circa Waves, The Hives, Milky Chance) and serves the European footprint per value proposition 3. No artist match elsewhere"
+    },
+    {
+      "rdj_song_id": 144,
+      "artist": "Catfish And The Bottlemen",
+      "title": "Showtime",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "Major UK alt act, recognisable, sits squarely in R3's era and texture. No artist match elsewhere"
+    },
+    {
+      "rdj_song_id": 579,
+      "artist": "Florence Road",
+      "title": "Miss",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "Emerging Irish alt-rock \u2014 genuinely unproven, which is what Discovery is for, and matches the pool's character (Late Night Drive Home, Good Neighbours, Blindlove). No artist match elsewhere"
+    }
+  ]
+}
