@@ -11,3 +11,9 @@ dist/
 *.access.log
 access*.log
 access*.log.gz
+__pycache__/
+*.py[co]
+# Editor swap files — a crash mid-edit on .env would put credentials in one.
+.*.sw[nop]
+..*.sw[nop]
+*.swp
