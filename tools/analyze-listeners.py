@@ -49,6 +49,7 @@ import hashlib
 import math
 import os
 import re
+import random
 import secrets
 import sys
 from collections import Counter, defaultdict
@@ -87,6 +88,12 @@ INFRA_RE = re.compile(
 # players use for the initial connection; it is a real session.
 SESSION_STATUS = ("200", "206")
 
+# A listener GETs. An encoder SOURCEs or PUTs, and Icecast logs the source connection's
+# duration in the very same field -- so a StereoTool/Liquidsoap feed that holds the mount
+# for three days looks exactly like a listener with a 72-hour session unless method is
+# checked. This is a structural filter and belongs ahead of every heuristic below.
+SESSION_METHOD = ("GET",)
+
 
 def classify(mount):
     """audio | infra | other -- 'other' covers OPTIONS '*' and malformed requests."""
@@ -98,7 +105,8 @@ def classify(mount):
 def sessions_of(rows):
     """The subset that represents a client connecting to a mount and receiving audio."""
     return [r for r in rows
-            if r.kind == "audio" and r.status in SESSION_STATUS and r.duration is not None]
+            if r.method in SESSION_METHOD and r.kind == "audio"
+            and r.status in SESSION_STATUS and r.duration is not None]
 
 
 BOT_UA_RE = re.compile(
@@ -107,11 +115,11 @@ BOT_UA_RE = re.compile(
     r'Thimeo|Streamer|StreamS|Icecast|liquidsoap|butt/|Mixxx|'
     r'^-$|^Mozilla/5\.0$', re.I)
 
-# Relays and processors hold a mount open for days and are catastrophic for any TSL
-# statistic: on The BOLT's first corpus a single Thimeo Streamer connection accounted for
-# 75% of all apparent listening hours across 27 sessions of ~72h each. Volume-based
-# detection cannot catch these -- 27 sessions is nothing -- so they are caught by name
-# and by the duration ceiling below.
+# Backstop only. The primary defence against encoder connections is SESSION_METHOD above:
+# on The BOLT's first corpus a StereoTool feed logged SOURCE connections of 260,523s
+# (72.4h) each, which were counted as listeners and became 75% of all apparent listening
+# hours. Method filtering removes those structurally. This ceiling remains for anything
+# that GETs a mount and never lets go.
 MAX_PLAUSIBLE_SESSION_H = 12
 
 # A single machine cannot be a meaningful share of an audience. Requests-per-distinct-IP
@@ -160,6 +168,23 @@ def split_traffic(sess):
     return human, auto, diag
 
 
+def bootstrap_ci(ds, stat, n=4000, seed=17):
+    """Standard error and 95% interval for a statistic, by resampling.
+
+    A point estimate quoted without this is a claim of precision nobody checked. On The
+    BOLT's first corpus the survivor median carried SE 7.8m against a value of 37.5m --
+    the figure is real, but soft, and no decision should hinge on 37 versus 45.
+    """
+    if len(ds) < 20:
+        return None
+    rng = random.Random(seed)
+    vals = sorted(stat(sorted(rng.choices(ds, k=len(ds)))) for _ in range(n))
+    mean = sum(vals) / len(vals)
+    var = sum((v - mean) ** 2 for v in vals) / (len(vals) - 1)
+    return {"se": math.sqrt(var), "lo": vals[int(.025 * len(vals))],
+            "hi": vals[int(.975 * len(vals))]}
+
+
 def robust_stats(ds):
     """Median, IQR and MAD. Deliberately NOT mean and standard deviation.
 
@@ -196,9 +221,10 @@ def parse_ts(s):
 
 
 class Row:
-    __slots__ = ("ip", "ts", "mount", "status", "bytes", "agent", "duration", "kind")
+    __slots__ = ("ip", "ts", "mount", "status", "bytes", "agent", "duration", "kind",
+                 "method")
 
-    def __init__(self, ip, ts, mount, status, nbytes, agent, duration):
+    def __init__(self, ip, ts, mount, status, nbytes, agent, duration, method="GET"):
         self.ip = ip
         self.ts = ts
         self.mount = mount
@@ -207,6 +233,7 @@ class Row:
         self.agent = agent
         self.duration = duration
         self.kind = classify(mount)
+        self.method = method
 
 
 def parse_line(line):
@@ -223,6 +250,7 @@ def parse_line(line):
     # AzuraCast appends a cache-busting query (?&_ic2=1); strip it so one mount is one
     # mount rather than a long tail of near-duplicates.
     mount = parts[1].split("?", 1)[0] if len(parts) >= 2 else "?"
+    method = parts[0].upper() if parts else "?"
 
     try:
         nbytes = int(m.group("bytes"))
@@ -240,7 +268,7 @@ def parse_line(line):
             break
 
     return Row(m.group("host"), ts, mount, m.group("status"), nbytes,
-               m.group("agent") or "", duration), trailing
+               m.group("agent") or "", duration, method), trailing
 
 
 def iter_files(paths):
@@ -660,9 +688,35 @@ def report_full(rows, failures, files_read, tz_offset, salt, out, excluded_ips=(
     st = robust_stats(stayed)
     if st and st["median"]:
         w(f"**Survivor TSL: median {fmt_dur(st['median'])}, IQR "
-          f"{fmt_dur(st['q1'])} – {fmt_dur(st['q3'])}.** This is the TSL figure to use.\n"
+          f"{fmt_dur(st['q1'])} – {fmt_dur(st['q3'])}.**\n"
           f"Its mean ({fmt_dur(st['mean'])}) is "
-          f"{st['mean'] / st['median']:.1f}× the median, which is the tail talking.\n\n")
+          f"{st['mean'] / st['median']:.1f}× the median — a ratio near 1 means the tail\n"
+          f"is no longer dominating; a large one means contamination remains.\n\n")
+
+        ci_med = bootstrap_ci(stayed, lambda d: percentile(d, .5))
+        ci_mean = bootstrap_ci(stayed, lambda d: sum(d) / len(d))
+        if ci_med:
+            w("### How well determined are these?\n\n")
+            w("| statistic | value | SE | 95% CI |\n|---|---|---|---|\n")
+            w(f"| survivor median | {fmt_dur(st['median'])} | {fmt_dur(ci_med['se'])} | "
+              f"{fmt_dur(ci_med['lo'])} – {fmt_dur(ci_med['hi'])} |\n")
+            if ci_mean:
+                w(f"| survivor mean | {fmt_dur(st['mean'])} | {fmt_dur(ci_mean['se'])} | "
+                  f"{fmt_dur(ci_mean['lo'])} – {fmt_dur(ci_mean['hi'])} |\n")
+            share = len(stayed) / (len(stayed) + len(bailed))
+            n_all = len(stayed) + len(bailed)
+            sh_se = math.sqrt(share * (1 - share) / n_all)
+            w(f"| survivor share | {share:.1%} | {sh_se:.1%} | "
+              f"{max(0, share - 1.96 * sh_se):.1%} – {share + 1.96 * sh_se:.1%} |\n\n")
+            w("> **The share is the well-determined figure; the TSL is not.** Quote the\n"
+              "> interval, not the point estimate, and do not build on a difference\n"
+              "> smaller than the SE. Precision here is bounded by the number of\n"
+              f"> survivors ({len(stayed)}), which only more weeks can fix.\n\n")
+            if ci_mean and ci_mean["se"] < ci_med["se"]:
+                w("> Note: the **mean is the more precise estimator here** — the median\n"
+                  "> sits in a sparse region of this distribution. The median remains the\n"
+                  "> right choice against *contamination*; the mean is the more efficient\n"
+                  "> one once contamination is removed. Different jobs.\n\n")
 
     w("### Fixed reference cuts\n\n| under | count | share |\n|---|---|---|\n")
     for t in (5, 10, 30, 60, 300, 1800):
