@@ -1,0 +1,340 @@
+{
+  "changeset_version": 1,
+  "id": "2026-08-02-currents-refresh",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-08-02",
+  "intent": "Rebuild the currents ladder against Mediabase Active Rock and Mediabase Alternative airplay (both week of Jul 19-25 2026), reading each record on the chart its format lives on. A1 becomes the top five of each chart. 16 of the 17 entries to currents are recalls of already-owned charting records from W/ZN/Rx/X \u2014 this was a recall problem, not an acquisition problem. Composite-chart positions are used only as an entry signal for N, never to promote or drop. PD decisions applied: option 3 on the AAA-leaning recalls (Sam Fender and Myles Smith retained, Noah Kahan and Dominic Fike declined), Three Days Grace held in A1.",
+  "basis": {
+    "sheet_id": "2026-08-02-currents-refresh"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 478,
+      "artist": "Julia Wolf",
+      "title": "In My Room",
+      "from_subcat": 26,
+      "to_subcat": 4,
+      "reason": "ALT #3 airplay (+237), misfiled to R3 \u2014 a top-3 record was being paced like three-year-old catalogue. Skip-N exception: overlooked hot track"
+    },
+    {
+      "rdj_song_id": 1725,
+      "artist": "Death Cab For Cutie",
+      "title": "Riptides",
+      "from_subcat": 2,
+      "to_subcat": 4,
+      "reason": "ALT #2 airplay (+212) \u2014 promoted to the tier its airplay earns"
+    },
+    {
+      "rdj_song_id": 1652,
+      "artist": "Cage The Elephant",
+      "title": "Beaches In Tennessee",
+      "from_subcat": 23,
+      "to_subcat": 4,
+      "reason": "ALT #4 airplay (+299), the largest gainer on the alternative chart, sitting in the entry pool. Skip-N exception: merit"
+    },
+    {
+      "rdj_song_id": 1736,
+      "artist": "The Warning",
+      "title": "Kerosene",
+      "from_subcat": 1,
+      "to_subcat": 4,
+      "reason": "AR #5 airplay (+168) and rising \u2014 underplaced in B"
+    },
+    {
+      "rdj_song_id": 1753,
+      "artist": "In Color",
+      "title": "Headlights",
+      "from_subcat": 4,
+      "to_subcat": 2,
+      "reason": "ALT #6 -> #10 on -499 spins, second-steepest decline on either chart. A1 pays 4.54 plays/day and this record no longer earns it"
+    },
+    {
+      "rdj_song_id": 1718,
+      "artist": "The Strokes",
+      "title": "Going Shopping",
+      "from_subcat": 1,
+      "to_subcat": 2,
+      "reason": "ALT #6 airplay \u2014 underplaced in B"
+    },
+    {
+      "rdj_song_id": 1702,
+      "artist": "Modest Mouse",
+      "title": "Picking Dragons' Pockets",
+      "from_subcat": 1,
+      "to_subcat": 2,
+      "reason": "ALT #7 airplay (+99) \u2014 underplaced in B"
+    },
+    {
+      "rdj_song_id": 1722,
+      "artist": "Black Label Society",
+      "title": "Name In Blood",
+      "from_subcat": 2,
+      "to_subcat": 5,
+      "reason": "AR #9 on -342 spins, third-steepest fall on either chart"
+    },
+    {
+      "rdj_song_id": 1660,
+      "artist": "Shinedown",
+      "title": "Young Again",
+      "from_subcat": 23,
+      "to_subcat": 5,
+      "reason": "AR #10 airplay (+102) and rising \u2014 the only Shinedown record retained"
+    },
+    {
+      "rdj_song_id": 1655,
+      "artist": "Joyce Manor",
+      "title": "I Used To Go To This",
+      "from_subcat": 3,
+      "to_subcat": 5,
+      "reason": "ALT #16 airplay and rising"
+    },
+    {
+      "rdj_song_id": 461,
+      "artist": "Shinedown",
+      "title": "Dance, Kid, Dance",
+      "from_subcat": 5,
+      "to_subcat": 24,
+      "reason": "charts nowhere on either airplay chart; Shinedown carried 4 currents \u2014 currents residency complete, exits to recurrent"
+    },
+    {
+      "rdj_song_id": 419,
+      "artist": "Sombr",
+      "title": "Undressed",
+      "from_subcat": 5,
+      "to_subcat": 24,
+      "reason": "charts nowhere on either airplay chart; sombr carried 4 currents \u2014 currents residency complete, exits to recurrent"
+    },
+    {
+      "rdj_song_id": 329,
+      "artist": "Foo Fighters",
+      "title": "Today's Song",
+      "from_subcat": 5,
+      "to_subcat": 24,
+      "reason": "superseded \u2014 'Caught In The Echo' is the live single \u2014 currents residency complete, exits to recurrent"
+    },
+    {
+      "rdj_song_id": 534,
+      "artist": "Deftones",
+      "title": "My Mind Is A Mountain",
+      "from_subcat": 5,
+      "to_subcat": 24,
+      "reason": "charts nowhere on either airplay chart \u2014 currents residency complete, exits to recurrent"
+    },
+    {
+      "rdj_song_id": 1733,
+      "artist": "Sleep Theory",
+      "title": "Words Are Worthless",
+      "from_subcat": 5,
+      "to_subcat": 24,
+      "reason": "charts nowhere on either airplay chart \u2014 currents residency complete, exits to recurrent"
+    },
+    {
+      "rdj_song_id": 462,
+      "artist": "Shinedown",
+      "title": "Three Six Five",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "charts nowhere; Shinedown reduction 4 -> 1 \u2014 currents residency complete, exits to recurrent"
+    },
+    {
+      "rdj_song_id": 1746,
+      "artist": "Shinedown",
+      "title": "Safe And Sound",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "charts nowhere; Shinedown reduction 4 -> 1 \u2014 currents residency complete, exits to recurrent"
+    },
+    {
+      "rdj_song_id": 503,
+      "artist": "Sombr",
+      "title": "12 To",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "charts nowhere; sombr reduction 4 -> 2 \u2014 currents residency complete, exits to recurrent"
+    },
+    {
+      "rdj_song_id": 369,
+      "artist": "Cage The Elephant",
+      "title": "Metaverse",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "superseded by 'Beaches In Tennessee' at ALT #4 \u2014 currents residency complete, exits to recurrent"
+    },
+    {
+      "rdj_song_id": 1710,
+      "artist": "MGK, Fred Durst",
+      "title": "FIX UR FACE",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "charts nowhere on either airplay chart \u2014 currents residency complete, exits to recurrent"
+    },
+    {
+      "rdj_song_id": 1662,
+      "artist": "Almost Monday",
+      "title": "No More Regrets",
+      "from_subcat": 23,
+      "to_subcat": 3,
+      "reason": "ALT #14 airplay \u2014 promoted out of the entry pool"
+    },
+    {
+      "rdj_song_id": 1672,
+      "artist": "Weezer, Wednesday",
+      "title": "We Might As Well Be Strangers",
+      "from_subcat": 23,
+      "to_subcat": 3,
+      "reason": "ALT #15 airplay (+182) \u2014 promoted out of the entry pool"
+    },
+    {
+      "rdj_song_id": 1380,
+      "artist": "Phoebe Bridgers",
+      "title": "Lost Boys",
+      "from_subcat": 23,
+      "to_subcat": 3,
+      "reason": "ALT #25 airplay (+95) \u2014 promoted out of the entry pool"
+    },
+    {
+      "rdj_song_id": 1656,
+      "artist": "Motionless In White, Skylar Grey",
+      "title": "R.I.P.",
+      "from_subcat": 23,
+      "to_subcat": 3,
+      "reason": "AR #22 airplay (+134) \u2014 promoted out of the entry pool"
+    },
+    {
+      "rdj_song_id": 646,
+      "artist": "Nine Inch Nails, Boys Noize",
+      "title": "Closer (Nine Inch Noize Version)",
+      "from_subcat": 23,
+      "to_subcat": 24,
+      "reason": "charts nowhere; a remix of a 1994 record has no promotion path \u2014 retires from N rather than promoting"
+    },
+    {
+      "rdj_song_id": 574,
+      "artist": "Buffalo Traffic Jam",
+      "title": "Fool's Gold",
+      "from_subcat": 36,
+      "to_subcat": 23,
+      "reason": "ALT #12 airplay (+100) and benched. Absent from the composite chart entirely \u2014 only the airplay chart surfaced it"
+    },
+    {
+      "rdj_song_id": 630,
+      "artist": "Myles Smith",
+      "title": "Hold Me In The Dark",
+      "from_subcat": 36,
+      "to_subcat": 23,
+      "reason": "ALT #17 airplay (+75). British; retained under option 3 (value proposition 3, global footprint)"
+    },
+    {
+      "rdj_song_id": 1669,
+      "artist": "Sam Fender, Olivia Dean",
+      "title": "Rein Me In",
+      "from_subcat": 36,
+      "to_subcat": 23,
+      "reason": "ALT #24 airplay (+30). UK superstar \u2014 the record whose US position most understates it. Retained under option 3"
+    },
+    {
+      "rdj_song_id": 622,
+      "artist": "Edgehill",
+      "title": "Love To Go",
+      "from_subcat": 36,
+      "to_subcat": 23,
+      "reason": "ALT #21 airplay (+109). The composite pointed at 'Doubletake'; airplay says this is the working single"
+    },
+    {
+      "rdj_song_id": 651,
+      "artist": "The Neighbourhood",
+      "title": "Private",
+      "from_subcat": 36,
+      "to_subcat": 23,
+      "reason": "ALT #22 airplay and benched"
+    },
+    {
+      "rdj_song_id": 648,
+      "artist": "Poppy",
+      "title": "Time Will Tell",
+      "from_subcat": 36,
+      "to_subcat": 23,
+      "reason": "AR #20 airplay and rising, benched while charting"
+    },
+    {
+      "rdj_song_id": 2,
+      "artist": "From Ashes To New",
+      "title": "Die For You",
+      "from_subcat": 36,
+      "to_subcat": 23,
+      "reason": "AR #23 airplay (+219), third-largest gain on Active Rock, benched"
+    },
+    {
+      "rdj_song_id": 1771,
+      "artist": "Young The Giant",
+      "title": "Different Kind Of Love",
+      "from_subcat": 25,
+      "to_subcat": 23,
+      "reason": "composite #29 \u2014 entry signal; filed as a recurrent while current"
+    },
+    {
+      "rdj_song_id": 661,
+      "artist": "Cannons",
+      "title": "Starlight",
+      "from_subcat": 36,
+      "to_subcat": 23,
+      "reason": "composite #31 \u2014 entry signal"
+    },
+    {
+      "rdj_song_id": 1739,
+      "artist": "Yellowcard, Good Charlotte",
+      "title": "Bedroom Posters",
+      "from_subcat": 39,
+      "to_subcat": 23,
+      "reason": "composite #32 \u2014 rested from N and never recalled"
+    },
+    {
+      "rdj_song_id": 681,
+      "artist": "Clarion",
+      "title": "Hello Juliet",
+      "from_subcat": 6,
+      "to_subcat": 23,
+      "reason": "composite #33 \u2014 a proven record is not Discovery"
+    },
+    {
+      "rdj_song_id": 674,
+      "artist": "Violet Grohl",
+      "title": "Thum",
+      "from_subcat": 36,
+      "to_subcat": 23,
+      "reason": "composite #38 \u2014 entry signal"
+    },
+    {
+      "rdj_song_id": 1760,
+      "artist": "Twenty One Pilots",
+      "title": "Drag Path",
+      "from_subcat": 24,
+      "to_subcat": 23,
+      "reason": "composite #39 \u2014 filed as a recurrent while current"
+    },
+    {
+      "rdj_song_id": 1734,
+      "artist": "Social Distortion",
+      "title": "Born To Kill",
+      "from_subcat": 36,
+      "to_subcat": 23,
+      "reason": "composite #40 \u2014 entry signal"
+    },
+    {
+      "rdj_song_id": 1716,
+      "artist": "The Last Dinner Party",
+      "title": "Count The Ways",
+      "from_subcat": 39,
+      "to_subcat": 23,
+      "reason": "composite #48 \u2014 British, rested from N and never recalled"
+    },
+    {
+      "rdj_song_id": 632,
+      "artist": "Nothing But Thieves",
+      "title": "Evolution",
+      "from_subcat": 36,
+      "to_subcat": 23,
+      "reason": "composite #63 \u2014 British; substitutes for Noah Kahan under option 3"
+    }
+  ]
+}
