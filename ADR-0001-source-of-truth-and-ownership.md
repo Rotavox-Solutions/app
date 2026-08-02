@@ -232,6 +232,28 @@ dayparting, and imaging placement are not expressible in RadioDJ's model and sho
 not be faked. The fallback will sound worse than the scheduled format; that is
 accepted, and is not the same thing as it sounding *broken*.
 
+### 3.5a Stream-layer imaging is AzuraCast's, not Rotavox's
+
+Icecast supports a per-mount `<intro>` file, streamed to each client as it connects
+before it joins the live feed; AzuraCast exposes this in mount point settings. It is
+imaging, but it is **not** part of the log and Rotavox neither schedules nor owns it.
+
+The distinction is reach. Every element Rotavox schedules — TOH IDs, liners, sweepers —
+reaches whoever is listening at that moment. The intro reaches **every arrival, at
+every hour**, which makes it the only position in the station with total new-listener
+coverage. For a station whose listeners arrive via directory apps and sample for under
+a minute, that is the highest-leverage imaging asset there is, and it sits outside the
+scheduler entirely.
+
+Constraints, recorded because they are easy to get wrong: the file must match the
+mount's codec, bitrate, sample rate and channel count exactly or strict clients fail
+rather than degrade; it must stay ~3-5s because it delays time-to-live-audio, which is
+itself a bail cause; and it fires on every connection, including reconnects.
+
+Rotavox may eventually want to *know* about it — a log review that reports realized
+mix should not silently exclude the one element every listener hears — but it does not
+schedule it.
+
 ### 3.6 Rotavox does not become the playout system
 
 Not soon, and possibly not ever. Playout is hard-realtime, 24/7, and
