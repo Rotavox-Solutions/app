@@ -85,7 +85,13 @@ for (const code of Object.keys(IMAGING)) IMAGING[code][`TOH ${identityOf(code)}`
 // Turnover deviation is penalised, so each depth is the freshest value near its target
 // rather than the freshest value outright.
 export const DEPTH_TARGET = {
-  A1: 9, A2: 13, B: 22, C: 19, N: 17,
+  // Currents are sized turnover-FIRST, then checked against cume repeat within
+  // tolerance — the PD's stated priority order. An earlier pass let freshness drive
+  // depth and produced a broken ladder: A1 at 5.05 plays/day then a cliff to A2 at
+  // 2.16 and a flat plateau below, which is a power tier with three light tiers under
+  // it rather than an Alternative CHR currents ladder.
+  //   A1 4.54  A2 3.52  B 2.44  C 1.79  N 1.47 plays/day
+  A1: 10, A2: 8, B: 16, C: 16, N: 20,
   R1: 29, R2: 43, R3: 70, Discovery: 29,
   G2010: 155, G2000: 99, G1990: 163, H: 70,
 };
@@ -113,10 +119,10 @@ export const RESIDENCY_WEEKS = {
  */
 export const HORIZONTAL = {
   A1: { windowHours: 1, minDays: 4 },
-  A2: { windowHours: 1, minDays: 1 },
-  B: { windowHours: 1, minDays: 10 },
-  C: null,
-  N: { windowHours: 1, minDays: 10 },
+  A2: { windowHours: 1, minDays: 4 },
+  B: { windowHours: 1, minDays: 4 },
+  C: { windowHours: 1, minDays: 1 },
+  N: { windowHours: 1, minDays: 1 },
 };
 
 // ---------- 3. enabled depth (live census 2026-07-31) ----------
