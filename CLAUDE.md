@@ -11,7 +11,12 @@ Who owns which facts (Rotavox vs RadioDJ), and the sync policy for each:
 `ADR-0001-source-of-truth-and-ownership.md`. Read it before changing what the Runner
 syncs, before touching pool assignment, and before adding any write path to RadioDJ.
 
-## Architecture (three components — only the Runner touches the station)
+## Architecture (only the adapter touches the station)
+
+**The Runner is the RadioDJ adapter, not core architecture.** It is the first of N
+playout adapters and a *plus* feature — the core product must be complete and saleable
+without it (ADR-0001 §3.5b, §3.5c). Nothing above adapter tier 0 may be assumed;
+everything above it is worth building.
 
 ```
 Scheduler (SaaS)  --log-->  Log Runner  --inject by songID (REST)-->  RadioDJ v3
@@ -40,9 +45,11 @@ Next.js + Postgres          local agent, Win box                      REST plugi
 1. **Introspect, don't hardcode.** RadioDJ's schema and REST command set are discovered
    at runtime (`INFORMATION_SCHEMA.COLUMNS`, live capability probe) — never assume
    column names or a fixed command list. Versions drift.
-2. **Inject by song ID only**, via the REST plugin (`LoadTrackToBottom`/`LoadTrackToTop`).
-   Never m3u or file paths — RadioDJ only links playout to history/counters when the
-   played item carries a song ID.
+2. **When injecting, inject by song ID** — via the REST plugin
+   (`LoadTrackToBottom`/`LoadTrackToTop`), never m3u or file paths, because RadioDJ only
+   links playout to history/counters when the played item carries a song ID. This is an
+   adapter tier-2 rule, not a prohibition on producing files: at tier 0 the deliverable
+   *is* an exported log the station ingests itself.
 3. **`station_id` on every table** in the Scheduler's Postgres schema, from day one.
 4. **All RadioDJ contact goes through the Runner.** The web app never connects to
    RadioDJ (DB or REST) directly.
