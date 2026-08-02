@@ -28,13 +28,14 @@ export const BLOCKS = {
   CO: "Continental",
   WW: "Weekend Wide",
   WD: "Wind Down",
-  GH: "Golden Hour",
+  GHa: "Golden Hour A",
+  GHb: "Golden Hour B",
   EM: "European Morning",
   DNa: "Deep Night A",
   DNb: "Deep Night B",
 };
 /** Blocks sharing one TOH ID set / one identity. */
-export const IDENTITY = { DNa: "DN", DNb: "DN" };
+export const IDENTITY = { DNa: "DN", DNb: "DN", GHa: "GH", GHb: "GH" };
 export const identityOf = (code) => IDENTITY[code] ?? code;
 
 // ---------- 2. clock shapes: category -> positions per hour ----------
@@ -58,7 +59,13 @@ export const SHAPES = {
   // Golden Hour is the one deliberate format break: H2 is pre-1980 classic rock,
   // carried as surprise rather than staple. GH is the most Pacific-weighted block
   // (21:00 PT = 06:00 CE), so this is the US late-evening slot, not a Europe play.
-  GH:  { G2010:2, G2000:2, G1990:7, H1:2, H2:1, Discovery:1 },
+  // Golden Hour runs two variants with IDENTICAL category counts and different
+  // ORDER, so depth, turnover and every other number are unaffected. They differ only
+  // in how the two pre-1990 tiers sit relative to each other:
+  //   GHa — H1 and H2 GROUPED. A deliberate vintage pair: a destination moment.
+  //   GHb — H1 and H2 SEPARATED. Each vintage track arrives alone: surprise.
+  GHa: { G2010:2, G2000:2, G1990:6, H1:2, H2:2, Discovery:1 },
+  GHb: { G2010:2, G2000:2, G1990:6, H1:2, H2:2, Discovery:1 },
 };
 
 // TOH IDs are per-block categories (one identity per block), so the top of the hour
@@ -72,7 +79,8 @@ export const IMAGING = {
   WD:  { Liners:3, "Gold Backsells":1, "Station Promos":1 },
   DNa: { Liners:1, "Gold Backsells":1 },
   DNb: { Liners:1, "Gold Backsells":1 },
-  GH:  { Liners:1, "Gold Backsells":2 },
+  GHa: { Liners:1, "Gold Backsells":2 },
+  GHb: { Liners:1, "Gold Backsells":2 },
   EM:  { Liners:3, "New-Music Sweepers":1, "Station Promos":1 },
 };
 for (const code of Object.keys(IMAGING)) IMAGING[code][`TOH ${identityOf(code)}`] = 1;
@@ -101,7 +109,7 @@ export const DEPTH_TARGET = {
   // reach low enough to sit under C without colliding with it.
   A1: 10, A2: 11, B: 14, N: 17, C: 20,
   R1: 30, R2: 48, R3: 72, Discovery: 37,
-  G2010: 148, G2000: 104, G1990: 145, H1: 24, H2: 70,
+  G2010: 148, G2000: 104, G1990: 145, H1: 24, H2: 100,
 };
 
 /**
@@ -138,7 +146,7 @@ export const HORIZONTAL = {
 export const DEPTH = {
   A1:7, A2:10, B:19, C:22, N:8, R1:22, R2:34, R3:42,
   G2010:165, G2000:150, G1990:186, Discovery:12,
-  H1:24, H2:70,
+  H1:26, H2:75,
   "TOH IDs":12, Liners:41, "New-Music Sweepers":44,
   "Relaunch Sweepers":12, "Gold Backsells":26, "Station Promos":14,
 };
@@ -153,7 +161,7 @@ export const TURNOVER = {
   // the scheduling convention that even turnovers pin a song to the same clock times.
   A1: 5, A2: 7, B: 11, N: 13, C: 15,
   R1: 31, Discovery: 35, R2: 39, R3: 57,
-  G2010: 81, G2000: 105, G1990: 129, H1: 130, H2: 480,
+  G2010: 81, G2000: 105, G1990: 129, H1: 130, H2: 560,
   Liners: 23, "New-Music Sweepers": 23, "Relaunch Sweepers": 23,
   "Gold Backsells": 23, "Station Promos": 23,
 };
@@ -161,10 +169,35 @@ export const TOH_TURNOVER = 47; // ~0.5 plays/day — below conscious recognitio
 
 export const CUR = ["A1","A2","B","C","N"], REC = ["R1","R2","R3"], GOLD = ["G2010","G2000","G1990","H1","H2"];
 export const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-export function cellFor(dow, hour) {
+/**
+ * PROGRAMMING RULE — daily alternation with a weekly flip.
+ *
+ * Golden Hour runs one hour a day, seven days a week. Its two variants alternate by
+ * DAY and flip by WEEK, which is the whole rule in one parity expression:
+ *
+ *     variant = (week + dayOfWeek) % 2 === 0 ? "GHa" : "GHb"
+ *
+ * Week 0: Sun A, Mon B, Tue A, Wed B, Thu A, Fri B, Sat A
+ * Week 1: Sun B, Mon A, Tue B, Wed A, Thu B, Fri A, Sat B
+ *
+ * So a listener with a fixed weekday habit never gets the same variant two weeks
+ * running, and across a two-week cycle each variant airs exactly seven times. This
+ * requires stations.format_cycle_weeks = 2; the schema has carried week_in_cycle
+ * since M3 and this is its first use.
+ *
+ * Applies to any block that wants alternation over an odd number of days. An even-day
+ * block (Deep Night's weekday 22:00, five days) cannot balance this way and uses the
+ * per-day variant array instead.
+ */
+export function cellFor(dow, hour, week = 0) {
   const v = (dow === 0 ? SUN : dow === 6 ? SAT : WEEKDAY)[hour];
-  return Array.isArray(v) ? v[(dow - 1) % v.length] : v;
+  const cell = Array.isArray(v) ? v[(dow - 1) % v.length] : v;
+  if (cell === "GH") return (week + dow) % 2 === 0 ? "GHa" : "GHb";
+  return cell;
 }
+
+/** Weeks in the format rotation cycle. Seeded to stations.format_cycle_weeks. */
+export const FORMAT_CYCLE_WEEKS = 2;
 /** Every music slot in a week, in air order: {dow, hour, cat}. */
 export function weekSlots() {
   const out = [];

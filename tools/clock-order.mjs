@@ -32,8 +32,23 @@ const tohFallback = (code) => "Liners";
 
 const tierOf = (c) => (CUR.includes(c) ? "cur" : REC.includes(c) ? "rec" : GOLD.includes(c) ? "gold" : "disc");
 
+/**
+ * Pairing policy for categories that are musically related. Two blocks may carry the
+ * same counts and differ only in whether those categories sit together.
+ *
+ *   group    — place the second immediately after the first, as a deliberate set
+ *   separate — guarantee at least one other track between them, so each arrives alone
+ *
+ * Golden Hour uses this to run an A/B pair: GHa groups the two pre-1990 tiers into a
+ * vintage moment, GHb holds them apart so each old record is a surprise on its own.
+ */
+const PAIRING = {
+  GHa: { mode: "group", pair: ["H1", "H2"] },
+  GHb: { mode: "separate", pair: ["H1", "H2"] },
+};
+
 /** Max consecutive music items before imaging must break the sweep, per block. */
-const MAX_RUN = { ES: 2, FF: 2, HD: 2, WW: 3, EM: 3, CO: 3, WD: 3, DNa: 4, DNb: 4, GH: 4 };
+const MAX_RUN = { ES: 2, FF: 2, HD: 2, WW: 3, EM: 3, CO: 3, WD: 3, DNa: 4, DNb: 4, GHa: 4, GHb: 4 };
 
 /** Spread `n` items of a group evenly across `total` slots: ideal index per item. */
 const ideal = (k, n, total) => (k + 0.5) * total / n;
@@ -46,7 +61,7 @@ const ideal = (k, n, total) => (k + 0.5) * total / n;
  * listener hears — current, gold, recurrent — so tiers are spread first, then the
  * specific categories are spread within their own tier's slots.
  */
-function orderMusic(shape) {
+function orderMusic(shape, code) {
   const total = Object.values(shape).reduce((a, b) => a + b, 0);
   const tiers = {};
   for (const [cat, n] of Object.entries(shape)) {
@@ -89,7 +104,56 @@ function orderMusic(shape) {
         if (done) break;
       }
     }
+  applyPairing(out, PAIRING[code]);
   return out;
+}
+
+/**
+ * Enforce the block's pairing policy after proportional placement. Placement spreads by
+ * tier and both pre-1990 tiers are gold, so whether they land together is otherwise an
+ * accident of arithmetic rather than a decision.
+ */
+function applyPairing(out, policy) {
+  if (!policy) return;
+  const [a, b] = policy.pair;
+
+  if (policy.mode === "group") {
+    // Lift every b out first, then reinsert one after each a. Mutating in place while
+    // reading indices is what produced the earlier bug — both b's clustered onto one a
+    // and the second a was left orphaned.
+    const bCount = out.filter((c) => c === b).length;
+    for (let i = out.length - 1; i >= 0; i--) if (out[i] === b) out.splice(i, 1);
+    const aIdx = out.reduce((acc, c, i) => (c === a ? [...acc, i] : acc), []);
+    // insert back-to-front so the earlier indices stay valid
+    let placed = 0;
+    for (let k = aIdx.length - 1; k >= 0 && placed < bCount; k--, placed++) {
+      out.splice(aIdx[k] + 1, 0, b);
+    }
+    // any surplus b beyond the number of a's goes back at the end of the gold run
+    for (; placed < bCount; placed++) out.splice(Math.floor(out.length / 2), 0, b);
+    return;
+  }
+
+  // separate: spread all four vintage items evenly across the hour, alternating the two
+  // tiers. Merely breaking adjacency is not enough — the first attempt did that and
+  // still left both H2s inside the opening quarter, which is separated but not spread.
+  const items = [];
+  for (let i = out.length - 1; i >= 0; i--) {
+    if (out[i] === a || out[i] === b) { items.push(out[i]); out.splice(i, 1); }
+  }
+  if (!items.length) return;
+  const as = items.filter((c) => c === a);
+  const bs = items.filter((c) => c === b);
+  const order = [];
+  while (as.length || bs.length) {
+    if (bs.length) order.push(bs.pop());
+    if (as.length) order.push(as.pop());
+  }
+  const span = out.length;
+  for (let k = order.length - 1; k >= 0; k--) {
+    const at = Math.min(span, Math.max(1, Math.round(((k + 0.5) * span) / order.length)));
+    out.splice(at, 0, order[k]);
+  }
 }
 
 /**
@@ -98,7 +162,7 @@ function orderMusic(shape) {
  * gold one, a Relaunch sweeper ahead of a current.
  */
 function weave(music, imaging, code) {
-  const tohCat = `TOH ${code.startsWith("DN") ? "DN" : code}`;
+  const tohCat = `TOH ${code.startsWith("DN") ? "DN" : code.startsWith("GH") ? "GH" : code}`;
   const pool = { ...imaging };
   delete pool[tohCat];
   const take = (pref) => {
@@ -138,7 +202,7 @@ function weave(music, imaging, code) {
 }
 
 function render(code) {
-  const seq = weave(orderMusic(SHAPES[code]), IMAGING[code], code);
+  const seq = weave(orderMusic(SHAPES[code], code), IMAGING[code], code);
   const adjacentSame = seq.filter((x, i) => i > 0 && seq[i - 1].cat === x.cat).length;
   console.log(`\n### ${code} — ${BLOCKS[code]}  (${seq.length} positions)\n`);
   console.log("| # | Position | Type | Fallback |");
