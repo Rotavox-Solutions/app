@@ -67,7 +67,38 @@ inherited.
    is targeted at 142 songs, which is an Active Rock instinct. Whether it belongs
    depends on its contents — post-punk and new-wave canon is alternative heritage and
    fits; classic rock is another format's gold and will read as incoherent next to
-   Spiritbox. Audit H before locking its depth.
+   Spiritbox. **Resolved 2026-08-02** by §0b.2: pre-1990 inclusion is a value
+   proposition, not an Active Rock hangover. H was split into H1 (alt canon, depth 24)
+   and H2 (pre-1980, depth 97).
+
+### 0b. Value propositions — what makes the station worth choosing
+
+Recorded 2026-08-02. **These are programming inputs, not marketing copy.** They
+constrain how far any external chart may be followed, and they exist here because the
+alternative is applying them invisibly — which is exactly how four texture judgments
+got made and silently overturned during the first currents refresh.
+
+1. **The hybrid.** Light-CHR current intensity over a combined **Active Rock ×
+   Alternative** vein. An uncommon variant, not either parent format. A record's fit is
+   judged against the hybrid, not against whichever parent chart it appears on.
+2. **Pre-1990 inclusion.** H1 (alt canon) and H2 (pre-1980) as deliberate seasoning. No
+   chart rewards this and no chart ever will; it is a differentiator precisely because
+   it is unmeasured.
+3. **Deliberate deviation from US airplay charts**, as a function of internet radio's
+   global reach. The station is distributed worldwide and its format grid is built on a
+   weighted global audience matrix — the blocks are literally named **European Morning**
+   and **Continental**. A playlist that mirrors US airplay has no reason to be chosen
+   over the US stations that *are* those charts.
+
+**The permission these grant.** The station is in accumulation mode with effectively no
+repeat listeners (~80% of connections abort inside a minute). **There is no TSL at risk
+from deviating from chart orthodoxy** — the risk runs the other way. Conformity is the
+expensive choice while the audience is being acquired; it should be re-evaluated once
+retention-mode behaviour appears in the AzuraCast data, not before.
+
+**What inherits from this.** Chart research is a *panel*, weighted by
+**format × measurement type × geography** — see Phase 4. A US chart position is evidence
+about the US market only. Absence from a US chart is not evidence of absence.
 
 ---
 
@@ -167,7 +198,38 @@ Order matters here, and the intuitive order is wrong.
 
 Distinct from the build. None of these should feel like a project.
 
-- **Adds and drops.** New music into the currents entry pool; retirements out.
+- **Chart research.** A weighted **panel**, not a chart. Three axes:
+  **format** (a rock record is read on the rock chart, an alternative record on the
+  alternative chart — using one for both inverts the ladder), **measurement type**
+  (airplay charts govern promotion and demotion; composite/consumption charts are an
+  *entry signal only*, since consumption leads airplay), and **geography** (§0b.3).
+
+  | Panel | Status | Notes |
+  |---|---|---|
+  | Mediabase Active Rock (US) | in use | airplay; AllAccess account, Tuesday PM, no programmatic access |
+  | Mediabase Alternative (US) | in use | airplay; same constraints |
+  | RadioWave ALT/ROCK 100 | in use | composite — **entry signal only** |
+  | Radio X (UK) | **not yet** | closest analogue to the hybrid; playlist adds are direct airplay |
+  | Triple J (AU) | **not yet** | arguably the best format match anywhere; English-native |
+  | Official Charts Co. (UK) Rock & Metal | **not yet** | |
+  | German / Dutch / Nordic alternative | **not yet** | the Continental block has nothing informing it |
+  | **AzuraCast listener behaviour** | Phase 5 | see below |
+
+  **Weights are not yet calibrated.** They should be, against outcomes — keep a
+  per-chart accuracy log rather than guessing. And record texture exclusions explicitly;
+  a record dropped for format fit under §0b.1 is a legitimate call, but only if it is
+  written down where it can be weighed against the charts.
+
+  **AzuraCast eventually outranks the whole panel.** External charts are a prior;
+  session-length and skip data are the posterior, and the only source measuring *this*
+  station's audience. Down-weight the external panel progressively as behavioural weeks
+  accumulate.
+
+- **Adds and drops.** New music into the currents entry pool; retirements out. Sourcing
+  runs **N-first** — new music enters at the entry pool and everything above is fed by
+  promotion. Skipping N is an exception requiring a reason: an overlooked hot record, one
+  that could not be sourced in time, or a net vacancy that N cannot fill this week. Some
+  records retire from N rather than promote.
 - **Lifecycle transitions.** Rising → falling → rest → recurrent → gold → bench.
   Currently manual, which is why the rest pool accumulated 148 songs against an
   8-song entry pool. Target state is standing rules that emit changesets for review.
@@ -190,8 +252,10 @@ Quarterly or on drift: re-run the Phase 1c convergence loop against current dept
     first principles rather than evidence.
 
 This phase has no dependencies and blocks nothing — which is exactly why it keeps not
-happening. It has already blocked two decisions (daypart weighting, TSL vs cume
-targeting) and will block the same ones again next quarter.
+happening. It has already blocked three decisions (daypart weighting, TSL vs cume
+targeting, and now chart-panel weighting per Phase 4) and will block the same ones
+again next quarter. It is also the only thing that can tell us when accumulation mode
+ends, which is the condition §0b attaches to re-evaluating chart conformity.
 
 ---
 
