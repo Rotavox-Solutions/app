@@ -42,6 +42,12 @@ export const songs = pgTable(
     title: text("title"),
     album: text("album"),
     durationMs: integer("duration_ms"),
+    // Effective segue length from RadioDJ's cue points: the next track starts at `xta`,
+    // not at end-of-file, so this is what the scheduler must use for timing. Averages
+    // 1.5s shorter than durationMs across the library and up to 23s on individual
+    // tracks — roughly 24 seconds of drift per hour if file duration is used instead.
+    // Mutable: the PD edits cue points, so this is re-read on EVERY sync, not once.
+    effectiveDurationMs: integer("effective_duration_ms"),
     path: text("path"),
     // RadioDJ has no category_id directly on songs (M0 found it's one hop via
     // subcategory.parentid) — both are denormalized here at sync time.

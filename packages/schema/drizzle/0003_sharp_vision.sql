@@ -1,0 +1,1 @@
+ALTER TABLE "songs" ADD COLUMN "effective_duration_ms" integer;

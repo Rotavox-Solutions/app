@@ -118,7 +118,8 @@ export async function loadGenerationInputs(
     artist: s.artist,
     title: s.title,
     album: s.album,
-    durationMs: s.durationMs,
+    // Effective segue length when RadioDJ has cue points; file duration otherwise.
+    durationMs: s.effectiveDurationMs ?? s.durationMs,
     songType: s.songType,
     categoryIds: categoryIdsBySong.get(s.id) ?? [],
     era: s.era,

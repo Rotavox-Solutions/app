@@ -3,7 +3,7 @@ import { eq, and } from "drizzle-orm";
 import { songs, syncState } from "@rotavox/schema";
 import { pool } from "./db.js";
 import { schedulerDb, pgClient, stationId } from "./scheduler-db.js";
-import { loadSchemaMap, requireCanonical } from "./schema-map.js";
+import { loadSchemaMap, requireCanonical, findColumn } from "./schema-map.js";
 
 const SYNC_KEY = "library_sync";
 const EPOCH = new Date(0);
@@ -48,6 +48,7 @@ async function main() {
   const enabledCol = requireCanonical(map, "enabled");
   const songTypeCol = requireCanonical(map, "song_type");
   const dateModifiedCol = requireCanonical(map, "date_modified");
+  const cueTimesCol = findColumn(map, "songs", "cue_times");
   const parentIdCol = map.categoryDerivation?.subcategoryParentIdColumn;
   if (!parentIdCol) {
     throw new Error("schema-map.json has no category derivation info — rerun `npm run introspect`.");
@@ -67,7 +68,7 @@ async function main() {
     `SELECT \`${songIdCol}\` AS rdjSongId, \`${artistCol}\` AS artist, \`${titleCol}\` AS title, \`${albumCol}\` AS album,
             \`${pathCol}\` AS path, \`${durationCol}\` AS duration, \`${subcategoryIdCol}\` AS subcategoryId,
             \`${genreIdCol}\` AS genreId, \`${enabledCol}\` AS enabled, \`${songTypeCol}\` AS songType,
-            \`${dateModifiedCol}\` AS dateModified
+            \`${dateModifiedCol}\` AS dateModified${cueTimesCol ? `, \`${cueTimesCol}\` AS cueTimes` : ""}
      FROM \`${songsTable}\`
      WHERE \`${dateModifiedCol}\` > ?
      ORDER BY \`${dateModifiedCol}\` ASC`,
@@ -83,6 +84,29 @@ async function main() {
 
   console.log(`Fetched ${rows.length} changed song(s).`);
 
+  /**
+   * RadioDJ stores cue points as `&sta=..&xta=..&end=..&fin=..&fou=..` in seconds.
+   * The next track starts at `xta`, so the length that matters for scheduling is
+   * xta - sta, not the file duration. Returns null when the field is absent or
+   * unparseable, in which case the caller falls back to file duration.
+   */
+  const effectiveMs = (cue: string | null | undefined, fileMs: number | null): number | null => {
+    if (!cue) return null;
+    const num = (key: string): number | null => {
+      const m = new RegExp(`[&?]${key}=([0-9.]+)`).exec(cue);
+      const v = m ? Number(m[1]) : NaN;
+      return Number.isFinite(v) ? v : null;
+    };
+    const sta = num("sta") ?? 0;
+    const xta = num("xta") ?? num("end");
+    if (xta == null) return null;
+    const ms = Math.round((xta - sta) * 1000);
+    // Guard against nonsense cue data producing a zero-length or absurd track.
+    if (ms <= 0) return null;
+    if (fileMs != null && ms > fileMs * 1.5) return null;
+    return ms;
+  };
+
   for (const row of rows) {
     const rdjCategoryId = categoryBySubcat.get(row.subcategoryId) ?? null;
     // Core fields only — extended metadata (era/tempo/energy/mood/...) is
@@ -93,6 +117,10 @@ async function main() {
       title: row.title,
       album: row.album,
       durationMs: row.duration != null ? Math.round(Number(row.duration) * 1000) : null,
+      effectiveDurationMs: effectiveMs(
+        row.cueTimes,
+        row.duration != null ? Math.round(Number(row.duration) * 1000) : null
+      ),
       path: row.path,
       rdjSubcategoryId: row.subcategoryId,
       rdjCategoryId,
