@@ -9,11 +9,14 @@ import type {
   PositionType,
 } from "./types.js";
 import { DEFAULT_CONFIG } from "./types.js";
+
+/** Lookback for the soft hour-spread component when no horizontal rule is configured. */
+const DEFAULT_HOUR_SPREAD_DAYS = 3;
 import { createRng } from "./rng.js";
 import { assertHourAligned, iterateHours, localParts, weekInCycle } from "./time.js";
 import { SeparationState } from "./separation.js";
 import { ancestry, buildCategoryIndex, buildStationConstraints, resolveRules, subtree } from "./rules.js";
-import { basePool } from "./candidates.js";
+import { basePool, hourDistance } from "./candidates.js";
 import { buildRungs, fillPosition } from "./ladder.js";
 
 const ELEMENT_TYPE: Record<PositionType, ElementType> = {
@@ -179,6 +182,10 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
           resolveTurnover: (song) => targetTurnoverFor(song, poolAncestry, categoryIndex, config),
           artistWindowMin: eff.artistSepMin,
           weights: config.weights,
+          slotHour: localParts(at, input.timezone).hour,
+          hourSpreadDays: eff.horizontalSep?.minDays ?? DEFAULT_HOUR_SPREAD_DAYS,
+          hourDistance,
+          toLocalHour: (t) => localParts(new Date(t), input.timezone).hour,
         },
         config,
         rng,

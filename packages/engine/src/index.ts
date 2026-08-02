@@ -20,10 +20,11 @@ export {
   moodFitScore,
   soundFitScore,
   nearSeparationPenalty,
+  hourSpreadScore,
   scoreCandidate,
 } from "./scoring.js";
 export type { ScoreContext } from "./scoring.js";
 export { buildRungs, fillPosition } from "./ladder.js";
 export type { Rung, FillResult } from "./ladder.js";
-export { basePool, hardFilter } from "./candidates.js";
+export { basePool, hardFilter, hourDistance } from "./candidates.js";
 export type { FilterContext } from "./candidates.js";

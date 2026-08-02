@@ -95,6 +95,8 @@ export interface EngineWeights {
   mood: number;
   sound: number;
   nearSeparationPenalty: number;
+  /** Rewards landing far from this song's recent hours-of-day. */
+  hourSpread: number;
 }
 
 export interface EngineConfig {
@@ -121,7 +123,7 @@ export interface EngineConfig {
 export const DEFAULT_CONFIG: EngineConfig = {
   searchDepth: 5,
   jitterMagnitude: 0.05,
-  weights: { rest: 0.4, flow: 0.2, era: 0.15, mood: 0.1, sound: 0.1, nearSeparationPenalty: 0.25 },
+  weights: { rest: 0.4, flow: 0.2, era: 0.15, mood: 0.1, sound: 0.1, nearSeparationPenalty: 0.25, hourSpread: 0.2 },
   relaxationSteps: [0.75, 0.5, 0.25],
   defaultDurationMs: 210_000,
   defaultTurnoverHours: 24,

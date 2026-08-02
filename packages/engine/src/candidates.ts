@@ -33,6 +33,12 @@ export function basePool(
     .sort((a, b) => a.rdjSongId - b.rdjSongId); // stable order for deterministic RNG mapping
 }
 
+/** Circular distance between two hours-of-day, 0..12. */
+export function hourDistance(a: number, b: number): number {
+  const d = Math.abs(a - b) % 24;
+  return Math.min(d, 24 - d);
+}
+
 /**
  * Hard filters for one rung. Separation windows arrive pre-scaled by the rung's
  * shrink factors; `rung.ignoreSeparation` (last resort) drops separations and
@@ -71,6 +77,17 @@ export function hardFilter(candidates: EngineSong[], rung: Rung, ctx: FilterCont
       if (sep.gapMinutes("title", song.title, at) < window) return false;
     }
     if (!rung.dropSecondary) {
+      // Horizontal separation: this song must not have played near this hour-of-day
+      // within the last `minDays`. Treated as a secondary hard rule — it is a quality
+      // constraint, not a safety one, so it yields before the schedule goes unfilled.
+      if (eff.horizontalSep) {
+        const { windowHours, minDays } = eff.horizontalSep;
+        const recent = sep.playsWithin(song.rdjSongId, at, minDays * 86_400_000);
+        for (const t of recent) {
+          const h = localParts(new Date(t), ctx.timezone).hour;
+          if (hourDistance(h, local.hour) < windowHours) return false;
+        }
+      }
       if (eff.albumSepMin != null && song.album) {
         if (sep.gapMinutes("album", song.album, at) < eff.albumSepMin) return false;
       }

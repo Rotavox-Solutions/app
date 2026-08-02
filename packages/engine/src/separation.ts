@@ -15,18 +15,45 @@ export class SeparationState {
   private title = new Map<string, number>();
   private album = new Map<string, number>();
   private song = new Map<number, number>();
+  // Horizontal separation needs more than "when did this last play" — it needs the
+  // hour-of-day of several recent plays. Bounded so a long regen can't grow unbounded.
+  private songPlays = new Map<number, number[]>();
 
   constructor(history: HistoryEntry[]) {
     for (const h of history) {
       if (h.artist) this.bump(this.artist, normKey(h.artist), h.airedAt.getTime());
       if (h.title) this.bump(this.title, normKey(h.title), h.airedAt.getTime());
-      if (h.rdjSongId != null) this.bump(this.song, h.rdjSongId, h.airedAt.getTime());
+      if (h.rdjSongId != null) {
+        this.bump(this.song, h.rdjSongId, h.airedAt.getTime());
+        this.pushPlay(h.rdjSongId, h.airedAt.getTime());
+      }
     }
   }
 
   private bump<K>(map: Map<K, number>, key: K, t: number): void {
     const prev = map.get(key);
     if (prev === undefined || t > prev) map.set(key, t);
+  }
+
+  private static readonly MAX_PLAYS = 64;
+
+  private pushPlay(songId: number, t: number): void {
+    const list = this.songPlays.get(songId);
+    if (!list) { this.songPlays.set(songId, [t]); return; }
+    list.push(t);
+    if (list.length > SeparationState.MAX_PLAYS) list.splice(0, list.length - SeparationState.MAX_PLAYS);
+  }
+
+  /**
+   * Timestamps of this song's plays strictly within `withinMs` before `at`.
+   * Plays at or after `at` are excluded — during a regen over already-aired history
+   * the future is not evidence about the slot being filled.
+   */
+  playsWithin(songId: number, at: Date, withinMs: number): number[] {
+    const list = this.songPlays.get(songId);
+    if (!list) return [];
+    const now = at.getTime(), floor = now - withinMs;
+    return list.filter((t) => t > floor && t < now);
   }
 
   private mapFor(kind: SepKind): Map<string | number, number> {
@@ -61,5 +88,6 @@ export class SeparationState {
     if (song.title) this.bump(this.title, normKey(song.title), t);
     if (song.album) this.bump(this.album, normKey(song.album), t);
     this.bump(this.song, song.rdjSongId, t);
+    this.pushPlay(song.rdjSongId, t);
   }
 }

@@ -59,6 +59,31 @@ export function nearSeparationPenalty(
   return -0.5 * ((2 * artistWindowMin - gap) / artistWindowMin);
 }
 
+/**
+ * Horizontal spread: 1 when this song's recent plays are all far from the candidate
+ * slot's hour-of-day, 0 when one sits right on it. Complements the hard rule — the
+ * rule forbids the worst placements, this steers the rest of the pool toward hours a
+ * song has been absent from. Null-neutral: never played in the window → 1.
+ *
+ * `toLocalHour` is injected rather than imported so this module stays free of
+ * timezone knowledge, consistent with the rest of the package.
+ */
+export function hourSpreadScore(
+  sep: SeparationState,
+  song: EngineSong,
+  at: Date,
+  slotHour: number,
+  lookbackDays: number,
+  toLocalHour: (t: number) => number,
+  hourDistance: (a: number, b: number) => number
+): number {
+  const recent = sep.playsWithin(song.rdjSongId, at, lookbackDays * 86_400_000);
+  if (recent.length === 0) return 1;
+  let nearest = 12;
+  for (const t of recent) nearest = Math.min(nearest, hourDistance(toLocalHour(t), slotHour));
+  return nearest / 12;
+}
+
 export interface ScoreContext {
   sep: SeparationState;
   at: Date;
@@ -69,6 +94,12 @@ export interface ScoreContext {
   resolveTurnover: (song: EngineSong) => number;
   artistWindowMin: number | null;
   weights: EngineWeights;
+  /** Slot's local hour-of-day, for horizontal spread scoring. */
+  slotHour: number;
+  /** Lookback for horizontal spread; 0 disables the component. */
+  hourSpreadDays: number;
+  hourDistance: (a: number, b: number) => number;
+  toLocalHour: (t: number) => number;
 }
 
 /** Full soft score, excluding jitter (the caller adds its own seeded draw). */
@@ -80,6 +111,12 @@ export function scoreCandidate(song: EngineSong, ctx: ScoreContext): number {
     w.era * eraSpreadScore(song, ctx.recentEras) +
     w.mood * moodFitScore(song, ctx.constraints) +
     w.sound * soundFitScore(song, ctx.constraints) +
-    w.nearSeparationPenalty * nearSeparationPenalty(ctx.sep, song, ctx.at, ctx.artistWindowMin)
+    w.nearSeparationPenalty * nearSeparationPenalty(ctx.sep, song, ctx.at, ctx.artistWindowMin) +
+    (ctx.hourSpreadDays > 0
+      ? w.hourSpread *
+        hourSpreadScore(
+          ctx.sep, song, ctx.at, ctx.slotHour, ctx.hourSpreadDays, ctx.toLocalHour, ctx.hourDistance
+        )
+      : 0)
   );
 }

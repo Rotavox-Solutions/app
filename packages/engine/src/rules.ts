@@ -15,6 +15,13 @@ export interface EffectiveRules {
   titleSepMin: number | null;
   albumSepMin: number | null;
   tempoClashHard: { ruleId: string; maxJump: number } | null;
+  /**
+   * Horizontal rotation: keeps a song off the same time-of-day on consecutive plays.
+   * Depth alone cannot deliver this — a 7-song power pool against 318 weekly slots
+   * returns to any given slot no matter how the numbers are chosen — so it is
+   * enforced rather than inferred.
+   */
+  horizontalSep: { ruleId: string; windowHours: number; minDays: number } | null;
   /** rule ids backing each separation window, for violation payloads */
   ruleIds: { artist?: string; title?: string; album?: string };
 }
@@ -96,6 +103,7 @@ export function resolveRules(
     titleSepMin: null,
     albumSepMin: null,
     tempoClashHard: null,
+    horizontalSep: null,
     ruleIds: {},
   };
 
@@ -132,6 +140,14 @@ export function resolveRules(
           if (m != null) {
             eff.albumSepMin = m;
             eff.ruleIds.album = rule.id;
+          }
+          break;
+        }
+        case "horizontal_separation": {
+          const w = rule.params?.["windowHours"];
+          const d = rule.params?.["minDays"];
+          if (typeof w === "number" && typeof d === "number" && w > 0 && d > 0) {
+            eff.horizontalSep = { ruleId: rule.id, windowHours: w, minDays: d };
           }
           break;
         }
