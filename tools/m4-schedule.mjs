@@ -39,22 +39,22 @@ const identityOf = (code) => IDENTITY[code] ?? code;
 
 // ---------- 2. clock shapes: category -> positions per hour ----------
 const SHAPES = {
-  ES: { A1:3, A2:2, B:3, C:1, N:1, R1:1, R2:1, R3:1, G2010:2, Discovery:1 },
-  FF: { A1:3, A2:2, B:2, C:1, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:1, Discovery:1 },
-  HD: { A1:3, A2:1, B:2, C:2, R1:1, R2:1, R3:1, G2010:2, G2000:1, G1990:1, Discovery:1 },
-  CO: { A1:2, A2:1, B:2, C:1, R1:1, R2:2, R3:1, G2010:2, G2000:2, G1990:1, Discovery:1 },
+  // N (new music) is carried in every music block except Golden Hour, and doubled in
+  // the two peak blocks. Positions came out of gold — a deliberate trade of gold
+  // plays for new-music exposure, per PD direction 2026-08-01.
+  ES: { A1:3, A2:2, B:3, C:1, N:2, R1:1, R2:1, R3:1, G2010:1, Discovery:1 },
+  FF: { A1:3, A2:2, B:2, C:1, N:2, R1:1, R2:1, R3:1, G2010:2, Discovery:1 },
+  HD: { A1:3, A2:1, B:2, C:2, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:1, Discovery:1 },
+  CO: { A1:2, A2:1, B:2, C:1, N:1, R1:1, R2:2, R3:1, G2010:2, G2000:1, G1990:1, Discovery:1 },
   WW: { A1:2, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:1, H:1, Discovery:1 },
   // Wind Down is ET 20-23 / PT 17-20 — the most US-dominant music block, so Heritage
   // is sited here rather than in the Europe-heavy hours it used to lean on.
-  WD: { A1:1, A2:1, B:1, C:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:2, H:2, Discovery:1 },
-  // European Morning: CE 08-13, UK 07-12. Morning texture — currents and G2010 forward,
-  // Heritage as seasoning only (94 songs, the shallowest gold pool).
-  EM: { A1:1, A2:1, B:2, C:2, R1:1, R2:1, R3:1, G2010:2, G2000:1, G1990:2, H:1, Discovery:1 },
-  // G2010 held at 2 — the 20-30 demo skews to off-schedule listening, so its tier
-  // must not thin out in the off-hours blocks. G2000 averages 1.5; the remaining
-  // 6.5 splits between G1990 and H, the deepest and the most underused pools.
-  DNa: { A1:1, C:1, R2:1, R3:1, G2010:2, G2000:2, G1990:3, H:3, Discovery:1 },
-  DNb: { A1:1, C:1, R2:1, R3:1, G2010:2, G2000:1, G1990:4, H:3, Discovery:1 },
+  WD: { A1:1, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:1, H:2, Discovery:1 },
+  // European Morning: CE 08-13, UK 07-12. Morning texture, Heritage as seasoning only.
+  EM: { A1:1, A2:1, B:2, C:2, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:1, G1990:1, H:1, Discovery:1 },
+  // G2010 held at 2 — the 20-30 demo skews to off-schedule listening.
+  DNa: { A1:1, C:1, N:1, R2:1, R3:1, G2010:2, G2000:2, G1990:2, H:3, Discovery:1 },
+  DNb: { A1:1, C:1, N:1, R2:1, R3:1, G2010:2, G2000:1, G1990:3, H:3, Discovery:1 },
   GH:  { G2010:2, G2000:2, G1990:6, H:4, Discovery:1 },
 };
 
@@ -87,7 +87,7 @@ const DEPTH = {
 // required depth = target turnover x slots per hour. Active Rock heavy sits at 3-4h
 // for the power tier; everything else ladders down from there.
 const TURNOVER = {
-  A1: 3.5, A2: 5, B: 8, C: 14, N: 12,
+  A1: 3.5, A2: 5, B: 8, C: 14, N: 33,   // N deliberately wide: many new tracks, ~5 plays/wk each
   R1: 24, R2: 36, R3: 48,
   G2010: 72, G2000: 96, G1990: 120, H: 150,
   Discovery: 36,
@@ -190,43 +190,60 @@ for (const d of [7, 8, 10, 12]) {
 // ---------- horizontal-rotation lock check ----------
 // A song's play pattern repeats every `denominator(slots_wk / depth)` weeks. An
 // integer plays/wk means it lands on the same hours every week — time-of-day lock.
-// Chosen depths. For T >= 12h the constraint is the return period — days before a song
-// lands on the same hour again. For T < 12h that constraint is meaningless: a song
-// playing 6.5x/day is in 6-7 different hours EVERY day by construction, so the only
-// thing to avoid is an INTEGER plays-per-day, which would pin it to fixed clock times.
-// C and A2 are hand-set (see M4 notes); everything else is the search result.
-const DEPTH_TARGET = {
-  A1:7, A2:6, B:14, N:4, C:17,
-  R1:21, R2:41, R3:60, Discovery:35,
-  G2010:143, G2000:107, G1990:167, H:139,
-};
-const gcd = (a, b) => (b ? gcd(b, a % b) : a);
-const isPrime = (n) => {
-  if (n < 2) return false;
-  for (let i = 2; i * i <= n; i++) if (n % i === 0) return false;
-  return true;
-};
-function returnDays(T) {
-  for (let k = 1; k <= 5000; k++) {
-    const m = ((k * T) % 24 + 24) % 24;
-    if (m < 0.5 || m > 23.5) return (k * T) / 24;
+// ---------- depth selection by drift-per-cycle ----------
+// What a habitual listener experiences is not the eventual return period but the
+// DRIFT each cycle: how far the play time moves relative to a whole number of days.
+//   delta = |T - 24 * round(T/24)|
+// < 2h  -> successive plays land inside the same listening window. Failure.
+//   3h  -> floor: clears a 2h window with margin.
+// 7-11h -> target: the song crosses dayparts each cycle.
+//  ~12h -> alternates between only two hours. Avoid.
+// exact divisors of 24 (2,3,4,6,8) visit a handful of hours then stop. Avoid.
+const DRIFT_MIN = 3, DRIFT_IDEAL = 9;
+const drift = (T) => Math.abs(T - 24 * Math.round(T / 24));
+const nearDivisor = (d) => [2, 3, 4, 6, 8, 12].some((k) => Math.abs(d - k) < 0.4);
+const ppdOffset = (T) => { const p = 24 / T; return Math.abs(p - Math.round(p)); };
+
+function pickDepth(cat, slots, target, taken) {
+  const naive = Math.max(2, Math.round(target * (slots / 168)));
+  let best = null;
+  for (let d = Math.max(2, Math.floor(naive * 0.6)); d <= Math.ceil(naive * 1.6); d++) {
+    const T = (168 * d) / slots;
+    if (Math.abs(T - target) / target > 0.3) continue;
+    let score;
+    if (T < 12) {
+      if (ppdOffset(T) < 0.15) continue;
+      score = 20 - Math.abs(T - target) / target * 30;
+    } else {
+      const dl = drift(T);
+      if (dl < DRIFT_MIN || nearDivisor(dl)) continue;
+      score = 20 - Math.abs(dl - DRIFT_IDEAL) * 2 - Math.abs(T - target) / target * 30;
+    }
+    if (taken.some((t) => Math.abs(t - T) / Math.min(t, T) < 0.05)) score -= 6;
+    if (!best || score > best.score) best = { d, T, score };
   }
-  return Infinity;
+  return best;
 }
-// Repeat cycle in weeks = depth / gcd(slots_wk, depth). A prime depth is NOT enough on
-// its own — B at 13 is prime but 273 = 3x7x13, so it still locks to 1 week. The depth
-// must be COPRIME with the slot count. Prefer primes that also divide nothing in it.
-console.log("\n## Chosen depths — horizontal spread check\n");
-console.log("| Category | Slots/wk | **Depth** | Turnover | Plays/day | Same hour again | Have | Delta |");
-console.log("|---|---|---|---|---|---|---|---|");
-for (const cat of allCats) {
+
+const DEPTH_TARGET = {};
+const takenT = [];
+for (const cat of [...CUR, ...REC, "Discovery", ...GOLD]) {
   const w = demand[cat] ?? 0;
   if (!w) continue;
-  const d = DEPTH_TARGET[cat];
+  const pick = pickDepth(cat, w, TURNOVER[cat], takenT);
+  if (!pick) { console.error(`!! ${cat}: no depth satisfies the drift constraint`); continue; }
+  DEPTH_TARGET[cat] = pick.d;
+  takenT.push(pick.T);
+}
+
+console.log("\n## Chosen depths — drift per cycle\n");
+console.log("| Category | Slots/wk | **Depth** | Turnover | Plays/day | Drift per cycle | Have | Delta |");
+console.log("|---|---|---|---|---|---|---|---|");
+for (const cat of allCats) {
+  const w = demand[cat] ?? 0, d = DEPTH_TARGET[cat];
+  if (!w || !d) continue;
   const T = (168 * d) / w, ppd = 24 / T;
-  const spread = T < 12
-    ? `n/a — ${ppd.toFixed(2)}/day, non-integer`
-    : (returnDays(T) === Infinity ? "never" : `${returnDays(T).toFixed(0)} days`);
+  const note = T < 12 ? `n/a — ${ppd.toFixed(2)}/day` : `${drift(T).toFixed(1)}h every ${(T / 24).toFixed(1)}d`;
   const have = DEPTH[cat] ?? 0;
-  console.log(`| ${cat} | ${w} | **${d}** | ${T.toFixed(1)}h | ${ppd.toFixed(2)} | ${spread} | ${have} | ${have - d >= 0 ? "+" : ""}${have - d} |`);
+  console.log(`| ${cat} | ${w} | **${d}** | ${T.toFixed(1)}h | ${ppd.toFixed(2)} | ${note} | ${have} | ${have - d >= 0 ? "+" : ""}${have - d} |`);
 }
