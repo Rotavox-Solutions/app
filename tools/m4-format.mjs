@@ -42,10 +42,10 @@ export const SHAPES = {
   // N (new music) is carried in every music block except Golden Hour, and doubled in
   // the two peak blocks. Positions came out of gold — a deliberate trade of gold
   // plays for new-music exposure, per PD direction 2026-08-01.
-  ES: { A1:3, A2:2, B:3, C:1, N:2, R1:1, R2:1, R3:1, G2010:1, Discovery:1 },
+  ES: { A1:3, A2:3, B:2, C:1, N:2, R1:1, R2:1, R3:1, G2010:1, Discovery:1 },
   FF: { A1:3, A2:2, B:2, C:1, N:2, R1:1, R2:1, R3:1, G2010:2, Discovery:1 },
-  HD: { A1:3, A2:1, B:2, C:2, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:1, Discovery:1 },
-  CO: { A1:2, A2:1, B:2, C:1, N:1, R1:1, R2:2, R3:1, G2010:2, G2000:1, G1990:1, Discovery:1 },
+  HD: { A1:3, A2:2, B:1, C:2, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:1, Discovery:1 },
+  CO: { A1:2, A2:2, B:1, C:1, N:1, R1:1, R2:2, R3:1, G2010:2, G2000:1, G1990:1, Discovery:1 },
   WW: { A1:2, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:2, Discovery:1 },
   // Wind Down is ET 20-23 / PT 17-20 — the most US-dominant music block, so Heritage
   // is sited here rather than in the Europe-heavy hours it used to lean on.
@@ -90,8 +90,14 @@ export const DEPTH_TARGET = {
   // depth and produced a broken ladder: A1 at 5.05 plays/day then a cliff to A2 at
   // 2.16 and a flat plateau below, which is a power tier with three light tiers under
   // it rather than an Alternative CHR currents ladder.
-  //   A1 4.54  A2 3.52  B 2.44  C 1.79  N 1.47 plays/day
-  A1: 10, A2: 8, B: 16, C: 16, N: 20,
+  // Depth must WIDEN as the ladder descends — a power tier is narrow and hot, lower
+  // tiers wide and light. An earlier pass produced A2 (8) shallower than A1 (10),
+  // which is inverted. The cause was upstream: the clock shapes gave B more weekly
+  // slots than A2, so A2 could not be both deeper and lighter than B. Fixed in
+  // SHAPES (ES/HD/CO), giving slots A1 318 > A2 248 > B 222 > N 206 > C 201.
+  //   depth   10 < 13 < 14 < 16 < 20
+  //   plays/day 4.54 > 2.73 > 2.27 > 1.79 > 1.47
+  A1: 10, A2: 13, B: 14, C: 16, N: 20,
   R1: 29, R2: 43, R3: 70, Discovery: 29,
   G2010: 155, G2000: 99, G1990: 163, H: 70,
 };
@@ -119,8 +125,8 @@ export const RESIDENCY_WEEKS = {
  */
 export const HORIZONTAL = {
   A1: { windowHours: 1, minDays: 4 },
-  A2: { windowHours: 1, minDays: 4 },
-  B: { windowHours: 1, minDays: 4 },
+  A2: { windowHours: 1, minDays: 1 },
+  B: { windowHours: 1, minDays: 10 },
   C: { windowHours: 1, minDays: 1 },
   N: { windowHours: 1, minDays: 1 },
 };
