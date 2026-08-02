@@ -11,7 +11,7 @@
 // slots is not working, and in the real engine a yield means the ladder relaxed.
 //
 // usage: node tools/rule-sim.mjs [weeks]
-import { weekSlots, DEPTH, CUR, REC, GOLD } from "./m4-format.mjs";
+import { weekSlots, DEPTH, CUR, REC, GOLD, BLOCKS, cellFor, SHAPES } from "./m4-format.mjs";
 
 const WEEKS = Number(process.argv[2] ?? 26);
 
@@ -141,3 +141,76 @@ for (const cat of [...CUR, ...REC, "Discovery", ...GOLD]) {
   wSum += on.repeat * w; wTot += w;
 }
 console.log(`\n**Slot-weighted week-to-week repeat: ${((wSum / wTot) * 100).toFixed(1)}%**`);
+
+// ---------------------------------------------------------------------------
+// PER-BLOCK breakdown. The aggregate averages over all 168 cells, which is a
+// number no listener experiences: a US Eastern listener at 9am is in Eastern
+// Sunrise, a Central European listener at 9am is in European Morning, and they
+// never share a cell. Freshness has to be read per block.
+//
+// Governing relationship, from sweeping depth against density: week-to-week
+// repeat stays low only while
+//        depth >= ~3.5 x (plays of that category per cell per week)
+// A cume-block cell carrying 3 A1/hr therefore needs ~11 A1 songs; at 4/hr it
+// needs ~14. Below that the same songs necessarily recur in the slot.
+// ---------------------------------------------------------------------------
+const ROLE = { ES: "cume", FF: "peak", HD: "cume", CO: "TSL", WW: "TSL",
+               WD: "TSL", EM: "TSL", GH: "low", DNa: "low", DNb: "low" };
+
+function perBlock(cat, depth) {
+  const cs = [];
+  for (let dow = 0; dow < 7; dow++) for (let hour = 0; hour < 24; hour++) {
+    const code = cellFor(dow, hour);
+    const n = SHAPES[code][cat] ?? 0;
+    for (let i = 0; i < n; i++) cs.push({ dow, hour, block: code });
+  }
+  const p = PARAMS[cat];
+  const plays = Array.from({ length: depth }, () => []);
+  const last = new Array(depth).fill(-Infinity);
+  const cell = new Map();
+  for (let w = 0; w < WEEKS; w++) for (const s of cs) {
+    const ah = w * 168 + s.dow * 24 + s.hour;
+    const ord = Array.from({ length: depth }, (_, i) => i).sort((a, b) => last[a] - last[b]);
+    let pick = ord[0];
+    if (p) {
+      const ok = ord.find((i) => !plays[i].some(
+        (x) => ah - x < p.minDays * 24 && hourDistance(x % 24, s.hour) < p.windowHours));
+      if (ok !== undefined) pick = ok;
+    }
+    plays[pick].push(ah); last[pick] = ah;
+    const k = s.dow * 24 + s.hour;
+    if (!cell.has(k)) cell.set(k, { block: s.block, v: [] });
+    cell.get(k).v.push({ week: w, song: pick });
+  }
+  const agg = {};
+  for (const { block, v } of cell.values()) {
+    const bw = new Map();
+    for (const x of v) { if (!bw.has(x.week)) bw.set(x.week, new Set()); bw.get(x.week).add(x.song); }
+    const ws = [...bw.keys()].sort((a, b) => a - b);
+    agg[block] ??= { same: 0, pairs: 0 };
+    for (let i = 1; i < ws.length; i++) {
+      agg[block].pairs++;
+      if ([...bw.get(ws[i])].some((x) => bw.get(ws[i - 1]).has(x))) agg[block].same++;
+    }
+  }
+  const out = {};
+  for (const [b, x] of Object.entries(agg)) out[b] = x.pairs ? x.same / x.pairs : 0;
+  return out;
+}
+
+console.log("\n## Per-block week-to-week repeat — currents\n");
+const curCats = CUR.filter((c) => DEPTH_TARGET[c]);
+console.log("| Block | Role | hrs/wk | " + curCats.join(" | ") + " |");
+console.log("|---|---|---|" + curCats.map(() => "---").join("|") + "|");
+const hrs = {};
+for (let d = 0; d < 7; d++) for (let h = 0; h < 24; h++) { const c = cellFor(d, h); hrs[c] = (hrs[c] ?? 0) + 1; }
+const tables = Object.fromEntries(curCats.map((c) => [c, perBlock(c, DEPTH_TARGET[c])]));
+for (const code of Object.keys(BLOCKS)) {
+  const cells = curCats.map((c) => tables[c][code] === undefined ? "—" : `${(tables[c][code] * 100).toFixed(0)}%`);
+  console.log(`| ${code} | ${ROLE[code]} | ${hrs[code]} | ${cells.join(" | ")} |`);
+}
+const avg = (t, ks) => { const f = ks.filter((k) => t[k] !== undefined); return f.length ? f.reduce((a, k) => a + t[k], 0) / f.length : 0; };
+console.log("\n| Grouping | " + curCats.join(" | ") + " |");
+console.log("|---|" + curCats.map(() => "---").join("|") + "|");
+for (const [label, ks] of [["cume + peak", ["ES", "HD", "FF"]], ["TSL", ["CO", "WW", "WD", "EM"]]])
+  console.log(`| ${label} | ` + curCats.map((c) => `${(avg(tables[c], ks) * 100).toFixed(0)}%`).join(" | ") + " |");
