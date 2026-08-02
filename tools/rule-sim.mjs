@@ -13,7 +13,7 @@
 // usage: node tools/rule-sim.mjs [weeks]
 import { weekSlots, DEPTH, CUR, REC, GOLD } from "./m4-format.mjs";
 
-const WEEKS = Number(process.argv[2] ?? 12);
+const WEEKS = Number(process.argv[2] ?? 26);
 
 const DEPTH_TARGET = {
   A1: 11, A2: 11, B: 19, C: 19, N: 17,
@@ -32,12 +32,17 @@ const DEPTH_TARGET = {
  *
  * So it is scoped to currents only. null = no rule.
  */
+// Parameters are chosen subject to a <=25% YIELD CAP. That constraint improves both
+// metrics rather than trading against them: an unconstrained sweep picked A1 +-1h/10d,
+// which yields on 69% of slots and scores 25% repeat, where +-1h/4d yields on 5% and
+// scores 9%. A rule that cannot be satisfied does not schedule — it just makes the
+// engine relax, and in the engine a yield drops album separation and tempo clash too.
 const PARAMS = {
-  A1: { windowHours: 1, minDays: 5 },
-  A2: { windowHours: 2, minDays: 3 },
+  A1: { windowHours: 1, minDays: 4 },
+  A2: { windowHours: 1, minDays: 1 },
   B: { windowHours: 1, minDays: 10 },
-  C: { windowHours: 1, minDays: 10 },
-  N: { windowHours: 1, minDays: 10 },
+  C: null, // passive rotation already reaches 0% week-to-week repeat
+  N: { windowHours: 2, minDays: 2 },
   R1: null, R2: null, R3: null, Discovery: null,
   G2010: null, G2000: null, G1990: null, H: null,
 };
@@ -56,6 +61,17 @@ for (const s of slots) {
 /**
  * @param withRule when false, degrades to the plain FIFO baseline.
  * Returns { freshness, yieldRate }.
+ */
+/**
+ * METRIC. An earlier version scored "distinct songs / total plays in a cell", which is
+ * bounded by depth / (plays-per-cell x weeks) and therefore DECAYS as the observation
+ * window grows, however good the rotation is — over 52 weeks A1 scores 11% no matter
+ * how it is scheduled. That measured the window, not the listener.
+ *
+ * This measures week-to-week repeat: for a listener in a fixed weekly slot, how often
+ * does this week repeat a song from last week. Stable across window length, and it is
+ * the stated concern — hearing at 9am today what you heard at 9am yesterday.
+ * LOWER IS BETTER.
  */
 function simulate(cat, depth, withRule) {
   const catSlots = byCat.get(cat) ?? [];
@@ -85,22 +101,31 @@ function simulate(cat, depth, withRule) {
       lastPlay[pick] = absHour;
       const k = s.dow * 24 + s.hour;
       if (!cell.has(k)) cell.set(k, []);
-      cell.get(k).push(pick);
+      cell.get(k).push({ week: w, song: pick });
     }
   }
 
-  let sum = 0, n = 0;
+  let same = 0, pairs = 0;
   for (const seen of cell.values()) {
-    if (seen.length < 2) continue;
-    sum += new Set(seen).size / seen.length;
-    n++;
+    const byWeek = new Map();
+    for (const x of seen) {
+      if (!byWeek.has(x.week)) byWeek.set(x.week, new Set());
+      byWeek.get(x.week).add(x.song);
+    }
+    const ws = [...byWeek.keys()].sort((a, b) => a - b);
+    for (let i = 1; i < ws.length; i++) {
+      pairs++;
+      if ([...byWeek.get(ws[i])].some((x) => byWeek.get(ws[i - 1]).has(x))) same++;
+    }
   }
-  return { freshness: n ? sum / n : 1, yieldRate: total ? yields / total : 0 };
+  return { repeat: pairs ? same / pairs : 0, yieldRate: total ? yields / total : 0 };
 }
 
 console.log(`## Expected freshness with the horizontal rule — ${WEEKS} weeks\n`);
 console.log("Rule applied to CURRENTS ONLY — see PARAMS for why.\n");
-console.log("| Category | Depth | Plays/day | Passive | **With rule** | Gain | Rule yielded |");
+console.log("Week-to-week repeat rate — share of weeks a fixed-slot listener hears a song");
+console.log("they heard in that slot last week. LOWER IS BETTER.\n");
+console.log("| Category | Depth | Plays/day | Passive | **With rule** | Change | Rule yielded |");
 console.log("|---|---|---|---|---|---|---|");
 let wSum = 0, wTot = 0;
 for (const cat of [...CUR, ...REC, "Discovery", ...GOLD]) {
@@ -109,10 +134,10 @@ for (const cat of [...CUR, ...REC, "Discovery", ...GOLD]) {
   if (!d || !w) continue;
   const off = simulate(cat, d, false);
   const on = simulate(cat, d, true);
-  const gain = on.freshness - off.freshness;
+  const gain = on.repeat - off.repeat;
   console.log(
-    `| ${cat} | ${d} | ${(24 / (168 * d / w)).toFixed(2)} | ${(off.freshness * 100).toFixed(0)}% | **${(on.freshness * 100).toFixed(0)}%** | ${gain >= 0 ? "+" : ""}${(gain * 100).toFixed(0)}pp | ${(on.yieldRate * 100).toFixed(1)}% |`
+    `| ${cat} | ${d} | ${(24 / (168 * d / w)).toFixed(2)} | ${(off.repeat * 100).toFixed(0)}% | **${(on.repeat * 100).toFixed(0)}%** | ${gain >= 0 ? "+" : ""}${(gain * 100).toFixed(0)}pp | ${(on.yieldRate * 100).toFixed(1)}% |`
   );
-  wSum += on.freshness * w; wTot += w;
+  wSum += on.repeat * w; wTot += w;
 }
-console.log(`\n**Slot-weighted expected freshness: ${((wSum / wTot) * 100).toFixed(1)}%**`);
+console.log(`\n**Slot-weighted week-to-week repeat: ${((wSum / wTot) * 100).toFixed(1)}%**`);
