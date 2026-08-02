@@ -46,16 +46,19 @@ export const SHAPES = {
   FF: { A1:3, A2:2, B:2, C:1, N:2, R1:1, R2:1, R3:1, G2010:2, Discovery:1 },
   HD: { A1:3, A2:2, B:1, C:2, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:1, Discovery:1 },
   CO: { A1:2, A2:2, B:1, C:1, N:1, R1:1, R2:2, R3:1, G2010:2, G2000:1, G1990:1, Discovery:1 },
-  WW: { A1:2, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:2, Discovery:1 },
+  WW: { A1:2, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:1, H2:1, Discovery:1 },
   // Wind Down is ET 20-23 / PT 17-20 — the most US-dominant music block, so Heritage
   // is sited here rather than in the Europe-heavy hours it used to lean on.
-  WD: { A1:1, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:2, H:1, Discovery:1 },
+  WD: { A1:1, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:3, Discovery:1 },
   // European Morning: CE 08-13, UK 07-12. Morning texture, Heritage as seasoning only.
   EM: { A1:1, A2:1, B:2, C:2, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:2, G1990:1, Discovery:1 },
   // G2010 held at 2 — the 20-30 demo skews to off-schedule listening.
-  DNa: { A1:1, C:1, N:1, R2:1, R3:1, G2010:2, G2000:2, G1990:3, H:2, Discovery:1 },
-  DNb: { A1:1, C:1, N:1, R2:1, R3:1, G2010:2, G2000:1, G1990:4, H:2, Discovery:1 },
-  GH:  { G2010:2, G2000:2, G1990:6, H:4, Discovery:1 },
+  DNa: { A1:1, C:1, N:1, R2:1, R3:1, G2010:2, G2000:2, G1990:3, H1:2, Discovery:1 },
+  DNb: { A1:1, C:1, N:1, R2:1, R3:1, G2010:2, G2000:1, G1990:4, H1:2, Discovery:1 },
+  // Golden Hour is the one deliberate format break: H2 is pre-1980 classic rock,
+  // carried as surprise rather than staple. GH is the most Pacific-weighted block
+  // (21:00 PT = 06:00 CE), so this is the US late-evening slot, not a Europe play.
+  GH:  { G2010:2, G2000:2, G1990:7, H1:2, H2:1, Discovery:1 },
 };
 
 // TOH IDs are per-block categories (one identity per block), so the top of the hour
@@ -98,7 +101,7 @@ export const DEPTH_TARGET = {
   // reach low enough to sit under C without colliding with it.
   A1: 10, A2: 11, B: 14, N: 17, C: 20,
   R1: 30, R2: 48, R3: 72, Discovery: 37,
-  G2010: 148, G2000: 104, G1990: 145, H: 64,
+  G2010: 148, G2000: 104, G1990: 145, H1: 24, H2: 70,
 };
 
 /**
@@ -114,7 +117,7 @@ export const DEPTH_TARGET = {
 export const RESIDENCY_WEEKS = {
   A1: 6, A2: 8, B: 12, C: 20, N: 5,
   R1: 26, R2: 52, R3: 104, Discovery: 12,
-  G2010: 520, G2000: 520, G1990: 520, H: 520,
+  G2010: 520, G2000: 520, G1990: 520, H1: 520, H2: 520,
 };
 
 /**
@@ -134,7 +137,8 @@ export const HORIZONTAL = {
 // ---------- 3. enabled depth (live census 2026-07-31) ----------
 export const DEPTH = {
   A1:7, A2:10, B:19, C:22, N:8, R1:22, R2:34, R3:42,
-  G2010:165, G2000:150, G1990:186, H:94, Discovery:12,
+  G2010:165, G2000:150, G1990:186, Discovery:12,
+  H1:24, H2:70,
   "TOH IDs":12, Liners:41, "New-Music Sweepers":44,
   "Relaunch Sweepers":12, "Gold Backsells":26, "Station Promos":14,
 };
@@ -149,13 +153,13 @@ export const TURNOVER = {
   // the scheduling convention that even turnovers pin a song to the same clock times.
   A1: 5, A2: 7, B: 11, N: 13, C: 15,
   R1: 31, Discovery: 35, R2: 39, R3: 57,
-  G2010: 81, G2000: 105, G1990: 129, H: 153,
+  G2010: 81, G2000: 105, G1990: 129, H1: 130, H2: 480,
   Liners: 23, "New-Music Sweepers": 23, "Relaunch Sweepers": 23,
   "Gold Backsells": 23, "Station Promos": 23,
 };
 export const TOH_TURNOVER = 47; // ~0.5 plays/day — below conscious recognition
 
-export const CUR = ["A1","A2","B","C","N"], REC = ["R1","R2","R3"], GOLD = ["G2010","G2000","G1990","H"];
+export const CUR = ["A1","A2","B","C","N"], REC = ["R1","R2","R3"], GOLD = ["G2010","G2000","G1990","H1","H2"];
 export const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 export function cellFor(dow, hour) {
   const v = (dow === 0 ? SUN : dow === 6 ? SAT : WEEKDAY)[hour];

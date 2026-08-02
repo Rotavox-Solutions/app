@@ -18,7 +18,8 @@ import { weekSlots, cellFor, SHAPES, CUR, REC, GOLD, RESIDENCY_WEEKS, DEPTH } fr
 const BAND = {
   A1: [4.5, 6.0], A2: [7.0, 10.0], B: [10.0, 13.5], C: [13.0, 17.0], N: [13.0, 18.0],
   R1: [24, 34], R2: [34, 46], R3: [46, 62], Discovery: [28, 38],
-  G2010: [70, 95], G2000: [95, 122], G1990: [115, 148], H: [140, 178],
+  G2010: [70, 95], G2000: [95, 122], G1990: [115, 148],
+  H1: [115, 160], H2: [380, 620],
 };
 /** Cume-repeat tolerance. Currents run hot by design; everything else should be near zero. */
 const TOL = { A1: 0.50, A2: 0.25, B: 0.20, C: 0.10, N: 0.10 };
