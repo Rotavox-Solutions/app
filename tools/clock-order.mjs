@@ -30,7 +30,10 @@ export const FALLBACK = {
   "Heritage Backsells": "Gold Backsells",
   "Station Promos": "Liners",
 };
-const tohFallback = (code) => "Liners";
+// A missed per-block ID should still open the hour with a station ID, not a liner.
+// Falling back to Liners meant 24 TOH slots per day aired generic imaging while 12
+// perfectly good station IDs sat unmapped in subcat 10.
+const tohFallback = (code) => "TOH IDs";
 
 const tierOf = (c) => (CUR.includes(c) ? "cur" : REC.includes(c) ? "rec" : GOLD.includes(c) ? "gold" : "disc");
 
@@ -323,5 +326,5 @@ else {
     Liners: "no fallback — a wrong-context liner is worse than none",
   };
   for (const [k, v] of Object.entries(FALLBACK)) console.log(`| ${k} | ${v ?? "—"} | ${why[k]} |`);
-  console.log(`| TOH * | Liners | a missing ID should not cost the slot |`);
+  console.log(`| TOH * | TOH IDs | a missing per-block ID still opens on a station ID |`);
 }

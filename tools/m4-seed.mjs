@@ -36,6 +36,10 @@ const SUBCAT = {
   R1: [24], R2: [25], R3: [26],
   G2010: [29], G2000: [28], G1990: [27], H1: [30], H2: [49],
   Discovery: [6], F: [31], GDEEP: [37],
+  // Generic station IDs. Not called by any clock position -- it exists as the
+  // FALLBACK for every per-block TOH pool, so an hour opens with a real station ID
+  // rather than a liner while the 46 per-block scripts are still unproduced.
+  "TOH IDs": [10],
   "TOH ES": [40], "TOH FF": [41], "TOH HD": [42], "TOH CO": [43], "TOH WW": [44],
   "TOH WD": [45], "TOH GH": [46], "TOH EM": [47], "TOH DN": [48],
   Liners: [9], "New-Music Sweepers": [33], "Gold Backsells": [34],
