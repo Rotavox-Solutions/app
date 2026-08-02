@@ -32,75 +32,109 @@ const tohFallback = (code) => "Liners";
 
 const tierOf = (c) => (CUR.includes(c) ? "cur" : REC.includes(c) ? "rec" : GOLD.includes(c) ? "gold" : "disc");
 
+/** Max consecutive music items before imaging must break the sweep, per block. */
+const MAX_RUN = { ES: 2, FF: 2, HD: 2, WW: 3, EM: 3, CO: 3, WD: 3, DNa: 4, DNb: 4, GH: 4 };
+
+/** Spread `n` items of a group evenly across `total` slots: ideal index per item. */
+const ideal = (k, n, total) => (k + 0.5) * total / n;
+
 /**
- * Proportional placement: a category with n of T positions wants its items at
- * (k + 0.5) * T / n. Sorting all ideal positions together spreads every category
- * evenly across the hour by construction, rather than greedily exhausting the
- * scarce ones first and leaving a clump of whatever is most numerous at the end.
- * A final pass swaps any adjacent duplicates apart.
+ * Two-level proportional placement.
+ *
+ * Placing every category independently is wrong: three recurrent tiers with one
+ * position each all resolve to the same midpoint and stack up. Tier is what the
+ * listener hears — current, gold, recurrent — so tiers are spread first, then the
+ * specific categories are spread within their own tier's slots.
  */
 function orderMusic(shape) {
   const total = Object.values(shape).reduce((a, b) => a + b, 0);
+  const tiers = {};
+  for (const [cat, n] of Object.entries(shape)) {
+    const t = tierOf(cat);
+    (tiers[t] ??= { n: 0, cats: {} });
+    tiers[t].n += n;
+    tiers[t].cats[cat] = n;
+  }
+  // 1. spread tiers across the hour
   const want = [];
-  for (const [cat, n] of Object.entries(shape))
-    for (let k = 0; k < n; k++) want.push({ cat, at: (k + 0.5) * total / n });
-  want.sort((a, b) => a.at - b.at || a.cat.localeCompare(b.cat));
-  const out = want.map((w) => w.cat);
+  for (const [t, info] of Object.entries(tiers))
+    for (let k = 0; k < info.n; k++) want.push({ tier: t, at: ideal(k, info.n, total) });
+  want.sort((a, b) => a.at - b.at || a.tier.localeCompare(b.tier));
 
-  for (let pass = 0; pass < 4; pass++) {
+  // 2. within each tier, spread its categories across that tier's own slots
+  const perTier = {};
+  for (const [t, info] of Object.entries(tiers)) {
+    const list = [];
+    for (const [cat, n] of Object.entries(info.cats))
+      for (let k = 0; k < n; k++) list.push({ cat, at: ideal(k, n, info.n) });
+    list.sort((a, b) => a.at - b.at || a.cat.localeCompare(b.cat));
+    perTier[t] = list.map((x) => x.cat);
+  }
+  const cursor = {};
+  const out = want.map((w) => perTier[w.tier][(cursor[w.tier] = (cursor[w.tier] ?? -1) + 1)]);
+
+  // 3. break any adjacent duplicates by swapping with the nearest safe neighbour
+  for (let pass = 0; pass < 4; pass++)
     for (let i = 1; i < out.length; i++) {
       if (out[i] !== out[i - 1]) continue;
-      // find the nearest neighbour we can swap with without creating a new clash
       for (let d = 1; d < out.length; d++) {
+        let done = false;
         for (const j of [i + d, i - d]) {
-          if (j < 0 || j >= out.length) continue;
-          if (out[j] === out[i]) continue;
-          const ok = (a, b) => a !== b;
-          if (ok(out[j], out[i - 1]) && ok(out[j], out[i + 1] ?? null) &&
-              ok(out[i], out[j - 1] ?? null) && ok(out[i], out[j + 1] ?? null)) {
-            [out[i], out[j]] = [out[j], out[i]];
-            d = out.length; break;
+          if (j < 1 || j >= out.length || out[j] === out[i]) continue;
+          const free = (v, a, b) => v !== out[a] && v !== out[b];
+          if (free(out[j], i - 1, i + 1) && free(out[i], j - 1, j + 1)) {
+            [out[i], out[j]] = [out[j], out[i]]; done = true; break;
           }
         }
+        if (done) break;
       }
     }
-  }
   return out;
 }
 
-/** Insert imaging: TOH at the top, contextual items anchored, the rest spread evenly. */
+/**
+ * Weave imaging so no music sweep exceeds MAX_RUN, choosing contextually where the
+ * choice exists: a New-Music sweeper ahead of a new track, a Gold Backsell behind a
+ * gold one, a Relaunch sweeper ahead of a current.
+ */
 function weave(music, imaging, code) {
-  const seq = [{ cat: `TOH ${code === "DNa" || code === "DNb" ? "DN" : code}`, kind: "imaging" }];
-  const img = { ...imaging };
-  delete img[`TOH ${code === "DNa" || code === "DNb" ? "DN" : code}`];
-
-  const items = music.map((c) => ({ cat: c, kind: "music" }));
-  // contextual anchors first
-  const anchor = (imgCat, predicate, before) => {
-    while ((img[imgCat] ?? 0) > 0) {
-      const idx = items.findIndex((it, i) => it.kind === "music" && predicate(it.cat) &&
-        !(before ? items[i - 1]?.kind === "imaging" : items[i + 1]?.kind === "imaging"));
-      if (idx < 0) break;
-      items.splice(before ? idx : idx + 1, 0, { cat: imgCat, kind: "imaging" });
-      img[imgCat]--;
-    }
+  const tohCat = `TOH ${code.startsWith("DN") ? "DN" : code}`;
+  const pool = { ...imaging };
+  delete pool[tohCat];
+  const take = (pref) => {
+    for (const c of pref) if ((pool[c] ?? 0) > 0) { pool[c]--; return c; }
+    const c = Object.keys(pool).find((k) => pool[k] > 0);
+    if (c) { pool[c]--; return c; }
+    return null;
   };
-  anchor("New-Music Sweepers", (c) => c === "N" || c === "A1", true);
-  anchor("Gold Backsells", (c) => GOLD.includes(c), false);
-  anchor("Relaunch Sweepers", (c) => c === "A1" || c === "A2", true);
+  const left = () => Object.values(pool).reduce((a, b) => a + b, 0);
 
-  // remaining imaging spread evenly through what's left
-  const rest = [];
-  for (const [c, n] of Object.entries(img)) for (let i = 0; i < n; i++) rest.push(c);
-  rest.forEach((c, i) => {
-    const span = items.length;
-    let at = Math.round((i + 0.75) * span / (rest.length + 0.5));
-    at = Math.max(1, Math.min(items.length, at));
-    while (at < items.length && (items[at]?.kind === "imaging" || items[at - 1]?.kind === "imaging")) at++;
-    items.splice(at, 0, { cat: c, kind: "imaging" });
-  });
-
-  return [...seq, ...items];
+  const out = [{ cat: tohCat, kind: "imaging" }];
+  const maxRun = MAX_RUN[code] ?? 3;
+  let run = 0;
+  for (let i = 0; i < music.length; i++) {
+    const cat = music[i];
+    const remainingMusic = music.length - i;
+    if (run >= maxRun && left() > 0) {
+      const prev = music[i - 1], next = cat;
+      const pref = [];
+      if (GOLD.includes(prev)) pref.push("Gold Backsells");
+      if (next === "N" || next === "A1") pref.push("New-Music Sweepers");
+      if (next === "A1" || next === "A2") pref.push("Relaunch Sweepers");
+      pref.push("Liners", "Station Promos");
+      out.push({ cat: take(pref), kind: "imaging" });
+      run = 0;
+    }
+    out.push({ cat, kind: "music" });
+    run++;
+    // dump any surplus imaging rather than stacking it at the end
+    if (left() > 0 && remainingMusic > 1 && left() >= Math.ceil(remainingMusic / maxRun)) {
+      out.push({ cat: take(["Station Promos", "Liners"]), kind: "imaging" });
+      run = 0;
+    }
+  }
+  while (left() > 0) out.push({ cat: take(["Liners", "Station Promos"]), kind: "imaging" });
+  return out;
 }
 
 function render(code) {

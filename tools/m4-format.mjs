@@ -61,16 +61,16 @@ export const SHAPES = {
 // TOH IDs are per-block categories (one identity per block), so the top of the hour
 // reflects what the station is at that moment. `TOH *` depths are TBD — being produced.
 export const IMAGING = {
-  ES:  { Liners:3, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
-  FF:  { Liners:3, "New-Music Sweepers":1, "Gold Backsells":1, "Station Promos":1 },
-  HD:  { Liners:3, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
-  CO:  { Liners:2, "Gold Backsells":1, "Station Promos":1 },
-  WW:  { Liners:2, "Gold Backsells":1, "Station Promos":1 },
-  WD:  { Liners:2, "Gold Backsells":1, "Station Promos":1 },
+  ES:  { Liners:4, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
+  FF:  { Liners:4, "New-Music Sweepers":1, "Gold Backsells":1, "Station Promos":1 },
+  HD:  { Liners:4, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
+  CO:  { Liners:3, "Gold Backsells":1, "Station Promos":1 },
+  WW:  { Liners:3, "Gold Backsells":1, "Station Promos":1 },
+  WD:  { Liners:3, "Gold Backsells":1, "Station Promos":1 },
   DNa: { Liners:1, "Gold Backsells":1 },
   DNb: { Liners:1, "Gold Backsells":1 },
   GH:  { Liners:1, "Gold Backsells":2 },
-  EM:  { Liners:2, "New-Music Sweepers":1, "Station Promos":1 },
+  EM:  { Liners:3, "New-Music Sweepers":1, "Station Promos":1 },
 };
 for (const code of Object.keys(IMAGING)) IMAGING[code][`TOH ${identityOf(code)}`] = 1;
 
