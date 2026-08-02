@@ -42,12 +42,38 @@ const tierOf = (c) => (CUR.includes(c) ? "cur" : REC.includes(c) ? "rec" : GOLD.
  * Golden Hour uses this to run an A/B pair: GHa groups the two pre-1990 tiers into a
  * vintage moment, GHb holds them apart so each old record is a surprise on its own.
  */
-const PAIRING = {
-  GHa: { mode: "group", pair: ["H1", "H2"] },
-  GHb: { mode: "separate", pair: ["H1", "H2"] },
+const PAIRING = {};
+
+/**
+ * Explicit vintage layout for the Golden Hour variants, by MUSIC-SLOT index (1-based,
+ * counting only music positions). At ~215s mean effective length a music slot is about
+ * 3.6 minutes, so slot n begins near minute (n-1) x 3.6.
+ *
+ * Every hour carries exactly one H1/H2 PAIR — a deliberate vintage moment — plus one
+ * lone H1 and one lone H2 placed well clear of the pair and of each other. The variants
+ * differ in which half of the hour holds the pair:
+ *
+ *   GHa  pair at slots 5-6   (~:14-:21)   lone items in the back half
+ *   GHb  pair at slots 12-13 (~:40-:47)   lone items in the front half
+ *
+ * Explicit rather than algorithmic: this is a musical decision about where a moment
+ * belongs in an hour, and it should read as one in the source rather than emerge from
+ * a scatter heuristic.
+ */
+const VINTAGE_LAYOUT = {
+  GHa: { 5: "H1", 6: "H2", 11: "H2", 14: "H1" },
+  GHb: { 3: "H2", 8: "H1", 12: "H1", 13: "H2" },
 };
 
-/** Max consecutive music items before imaging must break the sweep, per block. */
+/**
+ * Music slot that must not have imaging inserted before it, because it is the second
+ * half of a declared pair. Without this the imaging weave will happily drop a Gold
+ * Backsell between H1 and H2 when the run limit falls there — which un-pairs the very
+ * thing the layout exists to create.
+ */
+const PAIR_SECOND = { GHa: 6, GHb: 13 };
+
+/** Max consecutive music items/** Max consecutive music items before imaging must break the sweep, per block. */
 const MAX_RUN = { ES: 2, FF: 2, HD: 2, WW: 3, EM: 3, CO: 3, WD: 3, DNa: 4, DNb: 4, GHa: 4, GHb: 4 };
 
 /** Spread `n` items of a group evenly across `total` slots: ideal index per item. */
@@ -62,6 +88,22 @@ const ideal = (k, n, total) => (k + 0.5) * total / n;
  * specific categories are spread within their own tier's slots.
  */
 function orderMusic(shape, code) {
+  const layout = VINTAGE_LAYOUT[code];
+  if (layout) {
+    const held = new Set(Object.values(layout));
+    const rest = Object.fromEntries(Object.entries(shape).filter(([c]) => !held.has(c)));
+    const filler = orderMusicProportional(rest);
+    const total = Object.values(shape).reduce((a, b) => a + b, 0);
+    const out = new Array(total).fill(null);
+    for (const [slot, cat] of Object.entries(layout)) out[Number(slot) - 1] = cat;
+    let f = 0;
+    for (let i = 0; i < total; i++) if (out[i] === null) out[i] = filler[f++];
+    return out;
+  }
+  return orderMusicProportional(shape);
+}
+
+function orderMusicProportional(shape) {
   const total = Object.values(shape).reduce((a, b) => a + b, 0);
   const tiers = {};
   for (const [cat, n] of Object.entries(shape)) {
@@ -104,7 +146,6 @@ function orderMusic(shape, code) {
         if (done) break;
       }
     }
-  applyPairing(out, PAIRING[code]);
   return out;
 }
 
@@ -162,6 +203,7 @@ function applyPairing(out, policy) {
  * gold one, a Relaunch sweeper ahead of a current.
  */
 function weave(music, imaging, code) {
+  const noBreakBefore = PAIR_SECOND[code] ?? null;
   const tohCat = `TOH ${code.startsWith("DN") ? "DN" : code.startsWith("GH") ? "GH" : code}`;
   const pool = { ...imaging };
   delete pool[tohCat];
@@ -179,7 +221,9 @@ function weave(music, imaging, code) {
   for (let i = 0; i < music.length; i++) {
     const cat = music[i];
     const remainingMusic = music.length - i;
-    if (run >= maxRun && left() > 0) {
+    // i is 0-based over music items; the layout counts music slots from 1
+    const isPairSecond = noBreakBefore != null && i + 1 === noBreakBefore;
+    if (run >= maxRun && left() > 0 && !isPairSecond) {
       const prev = music[i - 1], next = cat;
       const pref = [];
       if (GOLD.includes(prev)) pref.push("Gold Backsells");
@@ -192,7 +236,9 @@ function weave(music, imaging, code) {
     out.push({ cat, kind: "music" });
     run++;
     // dump any surplus imaging rather than stacking it at the end
-    if (left() > 0 && remainingMusic > 1 && left() >= Math.ceil(remainingMusic / maxRun)) {
+    const nextIsPairSecond = noBreakBefore != null && i + 2 === noBreakBefore;
+    if (left() > 0 && remainingMusic > 1 && !nextIsPairSecond &&
+        left() >= Math.ceil(remainingMusic / maxRun)) {
       out.push({ cat: take(["Station Promos", "Liners"]), kind: "imaging" });
       run = 0;
     }
