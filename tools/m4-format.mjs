@@ -49,12 +49,12 @@ export const SHAPES = {
   WW: { A1:2, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:1, H:1, Discovery:1 },
   // Wind Down is ET 20-23 / PT 17-20 — the most US-dominant music block, so Heritage
   // is sited here rather than in the Europe-heavy hours it used to lean on.
-  WD: { A1:1, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:1, H:2, Discovery:1 },
+  WD: { A1:1, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:2, H:1, Discovery:1 },
   // European Morning: CE 08-13, UK 07-12. Morning texture, Heritage as seasoning only.
-  EM: { A1:1, A2:1, B:2, C:2, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:1, G1990:1, H:1, Discovery:1 },
+  EM: { A1:1, A2:1, B:2, C:2, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:2, G1990:1, Discovery:1 },
   // G2010 held at 2 — the 20-30 demo skews to off-schedule listening.
-  DNa: { A1:1, C:1, N:1, R2:1, R3:1, G2010:2, G2000:2, G1990:2, H:3, Discovery:1 },
-  DNb: { A1:1, C:1, N:1, R2:1, R3:1, G2010:2, G2000:1, G1990:3, H:3, Discovery:1 },
+  DNa: { A1:1, C:1, N:1, R2:1, R3:1, G2010:2, G2000:2, G1990:3, H:2, Discovery:1 },
+  DNb: { A1:1, C:1, N:1, R2:1, R3:1, G2010:2, G2000:1, G1990:4, H:2, Discovery:1 },
   GH:  { G2010:2, G2000:2, G1990:6, H:4, Discovery:1 },
 };
 
@@ -87,14 +87,16 @@ export const DEPTH = {
 // required depth = target turnover x slots per hour. Active Rock heavy sits at 3-4h
 // for the power tier; everything else ladders down from there.
 export const TURNOVER = {
-  A1: 3.5, A2: 5, B: 8, C: 14, N: 33,   // N deliberately wide: many new tracks, ~5 plays/wk each
-  R1: 24, R2: 36, R3: 48,
-  G2010: 72, G2000: 96, G1990: 120, H: 150,
-  Discovery: 36,
-  Liners: 24, "New-Music Sweepers": 24, "Relaunch Sweepers": 24,
-  "Gold Backsells": 24, "Station Promos": 24,
+  // Standards-based ladder for Alternative CHR ("New Rock"). Every value avoids the
+  // divisors of 24 (1,2,3,4,6,8,12,24) and sits >=5h from any whole-day multiple, per
+  // the scheduling convention that even turnovers pin a song to the same clock times.
+  A1: 5, A2: 7, B: 11, N: 13, C: 15,
+  R1: 29, Discovery: 33, R2: 39, R3: 53,
+  G2010: 81, G2000: 105, G1990: 129, H: 153,
+  Liners: 23, "New-Music Sweepers": 23, "Relaunch Sweepers": 23,
+  "Gold Backsells": 23, "Station Promos": 23,
 };
-export const TOH_TURNOVER = 48; // ~0.5 plays/day — below conscious recognition
+export const TOH_TURNOVER = 47; // ~0.5 plays/day — below conscious recognition
 
 export const CUR = ["A1","A2","B","C","N"], REC = ["R1","R2","R3"], GOLD = ["G2010","G2000","G1990","H"];
 export const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
