@@ -21,8 +21,8 @@ morning DJ.
 
 **Hard rules, all derived from measurement:**
 
-1. **Nothing over 8 seconds except promos.** The median session that dies, dies at ~1
-   second. Talk is the tax the listener pays before the music proves itself.
+1. **Nothing over 8 seconds except promos.** The bail mode sits near one second, and
+   72% of sessions end inside two minutes. Talk is the tax the listener pays before the music proves itself.
 2. **Never say "you're listening to".** They know. Use the seconds on something else.
 3. **No local-service framing.** No traffic, no weather, no "here in the valley". The
    audience is global — the daypart grid literally has blocks named European Morning and
@@ -32,7 +32,7 @@ morning DJ.
 5. **Say the name.** Every element that can carry it, carries it. A listener who cannot
    name the station cannot come back to it, and directory listings are the acquisition
    channel.
-6. **Write for someone who has heard nothing else.** 85% of sessions end inside five
+6. **Write for someone who has heard nothing else.** 72% of sessions end inside two
    minutes. Almost nobody has context. Every element stands alone.
 
 ---
@@ -45,10 +45,10 @@ joins the live feed. Configured in AzuraCast's mount point settings, not in the 
 
 **Why it matters more than anything else here:** it is the **only element with 100%
 new-listener reach**. Every other element in this document reaches only the fraction of
-listeners who happen to be connected when it airs. Measured: **85% of sessions end within
-five minutes** and the bail mode sits at ~1 second, so most listeners hear one or two
-songs and quite possibly no imaging at all. The intro is the only thing they *cannot*
-miss.
+listeners who happen to be connected when it airs. Measured: the session-length
+distribution splits cleanly at **two minutes**, with **72% gone before it** and 78% gone
+by five. The bail mode sits at ~1 second. Most listeners hear one or two songs and quite
+possibly no imaging at all — the intro is the only thing they *cannot* miss.
 
 **Design constraint that follows:** it must be extremely short. Every second before music
 is a second of a sampling listener's patience spent on talk. Anything over ~7 seconds is
@@ -100,9 +100,9 @@ python3 tools/analyze-listeners.py --report <logs> --tz -7 \
 ```
 
 Compare **bail rate under 5 minutes** across weeks. Two cautions from the digest:
-survivor share carries SE ≈1.2%, so a difference under ~2.5 points is noise; and one week
+survivor share carries SE ≈1.7%, so a difference under ~3.5 points is noise; and one week
 is ~460 human sessions, so anything subtle needs longer. **Do not** compare survivor TSL
-between variants — its 95% CI spans 25–51 minutes and it will move on its own.
+between variants — its 95% CI spans 18–32 minutes and it will move on its own.
 
 ---
 

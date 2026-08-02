@@ -76,13 +76,25 @@ LINE_RE = re.compile(
 
 TS_RE = re.compile(r'^(\d{2})/(\w{3})/(\d{4}):(\d{2}):(\d{2}):(\d{2})\s*([+-]\d{4})?$')
 
-# Icecast logs every request, not just listener connections. On a live AzuraCast host the
+# Icecast logs every request, not just listener connections. With <fileserve>1</fileserve>
+# and an <alias source="/">, it also serves its own status page -- and a browser hitting
+# it produces /, /style.css, /favicon.ico and /images/* which look exactly like
+# zero-second listeners. On The BOLT's first corpus that was 232 of 890 apparent human
+# sessions, understating the survivor share by 5.8 points. Web assets are classified as
+# infrastructure by extension rather than by an allowlist of mount names, so this holds
+# for any station's mount naming (invariant #1).
+#
+# On a live AzuraCast host the
 # overwhelming majority of lines are its own internal polling -- /admin/listclients and
 # /admin/stats, which is the sampler that makes the API unsuitable for this question in
 # the first place. Counting those as connections would manufacture a huge bail rate out
 # of infrastructure traffic, since they all carry duration 0.
 INFRA_RE = re.compile(
-    r'^/(admin/|status-json|status\.xsl)|\.(xspf|m3u|m3u8|pls|xsl)$', re.I)
+    r'^/$'                                              # status page via <alias source="/">
+    r'|^/(admin/|status-json|status\.xsl|images?/)'
+    r'|\.(xspf|m3u|m3u8|pls|xsl'                        # playlist files, not sessions
+    r'|ico|css|js|png|jpe?g|gif|svg|html?|txt|xml)$',   # status-page assets
+    re.I)
 
 # Only these mean "a client actually received audio". 206 is a range request, which some
 # players use for the initial connection; it is a real session.
