@@ -29,6 +29,13 @@
       "when": 1785665787240,
       "tag": "0003_sharp_vision",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1785669150415,
+      "tag": "0004_friendly_the_renegades",
+      "breakpoints": true
     }
   ]
 }

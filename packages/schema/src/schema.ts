@@ -25,6 +25,17 @@ export const stations = pgTable("stations", {
   // cycleWeeks=1) means no rotation and the engine only ever reads week_in_cycle=0.
   formatCycleWeeks: integer("format_cycle_weeks").default(1).notNull(),
   formatCycleEpoch: timestamp("format_cycle_epoch"),
+  /**
+   * Adapter tier 0/1: no as-played feed exists, because the station ingests an exported
+   * log itself rather than letting Rotavox drive playout (ADR-0001 §3.5c). With no
+   * reconciliation the engine would have no separation memory at all, so approving a
+   * log records its items as `assumed` play history. Optimistic but far better than
+   * nothing — an approved log almost always airs.
+   *
+   * False wherever a real as-played feed exists; assumed rows would otherwise
+   * double-count against reconciled ones.
+   */
+  assumeLogAired: boolean("assume_log_aired").default(false).notNull(),
 });
 
 // Mirror + Scheduler-owned extended metadata (spec §5). Core fields are written by

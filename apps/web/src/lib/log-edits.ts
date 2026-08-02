@@ -4,6 +4,7 @@
 import { and, eq } from "drizzle-orm";
 import { logItems, logs, songs } from "@rotavox/schema";
 import { db } from "./db";
+import { recordAssumedAirplay } from "./log-export";
 import { SAFETY_HORIZON_MINUTES } from "./constants";
 
 export type LogRow = typeof logs.$inferSelect;
@@ -167,5 +168,13 @@ export async function approveLog(logId: string): Promise<{ log: LogRow }> {
   if (!log) throw new EditRejectedError("not_found");
   if (log.status === "approved") return { log };
   const [updated] = await db.update(logs).set({ status: "approved" }).where(eq(logs.id, logId)).returning();
+  // Tier 0/1: no as-played feed, so the approved log becomes the separation memory.
+  // No-op where the station has real reconciliation. Guarded because losing an approval
+  // to a history-write failure would be worse than losing the history.
+  try {
+    await recordAssumedAirplay(logId);
+  } catch (err) {
+    console.error(`assumed-airplay write failed for log ${logId}:`, err);
+  }
   return { log: updated };
 }

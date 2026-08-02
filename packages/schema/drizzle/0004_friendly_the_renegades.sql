@@ -1,0 +1,1 @@
+ALTER TABLE "stations" ADD COLUMN "assume_log_aired" boolean DEFAULT false NOT NULL;
