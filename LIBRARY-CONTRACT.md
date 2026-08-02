@@ -55,3 +55,44 @@ or rename here silently yields an empty scheduler category.
 The nine TOH pools (40–48) are **empty pending script production**. Their positions
 fall back to Liners until filled, per the M4 fallback policy — so the seed is safe to
 apply before the scripts exist, but the top of the hour will be a liner, not an ID.
+
+---
+
+## Metadata census — 2026-08-02
+
+Run before commissioning any sourcing work, to avoid paying to acquire what is already
+present. Result: **almost nothing is already present.**
+
+| Column | Coverage | Verdict |
+|---|---|---|
+| `loudness` | 1448/1448 | **Useless** — constant 1.00, a replay-gain default |
+| `bs_loudness` | 1448/1448 | **Useless** — constant 1.00 |
+| `bs1770` | 0 | Not computed |
+| `cue_times` | 1448/1448, **1446 distinct** | **Real** — per-track start / crossfade / end / fade |
+| `year` | 1448/1448 | Present, untrusted (ADR §3.4) |
+| `mood` | ~5% | Effectively empty |
+| `rating` | 0 | Unused |
+| `bpm` | 660/1448 | Missing on 788 — see below |
+
+**Coverage is not usefulness.** Three loudness columns report full population and hold
+nothing but defaults; `min = max = avg = 1.00` across every pool. This is the same trap
+as the year field, where 100% coverage masks unreliable values. Any future census should
+check *distinct value counts*, not row counts.
+
+Consequence: there is **no loudness data**, so energy must be computed entirely from
+audio. Nothing in the analysis pass can be skipped.
+
+### BPM coverage, by where it matters
+
+| | Have | Missing |
+|---|---|---|
+| Gold (G1990 / G2000 / G2010 / H) | 4 | **602** |
+| W bench | 353 | 152 |
+| Currents, ZN, recurrents | ~303 | ~34 |
+| **Total** | **660** | **788** |
+
+Present where it is not needed, absent where it is.
+
+**The 660 are a validation set.** Running the beat tracker against tracks that already
+carry a stored BPM measures its accuracy directly, before trusting it on the 788
+unknowns — better evidence than a heuristic guess at which estimates are shaky.
