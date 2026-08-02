@@ -104,7 +104,15 @@ def sessions_of(rows):
 BOT_UA_RE = re.compile(
     r'python-requests|aiohttp|Censys|Palo Alto|mrtscan|FlowIQ|visionheight|TARV-|HisBot|'
     r'Lavf/|DirMon|Go-http|curl|wget|Scrapy|bot\b|spider|scan|probe|monitor|check|'
+    r'Thimeo|Streamer|StreamS|Icecast|liquidsoap|butt/|Mixxx|'
     r'^-$|^Mozilla/5\.0$', re.I)
+
+# Relays and processors hold a mount open for days and are catastrophic for any TSL
+# statistic: on The BOLT's first corpus a single Thimeo Streamer connection accounted for
+# 75% of all apparent listening hours across 27 sessions of ~72h each. Volume-based
+# detection cannot catch these -- 27 sessions is nothing -- so they are caught by name
+# and by the duration ceiling below.
+MAX_PLAUSIBLE_SESSION_H = 12
 
 # A single machine cannot be a meaningful share of an audience. Requests-per-distinct-IP
 # is the strongest available bot discriminator on this data: real listeners spread across
@@ -114,6 +122,12 @@ BOT_UA_RE = re.compile(
 # Gap-variance (periodicity) was tried first and is NOT sufficient on its own -- the two
 # largest scanners on The BOLT's log arrive irregularly (CV 7.8 and 32.1) and would pass
 # a timing test while accounting for 91% of all sessions. Concentration caught both.
+# A trough is only a mode boundary if it is deep. On a small corpus the smoothed
+# histogram always has shallow local minima, and treating one as a bail threshold
+# invents a split that is not there. Below this depth the script says so and falls back
+# to a stated convention rather than dressing a convention up as a derived value.
+MIN_DIP_RATIO = 0.35
+
 CONC_MIN_REQUESTS = 200
 CONC_PER_IP = 50
 
@@ -133,12 +147,35 @@ def split_traffic(sess):
         conc = len(rs) / max(1, ips)
         named = bool(BOT_UA_RE.search(ua or "-"))
         concentrated = len(rs) >= CONC_MIN_REQUESTS and conc >= CONC_PER_IP
-        is_bot = named or concentrated
-        reason = "named" if named else ("concentration" if concentrated else "")
+        # A relay is identifiable by holding the mount far longer than any person does.
+        marathon = (percentile(sorted(r.duration for r in rs), .5)
+                    > MAX_PLAUSIBLE_SESSION_H * 3600)
+        is_bot = named or concentrated or marathon
+        reason = ("named" if named else
+                  "concentration" if concentrated else
+                  "session length" if marathon else "")
         diag.append((ua, len(rs), ips, conc, is_bot, reason))
         (auto if is_bot else human).extend(rs)
     diag.sort(key=lambda t: t[1], reverse=True)
     return human, auto, diag
+
+
+def robust_stats(ds):
+    """Median, IQR and MAD. Deliberately NOT mean and standard deviation.
+
+    Session length is heavy-tailed: on the first BOLT corpus the arithmetic mean moved
+    by 5x (42.9m -> 8.1m) when two addresses were removed, while the median of the
+    survivor mode barely moved at all (40.2m -> 37.5m). The mean is not a summary of
+    this data, it is a summary of its largest outlier.
+    """
+    d = sorted(ds)
+    if len(d) < 8:
+        return None
+    med = percentile(d, .5)
+    mad = percentile(sorted(abs(x - med) for x in d), .5)
+    return {"n": len(d), "median": med, "q1": percentile(d, .25),
+            "q3": percentile(d, .75), "mad": mad, "rsd": 1.4826 * mad,
+            "mean": sum(d) / len(d)}
 
 
 def parse_ts(s):
@@ -376,6 +413,14 @@ def fmt_dur(s):
     return f"{s / 3600:.2f}h"
 
 
+def mask_ip(ip):
+    """Never emit a full address into a committed digest."""
+    if ":" in ip:
+        return ":".join(ip.split(":")[:2]) + "::/32"
+    parts = ip.split(".")
+    return f"{parts[0]}.{parts[1]}.x.x/16" if len(parts) == 4 else "?"
+
+
 def short_agent(ua, width=52):
     ua = (ua or "-").strip() or "-"
     ua = ua.replace("|", "/")
@@ -491,7 +536,7 @@ def report_inspect(rows, failures, trailing_shapes, files_read, out):
     w("\nRun `--report` for the full analysis.\n")
 
 
-def report_full(rows, failures, files_read, tz_offset, salt, out):
+def report_full(rows, failures, files_read, tz_offset, salt, out, excluded_ips=()):
     w = out.write
     with_dur = sessions_of(rows)
     tz = timezone(timedelta(hours=tz_offset))
@@ -534,6 +579,25 @@ def report_full(rows, failures, files_read, tz_offset, salt, out):
           f"{'auto — ' + reason if is_bot else 'human'} |\n")
     w("\n")
 
+    # -------------------------------------------------------- hour concentration
+    w("### Listening-hour concentration\n\n")
+    w("Which addresses own the listening time. A relay or an insider at the top of this\n"
+      "table invalidates every aggregate above it, and neither is caught by\n"
+      "volume-based detection — a relay makes very few, very long connections.\n\n")
+    tot, cnt = defaultdict(float), Counter()
+    for r in human:
+        tot[r.ip] += r.duration
+        cnt[r.ip] += 1
+    grand = sum(tot.values()) or 1.0
+    w(f"Human listening: **{grand / 3600:.0f}h** across **{len(tot):,}** addresses.\n\n")
+    w("| address | sessions | hours | share |\n|---|---|---|---|\n")
+    for ip, secs in sorted(tot.items(), key=lambda kv: -kv[1])[:8]:
+        w(f"| `{mask_ip(ip)}` | {cnt[ip]:,} | {secs / 3600:.1f} | "
+          f"{secs / grand:.1%} |\n")
+    w("\n")
+    if excluded_ips:
+        w(f"Excluded via `--exclude-ip`: {', '.join('`' + p + '`' for p in excluded_ips)}\n\n")
+
     if len(human) < 100:
         w("> Too few human sessions for the analysis below; it runs on all sessions.\n\n")
     else:
@@ -547,7 +611,7 @@ def report_full(rows, failures, files_read, tz_offset, salt, out):
 
     # ---------------------------------------------------------------- bail vs stay
     w("## Bail vs stay\n\n")
-    if anti:
+    if anti and anti[1] >= MIN_DIP_RATIO:
         thr, dip, pa, pb = anti
         w(f"**The distribution is bimodal.** Two modes at ~**{fmt_dur(pa)}** and "
           f"~**{fmt_dur(pb)}**, separated by a trough at **{fmt_dur(thr)}** "
@@ -555,11 +619,19 @@ def report_full(rows, failures, files_read, tz_offset, salt, out):
         w(f"The trough is the *derived* bail threshold — read off the data rather than\n"
           f"assumed. Assuming 60s would have baked the hypothesis into the answer.\n\n")
         threshold = thr
+    elif anti:
+        thr, dip, pa, pb = anti
+        w(f"**No reliable mode boundary.** The deepest trough (at {fmt_dur(thr)}) has a\n"
+          f"dip of only {dip:.0%}, below the {MIN_DIP_RATIO:.0%} floor required to call a\n"
+          f"split real. On a corpus this size shallow local minima are noise.\n\n")
+        w("**5 minutes is used below as a stated convention, not a derived threshold.**\n"
+          "It is long enough to exclude sampling and short enough that anyone past it is\n"
+          "listening on purpose. Re-run once the corpus grows; the boundary may resolve.\n\n")
+        threshold = 300.0
     else:
-        w("**No clear second mode.** The distribution is unimodal or too noisy to split,\n"
-          "so there is no natural bail threshold and the fixed cuts below should be read\n"
-          "as arbitrary reference points rather than a real boundary.\n\n")
-        threshold = 60.0
+        w("**No second mode found.** The distribution is unimodal or too noisy to split.\n"
+          "5 minutes is used below as a stated convention, not a derived threshold.\n\n")
+        threshold = 300.0
 
     bailed = [d for d in durations if d < threshold]
     stayed = [d for d in durations if d >= threshold]
@@ -569,15 +641,28 @@ def report_full(rows, failures, files_read, tz_offset, salt, out):
     w(f"| **Stayed** (≥ {fmt_dur(threshold)}) | {len(stayed):,} | "
       f"**{len(stayed) / len(durations):.1%}** |\n\n")
 
-    if stayed:
-        ss = sorted(stayed)
-        w(f"**Conditional TSL of survivors** — median **{fmt_dur(percentile(ss, .5))}**, "
-          f"mean **{fmt_dur(sum(ss) / len(ss))}**, "
-          f"p90 **{fmt_dur(percentile(ss, .9))}**.\n\n")
-    w(f"Mean across *all* sessions is {fmt_dur(sum(durations) / len(durations))} — "
-      "reported only to be dismissed. In a bimodal population the mean describes a\n"
-      "duration almost nobody experiences. Bail rate and conditional TSL are the honest\n"
-      "pair.\n\n")
+    w("### Robust dispersion, per mode\n\n")
+    w("Reported as median / IQR / MAD rather than mean and standard deviation. A\n"
+      "bimodal, heavy-tailed population has **no single valid location-and-spread\n"
+      "pair** — any figure spanning both modes describes a duration nobody experiences.\n"
+      "So each mode is summarised separately, and the mean is shown only to be\n"
+      "dismissed.\n\n")
+    w("| mode | n | median | IQR | MAD | mean |\n|---|---|---|---|---|---|\n")
+    for label, group in (("Bailed", bailed), ("**Stayed**", stayed)):
+        st = robust_stats(group)
+        if not st:
+            w(f"| {label} | {len(group)} | — | — | — | — |\n")
+            continue
+        w(f"| {label} | {st['n']:,} | **{fmt_dur(st['median'])}** | "
+          f"{fmt_dur(st['q1'])} – {fmt_dur(st['q3'])} | {fmt_dur(st['mad'])} | "
+          f"{fmt_dur(st['mean'])} |\n")
+    w("\n")
+    st = robust_stats(stayed)
+    if st and st["median"]:
+        w(f"**Survivor TSL: median {fmt_dur(st['median'])}, IQR "
+          f"{fmt_dur(st['q1'])} – {fmt_dur(st['q3'])}.** This is the TSL figure to use.\n"
+          f"Its mean ({fmt_dur(st['mean'])}) is "
+          f"{st['mean'] / st['median']:.1f}× the median, which is the tail talking.\n\n")
 
     w("### Fixed reference cuts\n\n| under | count | share |\n|---|---|---|\n")
     for t in (5, 10, 30, 60, 300, 1800):
@@ -728,6 +813,9 @@ def main():
     ap.add_argument("--since", help="YYYY-MM-DD lower bound")
     ap.add_argument("--until", help="YYYY-MM-DD upper bound")
     ap.add_argument("--out", help="write digest here instead of stdout")
+    ap.add_argument("--exclude-ip", action="append", metavar="PREFIX",
+                    help="drop sessions from addresses starting with PREFIX. Use for "
+                         "known insiders (the PD's own listening) and relays. Repeatable.")
     args = ap.parse_args()
 
     if not (args.inspect or args.report):
@@ -742,12 +830,19 @@ def main():
     rows, failures, shapes, files_read = read_rows(
         args.paths, bound(args.since), bound(args.until, True))
 
+    if args.exclude_ip:
+        before = len(rows)
+        rows = [r for r in rows
+                if not any(r.ip.startswith(p) for p in args.exclude_ip)]
+        print(f"excluded {before - len(rows):,} rows by address prefix", file=sys.stderr)
+
     out = open(args.out, "w") if args.out else sys.stdout
     try:
         if args.inspect:
             report_inspect(rows, failures, shapes, files_read, out)
         else:
-            report_full(rows, failures, files_read, args.tz, secrets.token_hex(16), out)
+            report_full(rows, failures, files_read, args.tz,
+                        secrets.token_hex(16), out, args.exclude_ip or [])
     finally:
         if args.out:
             out.close()

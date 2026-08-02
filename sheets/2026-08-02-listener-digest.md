@@ -1,17 +1,17 @@
 # Listener session digest
 
 - Window: **2026-07-15 → 2026-08-02** (18 days)
-- Log lines: **825,342** (789,703 infrastructure, excluded)
-- **Sessions: 28,661** (1604/day)
-- Failed audio requests: **6,978** — see *Rejected connections*
+- Log lines: **824,992** (789,693 infrastructure, excluded)
+- **Sessions: 28,329** (1586/day)
+- Failed audio requests: **6,970** — see *Rejected connections*
 - Local hours reported at UTC-7
 
 ## Automation separation
 
 | | sessions | share | distinct IPs |
 |---|---|---|---|
-| Automated | 27,331 | 95.4% | 245 |
-| **Human (residual)** | 1,330 | 4.6% | 368 |
+| Automated | 27,358 | 96.6% | 246 |
+| **Human (residual)** | 971 | 3.4% | 366 |
 
 > **The human set is a residual, not a clean population.** Everything not
 > positively identified as automated lands in it, so its bail rate is an *upper*
@@ -23,93 +23,127 @@
 | `Mozilla/5.0 (Windows NT 10.0; Win64; x64) A…` | 14,714 | 2 | 7357 | auto — concentration |
 | `Mozilla/5.0` | 11,438 | 9 | 1271 | auto — named |
 | `python-requests/2.27.1` | 264 | 31 | 9 | auto — named |
-| `Mozilla/5.0 (Linux; Android 10; K) AppleWeb…` | 186 | 12 | 16 | human |
-| `Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 lik…` | 157 | 3 | 52 | human |
 | `TARV-RadioDiscovery/2.0.0 (+metadata-only n…` | 146 | 1 | 146 | auto — named |
 | `Mozilla/5.0 (compatible; FlowIQLabsBot/1.0;…` | 122 | 23 | 5 | auto — named |
 | `mrtscan/1.0 (westus)` | 119 | 16 | 7 | auto — named |
+| `Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 lik…` | 106 | 2 | 53 | human |
 | `ORB HisBot/26b72 (http://onlineradiobox.com…` | 97 | 2 | 48 | auto — named |
-| `Mozilla/5.0 (iPhone; CPU iPhone OS 27_0_0 l…` | 83 | 8 | 10 | human |
-| `Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:…` | 78 | 2 | 39 | human |
+| `Mozilla/5.0 (Linux; Android 10; K) AppleWeb…` | 64 | 11 | 6 | human |
 | `Mozilla/5.0 (compatible; CensysInspect/1.1;…` | 63 | 30 | 2 | auto — named |
-| `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit…` | 63 | 3 | 21 | human |
 | `-` | 59 | 49 | 1 | auto — named |
 | `visionheight.com/scan Mozilla/5.0 (Macintos…` | 57 | 5 | 11 | auto — named |
+| `Mozilla/5.0 (iPhone; CPU iPhone OS 27_0_0 l…` | 54 | 7 | 8 | human |
+| `Hello from Palo Alto Networks, find out mor…` | 53 | 49 | 1 | auto — named |
+| `Python/3.14 aiohttp/3.14.3` | 46 | 1 | 46 | auto — named |
+
+### Listening-hour concentration
+
+Which addresses own the listening time. A relay or an insider at the top of this
+table invalidates every aggregate above it, and neither is caught by
+volume-based detection — a relay makes very few, very long connections.
+
+Human listening: **131h** across **366** addresses.
+
+| address | sessions | hours | share |
+|---|---|---|---|
+| `2607:fb91::/32` | 26 | 20.1 | 15.4% |
+| `2607:fb90::/32` | 94 | 17.7 | 13.5% |
+| `2607:fb90::/32` | 22 | 17.3 | 13.2% |
+| `136.36.x.x/16` | 48 | 16.2 | 12.4% |
+| `2607:fb90::/32` | 12 | 9.0 | 6.9% |
+| `2607:fb91::/32` | 4 | 8.1 | 6.2% |
+| `2607:fb91::/32` | 6 | 7.3 | 5.6% |
+| `2607:fb91::/32` | 13 | 6.6 | 5.1% |
+
+Excluded via `--exclude-ip`: `65.181.`
 
 **Everything below is the human residual only.**
 
 ## Bail vs stay
 
-**The distribution is bimodal.** Two modes at ~**3s** and ~**1.08h**, separated by a trough at **7.3m** (dip depth 41%).
+**No reliable mode boundary.** The deepest trough (at 28s) has a
+dip of only 14%, below the 35% floor required to call a
+split real. On a corpus this size shallow local minima are noise.
 
-The trough is the *derived* bail threshold — read off the data rather than
-assumed. Assuming 60s would have baked the hypothesis into the answer.
+**5 minutes is used below as a stated convention, not a derived threshold.**
+It is long enough to exclude sampling and short enough that anyone past it is
+listening on purpose. Re-run once the corpus grows; the boundary may resolve.
 
 | | count | share |
 |---|---|---|
-| **Bailed** (< 7.3m) | 1,068 | **80.3%** |
-| **Stayed** (≥ 7.3m) | 262 | **19.7%** |
+| **Bailed** (< 5.0m) | 824 | **84.9%** |
+| **Stayed** (≥ 5.0m) | 147 | **15.1%** |
 
-**Conditional TSL of survivors** — median **50.0m**, mean **3.60h**, p90 **2.46h**.
+### Robust dispersion, per mode
 
-Mean across *all* sessions is 42.9m — reported only to be dismissed. In a bimodal population the mean describes a
-duration almost nobody experiences. Bail rate and conditional TSL are the honest
-pair.
+Reported as median / IQR / MAD rather than mean and standard deviation. A
+bimodal, heavy-tailed population has **no single valid location-and-spread
+pair** — any figure spanning both modes describes a duration nobody experiences.
+So each mode is summarised separately, and the mean is shown only to be
+dismissed.
+
+| mode | n | median | IQR | MAD | mean |
+|---|---|---|---|---|---|
+| Bailed | 824 | **1s** | 0s – 6s | 1s | 14s |
+| **Stayed** | 147 | **37.5m** | 13.2m – 1.17h | 27.1m | 52.0m |
+
+**Survivor TSL: median 37.5m, IQR 13.2m – 1.17h.** This is the TSL figure to use.
+Its mean (52.0m) is 1.4× the median, which is the tail talking.
 
 ### Fixed reference cuts
 
 | under | count | share |
 |---|---|---|
-| 5s | 682 | 51.3% |
-| 10s | 767 | 57.7% |
-| 30s | 876 | 65.9% |
-| 1.0m | 940 | 70.7% |
-| 5.0m | 1,048 | 78.8% |
-| 30.0m | 1,168 | 87.8% |
+| 5s | 602 | 62.0% |
+| 10s | 652 | 67.1% |
+| 30s | 726 | 74.8% |
+| 1.0m | 771 | 79.4% |
+| 5.0m | 824 | 84.9% |
+| 30.0m | 889 | 91.6% |
 
 ### Distribution
 
 ```
-     1s | ████████████████████████████████████████     141
+     1s | ████████████████████████████████████████     125
+     1s |                                                0
+     2s | ████████████                                  40
      2s |                                                0
-     2s | ███████████████                               53
-     3s | ██████████████                                52
-     4s | ███████                                       28
-     6s | █████████████                                 48
-     8s | ████████                                      29
-    10s | ████████████                                  45
-    14s | ██████                                        24
-    19s | ██████                                        24
-    26s | ███████                                       28
-    36s | ████████                                      31
-    49s | ███████                                       25
-   1.1m | ██████                                        24
-   1.5m | █████                                         18
-   2.1m | █████                                         18
-   2.9m | ███████                                       25
-   3.9m | ███████                                       25
-   5.3m | ███                                           13
-   7.3m | ██████                                        23
-   9.9m | █████                                         19
-  13.6m | █████                                         20
-  18.5m | ███████                                       25
-  25.3m | █████                                         21
-  34.6m | ██████                                        23
-  47.3m | █████                                         20
-  1.08h | ████████████                                  44
-  1.47h | ████████                                      30
-  2.01h | ████                                          17
-  2.74h | ██                                             9
-  3.74h | █                                              4
-  5.11h |                                                2
-  6.98h |                                                0
-  9.54h |                                                1
- 13.03h |                                                0
- 17.79h |                                                0
- 24.30h |                                                3
- 33.19h |                                                1
- 45.34h |                                                1
- 61.92h | ██                                             8
+     3s | █████████                                     31
+     4s | ████                                          13
+     5s | ████                                          13
+     6s | ████████                                      25
+     8s | ███                                           12
+    10s | █████                                         16
+    13s | █████                                         17
+    17s | ███████                                       23
+    22s | ██                                             8
+    28s | █████                                         16
+    35s | █████                                         18
+    45s | ████                                          15
+    58s | ███                                           12
+   1.2m | ██                                             9
+   1.6m |                                                1
+   2.0m | █                                              6
+   2.6m | █                                              5
+   3.3m | █████                                         17
+   4.2m | ██                                             9
+   5.4m | █                                              6
+   6.8m | ███                                           10
+   8.7m | ██                                             7
+  11.2m | ███                                           11
+  14.3m | █                                              6
+  18.3m | ███                                           10
+  23.4m | ████                                          14
+  29.9m | █                                              5
+  38.2m | ██                                             8
+  48.8m | ██                                             9
+  1.04h | ████████                                      25
+  1.33h | ███                                           12
+  1.70h | ███                                           11
+  2.17h | ██                                             7
+  2.78h |                                                3
+  3.55h |                                                2
+  4.54h |                                                1
 ```
 
 ## User agents
@@ -120,26 +154,26 @@ which is what a directory health-check looks like and what a human never does.
 
 | user agent | conns | share | median | bail % | gap CV | every |
 |---|---|---|---|---|---|---|
-| `Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.…` | 186 | 14.0% | 7s | 95% | 3.22 | — |
-| `Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS…` | 157 | 11.8% | 30s | 73% | 3.79 | — |
-| `Mozilla/5.0 (iPhone; CPU iPhone OS 27_0_0 like Mac …` | 83 | 6.2% | 37.9m | 22% | 2.14 | — |
-| `Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:152.0) G…` | 78 | 5.9% | 4.7m | 56% | 1.89 | — |
-| `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 …` | 63 | 4.7% | 4.7m | 51% | 1.43 | — |
-| `Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS…` | 48 | 3.6% | 15.5m | 38% | 1.59 | — |
-| `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK…` | 36 | 2.7% | 0s | 100% | 1.00 | — |
-| `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK…` | 35 | 2.6% | 0s | 100% | 2.80 | — |
-| `Mozilla/5.0 (compatible; Infrawatch/1.0; +https://i…` | 32 | 2.4% | 0s | 100% | 0.73 | — |
-| `Mozilla/5.0 zgrab/0.x` | 30 | 2.3% | 0s | 100% | 0.77 | — |
-| `Thimeo Streamer` | 27 | 2.0% | 2.03h | 26% | 1.34 | — |
-| `Espiker/0.1 (contact@espiker.com)` | 22 | 1.7% | 0s | 100% | 0.63 | — |
-| `VLC/3.0.23 LibVLC/3.0.23` | 21 | 1.6% | 2.4m | 57% | 3.86 | — |
-| `Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:134.0) G…` | 20 | 1.5% | 3s | 100% | 1.46 | — |
-| `Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleW…` | 20 | 1.5% | 0s | 100% | 1.81 | — |
-| `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) App…` | 20 | 1.5% | 50s | 95% | 0.60 | — |
-| `radio-collector/1.0` | 19 | 1.4% | 1s | 100% | 0.75 | — |
-| `radio.net 5.11.10 (iPhone; iPhone OS 26.5.2; en_DE)` | 15 | 1.1% | 0s | 100% | 1.07 | — |
-| `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK…` | 13 | 1.0% | 4s | 100% | 0.73 | — |
-| `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK…` | 12 | 0.9% | 37s | 67% | 1.39 | — |
+| `Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS…` | 106 | 10.9% | 26s | 72% | 3.52 | — |
+| `Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.…` | 64 | 6.6% | 6s | 95% | 2.66 | — |
+| `Mozilla/5.0 (iPhone; CPU iPhone OS 27_0_0 like Mac …` | 54 | 5.6% | 50.0m | 19% | 1.70 | — |
+| `Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS…` | 41 | 4.2% | 20.6m | 32% | 1.78 | — |
+| `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK…` | 36 | 3.7% | 0s | 100% | 1.00 | — |
+| `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK…` | 35 | 3.6% | 0s | 100% | 2.80 | — |
+| `Mozilla/5.0 (compatible; Infrawatch/1.0; +https://i…` | 32 | 3.3% | 0s | 100% | 0.73 | — |
+| `Mozilla/5.0 zgrab/0.x` | 30 | 3.1% | 0s | 100% | 0.77 | — |
+| `Espiker/0.1 (contact@espiker.com)` | 22 | 2.3% | 0s | 100% | 0.63 | — |
+| `Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:134.0) G…` | 20 | 2.1% | 3s | 100% | 1.46 | — |
+| `Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleW…` | 20 | 2.1% | 0s | 100% | 1.81 | — |
+| `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) App…` | 20 | 2.1% | 50s | 95% | 0.60 | — |
+| `radio-collector/1.0` | 19 | 2.0% | 1s | 100% | 0.75 | — |
+| `VLC/3.0.23 LibVLC/3.0.23` | 18 | 1.9% | 2.3m | 56% | 3.89 | — |
+| `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 …` | 15 | 1.5% | 22.7m | 47% | 2.40 | — |
+| `radio.net 5.11.10 (iPhone; iPhone OS 26.5.2; en_DE)` | 15 | 1.5% | 0s | 100% | 1.07 | — |
+| `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK…` | 13 | 1.3% | 4s | 100% | 0.73 | — |
+| `Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:152.0) G…` | 12 | 1.2% | 31.9m | 33% | 1.57 | — |
+| `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK…` | 12 | 1.2% | 37s | 67% | 1.39 | — |
+| `KalishaRadio/2.0` ⏱ | 11 | 1.1% | 0s | 100% | 0.00 | 24.01h |
 
 ⏱ = near-constant arrival interval; treat as automated until proven otherwise.
 
@@ -150,63 +184,60 @@ Feeds the daypart matrix, which currently runs on *assumed* propensity curves
 
 | hour | conns | bail % | median | survivor median |
 |---|---|---|---|---|
-| 00 | 38 | 82% | 0s | 2.20h |
-| 01 | 28 | 86% | 2s | 43.9m |
-| 02 | 39 | 85% | 1s | 2.56h |
-| 03 | 25 | 80% | 5s | 1.54h |
-| 04 | 71 | 83% | 1s | 20.5m |
-| 05 | 43 | 77% | 1s | 1.03h |
-| 06 | 22 | 82% | 6s | 58.6m |
-| 07 | 36 | 89% | 4s | 1.19h |
-| 08 | 45 | 69% | 17s | 19.0m |
-| 09 | 31 | 68% | 3s | 51.8m |
-| 10 | 103 | 79% | 7s | 45.4m |
-| 11 | 67 | 90% | 5s | 38.8m |
-| 12 | 76 | 70% | 10s | 2.02h |
-| 13 | 45 | 76% | 50s | 54.6m |
-| 14 | 61 | 72% | 9s | 23.5m |
-| 15 | 52 | 50% | 5.8m | 35.8m |
-| 16 | 53 | 81% | 1.1m | 32.1m |
-| 17 | 55 | 73% | 28s | 28.3m |
-| 18 | 31 | 61% | 17s | 34.2m |
-| 19 | 98 | 92% | 12s | 53.8m |
-| 20 | 83 | 92% | 0s | 39.9m |
-| 21 | 115 | 84% | 2s | 36.7m |
+| 00 | 33 | 91% | 0s | 2.46h |
+| 01 | 21 | 86% | 1s | 1.30h |
+| 02 | 31 | 97% | 0s | 18.9m |
+| 03 | 16 | 94% | 0s | 22.5m |
+| 04 | 56 | 84% | 1s | 24.6m |
+| 05 | 36 | 83% | 1s | 1.04h |
+| 06 | 13 | 100% | 0s | — |
+| 07 | 16 | 100% | 0s | — |
+| 08 | 35 | 74% | 4s | 12.8m |
+| 09 | 23 | 91% | 0s | 1.17h |
+| 10 | 84 | 83% | 6s | 15.1m |
+| 11 | 29 | 79% | 2s | 44.9m |
+| 12 | 47 | 89% | 2s | 35.0m |
+| 13 | 28 | 71% | 2s | 38.1m |
+| 14 | 36 | 72% | 2s | 24.1m |
+| 15 | 33 | 45% | 8.3m | 48.6m |
+| 16 | 31 | 77% | 3s | 32.1m |
+| 17 | 33 | 85% | 1s | 40.9m |
+| 18 | 25 | 76% | 1s | 1.08h |
+| 19 | 84 | 88% | 12s | 19.8m |
+| 20 | 66 | 94% | 0s | 1.09h |
+| 21 | 86 | 86% | 0s | 25.4m |
 | 22 | 40 | 95% | 0s | 1.96h |
-| 23 | 73 | 89% | 0s | 58.4m |
+| 23 | 69 | 91% | 0s | 58.4m |
 
 ## By day of week
 
 | day | conns | bail % | survivor median |
 |---|---|---|---|
-| Mon | 90 | 77% | 40.9m |
-| Tue | 128 | 77% | 1.04h |
-| Wed | 310 | 85% | 50.0m |
-| Thu | 240 | 75% | 28.2m |
-| Fri | 174 | 78% | 1.01h |
-| Sat | 180 | 82% | 57.6m |
-| Sun | 208 | 84% | 1.03h |
+| Mon | 80 | 84% | 48.0m |
+| Tue | 101 | 72% | 35.2m |
+| Wed | 224 | 89% | 25.9m |
+| Thu | 130 | 88% | 22.1m |
+| Fri | 137 | 82% | 1.07h |
+| Sat | 150 | 86% | 34.0m |
+| Sun | 149 | 86% | 58.4m |
 
 ## By mount
 
 | mount | conns | bail % | survivor median |
 |---|---|---|---|
-| `/stream` | 985 | 76% | 50.0m |
+| `/stream` | 686 | 80% | 48.0m |
 | `/` | 166 | 100% | — |
 | `/favicon.ico` | 66 | 100% | — |
-| `/stream-plus` | 59 | 75% | 40.3m |
-| `/stream-master` | 41 | 66% | 1.34h |
-| `/style.css` | 9 | 100% | — |
+| `/stream-plus` | 38 | 82% | 10.0m |
+| `/stream-master` | 13 | 62% | 9.9m |
+| `/style.css` | 1 | 100% | — |
 | `/images/tunein.png` | 1 | 100% | — |
-| `/admin.html` | 1 | 100% | — |
-| `/adminbar.html` | 1 | 100% | — |
-| `/images/icecast.png` | 1 | 100% | — |
 
 ## Repeat clients
 
-- Distinct client fingerprints: **368**
-- Connected exactly once: **261** (70.9%)
-- Connected 5+ times: **30**
+- Distinct client fingerprints: **366**
+- Connected exactly once: **261** (71.3%)
+- Connected 5+ times: **28**
 
 > Addresses are salted and hashed; the salt is per-run, so fingerprints are not
 > comparable across runs and cannot be reversed. Treat these as a **floor** on
@@ -227,7 +258,7 @@ else, because a 404 never becomes a session.
 | `/stream-plus` | 401 | 466 | 7% |
 | `/stream-master` | 401 | 459 | 7% |
 | `/stream` | 401 | 452 | 6% |
-| `/stream` | 404 | 141 | 2% |
+| `/stream` | 404 | 133 | 2% |
 | `/stream-plus` | 403 | 46 | 1% |
 | `/stream-master` | 403 | 46 | 1% |
 | `/stream` | 403 | 25 | 0% |
