@@ -3,3 +3,11 @@ node_modules/
 dist/
 .pgdata/
 *.tsbuildinfo
+
+# Raw listener logs. Contain client IP addresses and are large; the digest
+# emitted by tools/analyze-listeners.py is the artifact that gets committed,
+# and it never carries a raw address.
+.logs/
+*.access.log
+access*.log
+access*.log.gz
