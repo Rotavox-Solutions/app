@@ -186,3 +186,46 @@ for (const d of [7, 8, 10, 12]) {
   const perHr = demand.A1 / 168;
   console.log(`| ${d} | ${((24 * perHr) / d).toFixed(1)} | ${(d / perHr).toFixed(1)}h |`);
 }
+
+// ---------- horizontal-rotation lock check ----------
+// A song's play pattern repeats every `denominator(slots_wk / depth)` weeks. An
+// integer plays/wk means it lands on the same hours every week — time-of-day lock.
+const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+const isPrime = (n) => {
+  if (n < 2) return false;
+  for (let i = 2; i * i <= n; i++) if (n % i === 0) return false;
+  return true;
+};
+// Repeat cycle in weeks = depth / gcd(slots_wk, depth). A prime depth is NOT enough on
+// its own — B at 13 is prime but 273 = 3x7x13, so it still locks to 1 week. The depth
+// must be COPRIME with the slot count. Prefer primes that also divide nothing in it.
+console.log("\n## Horizontal lock check — depth chosen for long repeat cycle\n");
+console.log("| Category | Slots/wk | Naive depth | Cycle | **Chosen** | Prime? | Cycle | Turnover | Plays/day |");
+console.log("|---|---|---|---|---|---|---|---|---|");
+const CHOSEN = {};
+for (const cat of allCats) {
+  const w = demand[cat] ?? 0;
+  if (!w) continue;
+  const target = TURNOVER[cat];
+  const naive = Math.round(target * (w / 168));
+  const cyc = (d) => d / gcd(w, d);
+  // Search outward from the naive depth for the nearest coprime prime.
+  let pick = naive;
+  for (let r = 0; r <= Math.max(6, Math.ceil(naive * 0.06)); r++) {
+    const up = naive + r, dn = naive - r;
+    if (isPrime(up) && gcd(w, up) === 1) { pick = up; break; }
+    if (dn > 1 && isPrime(dn) && gcd(w, dn) === 1) { pick = dn; break; }
+  }
+  CHOSEN[cat] = pick;
+  const t = 168 / (w / pick);
+  const flag = cyc(naive) < 5 ? "⚠ " : "";
+  console.log(
+    `| ${cat} | ${w} | ${naive} | ${flag}${cyc(naive)} wk | **${pick}** | ${isPrime(pick) ? "yes" : "no"} | ${cyc(pick)} wk | ${t.toFixed(1)}h | ${(24 / t).toFixed(1)} |`
+  );
+}
+console.log("\n| Category | Chosen depth | Have | Delta |");
+console.log("|---|---|---|---|");
+for (const [cat, d] of Object.entries(CHOSEN)) {
+  const have = DEPTH[cat] ?? 0;
+  console.log(`| ${cat} | ${d} | ${have} | ${have - d >= 0 ? "+" : ""}${have - d} |`);
+}
