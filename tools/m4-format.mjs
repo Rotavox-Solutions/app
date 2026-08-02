@@ -85,50 +85,20 @@ for (const code of Object.keys(IMAGING)) IMAGING[code][`TOH ${identityOf(code)}`
 // Turnover deviation is penalised, so each depth is the freshest value near its target
 // rather than the freshest value outright.
 export const DEPTH_TARGET = {
-  // Currents are sized turnover-FIRST, then checked against cume repeat within
-  // tolerance — the PD's stated priority order. An earlier pass let freshness drive
-  // depth and produced a broken ladder: A1 at 5.05 plays/day then a cliff to A2 at
-  // 2.16 and a flat plateau below, which is a power tier with three light tiers under
-  // it rather than an Alternative CHR currents ladder.
-  // Depth must WIDEN as the ladder descends — a power tier is narrow and hot, lower
-  // tiers wide and light. An earlier pass produced A2 (8) shallower than A1 (10),
-  // which is inverted. The cause was upstream: the clock shapes gave B more weekly
-  // slots than A2, so A2 could not be both deeper and lighter than B. Fixed in
-  // SHAPES (ES/HD/CO), giving slots A1 318 > A2 248 > B 222 > N 206 > C 201.
-  //   depth   10 < 13 < 14 < 16 < 18
-  //   plays/day 4.54 > 2.73 > 2.27 > 1.79 > 1.63
+  // SOLVED by tools/depth-solver.mjs with the schedule locked. Depth is then the only
+  // free variable; turnover, pacing, drift, lock period and cume repeat all follow.
+  // Re-run the solver after any change to SHAPES or the grid.
   //
-  // LEAD METRIC — proportional daily drift.
+  //   ladder     A1     A2      B      N      C
+  //   pacing   4.54 > 3.22 > 2.27 > 1.73 > 1.44 plays/day
+  //   depth      10 <   11 <   14 <   17 <   20
   //
-  //     drift = frac(plays per day) = (24 mod turnover) / turnover
-  //
-  // How far a song's play pattern moves each day, expressed as a fraction of its own
-  // rotation. This is the metric to read first: it subsumes both of the tests below
-  // and carries magnitude, which they discard.
-  //
-  //   drift near 0 or 1  the pattern barely moves. The old "integer plays per day"
-  //                      test is just drift ~ 0, with the magnitude thrown away.
-  //   drift ~ p/q        the pattern realigns after q days. The multi-cycle hour
-  //                      return is this, found by search instead of by arithmetic.
-  //   drift ~ 0.618      golden — the value furthest from every simple rational,
-  //                      so the pattern takes longest to realign.
-  //
-  // Read the pair (drift, lock-days) together: drift says how fast it moves, lock-days
-  // how long before it comes back.
-  //
-  // Depths must also clear the MULTI-CYCLE hour return: the earliest k where k x
-  // turnover lands within an hour of a whole number of days. Single-cycle drift is
-  // not sufficient — N at depth 20 has 7.7h of drift per play, which looks healthy,
-  // but 3 x 16.31h = 48.9h, so it came back to its own hour every two days. Depth 18
-  // returns after 11 days.
-  //
-  // The constraint is applied only below ~2.5 plays/day. Above that a song already
-  // occupies four or five different hours every day and the measure saturates —
-  // A1 returns in 1.98 days at every depth that also holds CHR pacing, and no listener
-  // can distinguish that from its ordinary behaviour.
-  A1: 10, A2: 13, B: 14, C: 16, N: 18,
-  R1: 29, R2: 43, R3: 70, Discovery: 29,
-  G2010: 155, G2000: 99, G1990: 163, H: 70,
+  // N sits between B and C by pacing, not below C: it is the new-music entry pool
+  // rather than the lightest rung of the power ladder, and its turnover band does not
+  // reach low enough to sit under C without colliding with it.
+  A1: 10, A2: 11, B: 14, N: 17, C: 20,
+  R1: 30, R2: 48, R3: 72, Discovery: 37,
+  G2010: 148, G2000: 104, G1990: 145, H: 64,
 };
 
 /**
@@ -154,10 +124,11 @@ export const RESIDENCY_WEEKS = {
  */
 export const HORIZONTAL = {
   A1: { windowHours: 1, minDays: 4 },
-  A2: { windowHours: 1, minDays: 1 },
+  A2: { windowHours: 1, minDays: 10 },
   B: { windowHours: 1, minDays: 10 },
-  C: { windowHours: 1, minDays: 1 },
-  N: { windowHours: 1, minDays: 1 },
+  N: { windowHours: 1, minDays: 10 },
+  C: { windowHours: 1, minDays: 10 },
+  R1: { windowHours: 1, minDays: 10 },
 };
 
 // ---------- 3. enabled depth (live census 2026-07-31) ----------
