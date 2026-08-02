@@ -3,7 +3,7 @@
   "id": "2026-08-02-currents-refresh",
   "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
   "authored_at": "2026-08-02",
-  "intent": "Rebuild the currents ladder against Mediabase Active Rock and Mediabase Alternative airplay (both week of Jul 19-25 2026), reading each record on the chart its format lives on. A1 becomes the top five of each chart. 16 of the 17 entries to currents are recalls of already-owned charting records from W/ZN/Rx/X \u2014 this was a recall problem, not an acquisition problem. Composite-chart positions are used only as an entry signal for N, never to promote or drop. PD decisions applied: option 3 on the AAA-leaning recalls (Sam Fender and Myles Smith retained, Noah Kahan and Dominic Fike declined), Three Days Grace held in A1.",
+  "intent": "Rebuild the currents ladder against Mediabase Active Rock and Mediabase Alternative airplay (both week of Jul 19-25 2026), reading each record on the chart its format lives on. A1 becomes the top five of each chart. 16 of the 17 entries to currents are recalls of already-owned charting records from W/ZN/Rx/X \u2014 this was a recall problem, not an acquisition problem. Composite-chart positions are used only as an entry signal for N, never to promote or drop. PD decisions applied: option 3 on the AAA-leaning recalls (Sam Fender and Myles Smith retained, Noah Kahan and Dominic Fike declined), Three Days Grace held in A1. B arrivals are routed to subcat 1, which becomes the single B pool; subcat 5 (B2) is retired indefinitely and emptied by the companion changeset 2026-08-02-b-consolidation.",
   "basis": {
     "sheet_id": "2026-08-02-currents-refresh"
   },
@@ -69,24 +69,24 @@
       "artist": "Black Label Society",
       "title": "Name In Blood",
       "from_subcat": 2,
-      "to_subcat": 5,
-      "reason": "AR #9 on -342 spins, third-steepest fall on either chart"
+      "to_subcat": 1,
+      "reason": "AR #9 on -342 spins, third-steepest fall on either chart (into B, subcat 1; subcat 5 retiring)"
     },
     {
       "rdj_song_id": 1660,
       "artist": "Shinedown",
       "title": "Young Again",
       "from_subcat": 23,
-      "to_subcat": 5,
-      "reason": "AR #10 airplay (+102) and rising \u2014 the only Shinedown record retained"
+      "to_subcat": 1,
+      "reason": "AR #10 airplay (+102) and rising \u2014 the only Shinedown record retained (into B, subcat 1; subcat 5 retiring)"
     },
     {
       "rdj_song_id": 1655,
       "artist": "Joyce Manor",
       "title": "I Used To Go To This",
       "from_subcat": 3,
-      "to_subcat": 5,
-      "reason": "ALT #16 airplay and rising"
+      "to_subcat": 1,
+      "reason": "ALT #16 airplay and rising (into B, subcat 1; subcat 5 retiring)"
     },
     {
       "rdj_song_id": 461,

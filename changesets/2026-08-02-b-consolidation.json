@@ -1,0 +1,76 @@
+{
+  "changeset_version": 1,
+  "id": "2026-08-02-b-consolidation",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-08-02",
+  "intent": "Collapse B1 and B2 into a single B pool at subcat 1. The M4 clock model has one B (CUR = A1, A2, B, C, N), so two subcategories mapping to one category was indirection with no consumer: it made the depth target unreadable off the subcategory list and would have forced LIBRARY-CONTRACT to carry a 2-to-1 mapping permanently. The 3/11 split encoded nothing -- not rising/falling, not a rotation distinction. Subcat 1 is renamed B; subcat 5 is retired indefinitely, left empty rather than deleted because RadioDJ history and playlist rows may reference it. Order-independent with respect to 2026-08-02-currents-refresh: the two changesets touch disjoint sets of songs in subcat 5.",
+  "basis": {
+    "sheet_id": "2026-08-02-currents-refresh"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 1720,
+      "artist": "Atreyu",
+      "title": "All For You",
+      "from_subcat": 5,
+      "to_subcat": 1,
+      "reason": "B2 retired \u2014 consolidating the single B pool into subcat 1"
+    },
+    {
+      "rdj_song_id": 1841,
+      "artist": "Bad Omens",
+      "title": "Dying To Love",
+      "from_subcat": 5,
+      "to_subcat": 1,
+      "reason": "B2 retired \u2014 consolidating the single B pool into subcat 1"
+    },
+    {
+      "rdj_song_id": 680,
+      "artist": "Bilmuri, A Day To Remember",
+      "title": "Always Let You Down",
+      "from_subcat": 5,
+      "to_subcat": 1,
+      "reason": "B2 retired \u2014 consolidating the single B pool into subcat 1"
+    },
+    {
+      "rdj_song_id": 1709,
+      "artist": "Evanescence",
+      "title": "Who Will You Follow",
+      "from_subcat": 5,
+      "to_subcat": 1,
+      "reason": "B2 retired \u2014 consolidating the single B pool into subcat 1"
+    },
+    {
+      "rdj_song_id": 1729,
+      "artist": "Muse",
+      "title": "Be With You",
+      "from_subcat": 5,
+      "to_subcat": 1,
+      "reason": "B2 retired \u2014 consolidating the single B pool into subcat 1"
+    },
+    {
+      "rdj_song_id": 485,
+      "artist": "Sleep Token",
+      "title": "Emergence (Rock Version)",
+      "from_subcat": 5,
+      "to_subcat": 1,
+      "reason": "B2 retired \u2014 consolidating the single B pool into subcat 1"
+    },
+    {
+      "rdj_song_id": 1758,
+      "artist": "sombr",
+      "title": "Homewrecker",
+      "from_subcat": 5,
+      "to_subcat": 1,
+      "reason": "B2 retired \u2014 consolidating the single B pool into subcat 1"
+    },
+    {
+      "rdj_song_id": 1735,
+      "artist": "The Pretty Reckless",
+      "title": "When I Wake Up",
+      "from_subcat": 5,
+      "to_subcat": 1,
+      "reason": "B2 retired \u2014 consolidating the single B pool into subcat 1"
+    }
+  ]
+}

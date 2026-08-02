@@ -4,6 +4,33 @@ Third and final draft. Drafts 1–2 were built on a composite chart; both got ca
 that real airplay overturned. See "What the earlier drafts got wrong" at the end — the
 failure mode is methodological and will recur.
 
+## Key — category ↔ RadioDJ subcategory ID
+
+The changeset moves records by numeric `id_subcat`. This is what those numbers mean.
+
+| Category | Subcat | | Category | Subcat |
+|---|---|---|---|---|
+| **A1** | **4** | | R1 | 24 |
+| **A2** | **2** | | R2 | 25 |
+| **B** | **1** | | R3 | 26 |
+| **C** | **3** | | Discovery (X) | 6 |
+| **N** | **23** | | W (bench) | 36 |
+| | | | Z (rested) | 38 |
+| G2010 | 29 | | ZN (rested from N) | 39 |
+| G2000 | 28 | | F (filler) | 31 |
+| G1990 | 27 | | GDEEP | 37 |
+| H1 | 30 | | *B2 — retired* | *5* |
+| H2 | 49 | | | |
+
+The IDs are not in ladder order — subcat 1 is B, 2 is A2, 3 is C, 4 is A1. Read the
+table, not the number.
+
+**B was two pools and is now one.** The M4 clock model has a single B
+(`CUR = ["A1","A2","B","C","N"]` in `tools/m4-format.mjs`), so B1 and B2 mapping to one
+category was indirection with no consumer. **B is subcat 1**; subcat 5 is retired
+indefinitely — emptied rather than deleted, because RadioDJ history and playlist rows
+may reference it.
+
 ## Charts of record
 
 | Chart | Authoritative for | Measures | Week |
