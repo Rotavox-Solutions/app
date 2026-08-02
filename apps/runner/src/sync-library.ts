@@ -64,25 +64,23 @@ async function main() {
   const watermark = await getWatermark();
   console.log(`Syncing songs with ${dateModifiedCol} > ${watermark.toISOString()}`);
 
-  const [rows] = await pool.query<any[]>(
+  const SELECT_COLS =
     `SELECT \`${songIdCol}\` AS rdjSongId, \`${artistCol}\` AS artist, \`${titleCol}\` AS title, \`${albumCol}\` AS album,
             \`${pathCol}\` AS path, \`${durationCol}\` AS duration, \`${subcategoryIdCol}\` AS subcategoryId,
             \`${genreIdCol}\` AS genreId, \`${enabledCol}\` AS enabled, \`${songTypeCol}\` AS songType,
             \`${dateModifiedCol}\` AS dateModified${cueTimesCol ? `, \`${cueTimesCol}\` AS cueTimes` : ""}
-     FROM \`${songsTable}\`
-     WHERE \`${dateModifiedCol}\` > ?
-     ORDER BY \`${dateModifiedCol}\` ASC`,
+     FROM \`${songsTable}\``;
+
+  const [rows] = await pool.query<any[]>(
+    `${SELECT_COLS} WHERE \`${dateModifiedCol}\` > ? ORDER BY \`${dateModifiedCol}\` ASC`,
     [watermark]
   );
 
-  if (rows.length === 0) {
-    console.log("No changed songs since last sync.");
-    await pool.end();
-    await pgClient.end();
-    return;
-  }
-
-  console.log(`Fetched ${rows.length} changed song(s).`);
+  console.log(
+    rows.length === 0
+      ? "No songs changed since last sync."
+      : `Fetched ${rows.length} changed song(s).`
+  );
 
   /**
    * RadioDJ stores cue points as `&sta=..&xta=..&end=..&fin=..&fou=..` in seconds.
@@ -107,7 +105,8 @@ async function main() {
     return ms;
   };
 
-  for (const row of rows) {
+  const upsertAll = async (batch: any[]): Promise<void> => {
+  for (const row of batch) {
     const rdjCategoryId = categoryBySubcat.get(row.subcategoryId) ?? null;
     // Core fields only — extended metadata (era/tempo/energy/mood/...) is
     // Scheduler-owned and is deliberately absent from both values and the
@@ -137,13 +136,81 @@ async function main() {
         set: coreFields,
       });
   }
+  };
 
-  const maxDateModified: Date = rows.reduce(
-    (max, r) => (r.dateModified > max ? r.dateModified : max),
-    rows[0].dateModified
+  await upsertAll(rows);
+
+  if (rows.length > 0) {
+    const maxDateModified: Date = rows.reduce(
+      (max, r) => (r.dateModified > max ? r.dateModified : max),
+      rows[0].dateModified
+    );
+    await setWatermark(maxDateModified);
+    console.log(`Synced ${rows.length} song(s). New watermark: ${maxDateModified.toISOString()}`);
+  }
+
+  /**
+   * DRIFT REPAIR — the watermark cannot be trusted on its own.
+   *
+   * The watermark filters on `date_modified`, but apply-changeset.ts moves songs with
+   * `UPDATE songs SET id_subcat = ...` and never touches that column, because
+   * date_modified means "the file's metadata changed" and writing to it to signal a
+   * pool move would be both semantically wrong and an unnecessary widening of our
+   * write surface against RadioDJ (ADR-0001 §3.3).
+   *
+   * The consequence was silent and severe: on 2026-08-02 four applied changesets were
+   * completely invisible to an incremental sync, leaving the mirror describing a
+   * pre-M4 library — H2 absent entirely, R2 and R3 empty. Seeding against that would
+   * have mapped every category to the wrong songs, and the seed's own assertions could
+   * not have caught it, because every category WOULD have had songs in it.
+   *
+   * So rather than making the applier and the sync coordinate, the sync verifies
+   * itself. Pulling three small columns for the whole library is cheap (~1.6k rows),
+   * and it repairs divergence from ANY cause -- changesets, hand edits in RadioDJ, a
+   * missed run -- instead of only the causes we thought to anticipate.
+   */
+  const [live] = await pool.query<any[]>(
+    `SELECT \`${songIdCol}\` AS id, \`${subcategoryIdCol}\` AS subcat, \`${enabledCol}\` AS enabled
+     FROM \`${songsTable}\``
   );
-  await setWatermark(maxDateModified);
-  console.log(`Synced ${rows.length} song(s). New watermark: ${maxDateModified.toISOString()}`);
+  const mirror = await schedulerDb
+    .select({
+      id: songs.rdjSongId,
+      subcat: songs.rdjSubcategoryId,
+      enabled: songs.enabled,
+    })
+    .from(songs)
+    .where(eq(songs.stationId, stationId));
+
+  const mirrorById = new Map(mirror.map((m) => [m.id, m]));
+  const drifted: number[] = [];
+  for (const row of live) {
+    const m = mirrorById.get(row.id);
+    // Absent from the mirror, or disagreeing on pool/enabled -- either way, re-pull it.
+    if (!m || m.subcat !== row.subcat || m.enabled !== Boolean(row.enabled)) {
+      drifted.push(row.id);
+    }
+  }
+
+  if (drifted.length === 0) {
+    console.log("Drift check: mirror matches RadioDJ.");
+  } else {
+    console.log(`Drift check: ${drifted.length} song(s) disagree with RadioDJ — repairing.`);
+    // Chunked: a single IN () with thousands of ids can exceed max_allowed_packet.
+    for (let i = 0; i < drifted.length; i += 500) {
+      const chunk = drifted.slice(i, i + 500);
+      const [repair] = await pool.query<any[]>(
+        `${SELECT_COLS} WHERE \`${songIdCol}\` IN (${chunk.map(() => "?").join(",")})`,
+        chunk
+      );
+      await upsertAll(repair);
+    }
+    console.log(`Repaired ${drifted.length} song(s).`);
+  }
+
+  // Deletions are NOT handled here -- a purged row simply stops appearing, so it cannot
+  // be detected by diffing rows that exist. That is prune-library.ts's job, and it
+  // disables rather than deletes to preserve log_items and play_history references.
 
   await pool.end();
   await pgClient.end();
