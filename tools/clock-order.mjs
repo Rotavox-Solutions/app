@@ -27,6 +27,7 @@ export const FALLBACK = {
   "New-Music Sweepers": "Liners",
   "Relaunch Sweepers": "Liners",
   "Gold Backsells": "Liners",
+  "Heritage Backsells": "Gold Backsells",
   "Station Promos": "Liners",
 };
 const tohFallback = (code) => "Liners";
@@ -74,7 +75,20 @@ const VINTAGE_LAYOUT = {
  */
 const PAIR_SECOND = { GHa: 6, GHb: 13 };
 
-/** Max consecutive music items/** Max consecutive music items before imaging must break the sweep, per block. */
+/**
+ * Max consecutive music items before imaging must break the sweep, per block.
+ *
+ * Scaled to each block's cume profile: peak blocks break every 2, Deep Night runs 5 --
+ * in low-cume long-session hours interruption costs more than identity.
+ *
+ * Four is the floor everywhere except the peak blocks: at ~3.5 min a song that is one
+ * break per quarter-hour, which is the rhythm the format is built on.
+ *
+ * A cap is only meetable if the block owns enough imaging to meet it. Deep Night at
+ * 15 music slots needs three internal breaks (4/8/12) and therefore three usable items;
+ * with two it produced a seven-song run regardless of what the cap said. Lowering a cap
+ * without adding inventory makes worst-case sweeps LONGER, not shorter.
+ */
 const MAX_RUN = { ES: 2, FF: 2, HD: 2, WW: 3, EM: 3, CO: 3, WD: 3, DNa: 4, DNb: 4, GHa: 4, GHb: 4 };
 
 /** Spread `n` items of a group evenly across `total` slots: ideal index per item. */
@@ -224,9 +238,18 @@ function weave(music, imaging, code) {
     const remainingMusic = music.length - i;
     // i is 0-based over music items; the layout counts music slots from 1
     const isPairSecond = noBreakBefore != null && i + 1 === noBreakBefore;
-    if (run >= maxRun && left() > 0 && !isPairSecond) {
+    // A declared pair may not be split, but it also may not be used to smuggle a longer
+    // sweep past the cap. If the next item is the pair's second and breaking there would
+    // be forbidden, break one item EARLY instead.
+    const justBeforePair = noBreakBefore != null && i + 2 === noBreakBefore;
+    const mustBreakEarly = justBeforePair && run >= maxRun - 1;
+    if ((run >= maxRun || mustBreakEarly) && left() > 0 && !isPairSecond) {
       const prev = music[i - 1], next = cat;
       const pref = [];
+      // Heritage first where it applies: a pre-1990 record backsold with gold copy
+      // written for the 2010s undersells the format's own differentiator. Falls through
+      // to Gold Backsells wherever heritage copy is unavailable or unallocated.
+      if (prev === "H1" || prev === "H2") pref.push("Heritage Backsells");
       if (GOLD.includes(prev)) pref.push("Gold Backsells");
       if (next === "N" || next === "A1") pref.push("New-Music Sweepers");
       if (next === "A1" || next === "A2") pref.push("Relaunch Sweepers");
@@ -296,6 +319,7 @@ else {
     Discovery: "new music is the nearest neighbour",
     "New-Music Sweepers": "generic imaging", "Relaunch Sweepers": "generic imaging",
     "Gold Backsells": "generic imaging", "Station Promos": "generic imaging",
+    "Heritage Backsells": "falls to Gold Backsells — still context-correct for a gold record",
     Liners: "no fallback — a wrong-context liner is worse than none",
   };
   for (const [k, v] of Object.entries(FALLBACK)) console.log(`| ${k} | ${v ?? "—"} | ${why[k]} |`);

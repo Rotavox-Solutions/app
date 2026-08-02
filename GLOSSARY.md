@@ -167,8 +167,15 @@ position each all resolve to the same midpoint.
 a New-Music sweeper ahead of a new track, a Gold Backsell behind a gold one.
 
 **Imaging density (ours)** — how many music items run between imaging breaks, scaled to
-each block's cume profile. Peak blocks break every 2 songs; Deep Night runs 5-song
-sweeps, since interruption costs more than identity in low-cume long-session hours.
+each block's cume profile. **Peak blocks break every 2 songs; everywhere else caps at 3
+or 4.** Four is one break per quarter-hour at ~3.5 min a song, which is the rhythm the
+format is built on.
+
+A cap is only meetable if the block owns enough imaging to meet it — and lowering a cap
+without adding inventory makes worst-case sweeps *longer*, not shorter. Deep Night at a
+cap of 4 with only two usable items spent both breaks early and stranded a seven-song
+run; the fix was a third item, not a looser cap. Superseded the earlier "Deep Night runs
+5-song sweeps" figure, which described a state the clocks never actually produced.
 
 **Music sweep** — consecutive music positions with no imaging between them.
 

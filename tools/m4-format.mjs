@@ -75,12 +75,21 @@ export const IMAGING = {
   FF:  { Liners:4, "New-Music Sweepers":1, "Gold Backsells":1, "Station Promos":1 },
   HD:  { Liners:4, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
   CO:  { Liners:3, "Gold Backsells":1, "Station Promos":1 },
-  WW:  { Liners:3, "Gold Backsells":1, "Station Promos":1 },
+  WW:  { Liners:3, "Gold Backsells":1, "Heritage Backsells":1, "Station Promos":1 },
   WD:  { Liners:3, "Gold Backsells":1, "Station Promos":1 },
-  DNa: { Liners:1, "Gold Backsells":1 },
-  DNb: { Liners:1, "Gold Backsells":1 },
-  GHa: { Liners:1, "Gold Backsells":2 },
-  GHb: { Liners:1, "Gold Backsells":2 },
+  // Three usable items, not two. Deep Night breaks every 4 like everywhere else -- one
+  // break per quarter-hour is the rhythm -- and at 15 music slots that needs three
+  // internal breaks (4/8/12). With only two the cap cannot be honoured at all and the
+  // hour ends on a seven-song run.
+  DNa: { Liners:1, "Gold Backsells":1, "Station Promos":1 },
+  DNb: { Liners:1, "Gold Backsells":1, "Station Promos":1 },
+  // Golden Hour and Weekend Wide are the only blocks carrying H2, so they are the only
+  // places a heritage-specific backsell can land. Backselling a 1978 record with copy
+  // written for 2010s gold undersells the thing that makes the station different
+  // (value proposition 2). The extra slot also gives GH the imaging inventory it needs
+  // to hold its sweep length -- see MAX_RUN in clock-order.mjs.
+  GHa: { Liners:1, "Gold Backsells":1, "Heritage Backsells":2 },
+  GHb: { Liners:1, "Gold Backsells":1, "Heritage Backsells":2 },
   EM:  { Liners:3, "New-Music Sweepers":1, "Station Promos":1 },
 };
 for (const code of Object.keys(IMAGING)) IMAGING[code][`TOH ${identityOf(code)}`] = 1;
