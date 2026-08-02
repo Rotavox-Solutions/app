@@ -46,7 +46,7 @@ export const SHAPES = {
   FF: { A1:3, A2:2, B:2, C:1, N:2, R1:1, R2:1, R3:1, G2010:2, Discovery:1 },
   HD: { A1:3, A2:1, B:2, C:2, N:1, R1:1, R2:1, R3:1, G2010:2, G2000:1, Discovery:1 },
   CO: { A1:2, A2:1, B:2, C:1, N:1, R1:1, R2:2, R3:1, G2010:2, G2000:1, G1990:1, Discovery:1 },
-  WW: { A1:2, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:1, H:1, Discovery:1 },
+  WW: { A1:2, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:2, Discovery:1 },
   // Wind Down is ET 20-23 / PT 17-20 — the most US-dominant music block, so Heritage
   // is sited here rather than in the Europe-heavy hours it used to lean on.
   WD: { A1:1, A2:1, B:1, C:1, N:1, R1:1, R2:1, R3:2, G2010:2, G2000:1, G1990:2, H:1, Discovery:1 },
@@ -74,6 +74,22 @@ export const IMAGING = {
 };
 for (const code of Object.keys(IMAGING)) IMAGING[code][`TOH ${identityOf(code)}`] = 1;
 
+// ---------- 3a. TARGET depth: turnover x drift x freshness, jointly ----------
+// Three constraints, reconciled rather than traded off:
+//   turnover  — the programming standard (§0a format definition)
+//   drift     — turnover must sit >=5h from any whole-day multiple, or a song creeps
+//               back into the same listening window night after night
+//   freshness — simulated: share of weeks a listener in a fixed slot hears a DIFFERENT
+//               song. Depends on depth-vs-slot-pattern resonance, NOT on turnover, and
+//               is not monotonic: R2 at 42 scores 25%, at 43 it scores 100%.
+// Turnover deviation is penalised, so each depth is the freshest value near its target
+// rather than the freshest value outright.
+export const DEPTH_TARGET = {
+  A1: 11, A2: 11, B: 19, C: 19, N: 17,
+  R1: 29, R2: 43, R3: 70, Discovery: 29,
+  G2010: 155, G2000: 99, G1990: 163, H: 70,
+};
+
 // ---------- 3. enabled depth (live census 2026-07-31) ----------
 export const DEPTH = {
   A1:7, A2:10, B:19, C:22, N:8, R1:22, R2:34, R3:42,
@@ -91,7 +107,7 @@ export const TURNOVER = {
   // divisors of 24 (1,2,3,4,6,8,12,24) and sits >=5h from any whole-day multiple, per
   // the scheduling convention that even turnovers pin a song to the same clock times.
   A1: 5, A2: 7, B: 11, N: 13, C: 15,
-  R1: 29, Discovery: 33, R2: 39, R3: 53,
+  R1: 31, Discovery: 35, R2: 39, R3: 57,
   G2010: 81, G2000: 105, G1990: 129, H: 153,
   Liners: 23, "New-Music Sweepers": 23, "Relaunch Sweepers": 23,
   "Gold Backsells": 23, "Station Promos": 23,
