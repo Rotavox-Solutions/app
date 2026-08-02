@@ -95,9 +95,20 @@ export const DEPTH_TARGET = {
   // which is inverted. The cause was upstream: the clock shapes gave B more weekly
   // slots than A2, so A2 could not be both deeper and lighter than B. Fixed in
   // SHAPES (ES/HD/CO), giving slots A1 318 > A2 248 > B 222 > N 206 > C 201.
-  //   depth   10 < 13 < 14 < 16 < 20
-  //   plays/day 4.54 > 2.73 > 2.27 > 1.79 > 1.47
-  A1: 10, A2: 13, B: 14, C: 16, N: 20,
+  //   depth   10 < 13 < 14 < 16 < 18
+  //   plays/day 4.54 > 2.73 > 2.27 > 1.79 > 1.63
+  //
+  // Depths must also clear the MULTI-CYCLE hour return: the earliest k where k x
+  // turnover lands within an hour of a whole number of days. Single-cycle drift is
+  // not sufficient — N at depth 20 has 7.7h of drift per play, which looks healthy,
+  // but 3 x 16.31h = 48.9h, so it came back to its own hour every two days. Depth 18
+  // returns after 11 days.
+  //
+  // The constraint is applied only below ~2.5 plays/day. Above that a song already
+  // occupies four or five different hours every day and the measure saturates —
+  // A1 returns in 1.98 days at every depth that also holds CHR pacing, and no listener
+  // can distinguish that from its ordinary behaviour.
+  A1: 10, A2: 13, B: 14, C: 16, N: 18,
   R1: 29, R2: 43, R3: 70, Discovery: 29,
   G2010: 155, G2000: 99, G1990: 163, H: 70,
 };
