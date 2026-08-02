@@ -25,7 +25,49 @@ Rarely revisited. Everything downstream inherits from these.
 3. **DST policy.** The US and Europe do not change on the same dates, so twice a year
    there are multi-week windows when every cross-region mapping shifts by an hour.
    Decide once: re-anchor, accept drift, or maintain a seasonal grid.
-4. **Format definition.** The thing the categories have to express.
+4. **Format definition.** The thing the categories have to express. **Settled
+   2026-08-02 — see below.**
+
+### 0a. Format of record: Alternative CHR ("New Rock")
+
+**The BOLT is not an Active Rock station**, whatever the library's centre of gravity
+suggests. Format is defined by rotation behaviour, and the M4 clocks assert:
+
+| | Currents | Recurrents | Gold | Discovery |
+|---|---|---|---|---|
+| **The BOLT (M4)** | **45%** | 20% | 29% | 6% |
+| Active Rock | ~19% | — | — | — |
+| Alternative / Modern Rock | ~30–40% | — | — | — |
+| CHR / Top 40 | ~40–50% | — | — | — |
+
+Half the music is current or discovery. That is CHR current-intensity applied to
+alt/active-rock content — Shinedown, Deftones, Spiritbox and Sleep Token alongside
+alt-pop crossover (Sombr, Role Model, Djo). The format of record is therefore
+**Alternative CHR**, trade-named "New Rock". Confirmed by the PD 2026-08-02.
+
+**Why the deviation from Active Rock is deliberate, not drift.** Terrestrial Active
+Rock defends a signal against competitors playing the same familiar records, so
+familiarity is its weapon and a ~19% current share follows. The BOLT acquires
+listeners through directory search on onlineradiobox and radio.net, where familiarity
+is worth nothing — nobody scrolls a station list hoping to hear a song they already
+know. Discovery is the only competitive surface the distribution channel offers, so a
+high current share is the correct response to it. The percentages are asserted, not
+inherited.
+
+**What inherits from this label.** It is not nomenclature; three things depend on it:
+
+1. **Directory genre tagging.** The listing category *is* the acquisition funnel.
+   Tagged "Active Rock", the station is presented to listeners who came for
+   familiarity and will leave inside fifteen seconds. Tagged Alternative / Modern
+   Rock, it reaches people looking for new music.
+2. **Imaging language.** The TOH scripts and the mount intro (ADR §3.5a) must state
+   the promise the station actually keeps — "new rock first", not "Vegas rock".
+3. **What gold means.** In a current-forward alternative format, gold is 2000s–2010s
+   alternative with 90s alt as the deep canon. **Open question:** Heritage (pre-1990)
+   is targeted at 142 songs, which is an Active Rock instinct. Whether it belongs
+   depends on its contents — post-punk and new-wave canon is alternative heritage and
+   fits; classic rock is another format's gold and will read as incoherent next to
+   Spiritbox. Audit H before locking its depth.
 
 ---
 
@@ -157,7 +199,7 @@ targeting) and will block the same ones again next quarter.
 
 | Phase | Status |
 |---|---|
-| 0 | Positioning implicit. Geography/weights settled 2026-08-01; **DST policy open** |
+| 0 | Format settled 2026-08-02 (§0a, Alternative CHR); geography/weights settled 2026-08-01; **DST policy open**; **H contents unaudited** |
 | 1a | Categories exist; **lifecycle states unmodelled**; rules exist, unvalidated against depth |
 | 1b | Done — `DAYPART-ANALYSIS.md`, 8 blocks + EM split |
 | 1c | **Not converged.** Absolute counts were written before a turnover standard was set. A1 depth is the binding input |
