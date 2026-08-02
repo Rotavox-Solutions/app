@@ -82,6 +82,20 @@ const DEPTH = {
   "Relaunch Sweepers":12, "Gold Backsells":26, "Station Promos":14,
 };
 
+// ---------- 3b. target turnover (hours to cycle the pool once) ----------
+// PROPOSAL, not derived. This is the load-bearing programming judgment of the format:
+// required depth = target turnover x slots per hour. Active Rock heavy sits at 3-4h
+// for the power tier; everything else ladders down from there.
+const TURNOVER = {
+  A1: 3.5, A2: 5, B: 8, C: 14, N: 12,
+  R1: 24, R2: 36, R3: 48,
+  G2010: 72, G2000: 96, G1990: 120, H: 150,
+  Discovery: 36,
+  Liners: 24, "New-Music Sweepers": 24, "Relaunch Sweepers": 24,
+  "Gold Backsells": 24, "Station Promos": 24,
+};
+const TOH_TURNOVER = 48; // ~0.5 plays/day — below conscious recognition
+
 const CUR = ["A1","A2","B","C","N"], REC = ["R1","R2","R3"], GOLD = ["G2010","G2000","G1990","H"];
 
 // ---------- grid ----------
@@ -145,21 +159,20 @@ for (const code of Object.keys(BLOCKS)) {
   }
 }
 
-console.log("\n## Weekly demand vs depth\n");
-console.log("| Category | Slots/wk | Enabled | Plays/song/wk | Plays/day | Turnover |");
-console.log("|---|---|---|---|---|---|");
+console.log("\n## Required depth (Phase 1c: depth = target turnover x slots/hr)\n");
+console.log("| Category | Slots/wk | Target turnover | Plays/day at target | **Required depth** | Have | Delta |");
+console.log("|---|---|---|---|---|---|---|");
 for (const cat of [...allCats, ...allImg]) {
-  const w = demand[cat] ?? 0, d = DEPTH[cat];
+  const w = demand[cat] ?? 0;
   if (!w) continue;
-  if (d == null) {
-    // Depth TBD (TOH sets in production) — show what each count would yield.
-    const need = (perDay) => Math.ceil(w / 7 / perDay);
-    console.log(`| ${cat} | ${w} | *TBD* | — | — | ${need(1)} for 1.0/day, ${need(0.5)} for 0.5/day |`);
-    continue;
-  }
-  const perWk = w / d, perDay = perWk / 7, turnover = (d / (w / 168));
-  const flag = perDay > 5 ? " ⚠" : "";
-  console.log(`| ${cat} | ${w} | ${d} | ${perWk.toFixed(1)} | ${perDay.toFixed(1)}${flag} | ${turnover.toFixed(1)}h |`);
+  const target = cat.startsWith("TOH ") ? TOH_TURNOVER : TURNOVER[cat];
+  const perHr = w / 168;
+  const need = Math.round(target * perHr);
+  const have = DEPTH[cat];
+  const delta = have == null ? "*produce*" : (have - need >= 0 ? `+${have - need}` : `${have - need}`);
+  console.log(
+    `| ${cat} | ${w} | ${target}h | ${(24 / target).toFixed(1)} | **${need}** | ${have ?? "—"} | ${delta} |`
+  );
 }
 
 const musicTotal = allCats.reduce((t, c) => t + (demand[c] ?? 0), 0);
