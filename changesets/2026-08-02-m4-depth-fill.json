@@ -1,0 +1,628 @@
+{
+  "changeset_version": 1,
+  "id": "2026-08-02-m4-depth-fill",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-08-02",
+  "intent": "Fill M4 depth targets from the reservoirs. ZN (rested from N) supplies the recurrent tiers; the W bench supplies deep recurrent and Discovery. Split is by artist familiarity, which is the real distinction between a recurrent and a discovery track, since neither pool carries any play history to score against. One track per artist, round-robin, so the set is diverse rather than alphabetically clustered. A1, A2, N and H2 are deliberately NOT filled here — they need current adds and pre-1980 material the reservoirs do not contain.",
+  "basis": {
+    "sheet_id": "2026-08-02-reservoir-profile"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 1835,
+      "artist": "Halestorm",
+      "title": "Like A Woman Can",
+      "from_subcat": 39,
+      "to_subcat": 24,
+      "reason": "-> R1: rested current by an established act"
+    },
+    {
+      "rdj_song_id": 1838,
+      "artist": "Vance Joy",
+      "title": "Fascination In The Dark",
+      "from_subcat": 39,
+      "to_subcat": 24,
+      "reason": "-> R1: rested current by an established act"
+    },
+    {
+      "rdj_song_id": 1766,
+      "artist": "The Black Keys",
+      "title": "You Got To Lose",
+      "from_subcat": 39,
+      "to_subcat": 24,
+      "reason": "-> R1: rested current by an established act"
+    },
+    {
+      "rdj_song_id": 1855,
+      "artist": "Sloan",
+      "title": "Dream Destroyer (Radio Edit - Full Intro)",
+      "from_subcat": 39,
+      "to_subcat": 24,
+      "reason": "-> R1: rested current by an established act"
+    },
+    {
+      "rdj_song_id": 1779,
+      "artist": "The Lumineers",
+      "title": "So Long",
+      "from_subcat": 39,
+      "to_subcat": 24,
+      "reason": "-> R1: rested current by an established act"
+    },
+    {
+      "rdj_song_id": 1807,
+      "artist": "Danko Jones",
+      "title": "Diamond In The Rough",
+      "from_subcat": 39,
+      "to_subcat": 24,
+      "reason": "-> R1: rested current by an established act"
+    },
+    {
+      "rdj_song_id": 1784,
+      "artist": "Big Wreck",
+      "title": "Dog With A Gun",
+      "from_subcat": 39,
+      "to_subcat": 24,
+      "reason": "-> R1: rested current by an established act"
+    },
+    {
+      "rdj_song_id": 1820,
+      "artist": "Foo Fighters",
+      "title": "Asking For A Friend",
+      "from_subcat": 39,
+      "to_subcat": 24,
+      "reason": "-> R1: rested current by an established act"
+    },
+    {
+      "rdj_song_id": 1827,
+      "artist": "Turnstile",
+      "title": "Look Out For Me",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1858,
+      "artist": "The Last Dinner Party",
+      "title": "This Is The Killer Speaking",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1776,
+      "artist": "Mumford & Sons",
+      "title": "The Banjo Song",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1852,
+      "artist": "Portugal. The Man",
+      "title": "Tanana",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1706,
+      "artist": "Theory Of A Deadman",
+      "title": "Barricade",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1829,
+      "artist": "AJR",
+      "title": "The Big Goodbye",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1745,
+      "artist": "Rob Zombie",
+      "title": "Rock 'N' Roller (I'm A)",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1798,
+      "artist": "Silversun Pickups",
+      "title": "The Wreckage",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1777,
+      "artist": "Story Of The Year",
+      "title": "Gasoline",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1761,
+      "artist": "U2",
+      "title": "American Obituary",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1805,
+      "artist": "Avenged Sevenfold",
+      "title": "Magic",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1826,
+      "artist": "The Neighbourhood",
+      "title": "Hula Girl",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1768,
+      "artist": "The Strumbellas",
+      "title": "Skin Of My Teeth",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 1771,
+      "artist": "Young The Giant",
+      "title": "Different Kind Of Love",
+      "from_subcat": 39,
+      "to_subcat": 25,
+      "reason": "-> R2: rested current, secondary recurrent tier"
+    },
+    {
+      "rdj_song_id": 489,
+      "artist": "Third Eye Blind",
+      "title": "Like A Lullaby",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 269,
+      "artist": "Finger Eleven",
+      "title": "Adrenaline",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 601,
+      "artist": "Goo Goo Dolls",
+      "title": "Not Goodbye (Close My Eyes)",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 383,
+      "artist": "Soccer Mommy",
+      "title": "Driver",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 19,
+      "artist": "Jelly Roll",
+      "title": "Dead Man Walking",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 501,
+      "artist": "Seether",
+      "title": "Lost All Control",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 234,
+      "artist": "Portugal. The Man",
+      "title": "Grim Generation",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 629,
+      "artist": "Mt. Joy, Gigi Perez",
+      "title": "In The Middle",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 217,
+      "artist": "The Gaslight Anthem",
+      "title": "Spider Bites",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 136,
+      "artist": "Royal Blood",
+      "title": "Pull Me Through",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 654,
+      "artist": "The Temper Trap",
+      "title": "Giving Up Air",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 48,
+      "artist": "M83",
+      "title": "Amnesia",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 245,
+      "artist": "Dashboard Confessional, Boys Like Girls",
+      "title": "Watch The Fire",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 263,
+      "artist": "All Time Low",
+      "title": "Dear Maria, Count Me In (Atl's Version)",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 351,
+      "artist": "Cannons",
+      "title": "All I Need",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 656,
+      "artist": "A$Ap Rocky",
+      "title": "Punk Rocky",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 410,
+      "artist": "Dropkick Murphys",
+      "title": "Who'll Stand With Us!",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 578,
+      "artist": "Florence + The Machine",
+      "title": "Sympathy Magic",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 487,
+      "artist": "Sports Team",
+      "title": "Bang Bang Bang",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 499,
+      "artist": "Mudvayne",
+      "title": "Sticks And Stones",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 346,
+      "artist": "Twenty One Pilots",
+      "title": "The Contract",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 105,
+      "artist": "Barns Courtney",
+      "title": "Young In America",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 293,
+      "artist": "Hardy",
+      "title": "Psycho",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 296,
+      "artist": "Little Image",
+      "title": "Strange Friends",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 260,
+      "artist": "The Ramona Flowers",
+      "title": "Dangerous",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 258,
+      "artist": "Suki Waterhouse",
+      "title": "Supersad",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 147,
+      "artist": "Godsmack",
+      "title": "Truth",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 164,
+      "artist": "Bishop Briggs",
+      "title": "My Serotonin",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 292,
+      "artist": "Eddie Vedder",
+      "title": "Save It For Later",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 171,
+      "artist": "Half.Alive",
+      "title": "Sophie's House",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: bench track by an established act"
+    },
+    {
+      "rdj_song_id": 108,
+      "artist": "Gxtp",
+      "title": "Accusation",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 268,
+      "artist": "Fame On Fire",
+      "title": "Nightmare (The Devil)",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 129,
+      "artist": "Don't Believe In Ghosts",
+      "title": "Summer High",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 38,
+      "artist": "Nick Brodeur, Kymani Marley",
+      "title": "She's So Crazy",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 76,
+      "artist": "Hannah Cutt",
+      "title": "Messy",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 180,
+      "artist": "Vienna Vienna",
+      "title": "Vienna (Everything's Fine)",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 617,
+      "artist": "Ax, The Hatchetmen",
+      "title": "Hotel Room",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 389,
+      "artist": "Cory Marks, Travis Tritt, Mick Mars, Sully Erna",
+      "title": "Country Rock (Make My) (Active Rock Mix)",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 665,
+      "artist": "Ivri",
+      "title": "Tower Of Memories",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 123,
+      "artist": "Blindlove",
+      "title": "Juggernaut",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 111,
+      "artist": "Pat Mac",
+      "title": "The Indigo",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 35,
+      "artist": "Joy Again",
+      "title": "Looking Out For You",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 37,
+      "artist": "Matisyahu, Salt Cathedral",
+      "title": "Chameleon",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 335,
+      "artist": "Kevin Abstract, Dominic Fike",
+      "title": "Geezer",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 454,
+      "artist": "Good Neighbours",
+      "title": "Ripple",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 90,
+      "artist": "Don T Believe In Ghosts",
+      "title": "Makes No Difference",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 215,
+      "artist": "Ripe",
+      "title": "Settling Live From Mgm Music Hall At Fenway",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 532,
+      "artist": "Bilmuri",
+      "title": "More Than Hate",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 345,
+      "artist": "The Pretty Wild",
+      "title": "Button Eyes (Whisper Rock Mix)",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 152,
+      "artist": "Late Night Drive Home",
+      "title": "Stress Relief",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 190,
+      "artist": "Jagwar Twin",
+      "title": "Bad Feeling Oompa Loompa",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 466,
+      "artist": "The Rockyts",
+      "title": "A Girl Like You",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 327,
+      "artist": "Avatar",
+      "title": "Captain Goat",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 365,
+      "artist": "Ufos, Braxe + Falcon, Phoenix & Alan Braxe",
+      "title": "Ufo",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    },
+    {
+      "rdj_song_id": 1582,
+      "artist": "Jeris Johnson, Ricky Desktop, Chad Kroeger",
+      "title": "Damn! [Remix]",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act — Discovery carries the unfamiliar"
+    }
+  ]
+}
