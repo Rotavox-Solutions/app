@@ -85,9 +85,38 @@ for (const code of Object.keys(IMAGING)) IMAGING[code][`TOH ${identityOf(code)}`
 // Turnover deviation is penalised, so each depth is the freshest value near its target
 // rather than the freshest value outright.
 export const DEPTH_TARGET = {
-  A1: 11, A2: 11, B: 19, C: 19, N: 17,
+  A1: 9, A2: 13, B: 22, C: 19, N: 17,
   R1: 29, R2: 43, R3: 70, Discovery: 29,
   G2010: 155, G2000: 99, G1990: 163, H: 70,
+};
+
+/**
+ * Typical weeks a song spends in each category. Currents split the 20-week Mediabase
+ * currents window across tiers; recurrents and gold from "months to years". These are
+ * ASSUMPTIONS except the 20-week total, which is sourced.
+ *
+ * Residency is the correct horizon for measuring freshness: a metric run over 26 weeks
+ * on a pool that turns over in 6 is measuring a world that does not exist. It also
+ * determines whether relock matters — arithmetic relock needs the same set of songs
+ * week over week, so a short-residency pool is largely immune while gold is not.
+ */
+export const RESIDENCY_WEEKS = {
+  A1: 6, A2: 8, B: 12, C: 20, N: 5,
+  R1: 26, R2: 52, R3: 104, Discovery: 12,
+  G2010: 520, G2000: 520, G1990: 520, H: 520,
+};
+
+/**
+ * Horizontal separation parameters, currents only. Recurrents and gold reach ~0%
+ * week-to-week repeat passively, and applying the rule there subtracts (see
+ * tools/rule-sim.mjs). C needs none.
+ */
+export const HORIZONTAL = {
+  A1: { windowHours: 1, minDays: 4 },
+  A2: { windowHours: 1, minDays: 1 },
+  B: { windowHours: 1, minDays: 10 },
+  C: null,
+  N: { windowHours: 1, minDays: 10 },
 };
 
 // ---------- 3. enabled depth (live census 2026-07-31) ----------
