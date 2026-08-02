@@ -106,8 +106,17 @@ against a live production database.
 2. *Next* — Rotavox becomes the authoring surface. Music-direction changes are
    authored as **changesets** (§4), reviewed, and applied by the Runner.
    RadioDJ remains SoT-of-record; Rotavox is authoritative for *proposed* state.
-3. *Then* — flip. Rotavox holds pool assignment; the Runner pushes it down so
-   RadioDJ's fallback rotation stays sane. RadioDJ becomes a projection.
+3. *Then, where permitted* — Rotavox holds pool assignment and the Runner pushes it
+   down so the playout system's fallback rotation stays coherent.
+
+**Amended 2026-08-02:** step 3 is a **tier-3 capability, not a target end state.** An
+earlier version of this ADR framed it as where every deployment should arrive, which
+presumed write access to the station's library. Rotavox does not get to presume that.
+Pool assignment is owned by Rotavox *as intent* in every deployment — that is
+music direction, and it is what the product sells — but pushing that intent into the
+station's library happens only where the station grants it. Where they do not, Rotavox
+schedules correctly from its own assignments and simply cannot keep their fallback
+rotation in step. See §3.5b and §3.5c.
 
 ### 3.3 Writeback is an adapter capability, not a RadioDJ exception
 
@@ -253,6 +262,50 @@ itself a bail cause; and it fires on every connection, including reconnects.
 Rotavox may eventually want to *know* about it — a log review that reports realized
 mix should not silently exclude the one element every listener hears — but it does not
 schedule it.
+
+### 3.5b Product boundary: Rotavox is not a dependency of its clients' products
+
+Rotavox sells PD/MD capability — scheduling intent — and nothing else. Two rules follow,
+and they bind in both directions.
+
+**A client must not have to depend on Rotavox for anything but PD/MD.** CLUBFM is
+building SPINDEX, a catalogue of everything aired across its network. It would be
+convenient for SPINDEX to read Rotavox's `play_history`, since Rotavox already
+reconciles it — and that is precisely why it must not. It would make the client's own
+product depend on their music scheduler being up, correctly configured, and still
+purchased. SPINDEX reads the playout system's history directly. The duplicated
+ingestion is the point, not an oversight.
+
+**Rotavox must not depend on deep integration to deliver its value.** The core product
+has to be worth paying for when the station grants nothing but a library export and
+accepts nothing but a log file.
+
+Where the two systems genuinely overlap — external metadata enrichment, MusicBrainz
+identity, release years — **share tooling, not runtime dependencies.** A library both
+sides call is fine; a service one calls at runtime is not.
+
+### 3.5c Adapter capability tiers
+
+Playout adapters implement a common interface, but the interface is **tiered**, and
+nothing above tier 0 may be assumed. Deep integration is a proposition offered to the
+station on its merits, not a requirement placed on them.
+
+| Tier | Station grants | Rotavox can |
+|---|---|---|
+| **0** | nothing; accepts a log file | Generate and export a reviewable log |
+| **1** | library + as-played export | Honour real separation and rotation against actual history |
+| **2** | tier 1 + queue injection | Drive playout natively (RadioDJ: inject by song ID) |
+| **3** | tier 2 + library write | Push pool assignment down, keep the station's fallback rotation coherent |
+
+**The MVP must be valuable at tier 0.** A log a station ingests by hand, built from a
+format the station could not otherwise construct, is the core value proposition. Every
+tier above that is an upsell.
+
+Two consequences worth stating plainly. At tier 0 there is no as-played feed, so the
+engine must fall back to assuming its own approved log aired — usually true, and far
+better than no separation memory at all. And at tier 0 or 1 the station keeps its own
+fallback rotation entirely; the projection in §3.5 is a tier-3 capability, not a
+baseline.
 
 ### 3.6 Rotavox does not become the playout system
 
