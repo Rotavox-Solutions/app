@@ -1,0 +1,364 @@
+{
+  "changeset_version": 1,
+  "id": "2026-08-02-artist-diversity",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-08-02",
+  "intent": "Restore artist diversity and finish Discovery. Demotes the 14 duplicate-artist tracks from R1/R2/R3 back to the bench, replaces each with an act not already in that tier, and tops Discovery up to 37 after 12 unrecognised-artist tracks were removed. Artist identity is matched on the PRIMARY artist with collaborators, punctuation and case stripped.",
+  "basis": {
+    "sheet_id": "2026-08-02-reservoir-profile"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 385,
+      "artist": "Three Days Grace",
+      "title": "Mayday",
+      "from_subcat": 24,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R1 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 460,
+      "artist": "Rise Against",
+      "title": "Nod",
+      "from_subcat": 24,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R1 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 480,
+      "artist": "Linkin Park",
+      "title": "Up From The Bottom",
+      "from_subcat": 24,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R1 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 155,
+      "artist": "Noah Kahan & Hozier",
+      "title": "Northern Attitude",
+      "from_subcat": 25,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R2 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 187,
+      "artist": "Foo Fighters",
+      "title": "The Glass",
+      "from_subcat": 25,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R2 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 399,
+      "artist": "Sam Fender",
+      "title": "People Watching",
+      "from_subcat": 25,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R2 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 406,
+      "artist": "Twenty One Pilots",
+      "title": "The Line",
+      "from_subcat": 25,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R2 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 1776,
+      "artist": "Mumford & Sons",
+      "title": "The Banjo Song",
+      "from_subcat": 25,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R2 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 1827,
+      "artist": "Turnstile",
+      "title": "Look Out For Me",
+      "from_subcat": 25,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R2 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 1858,
+      "artist": "The Last Dinner Party",
+      "title": "This Is The Killer Speaking",
+      "from_subcat": 25,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R2 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 143,
+      "artist": "Bleachers",
+      "title": "Tiny Moves",
+      "from_subcat": 26,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R3 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 259,
+      "artist": "The Cure",
+      "title": "Alone",
+      "from_subcat": 26,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R3 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 276,
+      "artist": "Nothing More, David Draiman",
+      "title": "Angel Song",
+      "from_subcat": 26,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R3 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 351,
+      "artist": "Cannons",
+      "title": "All I Need",
+      "from_subcat": 26,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R3 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 405,
+      "artist": "Twenty One Pilots",
+      "title": "Routines In The Night",
+      "from_subcat": 26,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R3 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 501,
+      "artist": "Seether",
+      "title": "Lost All Control",
+      "from_subcat": 26,
+      "to_subcat": 36,
+      "reason": "duplicate artist in R3 — a repeated act makes a pool shallower than its count"
+    },
+    {
+      "rdj_song_id": 29,
+      "artist": "They Might Be Giants",
+      "title": "I Broke My Own Rule",
+      "from_subcat": 36,
+      "to_subcat": 24,
+      "reason": "-> R1: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 264,
+      "artist": "Badflower",
+      "title": "Detroit",
+      "from_subcat": 36,
+      "to_subcat": 24,
+      "reason": "-> R1: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 539,
+      "artist": "Nine Inch Nails",
+      "title": "As Alive As You Need Me To Be",
+      "from_subcat": 36,
+      "to_subcat": 24,
+      "reason": "-> R1: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 305,
+      "artist": "Architects",
+      "title": "Everything Ends",
+      "from_subcat": 36,
+      "to_subcat": 25,
+      "reason": "-> R2: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 1581,
+      "artist": "Disturbed",
+      "title": "If I Ever Lose My Faith In You",
+      "from_subcat": 36,
+      "to_subcat": 25,
+      "reason": "-> R2: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 64,
+      "artist": "Lovejoy",
+      "title": "Normal People Things",
+      "from_subcat": 36,
+      "to_subcat": 25,
+      "reason": "-> R2: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 417,
+      "artist": "Ok Go",
+      "title": "Love",
+      "from_subcat": 36,
+      "to_subcat": 25,
+      "reason": "-> R2: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 188,
+      "artist": "Fozzy",
+      "title": "Spotlight",
+      "from_subcat": 36,
+      "to_subcat": 25,
+      "reason": "-> R2: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 127,
+      "artist": "Destroy Boys",
+      "title": "Shadow (I'm Breaking Down)",
+      "from_subcat": 36,
+      "to_subcat": 25,
+      "reason": "-> R2: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 401,
+      "artist": "The Kooks, Lovelytheband",
+      "title": "Jeanie",
+      "from_subcat": 36,
+      "to_subcat": 25,
+      "reason": "-> R2: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 692,
+      "artist": "Spacey Jane",
+      "title": "Do You Really Love Her",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 308,
+      "artist": "Circa Waves",
+      "title": "Let's Leave Together",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 478,
+      "artist": "Julia Wolf",
+      "title": "In My Room",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 159,
+      "artist": "The Maine & Beach Weather",
+      "title": "Thoughts I Have While Lying In Bed",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 61,
+      "artist": "Grouplove",
+      "title": "Cheese",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 289,
+      "artist": "Bright Eyes",
+      "title": "Bells & Whistles",
+      "from_subcat": 36,
+      "to_subcat": 26,
+      "reason": "-> R3: established act, artist not already in the tier"
+    },
+    {
+      "rdj_song_id": 681,
+      "artist": "Clarion",
+      "title": "Hello Juliet",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    },
+    {
+      "rdj_song_id": 384,
+      "artist": "Tetrarch",
+      "title": "Live Not Fantasize",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    },
+    {
+      "rdj_song_id": 311,
+      "artist": "Giovannie, The Hired Guns",
+      "title": "Quitter",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    },
+    {
+      "rdj_song_id": 28,
+      "artist": "Surfbort",
+      "title": "Lot Lizard",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    },
+    {
+      "rdj_song_id": 91,
+      "artist": "Durry",
+      "title": "Who S Laughing Now",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    },
+    {
+      "rdj_song_id": 195,
+      "artist": "Love Fame Tragedy",
+      "title": "Don't You Want To Sleep With Someone Normal",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    },
+    {
+      "rdj_song_id": 563,
+      "artist": "Post Sex Nachos",
+      "title": "Sos",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    },
+    {
+      "rdj_song_id": 225,
+      "artist": "Brittany Howard",
+      "title": "Prove It To You",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    },
+    {
+      "rdj_song_id": 96,
+      "artist": "Little Hurt",
+      "title": "I Can Do Better Than You",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    },
+    {
+      "rdj_song_id": 109,
+      "artist": "Hello Lucky",
+      "title": "Honey",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    },
+    {
+      "rdj_song_id": 16,
+      "artist": "Flora Cash",
+      "title": "A Good Childhood",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    },
+    {
+      "rdj_song_id": 1634,
+      "artist": "The Mavericks",
+      "title": "Dance The Night Away",
+      "from_subcat": 36,
+      "to_subcat": 6,
+      "reason": "-> Discovery: lesser-known act, artist not already in the pool"
+    }
+  ]
+}
