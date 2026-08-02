@@ -1,0 +1,612 @@
+{
+  "changeset_version": 1,
+  "id": "2026-08-02-heritage-split",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-08-02",
+  "intent": "Split Heritage. Subcategory 30 held a Classic Rock library with an alt-heritage pool inside it: 24 of 94 enabled tracks are alternative canon, the rest are Classic Hits / AOR belonging to another format. 30 keeps the alt canon as H1; these move to H2 (49), which the M4 clocks carry only in Golden Hour and Weekend Wide at 511h turnover — surprise, not staple.",
+  "basis": {
+    "sheet_id": "2026-08-02-heritage-audit"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 1121,
+      "artist": "AC/DC",
+      "title": "You Shook Me All Night Long",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1179,
+      "artist": "Aerosmith",
+      "title": "Angel",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1141,
+      "artist": "Aerosmith",
+      "title": "Dude (Looks Like A Lady)",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1197,
+      "artist": "Billy Joel",
+      "title": "A Matter Of Trust",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1130,
+      "artist": "Billy Joel",
+      "title": "It's Still Rock And Roll To Me",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1165,
+      "artist": "Billy Joel",
+      "title": "We Didn't Start The Fire",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1105,
+      "artist": "Bon Jovi",
+      "title": "Livin' On A Prayer",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1194,
+      "artist": "Bon Jovi",
+      "title": "You Give Love A Bad Name",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1125,
+      "artist": "Bruce Springsteen",
+      "title": "Born In The U.S.A.",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1393,
+      "artist": "Bruce Springsteen",
+      "title": "Dancing In The Dark",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1195,
+      "artist": "Bruce Springsteen",
+      "title": "Glory Days",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1410,
+      "artist": "Bruce Springsteen",
+      "title": "Tunnel Of Love",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1174,
+      "artist": "Bryan Adams",
+      "title": "Heaven",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1136,
+      "artist": "Bryan Adams",
+      "title": "Summer Of '69",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1170,
+      "artist": "BT Band",
+      "title": "Hot For Teacher",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1588,
+      "artist": "Cher",
+      "title": "If I Could Turn Back Time",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1158,
+      "artist": "Def Leppard",
+      "title": "Hysteria",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1109,
+      "artist": "Def Leppard",
+      "title": "Pour Some Sugar On Me",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1440,
+      "artist": "Dire Straits",
+      "title": "Money For Nothing",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1182,
+      "artist": "Dire Straits",
+      "title": "Walk Of Life",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1186,
+      "artist": "Eddie Money",
+      "title": "Take Me Home Tonight",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1435,
+      "artist": "Eric Clapton",
+      "title": "Pretending",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1122,
+      "artist": "Fleetwood Mac",
+      "title": "Gypsy",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1160,
+      "artist": "Fleetwood Mac",
+      "title": "Little Lies",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1181,
+      "artist": "Foreigner",
+      "title": "I Want To Know What Love Is",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1144,
+      "artist": "Foreigner",
+      "title": "Juke Box Hero",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1173,
+      "artist": "Genesis",
+      "title": "Invisible Touch",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1137,
+      "artist": "Genesis",
+      "title": "That's All",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1488,
+      "artist": "Guns N' Roses",
+      "title": "Paradise City",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1502,
+      "artist": "Guns N' Roses",
+      "title": "Patience",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1518,
+      "artist": "Guns N' Roses",
+      "title": "Sweet Child O' Mine",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1510,
+      "artist": "Guns N' Roses",
+      "title": "Welcome To The Jungle",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1172,
+      "artist": "Heart",
+      "title": "These Dreams",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1187,
+      "artist": "Huey Lewis And The News",
+      "title": "I Want A New Drug",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1147,
+      "artist": "Huey Lewis And The News",
+      "title": "The Power Of Love",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1192,
+      "artist": "John Mellencamp",
+      "title": "Hurts So Good",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1117,
+      "artist": "John Mellencamp",
+      "title": "Jack & Diane",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1154,
+      "artist": "John Mellencamp",
+      "title": "Small Town",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1163,
+      "artist": "Journey",
+      "title": "Any Way You Want It [Live at Cobo Hall in Detroit, Michigan, August 1980]",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1104,
+      "artist": "Journey",
+      "title": "Don't Stop Believin'",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1128,
+      "artist": "Journey",
+      "title": "Separate Ways (Worlds Apart)",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1480,
+      "artist": "Lou Gramm",
+      "title": "Midnight Blue",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1153,
+      "artist": "Mötley Crüe",
+      "title": "Home Sweet Home",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1132,
+      "artist": "Neil Young",
+      "title": "Rockin' In The Free World",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1189,
+      "artist": "Night Ranger",
+      "title": "Sister Christian",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1108,
+      "artist": "Phil Collins",
+      "title": "In The Air Tonight",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1534,
+      "artist": "Pink Floyd",
+      "title": "Another Brick In The Wall, Pt. 2",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1162,
+      "artist": "Pink Floyd",
+      "title": "Comfortably Numb",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1146,
+      "artist": "Poison",
+      "title": "Every Rose Has Its Thorn",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1185,
+      "artist": "Poison",
+      "title": "Nothin' But A Good Time",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1100,
+      "artist": "Queen",
+      "title": "Another One Bites The Dust",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1157,
+      "artist": "Queen",
+      "title": "Crazy Little Thing Called Love",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1120,
+      "artist": "Queen, David Bowie",
+      "title": "Under Pressure",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1127,
+      "artist": "Quiet Riot",
+      "title": "Cum On Feel The Noize",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1110,
+      "artist": "Rick Springfield",
+      "title": "Jessie's Girl",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1169,
+      "artist": "Rush",
+      "title": "The Spirit Of Radio",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1133,
+      "artist": "Rush",
+      "title": "Tom Sawyer",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1149,
+      "artist": "Scorpions",
+      "title": "Rock You Like A Hurricane",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1452,
+      "artist": "Steve Winwood",
+      "title": "Higher Love",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1138,
+      "artist": "Stevie Nicks",
+      "title": "Edge Of Seventeen",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1175,
+      "artist": "Stevie Nicks",
+      "title": "Stand Back",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1112,
+      "artist": "Survivor",
+      "title": "Eye Of The Tiger",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1118,
+      "artist": "The Outfield",
+      "title": "Your Love",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1151,
+      "artist": "The Rolling Stones",
+      "title": "Waiting On A Friend",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1106,
+      "artist": "Tom Petty",
+      "title": "Free Fallin'",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1131,
+      "artist": "Tom Petty",
+      "title": "I Won't Back Down",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1168,
+      "artist": "Tom Petty And The Heartbreakers",
+      "title": "Refugee",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1199,
+      "artist": "Tom Petty And The Heartbreakers",
+      "title": "You Got Lucky",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1196,
+      "artist": "Twisted Sister",
+      "title": "We're Not Gonna Take It",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1444,
+      "artist": "Van Halen",
+      "title": "Jump",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1107,
+      "artist": "Van Halen",
+      "title": "Panama",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1167,
+      "artist": "Whitesnake",
+      "title": "Here I Go Again",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1177,
+      "artist": "ZZ Top",
+      "title": "Gimme All Your Lovin'",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1140,
+      "artist": "ZZ Top",
+      "title": "Legs",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    },
+    {
+      "rdj_song_id": 1445,
+      "artist": "ZZ Top",
+      "title": "Stages",
+      "from_subcat": 30,
+      "to_subcat": 49,
+      "reason": "Classic Hits / AOR, not alternative canon — H2 per the 2026-08-02 Heritage audit"
+    }
+  ]
+}

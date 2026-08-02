@@ -20,7 +20,7 @@ import { SHAPES, IMAGING, BLOCKS, CUR, REC, GOLD } from "./m4-format.mjs";
 export const FALLBACK = {
   A1: "A2", A2: "B", B: "C", C: "R1", N: "R1",
   R1: "R2", R2: "R3", R3: "R2",
-  G2010: "G2000", G2000: "G1990", G1990: "G2010", H: "G1990",
+  G2010: "G2000", G2000: "G1990", G1990: "G2010", H1: "G1990", H2: "H1",
   Discovery: "N",
   Liners: null,                       // silence is better than a wrong-context liner
   "New-Music Sweepers": "Liners",
@@ -162,7 +162,8 @@ else {
     C: "hot recurrent — closest thing to a current", N: "hot recurrent",
     R1: "next recurrent tier", R2: "next recurrent tier", R3: "back up a tier, stays recurrent",
     G2010: "era-adjacent", G2000: "era-adjacent", G1990: "era-adjacent, avoids loading Heritage",
-    H: "era-adjacent — Heritage is the shallowest pool, never a fallback target",
+    H1: "era-adjacent; alt heritage is thin, so it is never a fallback target",
+    H2: "falls to H1 — keeps the vintage texture rather than snapping back to 90s alt",
     Discovery: "new music is the nearest neighbour",
     "New-Music Sweepers": "generic imaging", "Relaunch Sweepers": "generic imaging",
     "Gold Backsells": "generic imaging", "Station Promos": "generic imaging",
