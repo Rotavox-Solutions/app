@@ -11,8 +11,18 @@
 // also depends on depth-vs-slot-pattern resonance, which is why it is non-monotonic —
 // one song either way can move it 20 points.
 //
-// usage: node tools/depth-solver.mjs
+// usage: node tools/depth-solver.mjs [--variant <name>]
+//
+// --variant costs a CANDIDATE shape set from tools/shape-variants.mjs instead of the live
+// SHAPES. A shape change is a depth change: added positions are added slots, and slots
+// divide into depth to give turnover. Always read a variant here as well as in
+// tools/hour-length.mjs -- landing the hour while breaking a lock period is not a fix.
 import { weekSlots, cellFor, SHAPES, CUR, REC, GOLD, RESIDENCY_WEEKS, DEPTH } from "./m4-format.mjs";
+import { applyVariant } from "./shape-variants.mjs";
+
+const vi = process.argv.indexOf("--variant");
+const VARIANT = vi >= 0 ? process.argv[vi + 1] : null;
+const ACTIVE = VARIANT ? applyVariant(SHAPES, VARIANT) : SHAPES;
 
 /** Target turnover band per category, from the Alternative CHR ladder (FORMAT-WORKFLOW §0a). */
 const BAND = {
@@ -25,7 +35,7 @@ const BAND = {
 const TOL = { A1: 0.50, A2: 0.25, B: 0.20, C: 0.10, N: 0.10 };
 const CUME_BLOCKS = ["ES", "HD", "FF"];
 
-const slots = weekSlots();
+const slots = weekSlots(ACTIVE);
 const byCat = new Map();
 for (const s of slots) {
   if (!byCat.has(s.cat)) byCat.set(s.cat, []);
@@ -143,7 +153,7 @@ for (const cat of LADDER) {
   pyramid.push([cat, pick]);
 }
 
-console.log("## Solved depths\n");
+console.log(`## Solved depths${VARIANT ? ` -- variant "${VARIANT}"` : ""}\n`);
 console.log("| Category | **Depth** | Slots/wk | Turnover | Pacing | Drift | Lock | Cume | Rule | Have | Δ |");
 console.log("|---|---|---|---|---|---|---|---|---|---|---|");
 const final = {};

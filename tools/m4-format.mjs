@@ -182,11 +182,13 @@ export const HORIZONTAL = {
   R1: { windowHours: 1, minDays: 10 },
 };
 
-// ---------- 3. enabled depth (live census 2026-07-31) ----------
+// ---------- 3. enabled depth (live census 2026-08-03, post currents refresh) ----------
+// Counts of ENABLED songs per category, read from the Scheduler's Postgres. Re-read this
+// after any changeset; a stale census makes the solver's delta column confidently wrong.
 export const DEPTH = {
-  A1:7, A2:10, B:19, C:22, N:8, R1:22, R2:34, R3:42,
-  G2010:165, G2000:150, G1990:186, Discovery:12,
-  H1:26, H2:97,
+  A1:10, A2:11, B:14, C:21, N:17, R1:40, R2:47, R3:72,
+  G2010:166, G2000:152, G1990:187, Discovery:37,
+  H1:26, H2:97, F:75,
   "TOH IDs":12, Liners:41, "New-Music Sweepers":44,
   "Relaunch Sweepers":12, "Gold Backsells":26, "Station Promos":14,
 };
@@ -238,11 +240,18 @@ export function cellFor(dow, hour, week = 0) {
 
 /** Weeks in the format rotation cycle. Seeded to stations.format_cycle_weeks. */
 export const FORMAT_CYCLE_WEEKS = 2;
-/** Every music slot in a week, in air order: {dow, hour, cat}. */
-export function weekSlots() {
+/**
+ * Every music slot in a week, in air order: {dow, hour, cat}.
+ *
+ * Takes the shape set as an argument so a candidate shape can be costed without editing
+ * the format. Depth, turnover, drift and lock are all consequences of slot counts, so
+ * "what would this shape change cost" is answerable only by re-running the solve against
+ * the candidate — see tools/shape-variants.mjs.
+ */
+export function weekSlots(shapes = SHAPES) {
   const out = [];
   for (let dow = 0; dow < 7; dow++) for (let hour = 0; hour < 24; hour++) {
-    const shape = SHAPES[cellFor(dow, hour)];
+    const shape = shapes[cellFor(dow, hour)];
     for (const [cat, n] of Object.entries(shape)) for (let i = 0; i < n; i++) out.push({ dow, hour, cat });
   }
   return out;
