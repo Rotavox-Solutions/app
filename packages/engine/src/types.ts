@@ -216,5 +216,12 @@ export interface GenerateLogResult {
     fillerActivated: number;
     /** Positions deliberately given up because an hour could not fit its budget. */
     sacrificed: number;
+    /**
+     * Share of the schedulable library with a known segue point (0..1), set by the
+     * caller. At 1 the predicted hour length is exact rather than approximate: the
+     * log's arithmetic is the playout arithmetic. Below 1, the shortfall is an adapter
+     * data problem, not a scheduling limitation.
+     */
+    cueFidelity?: number;
   };
 }

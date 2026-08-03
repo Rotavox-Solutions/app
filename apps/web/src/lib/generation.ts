@@ -72,7 +72,13 @@ export async function loadGenerationInputs(
   stationId: string,
   horizonStart: Date,
   horizonEnd: Date
-): Promise<{ input: GenerateLogInput; stationName: string }> {
+): Promise<{
+  input: GenerateLogInput;
+  stationName: string;
+  /** Share of the schedulable library with a known segue point (0..1). */
+  cueFidelity: number;
+  songsWithoutCue: number;
+}> {
   const [station] = await db.select().from(stations).where(eq(stations.id, stationId));
   if (!station) throw new Error(`No stations row for station ${stationId}`);
 
@@ -111,6 +117,24 @@ export async function loadGenerationInputs(
     list.push(m.categoryId);
     categoryIdsBySong.set(m.songId, list);
   }
+
+  /**
+   * CUE FIDELITY — how much of the schedulable library has a known segue point.
+   *
+   * With `sta`/`xta` known, the log's arithmetic IS the playout arithmetic: predicted
+   * hour length is exact, and deviation is zero rather than small. Deviation is not
+   * inherent uncertainty, it is missing data — so its absence is a measurable adapter
+   * property, not a tolerance to design around. (Granularity is separate and
+   * irreducible: songs are atomic, so an hour lands one song over or one song under.)
+   *
+   * Falling back to file duration is silent and systematically WRONG in one direction:
+   * RadioDJ segues at xta, before the file ends, so file duration overstates airtime —
+   * measured at 1.53 s/track, ~24 s/hour, always short. That drift went unnoticed for
+   * an entire era precisely because the fallback said nothing.
+   */
+  const schedulable = songRows.filter((s) => s.enabled);
+  const withoutCue = schedulable.filter((s) => s.effectiveDurationMs == null).length;
+  const cueFidelity = schedulable.length ? 1 - withoutCue / schedulable.length : 1;
 
   const engineSongs: EngineSong[] = songRows.map((s) => ({
     id: s.id,
@@ -187,7 +211,7 @@ export async function loadGenerationInputs(
     })),
   };
 
-  return { input, stationName: station.name };
+  return { input, stationName: station.name, cueFidelity, songsWithoutCue: withoutCue };
 }
 
 /** Idempotency guard + transactional insert. Throws HorizonConflictError on overlap. */
@@ -267,11 +291,31 @@ export async function generateNextHours(
   const horizonEnd = new Date(horizonStart.getTime() + hours * HOUR_MS);
   const seed = createHash("sha256").update(String(Math.random())).digest("hex").slice(0, 12);
 
-  const { input } = await loadGenerationInputs(stationId, horizonStart, horizonEnd);
+  const { input, cueFidelity, songsWithoutCue: withoutCue } =
+    await loadGenerationInputs(stationId, horizonStart, horizonEnd);
   input.seed = seed;
 
   const result = generateLog(input);
   const logId = await persistGeneratedLog(stationId, horizonStart, horizonEnd, seed, result);
 
-  return { logId, itemCount: result.items.length, warnings: result.warnings, stats: result.stats };
+  // Surfaced on every generation, not just when it is bad: a silent fallback to file
+  // duration is what let a systematic ~24 s/hour shortfall run unnoticed. If this is
+  // below 100%, predicted hour length is an estimate rather than a fact, and the gap is
+  // an adapter data problem (missing cue points) rather than a scheduling limitation.
+  const cueWarnings =
+    cueFidelity < 1
+      ? [
+          `cue fidelity ${(cueFidelity * 100).toFixed(1)}% — ${withoutCue} enabled song(s) have no ` +
+            `effective duration, so their airtime is estimated from file length and will run long ` +
+            `by roughly 1.5s each. Re-sync the library; if they still lack cue points, RadioDJ has ` +
+            `not analysed them.`,
+        ]
+      : [];
+
+  return {
+    logId,
+    itemCount: result.items.length,
+    warnings: [...cueWarnings, ...result.warnings],
+    stats: { ...result.stats, cueFidelity },
+  };
 }
