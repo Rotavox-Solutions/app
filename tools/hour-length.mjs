@@ -101,6 +101,36 @@ function shortProbability(code, shapes, mean, sd) {
   return { p: s > 0 ? phi((3600 - secs) / s) : secs < 3600 ? 1 : 0, sd: s / 60 };
 }
 
+/** Standard normal density. */
+const npdf = (z) => 0.3989422804014327 * Math.exp((-z * z) / 2);
+
+/**
+ * Expected NUMBER of F items an hour will activate — not just whether it activates one.
+ *
+ * P(short) says how often filler fires; this says how much. They diverge exactly where it
+ * matters: a clock 4.4 min short does not call one F, it calls two, and the second is
+ * indistinguishable from an authored position to everyone except the person who authored
+ * the clock.
+ *
+ * Shortfall S = 3600 - hourLength is normal with mean (3600 - natural) and the hour's SD,
+ * and filler covers max(0, S). For X ~ N(m, s), E[max(0,X)] = m*Phi(m/s) + s*phi(m/s).
+ * Divide by the mean F to get items.
+ *
+ * This is the load-bearing number for era exposure. F is a real pool with a real era; if
+ * it fires often enough it is a category, and it is a category nobody put in the clock.
+ */
+function expectedFillerCount(code, shapes, mean, sd) {
+  const { secs } = naturalSeconds(code, shapes, mean);
+  let varSum = 0;
+  for (const [cat, n] of Object.entries(shapes[code] ?? {})) varSum += n * (sd[cat] ?? 0) ** 2;
+  for (const [cat, n] of Object.entries(IMAGING[code] ?? {})) varSum += n * (sd[cat] ?? 0) ** 2;
+  const s = Math.sqrt(varSum);
+  const m = 3600 - secs;
+  if (s <= 0) return Math.max(0, m) / (mean.F ?? 198);
+  const expShortfall = m * phi(m / s) + s * npdf(m / s);
+  return expShortfall / (mean.F ?? 198);
+}
+
 /** Natural seconds for one clock: every authored position at its category's mean. F excluded. */
 export function naturalSeconds(code, shapes, mean) {
   let s = 0;
@@ -241,6 +271,7 @@ for (const [cat, s] of Object.entries(mean).sort((a, b) => a[1] - b[1])) {
 const variant = argOf("variant");
 const shapes = variant ? applyVariant(SHAPES, variant) : SHAPES;
 report(shapes, mean, sd, variant ? `variant "${variant}"` : "current SHAPES", hoursPerWeek);
+eraShare(shapes, mean, sd, hoursPerWeek, variant ? `variant "${variant}"` : "current SHAPES");
 
 const searchFor = argOf("search");
 if (searchFor) {
@@ -258,6 +289,47 @@ if (searchFor) {
   }
 }
 
+/**
+ * ERA EXPOSURE — the share of airtime, by tier, that a listener actually hears.
+ *
+ * Reported by MINUTES, not by positions. A gold position is 3:51-4:12 and a currents
+ * position is 3:07-3:38, so counting slots understates gold by roughly a fifth of itself.
+ * The listener experiences time.
+ *
+ * F is counted at its MODELLED rate and in its OWN era, which is the point of this report.
+ * F is a current-era pool -- 2023-2025 alternative and active rock -- so every hour it
+ * fills has been quietly propping up the currents share. Any change that reduces F while
+ * adding gold moves era exposure twice, and only one of those moves is visible in SHAPES.
+ */
+function eraShare(shapes, mean, sd, hoursPerWeek, label) {
+  const TIER = { currents: CUR, recurrents: ["R1", "R2", "R3"], discovery: ["Discovery"], gold: ["G2010", "G2000", "G1990"], heritage: ["H1", "H2"] };
+  const tierOf = (cat) => Object.entries(TIER).find(([, cs]) => cs.includes(cat))?.[0];
+  const secs = { currents: 0, recurrents: 0, discovery: 0, gold: 0, heritage: 0, filler: 0 };
+  let fillerItems = 0;
+  for (const code of Object.keys(shapes)) {
+    const hw = hoursPerWeek[code] ?? 0;
+    for (const [cat, n] of Object.entries(shapes[code])) {
+      const t = tierOf(cat);
+      if (t) secs[t] += n * (mean[cat] ?? 0) * hw;
+    }
+    const f = expectedFillerCount(code, shapes, mean, sd);
+    fillerItems += f * hw;
+    secs.filler += f * (mean.F ?? 198) * hw;
+  }
+  const total = Object.values(secs).reduce((a, b) => a + b, 0);
+  console.log(`\n### Era exposure — ${label}\n`);
+  console.log("| tier | min/week | share |");
+  console.log("|---|---|---|");
+  for (const [t, v] of Object.entries(secs)) {
+    console.log(`| ${t}${t === "filler" ? " (F, current-era)" : ""} | ${(v / 60).toFixed(0)} | ${((v / total) * 100).toFixed(1)}% |`);
+  }
+  const modern = secs.currents + secs.filler;
+  console.log(`\n current-era total (currents + F): **${((modern / total) * 100).toFixed(1)}%**` +
+    ` · gold+heritage: **${(((secs.gold + secs.heritage) / total) * 100).toFixed(1)}%**` +
+    ` · F items/week: **${fillerItems.toFixed(0)}** (${(fillerItems / 168).toFixed(2)}/hour)`);
+  return { modernShare: modern / total, fillerItems };
+}
+
 const proposeFor = argOf("propose");
 if (proposeFor) {
   const allow = VARIANTS[proposeFor]?.allow;
@@ -271,6 +343,7 @@ if (proposeFor) {
     return [c, s];
   })) };
   report(proposed, mean, sd, `variant "${proposeFor}" (proposed)`, hoursPerWeek);
+  eraShare(proposed, mean, sd, hoursPerWeek, `variant "${proposeFor}" (proposed)`);
 }
 
 // F is sized to the residual, not to the deficit. Report what the current sizing implies.

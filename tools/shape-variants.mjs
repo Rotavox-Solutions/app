@@ -77,6 +77,38 @@ export const VARIANTS = {
       DNb: { R1: +1 },
     },
   },
+
+  /**
+   * AUTHOR WHAT IS ALREADY HAPPENING. F is not a neutral spacer — it is 75 tracks of
+   * 2023-2025 alternative and active rock (Blink-182 "One More Time", Green Day "One Eyed
+   * Bastard", Idles "Gift Horse", Ghost "Lachryma", 100 Gecs, Amyl and the Sniffers) and
+   * it is airing 161 times a week, 5.3% of all airtime. The station already plays this
+   * material in this quantity. It simply plays it from a pool with no depth solve, no
+   * turnover target and no place in any clock.
+   *
+   * So the deficit does not have to be filled with a NEW era. Adding Discovery positions
+   * and folding F's roster into Discovery converts an unauthored 5.3% into an authored,
+   * depth-solved category of the SAME era — the station sounds identical the day it ships,
+   * and the format finally describes it. Discovery is also outside the currents pyramid,
+   * so it cannot repeat the B-at-318-slots failure.
+   *
+   * Discovery is the shortest category (3:07), so this costs the most positions. That is
+   * the trade: era exposure held exactly, at the price of a longer clock.
+   */
+  discovery: {
+    allow: ["Discovery"],
+    patch: {
+      ES:  { Discovery: +2 },
+      FF:  { Discovery: +2 },
+      HD:  { Discovery: +2 },
+      CO:  { Discovery: +1 },
+      WW:  { Discovery: +1 },
+      WD:  { Discovery: +1 },
+      EM:  { Discovery: +1 },
+      DNa: { Discovery: +1 },
+      DNb: { Discovery: +1 },
+    },
+  },
 };
 
 /** Apply a variant's patch to a shape set, returning a new one. Never mutates the input. */
