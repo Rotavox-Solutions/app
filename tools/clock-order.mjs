@@ -10,7 +10,7 @@
 //
 // usage: node tools/clock-order.mjs [blockCode]
 import { pathToFileURL } from "node:url";
-import { SHAPES, IMAGING, BLOCKS, CUR, REC, GOLD, TAIL_FILLER } from "./m4-format.mjs";
+import { SHAPES, IMAGING, BLOCKS, CUR, REC, GOLD, FILLER_SLOTS } from "./m4-format.mjs";
 
 // ---- fallback policy ------------------------------------------------------------
 // A position that cannot fill takes its fallback. The rule that matters: currents
@@ -280,10 +280,42 @@ function weave(music, imaging, code) {
  * generator emits exactly what this tool reports -- the seed cannot drift from the
  * format definition because both read the same function.
  */
+/**
+ * Van der Corput (bit-reversal) sequence, base 2: 1/2, 1/4, 3/4, 1/8, 5/8, 3/8, 7/8 ...
+ *
+ * Chosen because EVERY PREFIX is well spread, which is exactly the property conditional
+ * filler needs — the generator may activate 1 candidate or 6, and each count has to look
+ * deliberate. Take one and it lands mid-hour; take two and they land near the thirds;
+ * take three and they approach the quarters. A simple even split only spreads well at
+ * its own N and clumps at every other.
+ */
+function vanDerCorput(k) {
+  let n = k, denom = 1, x = 0;
+  while (n > 0) { denom *= 2; x += (n % 2) / denom; n = Math.floor(n / 2); }
+  return x;
+}
+
 export function clockSequence(code) {
   const seq = weave(orderMusic(SHAPES[code], code), IMAGING[code], code);
-  // Tail filler last, so trim-to-fit removes it before any programmed position.
-  for (let i = 0; i < (TAIL_FILLER[code] ?? 0); i++) seq.push({ cat: "F", kind: "music" });
+  const n = FILLER_SLOTS[code] ?? 0;
+  if (n === 0) return seq;
+
+  // Candidate k goes after music item round(vdc(k+1) * musicCount), carrying priority
+  // k+1. Inserting back-to-front keeps earlier indices valid.
+  const musicIdx = seq.map((x, i) => (x.kind === "music" ? i : -1)).filter((i) => i >= 0);
+  const placements = [];
+  const used = new Set();
+  for (let k = 1; placements.length < n && k < n * 8; k++) {
+    let slot = Math.round(vanDerCorput(k) * musicIdx.length);
+    slot = Math.max(1, Math.min(musicIdx.length, slot));
+    if (used.has(slot)) continue;      // collisions happen at small N; skip to the next
+    used.add(slot);
+    placements.push({ afterSeqIndex: musicIdx[slot - 1], priority: placements.length + 1 });
+  }
+  placements.sort((a, b) => b.afterSeqIndex - a.afterSeqIndex);
+  for (const p of placements) {
+    seq.splice(p.afterSeqIndex + 1, 0, { cat: "F", kind: "music", fillerPriority: p.priority });
+  }
   return seq;
 }
 

@@ -36,6 +36,21 @@ export interface PositionConstraints {
   soundCodesExclude?: string[];
   fallbackCategoryId?: string;
   fixedDurationSeconds?: number;
+  /**
+   * Marks this position as a CONDITIONAL filler candidate rather than programmed
+   * content. Lower number = activated sooner.
+   *
+   * Clocks are authored to a position count, but songs vary in length, so an hour's
+   * real duration is only known at generation. Candidates are pre-placed at spread
+   * positions and ranked; the generator activates as many as the hour's deficit
+   * requires and drops the rest.
+   *
+   * They must be resolved at GENERATION, not at playout. The log is the artifact the
+   * PD approves — a filler chosen by the pacer at airtime is intent being decided at
+   * execution time, by the component with the least context and no review. Pre-placed
+   * filler stays swappable, overridable and removable before air.
+   */
+  fillerPriority?: number;
 }
 
 export type PositionType = "category" | "fixed_event" | "sweeper" | "voicetrack";
@@ -186,5 +201,7 @@ export interface GenerateLogResult {
     unfillable: number;
     /** Clock positions dropped from the tail because the hour was full. */
     trimmed: number;
+    /** Conditional filler positions activated because hours came up short. */
+    fillerActivated: number;
   };
 }

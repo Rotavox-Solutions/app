@@ -177,8 +177,15 @@ for (const code of codes) {
   totalPositions += seq.length;
   seq.forEach((item, i) => {
     const fb = fallbackFor(item.cat, code);
-    const constraints = fb
-      ? `(SELECT jsonb_build_object('fallbackCategoryId', ${cat(fb)}::text))`
+    // fillerPriority marks a CONDITIONAL position: the generator activates it only when
+    // the hour is short, in priority order, and drops it otherwise. Resolving filler at
+    // generation rather than at playout is what keeps it in the log where the PD can
+    // swap, override or remove it before air.
+    const parts = [];
+    if (fb) parts.push(`'fallbackCategoryId', ${cat(fb)}::text`);
+    if (item.fillerPriority != null) parts.push(`'fillerPriority', ${item.fillerPriority}`);
+    const constraints = parts.length
+      ? `(SELECT jsonb_build_object(${parts.join(", ")}))`
       : "NULL";
     const type = item.kind === "imaging" ? "sweeper" : "category";
     const offset = i === 0 ? "0" : "NULL";

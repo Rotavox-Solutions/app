@@ -71,29 +71,33 @@ export const SHAPES = {
 // TOH IDs are per-block categories (one identity per block), so the top of the hour
 // reflects what the station is at that moment. `TOH *` depths are TBD — being produced.
 /**
- * TAIL FILLER — how many F positions each clock carries after its programmed content.
+ * CONDITIONAL FILLER — how many F candidates each clock carries.
  *
  * Every clock is SHORT before a song is drawn. They were authored assuming ~3.5 min
  * songs; the library averages 3.2-3.6 (A1 194s, C 205s, A2 208s), so 16 positions land
- * at 55.6-58.4 min. That is a 489 min/week deficit at the average draw, and far worse on
- * a short-song hour.
+ * at 55.6-58.4 min — a 489 min/week deficit at the average draw.
  *
- * The engine already has the mechanism: trim-to-fit drops positions once the projected
- * start reaches the clock length, and "filler authored at the tail falls off first".
- * Over-authoring is therefore free -- and it also PROTECTS programmed positions, which
- * are currently what gets trimmed on a long hour.
+ * These are CANDIDATES, not filler. The generator estimates each hour and activates as
+ * many as the deficit needs, in priority order, dropping the rest. Two consequences,
+ * both deliberate:
  *
- * F is used rather than padding a scheduled category because F sits outside the depth
- * solve. Padding 144 plays/wk into gold would raise G2010's 321 slots/wk by 45% and
- * invalidate its turnover, drift and lock. It also keeps filler visible in a log: filler
- * drawn from G1990 is indistinguishable from programmed gold.
+ *   1. Placement is SPREAD, not tacked to the tail. Candidates sit at van der Corput
+ *      positions (see clock-order.mjs), so activating the top N distributes them across
+ *      the hour. Stacking filler at :50-:60 is the same failure as collapsing three
+ *      recurrent tiers onto the hour's midpoint, which is why music uses two-level
+ *      proportional placement.
+ *   2. Resolution happens at GENERATION, so every surviving F is in the log before air
+ *      — swappable for another F, overridable with a Gx/Rx/N, or removable. Filler
+ *      chosen by the pacer at airtime is intent decided at execution time, past the
+ *      point the PD can review it.
  *
- * Five covers ~17 min of stretch. On an average hour 1-2 survive and the rest trim.
+ * F is the source rather than a scheduled category because F sits outside the depth
+ * solve: padding 144 plays/wk into G2010 (321 slots/wk) would be a 45% increase and
+ * would invalidate its turnover, drift and lock.
  */
-export const TAIL_FILLER = {
+export const FILLER_SLOTS = {
   ES: 5, FF: 5, HD: 5, CO: 5, WW: 5, WD: 5, EM: 5,
-  // Six, not five: these clocks carry 15 music positions rather than 16, so five tail
-  // slots still left them at 57.9-59.0 min on a short-song draw.
+  // Six on the 15-music clocks: five still left them at 57.9-59.0 min on a short draw.
   DNa: 6, DNb: 6, GHa: 6, GHb: 6,
 };
 
