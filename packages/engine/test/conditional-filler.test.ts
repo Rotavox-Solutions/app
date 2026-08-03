@@ -71,12 +71,13 @@ const fillerCount = (items: { clockPositionId: string | null }[], input: ReturnT
 };
 
 describe("conditional filler", () => {
-  it("activates none when the programmed hour already fills the clock", () => {
-    // 18 x 200s = 3600s exactly.
+  it("still airs the tail buffer when the hour is already full", () => {
+    // 18 x 200s = 3600s exactly. Priority-1 filler is the DELIBERATE OVERSCHEDULE
+    // margin, so it airs regardless — it is the thing a shear is meant to land on.
+    // Only the spread candidates above it are conditional.
     const input = world({ programmed: 18, songMs: 200_000, candidates: 5 });
     const res = generateLog(input);
-    expect(fillerCount(res.items, input)).toBe(0);
-    expect(res.stats.fillerActivated).toBe(0);
+    expect(fillerCount(res.items, input)).toBe(1);
   });
 
   it("activates enough candidates to close a real deficit", () => {
@@ -109,11 +110,12 @@ describe("conditional filler", () => {
     expect(used.sort((a, b) => a - b)).toEqual(used.map((_, i) => i + 1).sort((a, b) => a - b));
   });
 
-  it("warns when the clock has too few candidates to close the deficit", () => {
-    // 6 x 200s = 1200s: 40 min short, only 2 candidates authored.
+  it("warns from the ACTUAL result when a clock is under-authored", () => {
+    // 6 x 200s = 1200s: 40 min short, only 2 candidates. The warning fires at the end
+    // of the hour, on what happened, not on an up-front prediction.
     const input = world({ programmed: 6, songMs: 200_000, candidates: 2 });
     const res = generateLog(input);
-    expect(res.warnings.some((w) => /filler candidate/.test(w))).toBe(true);
+    expect(res.warnings.some((w) => /ended .*short with .* filler candidate/.test(w))).toBe(true);
   });
 
   it("leaves clocks with no candidates completely unchanged", () => {

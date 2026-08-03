@@ -17,6 +17,29 @@ import { reconcileHistory } from "./reconcile-history.js";
 import { backfillAiredAt, matchAndStampAiredAt } from "./backfill-aired.js";
 import { writeHeartbeat } from "./heartbeat.js";
 
+/**
+ * Every line the pacer emits carries a timestamp.
+ *
+ * Without one the log is unreadable during exactly the situation it exists for: an
+ * incident. "current log ended" tells you nothing if you cannot tell whether it happened
+ * two minutes or six hours ago. Local time with offset, so it reads against a station
+ * clock without arithmetic.
+ */
+function ts(): string {
+  const d = new Date();
+  const pad = (n: number, w = 2) => String(n).padStart(w, "0");
+  const off = -d.getTimezoneOffset();
+  const sign = off >= 0 ? "+" : "-";
+  return (
+    `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ` +
+    `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}.${pad(d.getMilliseconds(), 3)} ` +
+    `${sign}${pad(Math.floor(Math.abs(off) / 60))}${pad(Math.abs(off) % 60)}`
+  );
+}
+function say(...a: unknown[]): void { console.log(ts(), ...a); }
+function sayWarn(...a: unknown[]): void { console.warn(ts(), ...a); }
+function sayError(...a: unknown[]): void { console.error(ts(), ...a); }
+
 const POLL_INTERVAL_MS = 5_000;
 const MIN_DEPTH = 3;
 const FILLER_DEPTH_FLOOR = 1;
@@ -69,12 +92,12 @@ async function primeQueue(log: LogRow): Promise<void> {
     if (tohLocked && !shouldPushNow(next, tohLocked, now)) break;
     await restCall("LoadTrackToBottom", next.rdjSongId);
     await markPushed(next.id);
-    console.log(`[pace] prime pushed rdj:${next.rdjSongId} (sort ${next.sortOrder}), depth was ${depth}`);
+    say(`[pace] prime pushed rdj:${next.rdjSongId} (sort ${next.sortOrder}), depth was ${depth}`);
   }
 }
 
 async function startupForLog(log: LogRow): Promise<void> {
-  console.log(`[pace] current log ${log.id} (${log.startsAt.toISOString()} - ${log.endsAt.toISOString()}) — taking over queue, asserting EnableAutoDJ=0`);
+  say(`[pace] current log ${log.id} (${log.startsAt.toISOString()} - ${log.endsAt.toISOString()}) — taking over queue, asserting EnableAutoDJ=0`);
   // Runner owns the queue only while a log is actually current (invariant #4).
   // Asserting AutoDJ off is deferred to here (not paceLoop start) so the pacer can
   // run harmlessly before its window opens, leaving the station on AutoDJ until then.
@@ -91,14 +114,14 @@ async function startupForLog(log: LogRow): Promise<void> {
     // depth->0, now-playing unchanged), so there is no gap. Gated to fresh takeover
     // only — never on crash-resume, which would wipe our own in-flight pushed queue.
     await restCall("ClearPlaylist");
-    console.log("[pace] fresh takeover — cleared AutoDJ's leftover queue (playing track preserved).");
+    say("[pace] fresh takeover — cleared AutoDJ's leftover queue (playing track preserved).");
     await primeQueue(log);
   }
   if (rebuild.backfilled > 0) {
-    console.log(`[pace] cursor rebuilt: ${rebuild.backfilled} item(s) already realized, resuming from there.`);
+    say(`[pace] cursor rebuilt: ${rebuild.backfilled} item(s) already realized, resuming from there.`);
   }
   if (rebuild.anomaly) {
-    console.warn(
+    sayWarn(
       `[pace] anomaly at sort_order ${rebuild.anomaly.sortOrder}: expected rdj_song_id=${rebuild.anomaly.expectedRdjSongId} ` +
         `not visible in RadioDJ's recent history/queue. Logged for visibility; pushing proceeds normally.`
     );
@@ -115,7 +138,7 @@ async function tick(): Promise<void> {
       // air (live incident 2026-07-02: window expired, AutoDJ kept forced off, queue
       // drained to silence). Hand playout back to RadioDJ's AutoDJ so audio continues
       // until the next Rotavox log (if any) becomes current and takes over again.
-      console.log("[pace] current log ended — no follow-up log; handing playout back to AutoDJ (EnableAutoDJ=1).");
+      say("[pace] current log ended — no follow-up log; handing playout back to AutoDJ (EnableAutoDJ=1).");
       await restCall("EnableAutoDJ", 1);
     }
     currentLogId = null;
@@ -130,7 +153,7 @@ async function tick(): Promise<void> {
   const next = await nextUnpushedItem(log.id);
 
   if (!next) {
-    console.log(`[pace] no unpushed items remain in the current log (depth ${depth}).`);
+    say(`[pace] no unpushed items remain in the current log (depth ${depth}).`);
     return;
   }
 
@@ -149,7 +172,7 @@ async function tick(): Promise<void> {
     // process dies right after this call, rebuildCursor() picks it up on restart.
     await restCall("LoadTrackToBottom", next.rdjSongId!);
     await markPushed(next.id);
-    console.log(
+    say(
       `[pace] pushed rdj:${next.rdjSongId} (sort ${next.sortOrder}${tohLocked ? ", TOH-locked" : ""}), depth was ${depth}`
     );
     return;
@@ -183,12 +206,12 @@ async function tick(): Promise<void> {
       // airs and the watch loop sees it) rotate to a different song rather than
       // stacking the same one repeatedly into the queue.
       recordAired(filler.rdjSongId);
-      console.log(
+      say(
         `[filler] queue depth ${depth} with TOH item still held (projected ${next.projectedAirAt?.toISOString()}) — ` +
           `repeated rdj:${filler.rdjSongId} to bridge the underrun.`
       );
     } else {
-      console.warn(`[pace] queue depth ${depth} and TOH held, but no prior music item available as filler.`);
+      sayWarn(`[pace] queue depth ${depth} and TOH held, but no prior music item available as filler.`);
     }
   }
 }
@@ -204,10 +227,10 @@ async function assertAutoDjOff(): Promise<void> {
   const state = await getState();
   const autoDj = extractAutoDj(state);
   if (autoDj === true) {
-    console.warn("[pace] AutoDJ came back ON (console override?) — re-asserting EnableAutoDJ=0");
+    sayWarn("[pace] AutoDJ came back ON (console override?) — re-asserting EnableAutoDJ=0");
     await restCall("EnableAutoDJ", 0);
   } else if (autoDj === null) {
-    console.warn("[pace] could not read AutoDJ state from /RDJState response");
+    sayWarn("[pace] could not read AutoDJ state from /RDJState response");
   }
 }
 
@@ -248,7 +271,7 @@ async function watchNowPlaying(): Promise<void> {
           recordAired(id);
           const matched = await matchAndStampAiredAt(currentLogId, id, observedAt);
           if (matched) {
-            console.log(`[now-playing] rdj:${id} observed airing at ${observedAt.toISOString()}`);
+            say(`[now-playing] rdj:${id} observed airing at ${observedAt.toISOString()}`);
           }
         }
 
@@ -265,10 +288,10 @@ async function watchNowPlaying(): Promise<void> {
           if (vanished.length === 1) {
             const matched = await matchAndStampAiredAt(currentLogId, vanished[0], observedAt);
             if (matched) {
-              console.log(`[queue-diff] rdj:${vanished[0]} inferred aired (vanished between polls) at ${observedAt.toISOString()}`);
+              say(`[queue-diff] rdj:${vanished[0]} inferred aired (vanished between polls) at ${observedAt.toISOString()}`);
             }
           } else if (vanished.length > 1) {
-            console.warn(
+            sayWarn(
               `[queue-diff] ${vanished.length} tracks vanished in one poll (rdj:${vanished.join(",")}) — ` +
                 `treating as skips (playback can't air >1/poll); not stamping aired_at.`
             );
@@ -279,14 +302,14 @@ async function watchNowPlaying(): Promise<void> {
         lastObservedNowPlayingId = id;
       }
     } catch (err) {
-      console.error("[now-playing] watch error (continuing):", err);
+      sayError("[now-playing] watch error (continuing):", err);
     }
     await new Promise((r) => setTimeout(r, NOW_PLAYING_POLL_MS));
   }
 }
 
 async function paceLoop(): Promise<void> {
-  console.log("[pace] starting — AutoDJ left as-is until a current log is adopted");
+  say("[pace] starting — AutoDJ left as-is until a current log is adopted");
 
   let tickCount = 0;
   while (true) {
@@ -298,7 +321,7 @@ async function paceLoop(): Promise<void> {
         const reconciled = await reconcileHistory();
         if (reconciled.length > 0) {
           const updated = await backfillAiredAt(currentLogId, reconciled);
-          console.log(`[reconcile] ${reconciled.length} history row(s), ${updated} log_item(s) backfilled with aired_at.`);
+          say(`[reconcile] ${reconciled.length} history row(s), ${updated} log_item(s) backfilled with aired_at.`);
         }
       }
 
@@ -306,7 +329,7 @@ async function paceLoop(): Promise<void> {
         await assertAutoDjOff();
       }
     } catch (err) {
-      console.error("[pace] tick error (continuing):", err);
+      sayError("[pace] tick error (continuing):", err);
     }
     // Written every iteration regardless of tick outcome — this is a liveness signal
     // for the watchdog ("the loop is still running"), not a "tick succeeded" signal.
@@ -315,7 +338,7 @@ async function paceLoop(): Promise<void> {
     try {
       await writeHeartbeat();
     } catch (err) {
-      console.error("[pace] failed to write heartbeat:", err);
+      sayError("[pace] failed to write heartbeat:", err);
     }
     await new Promise((r) => setTimeout(r, POLL_INTERVAL_MS));
   }
@@ -335,10 +358,10 @@ async function reconcileAutoDjOnStartup(): Promise<void> {
 
   const autoDj = extractAutoDj(await getState());
   if (autoDj === false) {
-    console.log("[pace] startup reconciliation: no current log and AutoDJ is off — forcing EnableAutoDJ=1.");
+    say("[pace] startup reconciliation: no current log and AutoDJ is off — forcing EnableAutoDJ=1.");
     await restCall("EnableAutoDJ", 1);
   } else if (autoDj === null) {
-    console.warn("[pace] startup reconciliation: could not read AutoDJ state from /RDJState — leaving as-is.");
+    sayWarn("[pace] startup reconciliation: could not read AutoDJ state from /RDJState — leaving as-is.");
   }
 }
 
@@ -355,11 +378,11 @@ async function main(): Promise<void> {
  * is exactly what the independent watchdog (watchdog.ts) exists for.
  */
 async function shutdown(signal: string): Promise<void> {
-  console.log(`\n[pace] ${signal} received — handing back to AutoDJ before shutdown...`);
+  say(`\n[pace] ${signal} received — handing back to AutoDJ before shutdown...`);
   try {
     await restCall("EnableAutoDJ", 1);
   } catch (err) {
-    console.error("[pace] failed to hand back to AutoDJ during shutdown (continuing shutdown):", err);
+    sayError("[pace] failed to hand back to AutoDJ during shutdown (continuing shutdown):", err);
   }
   await pool.end();
   await pgClient.end();
@@ -370,6 +393,6 @@ process.on("SIGINT", () => shutdown("SIGINT"));
 process.on("SIGTERM", () => shutdown("SIGTERM"));
 
 main().catch((err) => {
-  console.error(err);
+  sayError(err);
   process.exitCode = 1;
 });

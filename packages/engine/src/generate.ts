@@ -158,61 +158,67 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
         ? (p.constraints?.fixedDurationSeconds ?? 0) * 1000
         : (meanPoolDuration(p) ?? config.defaultDurationMs);
 
+    const fillerMean = candidates.length
+      ? (meanPoolDuration(candidates[0]) ?? config.defaultDurationMs)
+      : config.defaultDurationMs;
+
     let programmed = allPositions.filter((p) => !isCandidate(p));
     let estimate = programmed.reduce((t, p) => t + estimateOf(p), 0);
-    const live = new Set<string>();
 
-    if (estimate < budget && candidates.length > 0) {
-      // Deliberate overschedule: the hour is planned to exceed its budget so the excess
-      // is shorn on purpose rather than the hour running dry by accident.
-      // ---- ADDITIVE: hour is short, activate filler in priority order ---------------
-      const fillerMean = meanPoolDuration(candidates[0]) ?? config.defaultDurationMs;
-      // CEIL, not round. The costs are wildly asymmetric: underscheduling risks dead
-      // air, which is unrecoverable, while overscheduling costs a shear -- and since
-      // priority-1 filler is the tail buffer, that shear lands on an F by construction.
-      // An earlier version rounded, on the reasoning that overshooting would trim a
-      // programmed position. That stopped being true once the buffer existed, and
-      // rounding can leave the hour up to half a song SHORT, which is the one outcome
-      // there is no recovery from.
-      const want = Math.ceil((budget - estimate) / fillerMean);
-      const activate = Math.min(candidates.length, want);
-      for (const p of candidates.slice(0, activate)) live.add(p.id);
-      fillerActivated += activate;
-      if (want > candidates.length) {
-        warnings.push(
-          `hour ${hourStart.toISOString()} short by ~${Math.round((budget - estimate) / 60000)}min but only ` +
-            `${candidates.length} filler candidate(s) authored — clock needs more`
-        );
-      }
-    } else if (estimate > budget) {
-      // ---- SUBTRACTIVE: hour cannot fit, give something up DELIBERATELY -------------
-      // Without this the overrun still happens, it just happens at playout and takes
-      // whatever sits at the tail — arbitrary with respect to programming value. Here
-      // the choice is explicit, ordered, and visible in the log before air.
+    // ---- SUBTRACTIVE: only when the overrun exceeds a whole filler item -------------
+    // A smaller overrun is absorbed by the tail shear buffer and by carryMs. An earlier
+    // version sacrificed on ANY overrun and dropped a 249s position to recover 7s,
+    // leaving the hour four minutes shorter than it started -- and because the additive
+    // path was an `else if`, nothing could compensate.
+    if (estimate > budget + fillerMean) {
       const sacrificeable = programmed
         .filter((p) => p.constraints?.trimPriority != null)
         .sort((a, b) => a.constraints!.trimPriority! - b.constraints!.trimPriority!);
       const dropped = new Set<string>();
-      let over = estimate - budget;
       for (const p of sacrificeable) {
-        if (over <= 0) break;
+        if (estimate <= budget + fillerMean) break;
         dropped.add(p.id);
-        over -= estimateOf(p);
+        estimate -= estimateOf(p);
         sacrificed++;
       }
-      if (over > 0) {
+      if (estimate > budget + fillerMean) {
         warnings.push(
-          `hour ${hourStart.toISOString()} over budget by ~${Math.round(over / 60000)}min after ` +
-            `sacrificing ${dropped.size} position(s) — remainder will trim from the tail`
+          `hour ${hourStart.toISOString()} over budget by ~${Math.round((estimate - budget) / 60000)}min ` +
+            `after sacrificing ${dropped.size} position(s) — remainder will trim from the tail`
         );
       }
       programmed = programmed.filter((p) => !dropped.has(p.id));
     }
 
-    const sortedPositions = allPositions.filter((p) => (isCandidate(p) ? live.has(p.id) : programmed.includes(p)));
+    // ---- ADDITIVE is decided IN-LINE, not up front ---------------------------------
+    // Sizing filler from pool means cannot work: 16 music draws at ~40s standard
+    // deviation carry roughly +/-2.7 min of sampling error, the same magnitude as the
+    // gap being closed. So candidates stay in the running order and each is decided when
+    // the generator REACHES it, against the clock as actually accumulated. At the tail
+    // that measurement is exact rather than estimated.
+    const programmedIds = new Set(programmed.map((p) => p.id));
+    const sortedPositions = allPositions.filter((p) => isCandidate(p) || programmedIds.has(p.id));
+
+    // Programmed time still to come after each index.
+    const remainingEst = new Array<number>(sortedPositions.length + 1).fill(0);
+    for (let i = sortedPositions.length - 1; i >= 0; i--) {
+      remainingEst[i] =
+        remainingEst[i + 1] + (isCandidate(sortedPositions[i]) ? 0 : estimateOf(sortedPositions[i]));
+    }
 
     for (let pi = 0; pi < sortedPositions.length; pi++) {
       const position = sortedPositions[pi];
+
+      if (isCandidate(position)) {
+        // Priority 1 is the tail buffer and ALWAYS airs — it IS the deliberate
+        // overschedule margin, the thing a shear is meant to land on. Without this an
+        // hour the estimate believed was full got no buffer at all.
+        const isBuffer = position.constraints!.fillerPriority === 1;
+        const shortBy = clockEnd - (running + remainingEst[pi + 1]);
+        if (!isBuffer && shortBy < fillerMean / 2) continue;
+        fillerActivated++;
+      }
+
       if (position.targetOffsetSeconds != null) {
         running = Math.max(running, hourStart.getTime() + position.targetOffsetSeconds * 1000);
       }
@@ -342,6 +348,17 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
           warnings.push(`song rdj:${song.rdjSongId} has no duration — assumed ${config.defaultDurationMs}ms`);
         }
       }
+    }
+
+    // Reported from the ACTUAL result rather than predicted up front. An in-line design
+    // has no up-front count to check, and the outcome is the thing worth knowing anyway:
+    // an hour that ended short despite every candidate is an under-authored clock.
+    const shortfall = clockEnd - running;
+    if (shortfall > fillerMean && candidates.length > 0) {
+      warnings.push(
+        `hour ${hourStart.toISOString()} ended ~${Math.round(shortfall / 60000)}min short with ` +
+          `${candidates.length} filler candidate(s) authored — clock needs more`
+      );
     }
 
     // Whatever this hour overran by is the next hour's reduced budget. Underruns do NOT
