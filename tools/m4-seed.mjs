@@ -46,6 +46,25 @@ const SUBCAT = {
   "Relaunch Sweepers": [8], "Station Promos": [12], "Heritage Backsells": [35],
 };
 
+/**
+ * SUBTRACTIVE PRIORITY — what an hour gives up when it cannot fit its budget, lowest
+ * first. The additive counterpart of fillerPriority.
+ *
+ * An hour that starts late (drift carried from earlier overruns) must still end at the
+ * immovable TOH. Something has to go. Left to trim-to-fit it is whatever sits at the
+ * tail, which is arbitrary with respect to programming value; here the choice is
+ * deliberate, ordered, and visible in the log before air.
+ *
+ * Ordered by what costs least to lose: the deepest gold pools first, since one skipped
+ * play against 187 songs is nearly invisible, then recurrents. Discovery is LAST of the
+ * sacrificeable pools despite being small -- new music is the format's differentiator
+ * and 45% currents is the promise, so an exposure slot is worth more than a gold play.
+ *
+ * Absent = never deliberately sacrificed: all currents, H1/H2, every imaging pool and
+ * TOH. Those can still fall off the tail as a last resort, which the warning reports.
+ */
+const TRIM_PRIORITY = { G1990: 1, G2000: 2, G2010: 3, R3: 4, Discovery: 5 };
+
 const PARENT = {
   ...Object.fromEntries(CUR.map((c) => [c, "Currents"])),
   ...Object.fromEntries(REC.map((c) => [c, "Recurrents"])),
@@ -184,6 +203,7 @@ for (const code of codes) {
     const parts = [];
     if (fb) parts.push(`'fallbackCategoryId', ${cat(fb)}::text`);
     if (item.fillerPriority != null) parts.push(`'fillerPriority', ${item.fillerPriority}`);
+    if (TRIM_PRIORITY[item.cat] != null) parts.push(`'trimPriority', ${TRIM_PRIORITY[item.cat]}`);
     const constraints = parts.length
       ? `(SELECT jsonb_build_object(${parts.join(", ")}))`
       : "NULL";

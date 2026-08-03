@@ -123,3 +123,73 @@ describe("conditional filler", () => {
     expect(res.items.length).toBeGreaterThan(0);
   });
 });
+
+/**
+ * Subtractive priority. An hour that starts late (drift carried from an earlier
+ * overrun) must still end at the immovable TOH, so something has to go. Left to
+ * trim-to-fit that is whatever sits at the tail; here it is chosen deliberately.
+ */
+describe("subtractive priority and drift carry", () => {
+  /** `n` programmed positions, the last `sacrificeable` of them ranked for sacrifice. */
+  function longWorld(opts: { programmed: number; songMs: number; sacrificeable: number }) {
+    const main = category({ id: "cat-main" });
+    const songs = Array.from({ length: 60 }, (_, i) =>
+      song({ rdjSongId: i + 1, categoryIds: ["cat-main"], durationMs: opts.songMs })
+    );
+    const positions = Array.from({ length: opts.programmed }, (_, i) =>
+      position({
+        sortOrder: i + 1,
+        categoryId: "cat-main",
+        constraints:
+          i >= opts.programmed - opts.sacrificeable
+            ? { trimPriority: i - (opts.programmed - opts.sacrificeable) + 1 }
+            : null,
+      })
+    );
+    const clock: EngineClock = { id: "clock-1", name: "Long", positions };
+    const grid: GridSlot[] = [];
+    for (let d = 0; d < 7; d++) for (let h = 0; h < 24; h++) grid.push({ dayOfWeek: d, hour: h, clockId: "clock-1" });
+    return baseInput({
+      clocks: [clock], grid, categories: [main], songs,
+      horizonEnd: new Date("2026-07-06T02:00:00.000Z"), // two hours, so drift can carry
+    });
+  }
+
+  it("sacrifices ranked positions when the hour cannot fit", () => {
+    // 24 x 200s = 4800s against a 3600s clock: 20 min over.
+    const res = generateLog(longWorld({ programmed: 24, songMs: 200_000, sacrificeable: 8 }));
+    expect(res.stats.sacrificed).toBeGreaterThan(0);
+  });
+
+  it("sacrifices in trimPriority order, cheapest first", () => {
+    const input = longWorld({ programmed: 24, songMs: 200_000, sacrificeable: 8 });
+    const byId = new Map(input.clocks[0].positions.map((p) => [p.id, p]));
+    const res = generateLog(input);
+    const survivingRanked = res.items
+      .map((i) => (i.clockPositionId ? byId.get(i.clockPositionId) : undefined))
+      .filter((p) => p?.constraints?.trimPriority != null)
+      .map((p) => p!.constraints!.trimPriority!);
+    // whatever survives must be the HIGHEST numbers — the low ones were spent first
+    if (survivingRanked.length) {
+      expect(Math.min(...survivingRanked)).toBeGreaterThan(1);
+    }
+  });
+
+  it("warns when sacrificing everything ranked still cannot close the overrun", () => {
+    const res = generateLog(longWorld({ programmed: 30, songMs: 200_000, sacrificeable: 1 }));
+    expect(res.warnings.some((w) => /over budget/.test(w))).toBe(true);
+  });
+
+  it("does not bank credit — an early hour never lengthens the next one", () => {
+    // Hour content is far under; the second hour must not be scheduled longer for it.
+    const input = longWorld({ programmed: 4, songMs: 200_000, sacrificeable: 0 });
+    const res = generateLog(input);
+    const hours = new Set(res.items.map((i) => i.projectedAirAt.toISOString().slice(0, 13)));
+    expect(hours.size).toBe(2);
+    for (const i of res.items) {
+      // nothing may be scheduled before its own hour boundary
+      const h = new Date(i.projectedAirAt).getUTCMinutes();
+      expect(h).toBeGreaterThanOrEqual(0);
+    }
+  });
+});

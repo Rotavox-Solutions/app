@@ -80,6 +80,22 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
   let sortOrder = 0;
   let trimmed = 0;
   let fillerActivated = 0;
+  let sacrificed = 0;
+
+  /**
+   * Playout drift carried into the next hour, ms.
+   *
+   * The clock boundary is immovable -- the next hour's TOH is due at :00 whatever
+   * happened before it. So an hour that overruns does not push the boundary, it eats
+   * into the FOLLOWING hour's budget. Modelling that here is what lets the generator
+   * decide, in advance and visibly, which position to give up; left unmodelled the
+   * shear still happens at playout and simply takes whatever sits at the tail.
+   *
+   * Capped so a pathological hour cannot cascade: past the cap the schedule accepts it
+   * is late rather than gutting an entire hour to catch up.
+   */
+  let carryMs = 0;
+  const MAX_CARRY_MS = 5 * 60_000;
 
   /** Mean duration of a position's own pool, used only to size the hour before picking. */
   const meanPoolDuration = (position: EnginePosition): number | null => {
@@ -105,10 +121,10 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
   };
 
   for (const hourStart of iterateHours(input.horizonStart, input.horizonEnd)) {
-    // Each hour is independent: a hard top-of-hour re-sync (no spill-forward). A
-    // clock whose content overruns is trimmed from the tail (below); a clock that
-    // underruns simply leaves the hour short. Either way the next hour starts at :00.
-    let running = hourStart.getTime();
+    // Hours are NOT independent. An hour that overruns pushes its successor late, and
+    // the successor's TOH is still due at :00 — so the overrun becomes a reduced budget
+    // rather than a moved boundary. carryMs is that debt; underruns never bank credit.
+    let running = hourStart.getTime() + carryMs;
 
     const { dayOfWeek, hour } = localParts(hourStart, input.timezone);
     const wic = cycleEpoch ? weekInCycle(hourStart, cycleEpoch, cycleWeeks, input.timezone) : 0;
@@ -133,34 +149,58 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
       .filter(isCandidate)
       .sort((a, b) => a.constraints!.fillerPriority! - b.constraints!.fillerPriority!);
 
-    let sortedPositions = allPositions;
-    if (candidates.length > 0) {
-      let estimate = 0;
-      for (const p of allPositions) {
-        if (isCandidate(p)) continue;
-        if (p.positionType === "fixed_event") {
-          estimate += (p.constraints?.fixedDurationSeconds ?? 0) * 1000;
-          continue;
-        }
-        estimate += meanPoolDuration(p) ?? config.defaultDurationMs;
-      }
-      const deficit = clockEnd - hourStart.getTime() - estimate;
+    // The budget is what is left of the clock AFTER absorbing drift from earlier hours.
+    // The boundary itself never moves: the next TOH is due at :00 regardless.
+    const budget = clockEnd - running;
+
+    const estimateOf = (p: EnginePosition): number =>
+      p.positionType === "fixed_event"
+        ? (p.constraints?.fixedDurationSeconds ?? 0) * 1000
+        : (meanPoolDuration(p) ?? config.defaultDurationMs);
+
+    let programmed = allPositions.filter((p) => !isCandidate(p));
+    let estimate = programmed.reduce((t, p) => t + estimateOf(p), 0);
+    const live = new Set<string>();
+
+    if (estimate < budget && candidates.length > 0) {
+      // ---- ADDITIVE: hour is short, activate filler in priority order ---------------
       const fillerMean = meanPoolDuration(candidates[0]) ?? config.defaultDurationMs;
-      // round, not ceil: overshooting by a whole song then trimming it back is worse
-      // than landing a little under, because the trim would drop a programmed position.
-      const activate = deficit > 0 ? Math.min(candidates.length, Math.round(deficit / fillerMean)) : 0;
-      const live = new Set(candidates.slice(0, activate).map((p) => p.id));
-      sortedPositions = allPositions.filter((p) => !isCandidate(p) || live.has(p.id));
-      if (activate > 0) {
-        fillerActivated += activate;
-      }
-      if (deficit > 0 && activate < Math.round(deficit / fillerMean)) {
+      const want = Math.round((budget - estimate) / fillerMean);
+      const activate = Math.min(candidates.length, want);
+      for (const p of candidates.slice(0, activate)) live.add(p.id);
+      fillerActivated += activate;
+      if (want > candidates.length) {
         warnings.push(
-          `hour ${hourStart.toISOString()} short by ~${Math.round(deficit / 60000)}min but only ` +
+          `hour ${hourStart.toISOString()} short by ~${Math.round((budget - estimate) / 60000)}min but only ` +
             `${candidates.length} filler candidate(s) authored — clock needs more`
         );
       }
+    } else if (estimate > budget) {
+      // ---- SUBTRACTIVE: hour cannot fit, give something up DELIBERATELY -------------
+      // Without this the overrun still happens, it just happens at playout and takes
+      // whatever sits at the tail — arbitrary with respect to programming value. Here
+      // the choice is explicit, ordered, and visible in the log before air.
+      const sacrificeable = programmed
+        .filter((p) => p.constraints?.trimPriority != null)
+        .sort((a, b) => a.constraints!.trimPriority! - b.constraints!.trimPriority!);
+      const dropped = new Set<string>();
+      let over = estimate - budget;
+      for (const p of sacrificeable) {
+        if (over <= 0) break;
+        dropped.add(p.id);
+        over -= estimateOf(p);
+        sacrificed++;
+      }
+      if (over > 0) {
+        warnings.push(
+          `hour ${hourStart.toISOString()} over budget by ~${Math.round(over / 60000)}min after ` +
+            `sacrificing ${dropped.size} position(s) — remainder will trim from the tail`
+        );
+      }
+      programmed = programmed.filter((p) => !dropped.has(p.id));
     }
+
+    const sortedPositions = allPositions.filter((p) => (isCandidate(p) ? live.has(p.id) : programmed.includes(p)));
 
     for (let pi = 0; pi < sortedPositions.length; pi++) {
       const position = sortedPositions[pi];
@@ -294,11 +334,16 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
         }
       }
     }
+
+    // Whatever this hour overran by is the next hour's reduced budget. Underruns do NOT
+    // carry negative — an hour that finishes early is simply early, and the next TOH is
+    // still due at :00; letting it bank credit would schedule the next hour long.
+    carryMs = Math.min(MAX_CARRY_MS, Math.max(0, running - clockEnd));
   }
 
   return {
     items,
     warnings,
-    stats: { totalItems: items.length, violationCounts, unfillable, trimmed, fillerActivated },
+    stats: { totalItems: items.length, violationCounts, unfillable, trimmed, fillerActivated, sacrificed },
   };
 }

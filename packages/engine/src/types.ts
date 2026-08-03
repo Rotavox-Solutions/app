@@ -51,6 +51,17 @@ export interface PositionConstraints {
    * filler stays swappable, overridable and removable before air.
    */
   fillerPriority?: number;
+  /**
+   * Order in which this position is SACRIFICED when the hour cannot fit its budget.
+   * Lower number = given up first. Absent = never chosen deliberately (it can still
+   * fall off the tail as a last resort).
+   *
+   * The additive counterpart of fillerPriority. An hour can be short (activate filler)
+   * or long (give something up), and both decisions belong at generation where the PD
+   * can see them -- a shear that happens at playout takes whatever is at the tail,
+   * which is arbitrary with respect to programming value.
+   */
+  trimPriority?: number;
 }
 
 export type PositionType = "category" | "fixed_event" | "sweeper" | "voicetrack";
@@ -203,5 +214,7 @@ export interface GenerateLogResult {
     trimmed: number;
     /** Conditional filler positions activated because hours came up short. */
     fillerActivated: number;
+    /** Positions deliberately given up because an hour could not fit its budget. */
+    sacrificed: number;
   };
 }

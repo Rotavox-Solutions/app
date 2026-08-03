@@ -305,6 +305,15 @@ export function clockSequence(code) {
   const musicIdx = seq.map((x, i) => (x.kind === "music" ? i : -1)).filter((i) => i >= 0);
   const placements = [];
   const used = new Set();
+
+  // PRIORITY 1 IS ALWAYS THE TAIL, and it is doing a second job: it is the shear buffer.
+  // An hour can start late (drift from earlier overruns) and lose its final position to
+  // the immovable TOH. Whatever sits last is what gets shorn -- so the first filler the
+  // generator ever activates goes there, guaranteeing the sacrifice lands on an F rather
+  // than on programmed content. Spread candidates follow from that base condition.
+  used.add(musicIdx.length);
+  placements.push({ afterSeqIndex: musicIdx[musicIdx.length - 1], priority: 1 });
+
   for (let k = 1; placements.length < n && k < n * 8; k++) {
     let slot = Math.round(vanDerCorput(k) * musicIdx.length);
     slot = Math.max(1, Math.min(musicIdx.length, slot));
