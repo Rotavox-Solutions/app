@@ -249,10 +249,39 @@ That means a trim in most peak hours.
 
 ## Two defects found on the way
 
-1. **`trimPriority` can violate the floor rule.** Priority is G1990 1, G2000 2, G2010 3,
-   R3 4, Discovery 5. ES carries exactly one gold position (G2010), so the first trim in an
-   ES hour takes ES to *zero gold*. The floor that shape authoring enforces is not enforced
-   at trim time. Under `discovery`, ES trims most hours, so this stops being theoretical.
+1. **`trimPriority` is a flat global ranking applied to clocks with unequal inventories.**
+   Verified against live `clock_positions`:
+
+   | clock | gold positions | first three trims |
+   |---|---|---|
+   | ES | **1** | G2010, R3, Discovery |
+   | FF | **2** | G2010, G2010, R3 |
+   | HD | **3** | G2000, G2010, G2010 |
+   | CO | 4 | G1990, G2000, G2010 |
+   | WW / EM | 5 | G1990, G2000, ... |
+   | WD | 6 | G1990 x3 |
+   | DNa / DNb | 9 | G1990 x3 |
+   | GHa / GHb | 14 | G1990 x3 |
+
+   The ranking (G1990 1, G2000 2, G2010 3, R3 4, Discovery 5) is sound where gold is deep
+   — DN has 9 gold positions, GH has 14, and three G1990 trims there cost nothing. It is
+   inverted where gold is scarce: ES holds exactly one gold position and it is also the
+   lowest-numbered trimmable category present, so **one trim takes the Early Show to zero
+   gold**. FF reaches zero in two. HD's first three trims are all three of its gold.
+
+   The clocks least able to afford the loss lose it first, and they are the peak clocks
+   where format coherence matters most. Trimming is rare enough today that no log has shown
+   it. `discovery` puts ES/FF/HD at +1.8 to +2.3 min — trimming most hours — which makes it
+   the normal case.
+
+   Fix: sacrifice must be **floor-aware, not flat** — never take a category below 1 in a
+   clock (the rule shape authoring already obeys), and fall through to the next priority
+   when the floor blocks. That also makes the ranking mean what it was meant to mean,
+   "sacrifice from the deepest pool present", rather than "sacrifice gold first regardless".
+
+   Note the interaction with `discovery`: Discovery is priority 5, last, so the two ADDED
+   positions survive while the clock's only gold is taken. The trim would systematically
+   push ES toward the era balance the shape change exists to protect.
 2. **H2 still reports `none satisfies`** under every variant, and has since before this
    work. Not diagnosed.
 
