@@ -234,6 +234,13 @@ Distinct from the build. None of these should feel like a project.
   Currently manual, which is why the rest pool accumulated 148 songs against an
   8-song entry pool. Target state is standing rules that emit changesets for review.
 - **Changeset → validate → apply → re-sync.** Every library change, without exception.
+- **Dry-run before approving.** `npx tsx tools/dry-run-log.mts` generates against live
+  data without persisting and gates on hour length. Run it after any change to clock
+  shapes, depths, filler or the generator — and before the log is approved, not after it
+  airs. Engine unit tests cannot catch hour-length faults: their fixtures use uniform
+  200s songs, which is exactly the condition that makes hour arithmetic exact and hides
+  estimator error. On 2026-08-03 three such bugs shipped green and produced hours from
+  51.3 to 62.4 minutes; this tool found all three in about a minute.
 - **Log generation, review, approval.**
 - **Exception review.** Fallback rates, unfilled positions, separation relaxations —
   trends here are the early warning that depth has drifted from the format.
