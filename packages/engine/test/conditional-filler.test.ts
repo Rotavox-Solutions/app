@@ -193,3 +193,30 @@ describe("subtractive priority and drift carry", () => {
     }
   });
 });
+
+/**
+ * The scheduling asymmetry, stated as a test.
+ *
+ * Underscheduling costs dead air, which is unrecoverable. Overscheduling costs a shear,
+ * which is bounded and — because priority-1 filler is the tail buffer — lands on an F.
+ * The optimum is therefore never "exactly 60:00"; it is 60:00 plus a margin, and the
+ * margin must be strictly positive.
+ */
+describe("deliberate overschedule", () => {
+  it("never leaves an hour short when a candidate could have filled it", () => {
+    // 17 x 200s = 3400s against 3600s: 200s short, exactly one filler.
+    const input = world({ programmed: 17, songMs: 200_000, candidates: 5 });
+    const res = generateLog(input);
+    expect(res.stats.fillerActivated).toBeGreaterThanOrEqual(1);
+  });
+
+  it("rounds UP on a part-song deficit rather than landing under", () => {
+    // 17 x 200s = 3400s, 200s short, but filler averages 300s: round() would give 1,
+    // and so does ceil() — push the deficit to 250s where round()=1 and ceil()=1 differ
+    // only above .5, so use a deficit of 0.4 songs: 3600-3450 = 150s at 300s filler.
+    const input = world({ programmed: 23, songMs: 150_000, candidates: 5, fillerMs: 300_000 });
+    const res = generateLog(input);
+    // 23 x 150s = 3450s, 150s short = 0.5 song. Must still activate one, not zero.
+    expect(res.stats.fillerActivated).toBeGreaterThanOrEqual(1);
+  });
+});

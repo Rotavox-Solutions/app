@@ -163,9 +163,18 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
     const live = new Set<string>();
 
     if (estimate < budget && candidates.length > 0) {
+      // Deliberate overschedule: the hour is planned to exceed its budget so the excess
+      // is shorn on purpose rather than the hour running dry by accident.
       // ---- ADDITIVE: hour is short, activate filler in priority order ---------------
       const fillerMean = meanPoolDuration(candidates[0]) ?? config.defaultDurationMs;
-      const want = Math.round((budget - estimate) / fillerMean);
+      // CEIL, not round. The costs are wildly asymmetric: underscheduling risks dead
+      // air, which is unrecoverable, while overscheduling costs a shear -- and since
+      // priority-1 filler is the tail buffer, that shear lands on an F by construction.
+      // An earlier version rounded, on the reasoning that overshooting would trim a
+      // programmed position. That stopped being true once the buffer existed, and
+      // rounding can leave the hour up to half a song SHORT, which is the one outcome
+      // there is no recovery from.
+      const want = Math.ceil((budget - estimate) / fillerMean);
       const activate = Math.min(candidates.length, want);
       for (const p of candidates.slice(0, activate)) live.add(p.id);
       fillerActivated += activate;
