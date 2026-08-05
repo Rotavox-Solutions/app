@@ -27,8 +27,9 @@
  */
 import postgres from "postgres";
 import { SHAPES, IMAGING, FILLER_SLOTS } from "./m4-format.mjs";
+import { buildReachable, fitHour, type FitUnit } from "../packages/engine/src/fit.js";
 
-const argOf = (n) => { const i = process.argv.indexOf(`--${n}`); return i >= 0 ? process.argv[i + 1] : undefined; };
+const argOf = (n: string) => { const i = process.argv.indexOf(`--${n}`); return i >= 0 ? process.argv[i + 1] : undefined; };
 const CLOCK = argOf("clock") ?? "ES";
 const HOURS = Number(argOf("hours") ?? 200_000);
 /**
@@ -39,7 +40,7 @@ const HOURS = Number(argOf("hours") ?? 200_000);
  * residual after a best fit is bounded by that step. Every clock on this station lands on
  * the same tolerance because every clock fits with F.
  */
-const MARGINAL = argOf("marginal") ?? "F";
+const MARGINAL = (argOf("marginal") ?? "F").split(",");
 
 /**
  * Early tolerances to price, in seconds. 0 = early forbidden outright.
@@ -59,7 +60,7 @@ const rows = await sql`
   where coalesce(s.effective_duration_ms, s.duration_ms) > 0`;
 await sql.end();
 
-const pool = {};
+const pool: Record<string, number[]> = {};
 for (const r of rows) (pool[r.cat] ??= []).push(Number(r.ms));
 
 // Deterministic PRNG so a rerun reproduces the curve exactly. --seed draws an INDEPENDENT
@@ -67,7 +68,7 @@ for (const r of rows) (pool[r.cat] ??= []).push(Number(r.ms));
 // is signal and how much is Monte Carlo noise, and a fixed seed can never show that.
 let seed = Number(argOf("seed") ?? 20260804);
 const rnd = () => ((seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
-const draw = (c) => pool[c][Math.floor(rnd() * pool[c].length)];
+const draw = (c: string) => pool[c][Math.floor(rnd() * pool[c].length)];
 
 const shape = SHAPES[CLOCK];
 if (!shape) { console.error(`unknown clock "${CLOCK}"`); process.exit(1); }
@@ -82,67 +83,66 @@ const FILLER_CAP = FILLER_SLOTS[CLOCK] ?? 5;
  * the authored positions, then fit with filler and trims. `earlyTolMs` bounds how far
  * BEFORE :00 the resulting TOH is permitted to land.
  */
-function hour(driftMs, earlyTolMs) {
+/**
+ * The closing pool: every duration the fit is allowed to reach for, across ALL categories
+ * the PD has nominated. Built once — reachable totals depend on the durations and the slot
+ * count, not on the hour.
+ */
+const closers: FitUnit[] = MARGINAL.flatMap((cat) =>
+  (pool[cat] ?? []).map((ms, i) => ({ id: `${cat}-${i}`, durationMs: ms, categoryId: cat }))
+);
+if (!closers.length) { console.error(`no enabled songs in closer pool [${MARGINAL.join(", ")}]`); process.exit(1); }
+/**
+ * How many candidate songs the fit actually gets to choose between, per slot.
+ *
+ * The whole pool is NOT available: rotation rules (rest, separation, artist windows) mean
+ * the generator picks from a shortlist of well-rested candidates — config.searchDepth is 5
+ * today. Precision is bought with breadth, so this is the knob that decides how close the
+ * hour can land, and modelling the full pool overstates it badly.
+ */
+const BREADTH = Number(argOf("breadth") ?? 0) || closers.length;
+const wholePool = BREADTH >= closers.length;
+const REACHABLE_FULL = wholePool ? buildReachable(closers, FILLER_CAP) : null;
+const shortlist = () => {
+  if (REACHABLE_FULL) return REACHABLE_FULL;
+  const pickN: FitUnit[] = [];
+  for (let i = 0; i < BREADTH; i++) pickN.push(closers[Math.floor(rnd() * closers.length)]);
+  return buildReachable(pickN, FILLER_CAP);
+};
+
+/**
+ * One hour under the control law: absorb the prior drift into this hour's budget, draw the
+ * authored positions, then hand the fit to the ENGINE.
+ *
+ * Calling engine code rather than reimplementing it is the whole point. This tool shipped
+ * its own greedy fit and got two bugs for it, both of which produced confident, plausible,
+ * wrong curves. A simulation with its own copy of the logic validates a model of the
+ * product, not the product.
+ */
+function hour(driftMs: number, earlyTolMs: number): number {
   let len = 0;
-  for (const [cat, n] of Object.entries(shape)) for (let i = 0; i < n; i++) len += draw(cat);
-  for (const [cat, n] of imaging) for (let i = 0; i < n; i++) len += draw(cat);
+  for (const [cat, n] of Object.entries(shape)) for (let i = 0; i < (n as number); i++) len += draw(cat);
+  for (const [cat, n] of imaging) for (let i = 0; i < (n as number); i++) len += draw(cat);
 
-  const target = 3_600_000 - driftMs;
-  const earliest = target - earlyTolMs;
+  const removable: FitUnit[] = TRIMMABLE.map((c, i) => ({ id: `trim-${i}`, durationMs: draw(c), categoryId: c }));
 
-  /**
-   * LEXICOGRAPHIC cost: get inside the early bound first, then get close to :00.
-   *
-   * The obvious formulation -- Infinity for an impermissible landing -- is a trap, and it
-   * cost this tool its first set of results. An hour BEGINS impermissible (ES is authored
-   * 265s short of target), so a greedy loop comparing Infinity >= Infinity breaks on its
-   * first iteration and never adds anything intelligently. What remained was a blind loop
-   * that stopped the instant it crossed the bound, pinning every landing near
-   * `target - tolerance`. The curve then measured the tolerance against itself, and
-   * reported the same optimum for every clock and every marginal pool -- which is exactly
-   * the impossible invariance that exposed it.
-   *
-   * Violation must therefore be finite and orderable, so "less early than before" reads as
-   * an improvement even while still outside the bound.
-   */
-  const cost = (l) => Math.max(0, earliest - l) * 1e6 + Math.abs(l - target);
-
-  // TRIM first: giving up a position changes the gap the filler then has to close.
-  for (const c of TRIMMABLE) {
-    const d = draw(c);
-    if (cost(len - d) < cost(len)) len -= d;
-  }
-
-  // ADD: choose WHICH filler by how well it closes the gap, scanning the pool rather
-  // than drawing at random.
-  //
-  // This is not duration-aware song selection -- PERFECT-HOUR.md §3 rejects that for
-  // programmed positions and permits it here explicitly, because a filler slot exists to
-  // fill time and duration is therefore the job. Modelling a RANDOM filler draw was a
-  // real error: it understates the fit, and it makes the result path-dependent, which
-  // showed up as p95 rising with tolerance -- impossible, since a wider tolerance only
-  // ever ADDS permitted landings and can never make the best one worse.
-  for (let i = 0; i < FILLER_CAP; i++) {
-    let best = null;
-    let bestCost = cost(len);
-    for (const d of pool[MARGINAL]) {
-      const c2 = cost(len + d);
-      if (c2 < bestCost) { bestCost = c2; best = d; }
-    }
-    if (best === null) break;
-    len += best;
-  }
-  return len - target;
+  return fitHour({
+    currentMs: len,
+    targetMs: 3_600_000 - driftMs,
+    maxEarlyMs: earlyTolMs,
+    removable,
+    reachable: shortlist(),
+  }).driftMs;
 }
 
-function run(earlyTolS, streamSeed) {
+function run(earlyTolS: number, streamSeed: number) {
   // COMMON RANDOM NUMBERS: every tolerance sees the same draw sequence, so differences
   // between rows are the tolerance and not the sample. Without this the curve is noisy
   // enough at 100k hours to invert adjacent rows.
   seed = streamSeed;
   const earlyTolMs = earlyTolS * 1000;
   let d = 0;
-  const abs = [], signed = [];
+  const abs: number[] = [], signed: number[] = [];
   const NOCARRY = process.argv.includes("--nocarry");
   for (let i = 0; i < HOURS; i++) {
     d = hour(NOCARRY ? 0 : d, earlyTolMs);
@@ -161,10 +161,10 @@ function run(earlyTolS, streamSeed) {
   };
 }
 
-console.log(`## TOH drift vs early tolerance — clock ${CLOCK}, marginal ${MARGINAL}, ${HOURS.toLocaleString()} hours\n`);
+console.log(`## TOH drift vs early tolerance — clock ${CLOCK}, closers [${MARGINAL.join(" + ")}], ${HOURS.toLocaleString()} hours\n`);
 console.log("| early tolerance | median \\|drift\\| | p95 | worst case | hours landing early | mean late |");
 console.log("|---|---|---|---|---|---|");
-const curve = [];
+const curve: any[] = [];
 for (const t of TOLERANCES) {
   const r = run(t, Number(argOf("seed") ?? 20260804));
   curve.push({ t, ...r });
@@ -178,7 +178,7 @@ for (const t of TOLERANCES) {
 // optimum. Median is minimised at a modest tolerance and gets WORSE beyond it (more room
 // to sit early means more hours sitting early), while p95 and worst case keep improving.
 // So report all three minima rather than inventing a single answer.
-const best = (k) => curve.reduce((a, b) => (b[k] < a[k] ? b : a));
+const best = (k: string) => curve.reduce((a, b) => (b[k] < a[k] ? b : a));
 const base = curve[0];
 const bMed = best("p50"), bP95 = best("p95"), bMax = best("max");
 console.log(
