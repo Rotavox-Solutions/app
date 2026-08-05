@@ -83,7 +83,8 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
   let sacrificed = 0;
 
   /**
-   * Playout drift carried into the next hour, ms.
+   * SIGNED top-of-hour drift carried into the next hour, ms.
+   * Positive = the next TOH runs LATE. Negative = it runs EARLY.
    *
    * The clock boundary is immovable -- the next hour's TOH is due at :00 whatever
    * happened before it. So an hour that overruns does not push the boundary, it eats
@@ -91,11 +92,22 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
    * decide, in advance and visibly, which position to give up; left unmodelled the
    * shear still happens at playout and simply takes whatever sits at the tail.
    *
-   * Capped so a pathological hour cannot cascade: past the cap the schedule accepts it
-   * is late rather than gutting an entire hour to catch up.
+   * WHY SIGNED. The previous version clamped at zero, on the reasoning that an hour
+   * finishing early "is simply early, and the next TOH is still due at :00". That
+   * inverts: if TOH airs at :58, the next hour needs SIXTY-TWO minutes of content for
+   * the TOH after it to land at :00. Negative carry is the restoring force for early
+   * drift, and without it early drift has no restoring force at all -- it accumulates
+   * one-sidedly and is never corrected.
+   *
+   * Bounds are ASYMMETRIC, and deliberately so. Late and early are not equally bad: a
+   * station ID at :58 is ambiguous about which hour it identifies, where the same
+   * distance late is merely late. So early is held to a far tighter bound.
+   *
+   * MAX_EARLY_MS = 0 reproduces the old one-sided behaviour exactly.
    */
-  let carryMs = 0;
-  const MAX_CARRY_MS = 5 * 60_000;
+  let driftMs = 0;
+  const MAX_LATE_MS = config.maxLateDriftMs;
+  const MAX_EARLY_MS = config.maxEarlyDriftMs;
 
   /** Mean duration of a position's own pool, used only to size the hour before picking. */
   const meanPoolDuration = (position: EnginePosition): number | null => {
@@ -124,7 +136,7 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
     // Hours are NOT independent. An hour that overruns pushes its successor late, and
     // the successor's TOH is still due at :00 — so the overrun becomes a reduced budget
     // rather than a moved boundary. carryMs is that debt; underruns never bank credit.
-    let running = hourStart.getTime() + carryMs;
+    let running = hourStart.getTime() + driftMs;
 
     const { dayOfWeek, hour } = localParts(hourStart, input.timezone);
     const wic = cycleEpoch ? weekInCycle(hourStart, cycleEpoch, cycleWeeks, input.timezone) : 0;
@@ -236,6 +248,7 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
         items.push({
           sortOrder: sortOrder++,
           projectedAirAt: at,
+          nominalHour: hourStart,
           elementType: "fixed_event",
           songId: null,
           rdjSongId: null,
@@ -251,6 +264,7 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
         items.push({
           sortOrder: sortOrder++,
           projectedAirAt: at,
+          nominalHour: hourStart,
           elementType: ELEMENT_TYPE[position.positionType],
           songId: null,
           rdjSongId: null,
@@ -323,6 +337,7 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
       items.push({
         sortOrder: sortOrder++,
         projectedAirAt: at,
+        nominalHour: hourStart,
         elementType: ELEMENT_TYPE[position.positionType],
         songId: song?.id ?? null,
         rdjSongId: song?.rdjSongId ?? null,
@@ -361,10 +376,18 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
       );
     }
 
-    // Whatever this hour overran by is the next hour's reduced budget. Underruns do NOT
-    // carry negative — an hour that finishes early is simply early, and the next TOH is
-    // still due at :00; letting it bank credit would schedule the next hour long.
-    carryMs = Math.min(MAX_CARRY_MS, Math.max(0, running - clockEnd));
+    // This hour's end IS the next TOH. Signed, so early drift is corrected as well as
+    // late. Clamping DISCARDS the excess rather than deferring it, so say so out loud:
+    // beyond the bound the schedule has accepted a TOH it will never claw back.
+    const rawDrift = running - clockEnd;
+    driftMs = Math.max(-MAX_EARLY_MS, Math.min(MAX_LATE_MS, rawDrift));
+    if (rawDrift !== driftMs) {
+      warnings.push(
+        `hour ${hourStart.toISOString()} drift ${Math.round(rawDrift / 1000)}s exceeds the ` +
+          `[-${MAX_EARLY_MS / 1000}s, +${MAX_LATE_MS / 1000}s] bound — clamped to ` +
+          `${Math.round(driftMs / 1000)}s, ${Math.round(Math.abs(rawDrift - driftMs) / 1000)}s discarded`
+      );
+    }
   }
 
   return {

@@ -134,6 +134,19 @@ export interface EngineConfig {
   relaxationSteps: number[];
   defaultDurationMs: number;
   defaultTurnoverHours: number;
+  /**
+   * Bounds on signed top-of-hour drift, ms. Asymmetric on purpose.
+   *
+   * A station ID that airs EARLY is ambiguous about which hour it identifies; the same
+   * distance late is merely late. So early is held far tighter than late. Beyond either
+   * bound the excess is discarded rather than deferred, and a warning is emitted — the
+   * schedule has accepted a TOH it will never claw back.
+   *
+   * maxEarlyDriftMs = 0 gives the pre-2026-08-04 behaviour: late drift corrected, early
+   * drift never corrected at all.
+   */
+  maxLateDriftMs: number;
+  maxEarlyDriftMs: number;
   /** positionType -> allowed RadioDJ song_type values. */
   songTypeMap: Record<string, number[]>;
 }
@@ -153,6 +166,10 @@ export const DEFAULT_CONFIG: EngineConfig = {
   relaxationSteps: [0.75, 0.5, 0.25],
   defaultDurationMs: 210_000,
   defaultTurnoverHours: 24,
+  maxLateDriftMs: 5 * 60_000,
+  // Default 0 until tools/drift-curve.mjs prices the trade. Non-zero is a policy choice
+  // about how early a legal ID may air, which is a station's call, not a default.
+  maxEarlyDriftMs: 0,
   // sweeper covers all imaging picked by a category-scoped sweeper position: RadioDJ
   // song_type 1 (jingles/IDs), 2 (sweepers/liners), and 4 (station promos). Because
   // these positions are always category-scoped, widening the type set can't cross
@@ -177,6 +194,14 @@ export type ElementType = "music" | "sweeper" | "voicetrack" | "fixed_event";
 export interface GeneratedItem {
   sortOrder: number;
   projectedAirAt: Date;
+  /**
+   * The NOMINAL clock hour this item belongs to, top-of-hour, UTC.
+   *
+   * Not derivable from projectedAirAt: once early drift is carried, an hour's first item
+   * projects BEFORE its own :00 and would otherwise be attributed to the previous hour —
+   * making one hour read long and the next short in every per-hour report.
+   */
+  nominalHour: Date;
   elementType: ElementType;
   songId: string | null;
   rdjSongId: number | null;

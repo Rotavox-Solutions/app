@@ -63,7 +63,10 @@ async function run(): Promise<void> {
   const hours = new Map<string, Row>();
 
   for (const it of res.items) {
-    const key = it.projectedAirAt.toISOString().slice(0, 13);
+    // Bucket on the NOMINAL hour, not the projected air time. Once early drift is carried
+    // an hour's first item projects before its own :00, and bucketing on projection files
+    // it under the previous hour -- making one hour read long and the next short.
+    const key = it.nominalHour.toISOString().slice(0, 13);
     const row = hours.get(key) ?? { clock: "?", items: 0, filler: 0, buffer: 0, ms: 0, unfilled: 0 };
     row.items++;
     row.ms += (it.songId ? songById.get(it.songId)?.durationMs : 0) ?? 0;
