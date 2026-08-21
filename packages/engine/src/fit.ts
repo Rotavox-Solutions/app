@@ -75,7 +75,7 @@ export interface FitResult {
 }
 
 /** Enumerating removal subsets is exact but exponential; refuse rather than crawl. */
-const MAX_REMOVABLE = 12;
+export const MAX_REMOVABLE = 12;
 
 /**
  * Reachable totals from a closing pool, using at most `maxAdds` pieces.

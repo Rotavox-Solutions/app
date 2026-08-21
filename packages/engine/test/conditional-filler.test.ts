@@ -71,13 +71,22 @@ const fillerCount = (items: { clockPositionId: string | null }[], input: ReturnT
 };
 
 describe("conditional filler", () => {
-  it("still airs the tail buffer when the hour is already full", () => {
-    // 18 x 200s = 3600s exactly. Priority-1 filler is the DELIBERATE OVERSCHEDULE
-    // margin, so it airs regardless — it is the thing a shear is meant to land on.
-    // Only the spread candidates above it are conditional.
+  it("adds nothing to an hour that already lands exactly", () => {
+    // 18 x 200s = 3600s exactly.
+    //
+    // SUPERSEDES the old contract, which aired priority-1 filler unconditionally as a
+    // deliberate overschedule margin. That rule existed because maxEarlyDriftMs was 0:
+    // the hour could only ever land at or after :00, so a margin was the only way to
+    // avoid dead air. With a two-sided tolerance (PERFECT-HOUR.md §5b) an hour that
+    // already lands has nothing to buy by overshooting a whole record, and the measured
+    // cost of the old rule was 48 hours in 48 running long, median 117s.
+    //
+    // Residual risk moved DOWN a layer, deliberately: if playout reaches :00 with a
+    // hole, the Runner airs the ID early rather than injecting audio (boundary.ts).
     const input = world({ programmed: 18, songMs: 200_000, candidates: 5 });
     const res = generateLog(input);
-    expect(fillerCount(res.items, input)).toBe(1);
+    expect(fillerCount(res.items, input)).toBe(0);
+    expect(res.stats.fillerActivated).toBe(0);
   });
 
   it("activates enough candidates to close a real deficit", () => {
@@ -201,8 +210,11 @@ describe("subtractive priority and drift carry", () => {
  *
  * Underscheduling costs dead air, which is unrecoverable. Overscheduling costs a shear,
  * which is bounded and — because priority-1 filler is the tail buffer — lands on an F.
- * The optimum is therefore never "exactly 60:00"; it is 60:00 plus a margin, and the
- * margin must be strictly positive.
+ *
+ * The asymmetry survives §5b; the UNCONDITIONAL margin does not. Landing early is now
+ * permitted up to maxEarlyDriftMs, so the fit takes a closer when the hour would
+ * otherwise land further out than that bound allows — and declines when it would not.
+ * These two cases are both still short by more than the bound, so a closer is required.
  */
 describe("deliberate overschedule", () => {
   it("never leaves an hour short when a candidate could have filled it", () => {

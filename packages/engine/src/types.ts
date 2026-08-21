@@ -128,6 +128,22 @@ export interface EngineWeights {
 export interface EngineConfig {
   /** Top-K pick pool size. */
   searchDepth: number;
+  /**
+   * Shortlist depth for CLOSING positions only (those carrying fillerPriority).
+   *
+   * Precision is bought with breadth, not with tolerance (a6162ef): against an exact
+   * fit the p95 landing error falls 23s -> 6s -> 1s -> 0s as the fit gets 3, 5, 10 and
+   * 25+ candidates to choose between. But the shortlist is ranked by REST, and with a
+   * pool holding many songs per length its top few routinely share one duration -- so
+   * searchDepth = 5 gives the fit five songs and often a single length, which is no
+   * breadth at all for change-making.
+   *
+   * Widening it for closers only is inside §3's narrow exception: the slot exists to
+   * fill time, so length is the job there. It does not touch scheduled positions, and
+   * it spreads closer plays over more of the pool rather than concentrating them, so
+   * turnover is helped rather than harmed.
+   */
+  closerSearchDepth: number;
   jitterMagnitude: number;
   weights: EngineWeights;
   /** Window-shrink factors for the relaxation ladder, applied in order. */
@@ -143,7 +159,9 @@ export interface EngineConfig {
    * schedule has accepted a TOH it will never claw back.
    *
    * maxEarlyDriftMs = 0 gives the pre-2026-08-04 behaviour: late drift corrected, early
-   * drift never corrected at all.
+   * drift never corrected at all. It also makes a zero AVERAGE drift unreachable: the
+   * fit may then only land at or after target, so E[drift] is strictly positive and
+   * every hour's residual becomes carry. See PERFECT-HOUR.md §5b.
    */
   maxLateDriftMs: number;
   maxEarlyDriftMs: number;
@@ -161,15 +179,19 @@ export interface EngineConfig {
 // the rest range, not against a weight sum of 1.0.
 export const DEFAULT_CONFIG: EngineConfig = {
   searchDepth: 5,
+  closerSearchDepth: 25,
   jitterMagnitude: 0.05,
   weights: { rest: 0.4, flow: 0.2, era: 0.15, mood: 0.1, sound: 0.1, nearSeparationPenalty: 0.25, hourSpread: 0.2 },
   relaxationSteps: [0.75, 0.5, 0.25],
   defaultDurationMs: 210_000,
   defaultTurnoverHours: 24,
   maxLateDriftMs: 5 * 60_000,
-  // Default 0 until tools/drift-curve.mjs prices the trade. Non-zero is a policy choice
-  // about how early a legal ID may air, which is a station's call, not a default.
-  maxEarlyDriftMs: 0,
+  // 30s, decided 2026-08-20 (PERFECT-HOUR.md §5b). Sized off the closing pool's grid,
+  // not off taste: F's 46 distinct durations over 169-245s leave a maximum interior gap
+  // of 6s, so 30s is 5-10x the p95 landing error and the bound never binds in normal
+  // operation. An ID at :59:30 still reads as top-of-hour; §2's ambiguity argument bites
+  // nearer :58. Hard cap for the Runner's own boundary guard is 45s.
+  maxEarlyDriftMs: 30_000,
   // sweeper covers all imaging picked by a category-scoped sweeper position: RadioDJ
   // song_type 1 (jingles/IDs), 2 (sweepers/liners), and 4 (station promos). Because
   // these positions are always category-scoped, widening the type set can't cross

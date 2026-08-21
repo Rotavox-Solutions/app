@@ -107,12 +107,28 @@ export interface FillResult {
 }
 
 /**
- * Walks the ladder: first rung with ≥1 survivor wins. Violations = every relaxation
- * rung in force at pick time (base excluded), with concrete payloads. Survivors are
- * scored and top-K picked exactly like the base path — except last_resort, which
- * deterministically takes the least-recently-heard song with NO RNG consumption.
+ * The ranked shortlist for a position: the survivors of the first rung that yields
+ * any, scored and cut to `config.searchDepth`.
+ *
+ * Split out of fillPosition so a CLOSING position can be chosen by how well it lands
+ * the hour instead of by an arbitrary draw among near-equals. The candidate set is
+ * identical either way -- still the best-rested K -- so turnover is untouched and this
+ * stays inside the narrow exception PERFECT-HOUR.md §3 allows. Widening it beyond the
+ * shortlist would be the selection bias §3 rejects.
  */
-export function fillPosition(
+export interface RankedResult {
+  /** Best first. Empty only when the position is unfillable. */
+  shortlist: EngineSong[];
+  violations: Violation[];
+  /**
+   * The pick came from last_resort, which is deterministic and consumes NO RNG.
+   * Callers must not draw over this shortlist or they reintroduce a draw the rung
+   * exists to avoid.
+   */
+  lastResort: boolean;
+}
+
+export function rankCandidates(
   pool: EngineSong[],
   fallbackPool: EngineSong[] | null,
   rungs: Rung[],
@@ -121,8 +137,10 @@ export function fillPosition(
   config: EngineConfig,
   rng: Rng,
   eff: EffectiveRules,
-  position: EnginePosition
-): FillResult {
+  position: EnginePosition,
+  /** Shortlist size. Defaults to config.searchDepth; closers pass a wider one. */
+  depth: number = config.searchDepth
+): RankedResult {
   const violationsInForce: Violation[] = [];
 
   for (const rung of rungs) {
@@ -140,7 +158,8 @@ export function fillPosition(
       const survivors = hardFilter(rungPool, rung, filterCtx);
       if (survivors.length === 0) {
         return {
-          song: null,
+          shortlist: [],
+          lastResort: true,
           violations: [
             ...violationsInForce,
             {
@@ -165,7 +184,8 @@ export function fillPosition(
         }
       }
       return {
-        song: best,
+        shortlist: [best],
+        lastResort: true,
         violations: [
           ...violationsInForce,
           {
@@ -183,7 +203,9 @@ export function fillPosition(
     if (survivors.length === 0) continue;
 
     // Score with one jitter draw per survivor (rdjSongId order — stable RNG mapping),
-    // sort desc with rdjSongId tiebreak, then one rank-weighted top-K draw.
+    // sort desc with rdjSongId tiebreak. One draw per survivor whether or not the
+    // caller goes on to pick randomly, so the RNG stream does not depend on how the
+    // shortlist is consumed.
     const artistWindow =
       eff.artistSepMin != null ? eff.artistSepMin * rung.artistFactor : null;
     const scored = survivors.map((song) => ({
@@ -194,21 +216,63 @@ export function fillPosition(
     }));
     scored.sort((a, b) => b.score - a.score || a.song.rdjSongId - b.song.rdjSongId);
 
-    const k = Math.min(config.searchDepth, scored.length);
-    // P(rank i) ∝ K − i
-    const totalWeight = (k * (k + 1)) / 2;
-    let draw = rng() * totalWeight;
-    let picked = scored[0].song;
-    for (let i = 0; i < k; i++) {
-      draw -= k - i;
-      if (draw <= 0) {
-        picked = scored[i].song;
-        break;
-      }
-    }
-    return { song: picked, violations: [...violationsInForce] };
+    const k = Math.min(depth, scored.length);
+    return {
+      shortlist: scored.slice(0, k).map((x) => x.song),
+      lastResort: false,
+      violations: [...violationsInForce],
+    };
   }
 
   // Unreachable: the enumeration always ends in last_resort, which always returns.
   throw new Error("relaxation ladder fell through — buildRungs invariant broken");
+}
+
+/**
+ * Walks the ladder and commits to one song: first rung with ≥1 survivor wins.
+ * Violations = every relaxation rung in force at pick time (base excluded), with
+ * concrete payloads. Survivors are scored and top-K picked — except last_resort,
+ * which deterministically takes the least-recently-heard song with NO RNG consumption.
+ */
+export function fillPosition(
+  pool: EngineSong[],
+  fallbackPool: EngineSong[] | null,
+  rungs: Rung[],
+  filterCtx: FilterContext,
+  scoreCtx: ScoreContext,
+  config: EngineConfig,
+  rng: Rng,
+  eff: EffectiveRules,
+  position: EnginePosition
+): FillResult {
+  const ranked = rankCandidates(pool, fallbackPool, rungs, filterCtx, scoreCtx, config, rng, eff, position);
+  return { song: pickFromShortlist(ranked, config, rng), violations: ranked.violations };
+}
+
+/**
+ * Rank-weighted draw over a shortlist: P(rank i) ∝ K − i.
+ *
+ * Returns without drawing on an unfillable or last_resort result — the latter is
+ * already decided, and drawing would consume RNG the rung is specified not to.
+ */
+export function pickFromShortlist(
+  ranked: RankedResult,
+  config: EngineConfig,
+  rng: Rng
+): EngineSong | null {
+  if (ranked.shortlist.length === 0) return null;
+  if (ranked.lastResort) return ranked.shortlist[0];
+
+  const k = Math.min(config.searchDepth, ranked.shortlist.length);
+  const totalWeight = (k * (k + 1)) / 2;
+  let draw = rng() * totalWeight;
+  let picked = ranked.shortlist[0];
+  for (let i = 0; i < k; i++) {
+    draw -= k - i;
+    if (draw <= 0) {
+      picked = ranked.shortlist[i];
+      break;
+    }
+  }
+  return picked;
 }

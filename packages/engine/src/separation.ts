@@ -30,16 +30,62 @@ export class SeparationState {
     }
   }
 
+  /**
+   * Undo log for a speculative pass, or null when recording normally.
+   *
+   * The generator places an hour twice: once to learn what the positions actually
+   * cost, and again once the fit has decided what to keep and when each item airs.
+   * The first pass must be visible to separation — two positions in one hour would
+   * otherwise happily draw the same artist — but it must not survive into the second,
+   * where times have shifted and some positions may have been given up.
+   *
+   * An undo log rather than a snapshot because the cost is then proportional to what
+   * the hour touched (a couple of dozen keys) instead of to the whole history, which
+   * is thousands of entries and would be copied once per hour.
+   */
+  private undo: Array<() => void> | null = null;
+
+  /** Begin a speculative pass. Placements can be rolled back until it is resolved. */
+  beginTrial(): void {
+    this.undo = [];
+  }
+
+  /** Discard everything recorded since beginTrial(). */
+  rollbackTrial(): void {
+    if (!this.undo) return;
+    for (let i = this.undo.length - 1; i >= 0; i--) this.undo[i]();
+    this.undo = null;
+  }
+
+  /** Keep everything recorded since beginTrial(). */
+  commitTrial(): void {
+    this.undo = null;
+  }
+
   private bump<K>(map: Map<K, number>, key: K, t: number): void {
     const prev = map.get(key);
     if (prev === undefined || t > prev) map.set(key, t);
+    else return; // no write, so nothing to undo
+    if (this.undo) {
+      this.undo.push(prev === undefined ? () => map.delete(key) : () => map.set(key, prev));
+    }
   }
 
   private static readonly MAX_PLAYS = 64;
 
   private pushPlay(songId: number, t: number): void {
     const list = this.songPlays.get(songId);
-    if (!list) { this.songPlays.set(songId, [t]); return; }
+    if (!list) {
+      this.songPlays.set(songId, [t]);
+      if (this.undo) this.undo.push(() => this.songPlays.delete(songId));
+      return;
+    }
+    // Copied before mutation rather than reconstructed after: the trim below can drop
+    // entries off the front, so an append-only undo would not restore them.
+    if (this.undo) {
+      const before = [...list];
+      this.undo.push(() => this.songPlays.set(songId, before));
+    }
     list.push(t);
     if (list.length > SeparationState.MAX_PLAYS) list.splice(0, list.length - SeparationState.MAX_PLAYS);
   }

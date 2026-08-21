@@ -17,14 +17,22 @@ describe("time model", () => {
   });
 
   it("accumulates durations into projected_air_at and re-syncs at the top of hour", () => {
-    // 3 songs × 200s per hour ⇒ items at :00, :03:20, :06:40; the next hour's first
-    // item snaps back to the top of that hour (underrun gap).
+    // 3 songs × 200s per hour ⇒ items at :00, :03:20, :06:40. This fixture is 50
+    // minutes under-authored with nothing to close it, so the hour cannot land — and
+    // the point of the test is that the boundary still holds anyway.
+    //
+    // The re-sync now lands within maxEarlyDriftMs of :00 rather than exactly on it:
+    // early drift is corrected up to a 30s bound (PERFECT-HOUR.md §5b) and everything
+    // beyond that is DISCARDED, with a warning, rather than carried. Pinning the
+    // clamped value is a stronger assertion than the old exact one — it proves a
+    // 50-minute underrun cannot leak past the bound.
     const result = generateLog(baseInput({ horizonEnd: new Date("2026-07-06T02:00:00.000Z") }));
     const t = (i: number) => result.items[i].projectedAirAt.toISOString();
     expect(t(0)).toBe("2026-07-06T00:00:00.000Z");
     expect(t(1)).toBe("2026-07-06T00:03:20.000Z");
     expect(t(2)).toBe("2026-07-06T00:06:40.000Z");
-    expect(t(3)).toBe("2026-07-06T01:00:00.000Z"); // TOH re-sync
+    expect(t(3)).toBe("2026-07-06T00:59:30.000Z"); // TOH re-sync, clamped to the 30s bound
+    expect(result.warnings.some((w) => /discarded/.test(w))).toBe(true);
   });
 
   it("snaps forward to targetOffsetSeconds but never backward", () => {

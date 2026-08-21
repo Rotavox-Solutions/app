@@ -27,6 +27,6 @@ export type { ScoreContext } from "./scoring.js";
 export { buildRungs, fillPosition } from "./ladder.js";
 export type { Rung, FillResult } from "./ladder.js";
 export { basePool, hardFilter, hourDistance } from "./candidates.js";
-export { buildReachable, fitHour } from "./fit.js";
+export { buildReachable, fitHour, MAX_REMOVABLE } from "./fit.js";
 export type { FitUnit, FitInput, FitResult, ReachableIndex } from "./fit.js";
 export type { FilterContext } from "./candidates.js";
