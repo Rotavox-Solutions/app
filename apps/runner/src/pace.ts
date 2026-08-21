@@ -10,9 +10,11 @@ import {
   isTohLocked,
   shouldPushNow,
   pickFillerItem,
+  projectedQueueDrainAt,
   rebuildCursor,
   type LogRow,
 } from "./cursor.js";
+import { decideBoundaryAction, EARLY_AIR_HARD_CAP_MS } from "./boundary.js";
 import { reconcileHistory } from "./reconcile-history.js";
 import { backfillAiredAt, matchAndStampAiredAt } from "./backfill-aired.js";
 import { writeHeartbeat } from "./heartbeat.js";
@@ -42,7 +44,6 @@ function sayError(...a: unknown[]): void { console.error(ts(), ...a); }
 
 const POLL_INTERVAL_MS = 5_000;
 const MIN_DEPTH = 3;
-const FILLER_DEPTH_FLOOR = 1;
 const RECONCILE_EVERY_N_TICKS = 6; // ~30s
 const AUTODJ_CHECK_EVERY_N_TICKS = 12; // ~60s
 // Deliberately tighter than POLL_INTERVAL_MS: this loop exists purely to observe
@@ -61,6 +62,15 @@ let previousQueueIds: number[] | null = null; // null until the first poll after
 // the catalogue instead of repeating what just played (see pickFillerItem).
 const RECENT_AIRED_CAP = 8;
 const recentlyAiredIds: number[] = [];
+/**
+ * Audio we bridged in since the last ID, ms.
+ *
+ * A bridge re-pushes an ALREADY-aired log_item, so it keeps its original aired_at and
+ * projectedQueueDrainAt() cannot see it sitting in the queue. Unaccounted, the next
+ * tick would measure the same hole and bridge again, stacking records. Reset once the
+ * boundary is crossed.
+ */
+let bridgedMs = 0;
 
 async function markPushed(itemId: string): Promise<void> {
   await schedulerDb.update(logItems).set({ pushedAt: new Date() }).where(eq(logItems.id, itemId));
@@ -172,47 +182,69 @@ async function tick(): Promise<void> {
     // process dies right after this call, rebuildCursor() picks it up on restart.
     await restCall("LoadTrackToBottom", next.rdjSongId!);
     await markPushed(next.id);
+    if (tohLocked) bridgedMs = 0; // boundary crossed — the bridge is spent
     say(
       `[pace] pushed rdj:${next.rdjSongId} (sort ${next.sortOrder}${tohLocked ? ", TOH-locked" : ""}), depth was ${depth}`
     );
     return;
   }
 
-  // TOH item held back and not yet due. Only intervene if the queue is genuinely
-  // about to run dry before its gate opens — the real underrun (plan §5).
-  //
-  // Fires every time depth is critical, not just once per hold window: a live
-  // incident (2026-07-02) showed the underrun can exceed one song's worth of
-  // bridging (~3min assumed, one hour actually ran ~8min short), and a one-shot
-  // filler left the queue undefended — and silent — for the rest of the wait.
-  // This is naturally self-limiting: pushing raises depth immediately, so the
-  // next tick won't re-fire until that filler is actually consumed by playback.
-  if (tohLocked && depth <= FILLER_DEPTH_FLOOR) {
-    // Exclude whatever's currently playing — otherwise the filler usually picks
-    // the song that JUST aired (it's the most recent push) and repeats it
-    // immediately back-to-back, which is what happened live. Fetched fresh here
-    // rather than reading the shared lastObservedNowPlayingId: that variable is
-    // only populated by the independent watch loop and can still be null right
-    // after a restart, which is exactly when a filler decision is most likely to
-    // be needed (also live — the fix using the cached value still repeated once
-    // on its very first restart before this).
-    const currentlyPlaying = extractNowPlayingId(await getNowPlaying());
-    const exclude = new Set<number>(recentlyAiredIds);
-    if (currentlyPlaying != null) exclude.add(currentlyPlaying);
-    const filler = await pickFillerItem(log.id, exclude, currentlyPlaying);
-    if (filler?.rdjSongId != null) {
-      await restCall("LoadTrackToBottom", filler.rdjSongId);
-      // Mark it recent immediately so consecutive filler ticks (before it actually
-      // airs and the watch loop sees it) rotate to a different song rather than
-      // stacking the same one repeatedly into the queue.
-      recordAired(filler.rdjSongId);
-      say(
-        `[filler] queue depth ${depth} with TOH item still held (projected ${next.projectedAirAt?.toISOString()}) — ` +
-          `repeated rdj:${filler.rdjSongId} to bridge the underrun.`
-      );
+  // TOH item held back and not yet due. What happens now is decided on TIME, not on
+  // queue depth — see boundary.ts. Depth counts items, and one item is routinely a
+  // three-minute song, which is how the old `depth <= 1` rule bridged holes that did
+  // not exist and pushed the ID ten minutes late.
+  if (!tohLocked) return;
+
+  const drainAt = await projectedQueueDrainAt(log.id, now, bridgedMs);
+  const gapMs = next.projectedAirAt ? next.projectedAirAt.getTime() - drainAt.getTime() : null;
+  const decision = decideBoundaryAction(gapMs);
+
+  if (decision.action === "wait") return;
+
+  if (decision.action === "air-early") {
+    // Airing the ID early beats injecting a record: it is a 2-5s element, the station
+    // tolerance is <= one song either side of :00, and there is no inventory between
+    // ~15s and ~169s to bridge with anyway (PERFECT-HOUR.md §5b).
+    await restCall("LoadTrackToBottom", next.rdjSongId!);
+    await markPushed(next.id);
+    bridgedMs = 0;
+    const early = Math.round(decision.earlyByMs / 1000);
+    const line =
+      `[pace] pushed rdj:${next.rdjSongId} (sort ${next.sortOrder}, TOH-locked) ${early}s EARLY — ` +
+      `queue drains at ${drainAt.toISOString()}, ID due ${next.projectedAirAt?.toISOString()}`;
+    if (decision.atCap) {
+      sayWarn(`${line}. At the ${EARLY_AIR_HARD_CAP_MS / 1000}s backward limit — the hour ran short.`);
     } else {
-      sayWarn(`[pace] queue depth ${depth} and TOH held, but no prior music item available as filler.`);
+      say(line);
     }
+    return;
+  }
+
+  // Wider than the backward tolerance can absorb. Bridging here is the backstop of
+  // last resort: per PERFECT-HOUR.md §4 an in-flight filler firing at all is a
+  // generation miss, and measured over 48 consecutive hours there was never a genuine
+  // underrun, so this firing means something upstream is wrong.
+  const currentlyPlaying = extractNowPlayingId(await getNowPlaying());
+  const exclude = new Set<number>(recentlyAiredIds);
+  if (currentlyPlaying != null) exclude.add(currentlyPlaying);
+  const filler = await pickFillerItem(log.id, exclude, currentlyPlaying);
+  if (filler) {
+    await restCall("LoadTrackToBottom", filler.item.rdjSongId!);
+    bridgedMs += filler.durationMs;
+    // Mark it recent immediately so a second bridge before this one airs rotates to a
+    // different song rather than stacking the same one.
+    recordAired(filler.item.rdjSongId!);
+    sayWarn(
+      `[filler] ${Math.round(decision.gapMs / 1000)}s hole before rdj:${next.rdjSongId} is due ` +
+        `(${next.projectedAirAt?.toISOString()}) — repeated rdj:${filler.item.rdjSongId} ` +
+        `(${Math.round(filler.durationMs / 1000)}s) to bridge it. THIS IS A GENERATION MISS: ` +
+        `a properly scheduled hour never runs this short.`
+    );
+  } else {
+    sayError(
+      `[pace] ${Math.round(decision.gapMs / 1000)}s hole before the ID is due and no pushed ` +
+        `music item is available to bridge it — dead air is imminent.`
+    );
   }
 }
 

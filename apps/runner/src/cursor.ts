@@ -1,5 +1,6 @@
-import { and, asc, eq, gt, isNotNull, isNull, lte, ne } from "drizzle-orm";
-import { clockPositions, logItems, logs } from "@rotavox/schema";
+import { and, asc, desc, eq, gt, isNotNull, isNull, lte, ne, sql } from "drizzle-orm";
+import { clockPositions, logItems, logs, songs } from "@rotavox/schema";
+import { drainInstant } from "./boundary.js";
 import { schedulerDb, stationId } from "./scheduler-db.js";
 import { pool } from "./db.js";
 import { loadSchemaMap, guessHistoryColumns } from "./schema-map.js";
@@ -58,6 +59,56 @@ export function shouldPushNow(item: LogItemRow, tohLocked: boolean, now: Date): 
 }
 
 /**
+ * Segue-aware duration for timing arithmetic.
+ *
+ * The next track starts at RadioDJ's `xta` cue, not at end-of-file, so
+ * effective_duration_ms is what the queue actually consumes; duration_ms is the
+ * fallback where the sync could not read cue points (schema.ts notes that using file
+ * duration throughout costs roughly 24s of drift per hour).
+ */
+const TIMING_DURATION_MS = sql<number>`coalesce(${songs.effectiveDurationMs}, ${songs.durationMs}, 0)`;
+
+/**
+ * How much audio RadioDJ is already holding, expressed as the instant it runs out.
+ *
+ * Composed from our own DB rather than RadioDJ's queue XML deliberately: /RDJp is not
+ * documented to carry per-track duration on this plugin version, and inventing a field
+ * name would violate invariant #1. We already know exactly what we pushed, and the
+ * now-playing watcher tells us what has started.
+ *
+ * `extraPendingMs` covers audio we pushed that this query cannot see — a bridged
+ * repeat is an already-aired log_item, so it keeps its original aired_at and looks
+ * like history rather than like something still queued.
+ */
+export async function projectedQueueDrainAt(
+  logId: string,
+  now: Date,
+  extraPendingMs = 0
+): Promise<Date> {
+  const [pending] = await schedulerDb
+    .select({ ms: sql<number>`coalesce(sum(${TIMING_DURATION_MS}), 0)` })
+    .from(logItems)
+    .leftJoin(songs, eq(logItems.songId, songs.id))
+    .where(and(eq(logItems.logId, logId), isNotNull(logItems.pushedAt), isNull(logItems.airedAt)));
+
+  // The item on air is the most recently stamped one; the queue cannot drain before it
+  // finishes, and everything pushed behind it is the `pending` sum above.
+  const [playing] = await schedulerDb
+    .select({ airedAt: logItems.airedAt, durationMs: TIMING_DURATION_MS })
+    .from(logItems)
+    .leftJoin(songs, eq(logItems.songId, songs.id))
+    .where(and(eq(logItems.logId, logId), isNotNull(logItems.airedAt)))
+    .orderBy(desc(logItems.airedAt))
+    .limit(1);
+
+  const playingEndsAt = playing?.airedAt
+    ? playing.airedAt.getTime() + Number(playing.durationMs ?? 0)
+    : null;
+
+  return drainInstant(now, playingEndsAt, Number(pending?.ms ?? 0) + extraPendingMs);
+}
+
+/**
  * Filler source (§5), never a new log_items row. Picks an already-pushed MUSIC item
  * to repeat, maximizing separation: the OLDEST-pushed item whose rdj_song_id is not
  * in `excludeIds`. Pass the currently-playing song plus a rolling window of recently
@@ -72,19 +123,23 @@ export async function pickFillerItem(
   logId: string,
   excludeIds: Set<number>,
   currentlyPlaying: number | null
-): Promise<LogItemRow | null> {
+): Promise<{ item: LogItemRow; durationMs: number } | null> {
   const rows = await schedulerDb
-    .select()
+    .select({ item: logItems, durationMs: TIMING_DURATION_MS })
     .from(logItems)
+    .leftJoin(songs, eq(logItems.songId, songs.id))
     .where(and(eq(logItems.logId, logId), eq(logItems.elementType, "music")))
     .orderBy(asc(logItems.sortOrder)); // sort_order asc ≈ oldest-aired first
-  const pushed = rows.filter((r) => r.pushedAt != null && r.rdjSongId != null);
-  return (
-    pushed.find((r) => !excludeIds.has(r.rdjSongId!)) ??
-    pushed.find((r) => r.rdjSongId !== currentlyPlaying) ??
+  const pushed = rows.filter((r) => r.item.pushedAt != null && r.item.rdjSongId != null);
+  const chosen =
+    pushed.find((r) => !excludeIds.has(r.item.rdjSongId!)) ??
+    pushed.find((r) => r.item.rdjSongId !== currentlyPlaying) ??
     pushed[0] ??
-    null
-  );
+    null;
+  // Selection rule unchanged on purpose — longest-that-fits is proposed but NOT
+  // adopted (PERFECT-HOUR.md §5a). With the trigger fixed this path should be
+  // effectively unreachable, so changing both at once would be untestable in anger.
+  return chosen ? { item: chosen.item, durationMs: Number(chosen.durationMs ?? 0) } : null;
 }
 
 interface RebuildResult {
