@@ -54,4 +54,6 @@ for attempt in $(seq 1 12); do
 done
 [ -n "$TUNNEL" ] || { echo "Could not open the bastion tunnel." >&2; exit 1; }
 
-xfreerdp3 /v:localhost:"$LOCAL_PORT" /u:"$RDP_USER" /sec:nla /cert:ignore
+# Audio stays on the server: playout goes to the virtual audio cable there, and an
+# RDP session that redirects audio (or drops it) hides that device from the session.
+xfreerdp3 /v:localhost:"$LOCAL_PORT" /u:"$RDP_USER" /sec:nla /cert:ignore /audio-mode:server
