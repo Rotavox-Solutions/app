@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # rdp-bastion.sh — open a 3h OCI Bastion port-forwarding session to the broadcast
-# box and launch RDP through it. RDP (3389) is closed to the public; the bastion's
+# box and open it in Remmina. RDP (3389) is closed to the public; the bastion's
 # private endpoint is the only source allowed in.
 #
 # Usage: tools/rdp-bastion.sh [user]    (user overrides RDP_USER)
 #
-# Needs: oci CLI (configured via `oci setup config`), xfreerdp3, and an SSH key
+# Needs: oci CLI (configured via `oci setup config`), remmina, and an SSH key
 # pair at $KEY / $KEY.pub. Set the target via env (e.g. in .env, which is
 # gitignored) rather than editing this file:
 #   OCI_BASTION_ID   bastion OCID (Bastion → details page)
@@ -54,6 +54,36 @@ for attempt in $(seq 1 12); do
 done
 [ -n "$TUNNEL" ] || { echo "Could not open the bastion tunnel." >&2; exit 1; }
 
-# Audio stays on the server: playout goes to the virtual audio cable there, and an
-# RDP session that redirects audio (or drops it) hides that device from the session.
-xfreerdp3 /v:localhost:"$LOCAL_PORT" /u:"$RDP_USER" /sec:nla /cert:ignore /audio-mode:server
+# The profile is regenerated every run because the tunnel's local port is the only
+# way in; a saved profile pointing at the public IP no longer connects.
+# sound=remote keeps audio on the server: playout goes to the virtual audio cable
+# there, and a session that redirects audio (or drops it) hides that device.
+# scale=2 is Remmina's dynamic resolution mode.
+PROFILE="${XDG_RUNTIME_DIR:-/tmp}/rdp-bastion-$RDP_USER.remmina"
+cat > "$PROFILE" <<PROFILE_EOF
+[remmina]
+name=CLUBFM broadcast box ($RDP_USER, via bastion)
+protocol=RDP
+server=localhost:$LOCAL_PORT
+username=$RDP_USER
+domain=
+security=
+cert_ignore=1
+ignore-tls-errors=1
+sound=remote
+scale=2
+resolution_mode=2
+window_maximize=1
+viewmode=1
+colordepth=99
+network=none
+multitransport=0
+PROFILE_EOF
+
+# remmina -c returns at once when Remmina is already running (it hands the
+# profile to that instance), so the tunnel can't be tied to its exit. Hold it
+# open here instead; it also ends on its own when the bastion session expires.
+remmina -c "$PROFILE" >/dev/null 2>&1 &
+echo "Tunnel up on localhost:$LOCAL_PORT. Remmina is opening; type the password promptly."
+echo "Press Ctrl-C here to close the tunnel when you're done."
+wait "$TUNNEL" || true
