@@ -1,0 +1,21 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-18-dexter-dedup",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-18",
+  "intent": "Retire the duplicate of Dexter and the Moonrocks \"Freakin' Out\" exposed by the tag cleanup; the PD keeps the R1 copy (1231).",
+  "basis": {
+    "sheet_id": "2026-10-17-bolt-metadata-cleanup",
+    "sheet_captured_at": "2026-10-18T20:01:06Z"
+  },
+  "set_enabled": [
+    {
+      "rdj_song_id": 1138,
+      "artist": "Dexter and the Moonrocks",
+      "title": "Freakin' Out",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of 1231 (R1, ZIPDJ Clean); PD keeps the R1 copy. This is the Promo Only file benched in W."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-18-dexter-dedup-inverse",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-18",
+  "intent": "Inverse of \"2026-10-18-dexter-dedup\". Restores the state that changeset replaced.",
+  "basis": {
+    "sheet_id": "2026-10-17-bolt-metadata-cleanup",
+    "sheet_captured_at": "2026-10-18T20:01:06Z"
+  },
+  "moves": [],
+  "set_enabled": [
+    {
+      "rdj_song_id": 1138,
+      "artist": "Dexter and the Moonrocks",
+      "title": "Freakin' Out",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of 1231 (R1, ZIPDJ Clean); PD keeps the R1 copy. This is the Promo Only file benched in W."
+    }
+  ]
+}
