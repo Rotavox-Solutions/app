@@ -6,11 +6,35 @@ import path from "node:path";
 // DB row. Overridable so a service unit can pin it to a stable path.
 export const HEARTBEAT_PATH = process.env.RUNNER_HEARTBEAT_PATH ?? path.join(process.cwd(), "runner.heartbeat");
 
-/** Atomic write-then-rename so a concurrent reader (the watchdog) never sees a torn write. */
+const RENAME_RETRIES = 5;
+const RENAME_RETRY_DELAY_MS = 50;
+// Windows refuses to rename over a file another process holds open — the watchdog's
+// read, or an AV scanner, which on the broadcast box held it through four consecutive
+// 5s ticks and let the heartbeat go stale under a healthy pacer (a false failover).
+const TRANSIENT_RENAME_CODES = new Set(["EPERM", "EBUSY", "EACCES"]);
+
+/**
+ * Atomic write-then-rename so a concurrent reader (the watchdog) never sees a torn
+ * write. If the rename keeps hitting a Windows sharing violation, overwrite in place
+ * instead: a torn read parses as non-finite and the watchdog skips that poll, whereas
+ * a missed write is indistinguishable from a dead pacer.
+ */
 export async function writeHeartbeat(): Promise<void> {
   const tmpPath = `${HEARTBEAT_PATH}.tmp`;
-  await writeFile(tmpPath, String(Date.now()));
-  await rename(tmpPath, HEARTBEAT_PATH);
+  const stamp = String(Date.now());
+  await writeFile(tmpPath, stamp);
+  for (let attempt = 0; ; attempt++) {
+    try {
+      await rename(tmpPath, HEARTBEAT_PATH);
+      return;
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException).code ?? "";
+      if (!TRANSIENT_RENAME_CODES.has(code)) throw err;
+      if (attempt >= RENAME_RETRIES) break;
+      await new Promise((resolve) => setTimeout(resolve, RENAME_RETRY_DELAY_MS));
+    }
+  }
+  await writeFile(HEARTBEAT_PATH, stamp);
 }
 
 /**

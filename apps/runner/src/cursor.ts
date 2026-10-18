@@ -231,3 +231,67 @@ export async function rebuildCursor(log: LogRow): Promise<RebuildResult> {
   }
   return { backfilled, anomaly, freshTakeover: false };
 }
+
+/**
+ * After RadioDJ's queue was cleared to evict foreign (AutoDJ) content mid-log: put our
+ * own cleared items back to "unpushed", then skip forward past items whose slot has
+ * already gone by, so the log resumes on its timetable instead of running as late as
+ * the AutoDJ interlude lasted.
+ *
+ * Why this exists (live 2026-10-16): AutoDJ was switched on at the console for under a
+ * minute. The pacer turned it back off within its 60s check, but AutoDJ had already
+ * topped the queue up to its ~15-track fill, which kept depth >= MIN_DEPTH for ~25 min —
+ * the pacer, heartbeating and healthy, never pushed. A watchdog failover leaves the
+ * same 15 tracks behind for the pacer when it comes back.
+ *
+ * - Un-push: pushed_at set, aired_at null, and later than the last aired item — those
+ *   were sitting in the queue that was just cleared. Earlier pushed-but-unaired items
+ *   are genuine skips and stay as they are.
+ * - Skip: an unpushed item whose NEXT item was projected to start at or before `now`
+ *   has had its whole slot pass. It is marked pushed with aired_at null, the same
+ *   "pushed but never aired" state a skip already has. The item whose slot contains
+ *   `now` is kept, so the log re-enters at most one song late, which the TOH boundary
+ *   logic absorbs.
+ */
+export async function resetAfterQueueClear(logId: string, now: Date): Promise<{ unpushed: number; skipped: number }> {
+  return schedulerDb.transaction(async (tx) => {
+    const [lastAired] = await tx
+      .select({ sortOrder: logItems.sortOrder })
+      .from(logItems)
+      .where(and(eq(logItems.logId, logId), isNotNull(logItems.airedAt)))
+      .orderBy(desc(logItems.sortOrder))
+      .limit(1);
+    const floor = lastAired?.sortOrder ?? -1;
+
+    const unpushedRows = await tx
+      .update(logItems)
+      .set({ pushedAt: null })
+      .where(
+        and(
+          eq(logItems.logId, logId),
+          isNotNull(logItems.pushedAt),
+          isNull(logItems.airedAt),
+          gt(logItems.sortOrder, floor),
+          ne(logItems.elementType, "fixed_event")
+        )
+      )
+      .returning({ id: logItems.id });
+
+    const pending = await tx
+      .select({ id: logItems.id, projectedAirAt: logItems.projectedAirAt })
+      .from(logItems)
+      .where(and(eq(logItems.logId, logId), isNull(logItems.pushedAt), ne(logItems.elementType, "fixed_event")))
+      .orderBy(asc(logItems.sortOrder));
+
+    const skipIds: string[] = [];
+    for (let i = 0; i + 1 < pending.length; i++) {
+      const nextStart = pending[i + 1].projectedAirAt;
+      if (!nextStart || nextStart.getTime() > now.getTime()) break;
+      skipIds.push(pending[i].id);
+    }
+    for (const id of skipIds) {
+      await tx.update(logItems).set({ pushedAt: now }).where(eq(logItems.id, id));
+    }
+    return { unpushed: unpushedRows.length, skipped: skipIds.length };
+  });
+}

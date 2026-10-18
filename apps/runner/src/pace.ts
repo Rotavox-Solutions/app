@@ -12,6 +12,7 @@ import {
   pickFillerItem,
   projectedQueueDrainAt,
   rebuildCursor,
+  resetAfterQueueClear,
   type LogRow,
 } from "./cursor.js";
 import { decideBoundaryAction, EARLY_AIR_HARD_CAP_MS } from "./boundary.js";
@@ -106,8 +107,37 @@ async function primeQueue(log: LogRow): Promise<void> {
   }
 }
 
+/**
+ * Evict foreign content and resume the log on its timetable. Used whenever AutoDJ is
+ * found ON while a log is current — a console override, or the watchdog's fail-safe
+ * after this process died. Either way AutoDJ has topped the queue up to its ~15-track
+ * fill, and merely switching it off leaves those tracks to air first, holding depth
+ * at or above MIN_DEPTH so nothing of ours is pushed for most of an hour (live
+ * 2026-10-16). See resetAfterQueueClear for what happens to our own items.
+ */
+async function reclaimQueue(log: LogRow): Promise<void> {
+  await restCall("EnableAutoDJ", 0);
+  await restCall("ClearPlaylist");
+  // Stamp what genuinely aired first (e.g. our queued items that played out while this
+  // process was dead) so the reset below can't mistake them for cleared and re-air them.
+  const reconciled = await reconcileHistory();
+  if (reconciled.length > 0) await backfillAiredAt(log.id, reconciled);
+  const { unpushed, skipped } = await resetAfterQueueClear(log.id, new Date());
+  previousQueueIds = null; // the clear is not a run of skips for the queue-diff watcher
+  bridgedMs = 0;
+  sayWarn(
+    `[pace] reclaimed queue from AutoDJ — cleared it (playing track preserved), ` +
+      `${unpushed} of our item(s) re-queued, ${skipped} past-due item(s) skipped to rejoin the timetable.`
+  );
+  await primeQueue(log);
+}
+
 async function startupForLog(log: LogRow): Promise<void> {
   say(`[pace] current log ${log.id} (${log.startsAt.toISOString()} - ${log.endsAt.toISOString()}) — taking over queue, asserting EnableAutoDJ=0`);
+  // Read before switching it off: AutoDJ ON when resuming a log we were already
+  // pacing means the watchdog (or the console) handed playout to AutoDJ while we were
+  // gone, and its fill is now sitting in the queue ahead of the log.
+  const autoDjWasOn = extractAutoDj(await getState()) === true;
   // Runner owns the queue only while a log is actually current (invariant #4).
   // Asserting AutoDJ off is deferred to here (not paceLoop start) so the pacer can
   // run harmlessly before its window opens, leaving the station on AutoDJ until then.
@@ -126,6 +156,10 @@ async function startupForLog(log: LogRow): Promise<void> {
     await restCall("ClearPlaylist");
     say("[pace] fresh takeover — cleared AutoDJ's leftover queue (playing track preserved).");
     await primeQueue(log);
+  } else if (autoDjWasOn) {
+    currentLogId = log.id;
+    await reclaimQueue(log);
+    return;
   }
   if (rebuild.backfilled > 0) {
     say(`[pace] cursor rebuilt: ${rebuild.backfilled} item(s) already realized, resuming from there.`);
@@ -255,12 +289,12 @@ function extractAutoDj(parsedState: unknown): boolean | null {
 }
 
 /** Runner owns the queue (invariant #4) — defended continuously, not just at startup. */
-async function assertAutoDjOff(): Promise<void> {
+async function assertAutoDjOff(log: LogRow): Promise<void> {
   const state = await getState();
   const autoDj = extractAutoDj(state);
   if (autoDj === true) {
-    sayWarn("[pace] AutoDJ came back ON (console override?) — re-asserting EnableAutoDJ=0");
-    await restCall("EnableAutoDJ", 0);
+    sayWarn("[pace] AutoDJ came back ON (console override?) — switching it off and reclaiming the queue");
+    await reclaimQueue(log);
   } else if (autoDj === null) {
     sayWarn("[pace] could not read AutoDJ state from /RDJState response");
   }
@@ -358,7 +392,8 @@ async function paceLoop(): Promise<void> {
       }
 
       if (tickCount % AUTODJ_CHECK_EVERY_N_TICKS === 0 && currentLogId) {
-        await assertAutoDjOff();
+        const log = await selectCurrentLog();
+        if (log?.id === currentLogId) await assertAutoDjOff(log);
       }
     } catch (err) {
       sayError("[pace] tick error (continuing):", err);
@@ -398,7 +433,14 @@ async function reconcileAutoDjOnStartup(): Promise<void> {
 }
 
 async function main(): Promise<void> {
-  await reconcileAutoDjOnStartup();
+  // Non-fatal: a REST timeout here (seen on the 2026-10-15 rebuild) used to reject main()
+  // before the loop started, leaving a live process that never wrote a heartbeat — so
+  // the service manager saw it running and the watchdog saw "unknown", and nobody acted.
+  try {
+    await reconcileAutoDjOnStartup();
+  } catch (err) {
+    sayError("[pace] startup AutoDJ reconciliation failed (continuing into the loop):", err);
+  }
   await Promise.all([paceLoop(), watchNowPlaying()]);
 }
 
@@ -424,7 +466,9 @@ async function shutdown(signal: string): Promise<void> {
 process.on("SIGINT", () => shutdown("SIGINT"));
 process.on("SIGTERM", () => shutdown("SIGTERM"));
 
+// Exit outright: the open MariaDB/Postgres pools would otherwise keep a dead pacer alive,
+// invisible to both the service manager's restart and the watchdog.
 main().catch((err) => {
   sayError(err);
-  process.exitCode = 1;
+  process.exit(1);
 });
