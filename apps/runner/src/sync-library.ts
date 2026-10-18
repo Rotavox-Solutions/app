@@ -168,9 +168,15 @@ async function main() {
    * itself. Pulling three small columns for the whole library is cheap (~1.6k rows),
    * and it repairs divergence from ANY cause -- changesets, hand edits in RadioDJ, a
    * missed run -- instead of only the causes we thought to anticipate.
+   *
+   * Artist and title are compared too, since set_tags (2026-10-17) rewrites them the same
+   * way, without touching date_modified. They feed artist/title separation, so a mirror
+   * holding the old strings keeps scheduling "The Goo Goo Dolls" and "Goo Goo Dolls" as
+   * two acts.
    */
   const [live] = await pool.query<any[]>(
-    `SELECT \`${songIdCol}\` AS id, \`${subcategoryIdCol}\` AS subcat, \`${enabledCol}\` AS enabled
+    `SELECT \`${songIdCol}\` AS id, \`${subcategoryIdCol}\` AS subcat, \`${enabledCol}\` AS enabled,
+            \`${artistCol}\` AS artist, \`${titleCol}\` AS title
      FROM \`${songsTable}\``
   );
   const mirror = await schedulerDb
@@ -178,6 +184,8 @@ async function main() {
       id: songs.rdjSongId,
       subcat: songs.rdjSubcategoryId,
       enabled: songs.enabled,
+      artist: songs.artist,
+      title: songs.title,
     })
     .from(songs)
     .where(eq(songs.stationId, stationId));
@@ -186,8 +194,14 @@ async function main() {
   const drifted: number[] = [];
   for (const row of live) {
     const m = mirrorById.get(row.id);
-    // Absent from the mirror, or disagreeing on pool/enabled -- either way, re-pull it.
-    if (!m || m.subcat !== row.subcat || m.enabled !== Boolean(row.enabled)) {
+    // Absent from the mirror, or disagreeing on pool/enabled/tags -- either way, re-pull it.
+    if (
+      !m ||
+      m.subcat !== row.subcat ||
+      m.enabled !== Boolean(row.enabled) ||
+      m.artist !== row.artist ||
+      m.title !== row.title
+    ) {
       drifted.push(row.id);
     }
   }
