@@ -217,3 +217,78 @@ describe("summarize", () => {
     expect(byId.get(36)).toMatchObject({ in: 0, out: 2 });
   });
 });
+
+describe("set_tags", () => {
+  const TAGS: Changeset = {
+    ...BASE,
+    moves: [],
+    set_tags: [
+      {
+        rdj_song_id: 1662,
+        artist: "Almost Monday",
+        title: "No More Regrets 8A 120",
+        to_title: "No More Regrets",
+        reason: "Strip Promo Only key/BPM suffix",
+      },
+    ],
+  };
+  const tagged = (over: Partial<LiveSong> = {}) => live({ title: "No More Regrets 8A 120", ...over });
+
+  it("accepts a well-formed tag correction", () => {
+    expect(validateShape(TAGS)).toEqual([]);
+    expect(validateAgainstLive(TAGS, tagged(), SUBCATS).errors).toEqual([]);
+  });
+
+  it("requires something to change", () => {
+    const { to_title, ...bare } = TAGS.set_tags![0];
+    expect(validateShape({ ...TAGS, set_tags: [bare] })).toContainEqual(
+      expect.stringContaining("needs to_artist, to_title")
+    );
+    expect(
+      validateShape({ ...TAGS, set_tags: [{ ...bare, to_title: "No More Regrets 8A 120" }] })
+    ).toContainEqual(expect.stringContaining("no-op"));
+  });
+
+  // The one class of fix that tag normalization would hide.
+  it("treats a case-only change as a real change", () => {
+    const cs = { ...TAGS, set_tags: [{ ...TAGS.set_tags![0], to_title: "no more regrets 8a 120" }] };
+    expect(validateShape(cs)).toEqual([]);
+  });
+
+  it("rejects targets that would write untidy tags", () => {
+    for (const to_title of ["", "  ", "No More Regrets "]) {
+      const cs = { ...TAGS, set_tags: [{ ...TAGS.set_tags![0], to_title }] };
+      expect(validateShape(cs).length).toBeGreaterThan(0);
+    }
+  });
+
+  it("requires the from-state to match live exactly, not normalized", () => {
+    const { errors } = validateAgainstLive(TAGS, tagged({ title: "no more regrets 8A 120" }), SUBCATS);
+    expect(errors[0]).toMatch(/changeset expected exactly/);
+  });
+
+  // Overwriting a tag someone else just edited would silently lose their edit.
+  it("does not let --allow-tag-drift excuse drift on the tag being written", () => {
+    const { errors } = validateAgainstLive(TAGS, tagged({ title: "No More Regrets" }), SUBCATS, {
+      allowTagDrift: true,
+    });
+    expect(errors).toHaveLength(1);
+  });
+
+  it("inverts to a valid changeset that restores the original tags", () => {
+    const inv = invert(TAGS);
+    expect(validateShape(inv)).toEqual([]);
+    expect(inv.set_tags![0]).toMatchObject({
+      title: "No More Regrets",
+      to_title: "No More Regrets 8A 120",
+      artist: "Almost Monday",
+    });
+    expect(inv.set_tags![0]).not.toHaveProperty("to_artist");
+    expect(validateAgainstLive(inv, live(), SUBCATS).errors).toEqual([]);
+    expect(invert(inv).set_tags).toEqual([{ ...TAGS.set_tags![0], reason: expect.any(String) }]);
+  });
+
+  it("leaves set_tags out of inverses that had none", () => {
+    expect(invert(BASE)).not.toHaveProperty("set_tags");
+  });
+});

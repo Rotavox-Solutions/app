@@ -89,6 +89,7 @@ async function main(): Promise<void> {
   const ids = [
     ...(cs.moves ?? []).map((m) => m.rdj_song_id),
     ...(cs.set_enabled ?? []).map((m) => m.rdj_song_id),
+    ...(cs.set_tags ?? []).map((m) => m.rdj_song_id),
   ];
 
   const [songRows] = await pool.query<any[]>(
@@ -133,9 +134,12 @@ async function main(): Promise<void> {
   // ---- summary ----
   const moves = cs.moves ?? [];
   const setEnabled = cs.set_enabled ?? [];
+  const setTags = cs.set_tags ?? [];
   console.log(`Changeset "${cs.id}" — ${cs.intent}`);
   console.log(`  authored ${cs.authored_at} from sheet ${cs.basis.sheet_id}`);
-  console.log(`  ${moves.length} move(s), ${setEnabled.length} enable/disable change(s)`);
+  console.log(
+    `  ${moves.length} move(s), ${setEnabled.length} enable/disable change(s), ${setTags.length} tag correction(s)`
+  );
   if (moves.length) {
     console.log("\n  net movement by subcategory:");
     for (const s of summarize(cs)) {
@@ -187,8 +191,25 @@ async function main(): Promise<void> {
         );
       }
     }
+    for (const op of setTags) {
+      // BINARY makes the re-asserted precondition exact, matching validateAgainstLive:
+      // under RadioDJ's case-insensitive collation a plain = would accept a row whose
+      // tag was re-cased since the sheet.
+      const [res] = await conn.query<any>(
+        `UPDATE \`${songsTable}\` SET \`${artistCol}\` = ?, \`${titleCol}\` = ?
+         WHERE \`${songIdCol}\` = ? AND BINARY \`${artistCol}\` = ? AND BINARY \`${titleCol}\` = ?`,
+        [op.to_artist ?? op.artist, op.to_title ?? op.title, op.rdj_song_id, op.artist, op.title]
+      );
+      if (res.affectedRows !== 1) {
+        throw new Error(
+          `tag correction for song ${op.rdj_song_id} affected ${res.affectedRows} rows — expected 1. Rolling back.`
+        );
+      }
+    }
     await conn.commit();
-    console.log(`\nApplied ${moves.length + setEnabled.length} operation(s) in one transaction.`);
+    console.log(
+      `\nApplied ${moves.length + setEnabled.length + setTags.length} operation(s) in one transaction.`
+    );
   } catch (err) {
     await conn.rollback();
     console.error("\nApply failed — transaction rolled back, library unchanged.");
@@ -211,6 +232,7 @@ async function main(): Promise<void> {
         database: dbInfo.db,
         moves: moves.length,
         set_enabled: setEnabled.length,
+        set_tags: setTags.length,
         tag_drift_allowed: args.allowTagDrift,
         inverse: path.relative(args.outDir, inversePath),
       },

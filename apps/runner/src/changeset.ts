@@ -1,4 +1,5 @@
-// Changeset parsing, validation, and inversion — pure, no I/O, per CHANGESET-CONTRACT.md v1.
+// Changeset parsing, validation, and inversion — pure, no I/O, per CHANGESET-CONTRACT.md v1
+// (with the 2026-10-17 set_tags amendment).
 // Kept free of DB access so the rules that decide whether a live library gets written
 // to are unit-testable without a live library.
 
@@ -20,6 +21,22 @@ export interface SetEnabled {
   reason: string;
 }
 
+/**
+ * A tag correction. Unlike the other ops, `artist`/`title` here are not only review
+ * fields: they are the exact from-state, compared byte-for-byte, because the tag is the
+ * thing being written. A normalized compare would let a case-only fix ("Awolnation" →
+ * "AWOLNATION") pass against a row someone already changed, and the inverse would then
+ * restore a value that was never live.
+ */
+export interface SetTags {
+  rdj_song_id: number;
+  artist: string;
+  title: string;
+  to_artist?: string;
+  to_title?: string;
+  reason: string;
+}
+
 export interface Changeset {
   changeset_version: 1;
   id: string;
@@ -29,6 +46,7 @@ export interface Changeset {
   basis: { sheet_id: string; sheet_captured_at?: string };
   moves?: Move[];
   set_enabled?: SetEnabled[];
+  set_tags?: SetTags[];
 }
 
 /** A song as it currently exists in RadioDJ, for precondition checking. */
@@ -49,6 +67,7 @@ const TOP_LEVEL_KEYS = new Set([
   "basis",
   "moves",
   "set_enabled",
+  "set_tags",
 ]);
 
 const MOVE_KEYS = new Set(["rdj_song_id", "artist", "title", "from_subcat", "to_subcat", "reason"]);
@@ -60,6 +79,7 @@ const ENABLED_KEYS = new Set([
   "to_enabled",
   "reason",
 ]);
+const TAGS_KEYS = new Set(["rdj_song_id", "artist", "title", "to_artist", "to_title", "reason"]);
 
 /**
  * Tag comparison normalizer. Case- and whitespace-insensitive because RadioDJ's own
@@ -103,11 +123,13 @@ export function validateShape(raw: unknown): string[] {
 
   const moves = raw.moves ?? [];
   const setEnabled = raw.set_enabled ?? [];
+  const setTags = raw.set_tags ?? [];
   if (!Array.isArray(moves)) errors.push("moves must be an array if present.");
   if (!Array.isArray(setEnabled)) errors.push("set_enabled must be an array if present.");
-  if (!Array.isArray(moves) || !Array.isArray(setEnabled)) return errors;
+  if (!Array.isArray(setTags)) errors.push("set_tags must be an array if present.");
+  if (!Array.isArray(moves) || !Array.isArray(setEnabled) || !Array.isArray(setTags)) return errors;
 
-  if (moves.length === 0 && setEnabled.length === 0) {
+  if (moves.length === 0 && setEnabled.length === 0 && setTags.length === 0) {
     errors.push("Changeset contains no operations.");
   }
 
@@ -160,6 +182,28 @@ export function validateShape(raw: unknown): string[] {
     }
     if (op.from_enabled === op.to_enabled) {
       errors.push(`${label}: from_enabled equals to_enabled — no-op.`);
+    }
+  });
+
+  setTags.forEach((op: unknown, i: number) => {
+    const label = `set_tags[${i}]`;
+    if (!isPlainObject(op)) return void errors.push(`${label}: must be an object.`);
+    if (!checkCommon(op, label, TAGS_KEYS)) return;
+    if (op.to_artist === undefined && op.to_title === undefined) {
+      errors.push(`${label}: needs to_artist, to_title, or both.`);
+    }
+    for (const [to, from] of [
+      ["to_artist", "artist"],
+      ["to_title", "title"],
+    ] as const) {
+      if (op[to] === undefined) continue;
+      if (typeof op[to] !== "string" || !(op[to] as string).trim()) {
+        errors.push(`${label}: ${to} must be a non-empty string if present.`);
+      } else if (op[to] !== (op[to] as string).trim()) {
+        errors.push(`${label}: ${to} has leading or trailing whitespace.`);
+      } else if (op[to] === op[from]) {
+        errors.push(`${label}: ${to} equals ${from} — no-op.`);
+      }
     }
   });
 
@@ -237,6 +281,27 @@ export function validateAgainstLive(
     }
   });
 
+  // No --allow-tag-drift escape here: drift on a row whose tags are being rewritten
+  // means someone else edited the very field, and overwriting it would lose their edit.
+  (cs.set_tags ?? []).forEach((op, i) => {
+    const label = `set_tags[${i}]`;
+    const row = live.get(op.rdj_song_id);
+    if (!row) {
+      errors.push(`${label}: song ${op.rdj_song_id} does not exist in RadioDJ.`);
+      return;
+    }
+    for (const [field, expected, actual] of [
+      ["artist", op.artist, row.artist],
+      ["title", op.title, row.title],
+    ] as const) {
+      if (expected !== actual) {
+        errors.push(
+          `${label}: ${field} on song ${op.rdj_song_id} is ${JSON.stringify(actual)}, changeset expected exactly ${JSON.stringify(expected)} — live has drifted since the sheet was captured.`
+        );
+      }
+    }
+  });
+
   return { errors, warnings };
 }
 
@@ -265,6 +330,20 @@ export function invert(cs: Changeset): Changeset {
       to_enabled: op.from_enabled,
       reason: `Rollback of: ${op.reason}`,
     })),
+    // Only emitted when present, so inverses of move-only changesets stay readable by an
+    // applier that predates set_tags (the broadcast box runs a copied tree).
+    ...(cs.set_tags?.length
+      ? {
+          set_tags: cs.set_tags.map((op) => ({
+            rdj_song_id: op.rdj_song_id,
+            artist: op.to_artist ?? op.artist,
+            title: op.to_title ?? op.title,
+            ...(op.to_artist !== undefined && { to_artist: op.artist }),
+            ...(op.to_title !== undefined && { to_title: op.title }),
+            reason: `Rollback of: ${op.reason}`,
+          })),
+        }
+      : {}),
   };
 }
 

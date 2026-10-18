@@ -1,7 +1,7 @@
 # Changeset Data Contract v1
 
 - **Status:** Draft for settlement
-- **Date:** 2026-07-31
+- **Date:** 2026-07-31 · amended 2026-10-17 (`set_tags`)
 - **Implements:** `ADR-0001-source-of-truth-and-ownership.md` §4 (changesets), §3.2
   (pool assignment), §3.3 (writeback as adapter capability), §3.7 (lifecycle)
 
@@ -35,7 +35,10 @@ settle category composition + rules
   or, later, the authoring UI.
 - Not a log edit. Log corrections happen in the log UI and do not alter the library.
 - Not a metadata enrichment channel. Derived year/BPM/key arrive via the §3.4 offline
-  pass with their own provenance, not through hand-authored changesets.
+  pass with their own provenance, not through hand-authored changesets. `set_tags`
+  (§3, added 2026-10-17) is **hygiene, not enrichment**: it corrects artist and title
+  strings that are visibly wrong, such as Promo Only key/BPM suffixes, `AC; DC` or band-member
+  lists. It never asserts a fact the library didn't already carry.
 
 ---
 
@@ -94,11 +97,21 @@ JSON. One file per changeset, committed to the repo under `changesets/`.
       "to_enabled": false,
       "reason": "Duplicate of 1884, lower bitrate"
     }
+  ],
+
+  "set_tags": [
+    {
+      "rdj_song_id": 998,
+      "artist": "Rome, Dirty Heads",        // EXACT live value — the precondition
+      "title": "Slow & Easy 10A 92",
+      "to_title": "Slow & Easy",             // to_artist / to_title: either or both
+      "reason": "Strip Promo Only key/BPM suffix"
+    }
   ]
 }
 ```
 
-**Both operation arrays are optional**; an empty or absent array is valid. They are
+**All operation arrays are optional**; an empty or absent array is valid. They are
 kept separate rather than unified behind an `op` discriminator because a uniform row
 shape is materially less error-prone to author as text.
 
@@ -113,7 +126,29 @@ shape is materially less error-prone to author as text.
 | `basis.sheet_id` | yes | Ties decisions to the evidence they were made on. |
 | `moves[].from_subcat` | yes | **Precondition.** See §5. |
 | `moves[].reason` | yes | Per row. Forces per-song justification, and is what makes the changeset reviewable rather than merely auditable. |
-| `artist` / `title` | yes | Review only. Mismatch against live is a hard failure (§5). |
+| `artist` / `title` | yes | Review only. Mismatch against live is a hard failure (§5). **In `set_tags` they are the from-state** and must match live byte for byte (see below). |
+| `set_tags[].to_artist` / `to_title` | at least one | The new value. Must be non-empty, have no leading or trailing whitespace, and differ from the from-state. A case-only change counts as a change. |
+
+### `set_tags` (added 2026-10-17)
+
+Corrects a song's artist and/or title in RadioDJ. Where it differs from the other ops:
+
+- **The precondition is exact.** Elsewhere, artist and title are compared after `normalizeTag`
+  (case and whitespace folded), because they are only there for review. Here they *are* the
+  field being written. A normalized compare would let `Awolnation`→`AWOLNATION` pass
+  against a row someone had already re-cased, and the inverse would then restore a
+  value that was never live. The apply-time `UPDATE` re-asserts the precondition with `BINARY`,
+  because RadioDJ's collation is case-insensitive.
+- **`--allow-tag-drift` does not apply.** Drift on a tag that is about to be overwritten
+  means someone else edited that same field. Overwriting it would silently discard their edit.
+- **It writes RadioDJ's `songs` row, not the audio file's ID3 tags.** Anything that
+  re-reads tags from the file (re-import, "update from file") reverts the fix. Fix the file
+  too if it will be re-imported.
+- **It invalidates the tag preconditions of every earlier changeset and inverse** that names the
+  song. Replaying or rolling one of them back afterwards needs `--allow-tag-drift`, which is the
+  legitimate-correction case that flag exists for.
+- An inverse only carries `set_tags` when its changeset had them, so inverses of move-only
+  changesets stay readable by an applier that predates this op.
 
 `reason` being mandatory is deliberate. The 2026-07-30 W pass produced 312 moves whose
 rationale existed only in agent transcripts; a year from now, "why is this in R2" has
@@ -174,6 +209,8 @@ Applied by a Runner subcommand. **Never** by ad-hoc scripts.
 5. Every `to_subcat` exists in `subcategory`.
 6. No `rdj_song_id` appears more than once across all operation arrays.
 7. Every `reason` is non-empty.
+8. Every `set_tags` from-state (`artist`, `title`) equals live exactly. This is never
+   downgraded by `--allow-tag-drift`.
 
 ### Apply
 
@@ -190,7 +227,8 @@ Applied by a Runner subcommand. **Never** by ad-hoc scripts.
 ### After apply
 
 Re-sync the mirror (`sync-library`) so the scheduler's Postgres reflects the new
-`id_subcat` before any log generation. A log generated between apply and re-sync uses
+`id_subcat` (and, after `set_tags`, the new artist/title, which feed separation rules)
+before any log generation. A log generated between apply and re-sync uses
 stale pool membership.
 
 ---

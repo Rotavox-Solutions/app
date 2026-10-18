@@ -533,3 +533,22 @@ system that models only buckets.
 **Also recorded:** the disabled TOH IDs and Relaunch Sweepers are old copy held
 pending a retirement decision, not misconfiguration. Moved to §7 Resolved so the
 next reader does not re-flag them as a bug.
+
+### 2026-10-17 — §3.3 extended: tag corrections are a writeback capability
+
+The changeset applier gains a third write, `set_tags`, which corrects a song's artist
+and title in RadioDJ (CHANGESET-CONTRACT.md §3). Library composition and tags are still
+RadioDJ's (§3.1). This does not move ownership: it gives the PD a reviewed, reversible
+way to fix what RadioDJ holds, in place of hand edits in the track editor that leave no
+record.
+
+Why it is warranted: the engine compares artists after trimming and lowercasing
+(`packages/engine/src/separation.ts`), so `Goo Goo Dolls` and `The Goo Goo Dolls` count
+as different artists for separation. Bad tags are therefore a scheduling defect, not
+just a cosmetic one. The 2026-10-17 BOLT audit found 851 of 1,511 enabled songs needing
+a correction (`sheets/2026-10-17-bolt-metadata-cleanup.md`).
+
+Same conditions as §3.3: columns come from introspection, all writes go through the Runner,
+and `--apply` is explicit. It is stricter than the other ops in one respect: the from-state must
+match exactly and cannot be waived. It is not an enrichment path (§3.4): it corrects
+strings the library already carries and never introduces year, BPM or other derived facts.
