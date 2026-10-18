@@ -43,11 +43,11 @@ switch ($Command) {
     $age = HeartbeatAgeSeconds
     "heartbeat        " + $(if ($null -eq $age) { "unreadable ($Heartbeat)" } else { "$age s old" + $(if ($age -gt 20) { '  <-- STALE: the watchdog will hand playout to AutoDJ' }) })
     ''
-    Get-Content (Join-Path $Root 'logs\RotavoxRunner.log') -Tail 8 -ErrorAction SilentlyContinue
+    Get-Content (Join-Path $Root 'logs\RotavoxRunner.log') -Tail 8 -Encoding UTF8 -ErrorAction SilentlyContinue
   }
   'logs' {
     $k = if ($Service -eq 'all') { 'runner' } else { $Service }
-    Get-Content (Join-Path $Root "logs\$($Names[$k]).log") -Tail 50 -Wait:$Follow
+    Get-Content (Join-Path $Root "logs\$($Names[$k]).log") -Tail 50 -Wait:$Follow -Encoding UTF8
   }
   'stop' { foreach ($k in Targets) { Stop-Service $Names[$k]; "$($Names[$k]) stopped" } }
   'start' {
