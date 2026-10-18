@@ -2,13 +2,14 @@ import "dotenv/config";
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
+import { PG_CONNECTION_OPTIONS } from "./connection.js";
 
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
   throw new Error("Missing required env var DATABASE_URL (see packages/schema/.env.example)");
 }
 
-const client = postgres(databaseUrl, { max: 1 });
+const client = postgres(databaseUrl, { max: 1, ...PG_CONNECTION_OPTIONS });
 const db = drizzle(client);
 
 // uuid columns use gen_random_uuid() (pgcrypto) as their default.

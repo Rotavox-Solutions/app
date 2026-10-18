@@ -1,5 +1,6 @@
 import "dotenv/config";
 import mysql from "mysql2/promise";
+import { MYSQL_CONNECTION_OPTIONS } from "@rotavox/schema";
 
 function requireEnv(name: string): string {
   const value = process.env[name];
@@ -16,4 +17,5 @@ export const pool = mysql.createPool({
   password: requireEnv("RADIODJ_DB_PASSWORD"),
   database: requireEnv("RADIODJ_DB_NAME"),
   connectionLimit: 5,
+  ...MYSQL_CONNECTION_OPTIONS,
 });

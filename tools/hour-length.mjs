@@ -33,6 +33,7 @@
 import postgres from "postgres";
 import { SHAPES, IMAGING, FILLER_SLOTS, cellFor, CUR } from "./m4-format.mjs";
 import { VARIANTS, applyVariant } from "./shape-variants.mjs";
+import { PG_CONNECTION_OPTIONS } from "../packages/schema/src/connection.js";
 
 /**
  * The band a clock's natural hour should land in, in minutes.
@@ -49,7 +50,7 @@ const AIM = (BAND[0] + BAND[1]) / 2;
 
 const argOf = (n) => { const i = process.argv.indexOf(`--${n}`); return i >= 0 ? process.argv[i + 1] : undefined; };
 
-const sql = postgres(process.env.DATABASE_URL, { max: 1 });
+const sql = postgres(process.env.DATABASE_URL, { max: 1, ...PG_CONNECTION_OPTIONS });
 
 /** Mean and spread of duration per category, enabled songs only, cue-aware where known. */
 async function liveMeans() {

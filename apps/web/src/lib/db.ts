@@ -2,6 +2,7 @@ import "dotenv/config";
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import * as schema from "@rotavox/schema";
+import { PG_CONNECTION_OPTIONS } from "@rotavox/schema";
 
 function requireEnv(name: string): string {
   const value = process.env[name];
@@ -43,7 +44,7 @@ declare global {
   var __rotavoxDb: ReturnType<typeof drizzle<typeof schema>> | undefined;
 }
 
-export const pgClient = globalThis.__rotavoxPgClient ?? postgres(requireEnv("DATABASE_URL"));
+export const pgClient = globalThis.__rotavoxPgClient ?? postgres(requireEnv("DATABASE_URL"), PG_CONNECTION_OPTIONS);
 export const db = globalThis.__rotavoxDb ?? drizzle(pgClient, { schema });
 
 if (process.env.NODE_ENV !== "production") {

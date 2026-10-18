@@ -28,6 +28,7 @@
 import postgres from "postgres";
 import { SHAPES, IMAGING, FILLER_SLOTS } from "./m4-format.mjs";
 import { buildReachable, fitHour, type FitUnit } from "../packages/engine/src/fit.js";
+import { PG_CONNECTION_OPTIONS } from "../packages/schema/src/connection.js";
 
 const argOf = (n: string) => { const i = process.argv.indexOf(`--${n}`); return i >= 0 ? process.argv[i + 1] : undefined; };
 const CLOCK = argOf("clock") ?? "ES";
@@ -51,7 +52,7 @@ const TOLERANCES = (argOf("tol") ?? "0,5,10,15,20,30,45,60,90,120").split(",").m
 /** Late is bounded far more loosely — it is the tolerable direction. */
 const MAX_LATE_S = 300;
 
-const sql = postgres(process.env.DATABASE_URL, { max: 1 });
+const sql = postgres(process.env.DATABASE_URL, { max: 1, ...PG_CONNECTION_OPTIONS });
 const rows = await sql`
   select c.name as cat, coalesce(s.effective_duration_ms, s.duration_ms) as ms
   from categories c

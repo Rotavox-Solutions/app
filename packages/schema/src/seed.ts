@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { readFileSync } from "node:fs";
 import postgres from "postgres";
+import { PG_CONNECTION_OPTIONS } from "./connection.js";
 
 // Runs a plain-SQL seed file against DATABASE_URL — a cross-platform replacement
 // for `psql -f` (no psql client needed; mirrors migrate.ts's connection). The seed
@@ -15,7 +16,7 @@ if (!databaseUrl) {
 const file = process.argv[2] ?? "seed/m3-clubfm-seed.sql";
 const sqlText = readFileSync(file, "utf8");
 
-const client = postgres(databaseUrl, { max: 1 });
+const client = postgres(databaseUrl, { max: 1, ...PG_CONNECTION_OPTIONS });
 try {
   // .simple() uses the simple query protocol, which allows the multiple
   // statements (and the BEGIN/COMMIT) the seed file contains.
