@@ -1,0 +1,3205 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-18-tags-bpm",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-18",
+  "intent": "Strip Promo Only DJ key/BPM suffixes from titles (\"Hooked 6A 128\" -> \"Hooked\").",
+  "basis": {
+    "sheet_id": "2026-10-17-bolt-metadata-cleanup",
+    "sheet_captured_at": "2026-10-18T20:01:06Z"
+  },
+  "set_tags": [
+    {
+      "rdj_song_id": 415,
+      "artist": "Three Days Grace",
+      "title": "Kill Me Fast 154",
+      "to_title": "Kill Me Fast",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 416,
+      "artist": "Edgehill",
+      "title": "Doubletake 146",
+      "to_title": "Doubletake",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 483,
+      "artist": "Surfbort",
+      "title": "Lot Lizard 93",
+      "to_title": "Lot Lizard",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 537,
+      "artist": "Autopilot",
+      "title": "Say Something 130",
+      "to_title": "Say Something",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 538,
+      "artist": "Beach Weather F. Pale Waves",
+      "title": "Unlovable 80",
+      "to_title": "Unlovable",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 540,
+      "artist": "Blur",
+      "title": "The Narcissist 128",
+      "to_title": "The Narcissist",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 542,
+      "artist": "Codefendants",
+      "title": "Def Cons 106",
+      "to_title": "Def Cons",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 543,
+      "artist": "D4vd",
+      "title": "The Bridge 147",
+      "to_title": "The Bridge",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 544,
+      "artist": "David Kushner",
+      "title": "Daylight 130",
+      "to_title": "Daylight",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 546,
+      "artist": "Durry",
+      "title": "Who S Laughing Now 91",
+      "to_title": "Who S Laughing Now",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 547,
+      "artist": "Fall Out Boy",
+      "title": "Hold Me Like A Grudge 114",
+      "to_title": "Hold Me Like A Grudge",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 548,
+      "artist": "Great Northern",
+      "title": "Animl 118",
+      "to_title": "Animl",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 549,
+      "artist": "Kennyhoopla",
+      "title": "You Needed A Hit 103",
+      "to_title": "You Needed A Hit",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 550,
+      "artist": "Lana Del Rey",
+      "title": "Say Yes To Heaven 101",
+      "to_title": "Say Yes To Heaven",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 551,
+      "artist": "Little Hurt",
+      "title": "I Can Do Better Than You 82",
+      "to_title": "I Can Do Better Than You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 552,
+      "artist": "Misterwives",
+      "title": "Nosebleeds 115",
+      "to_title": "Nosebleeds",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 553,
+      "artist": "Nothing But Thieves",
+      "title": "Overcome 82",
+      "to_title": "Overcome",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 555,
+      "artist": "The Hives",
+      "title": "Bogus Operandi 145",
+      "to_title": "Bogus Operandi",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 556,
+      "artist": "The Used",
+      "title": "Giving Up 81",
+      "to_title": "Giving Up",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 558,
+      "artist": "Autopilot",
+      "title": "Unwound 83",
+      "to_title": "Unwound",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 561,
+      "artist": "Bleachers",
+      "title": "Modern Girl 150",
+      "to_title": "Modern Girl",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 562,
+      "artist": "Blink-182",
+      "title": "One More Time 114",
+      "to_title": "One More Time",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 563,
+      "artist": "Gxtp",
+      "title": "Accusation 80",
+      "to_title": "Accusation",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 564,
+      "artist": "Hello Lucky",
+      "title": "Honey 136",
+      "to_title": "Honey",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 565,
+      "artist": "Marvelous 3",
+      "title": "If We're On Fire (Let It Burn) 127",
+      "to_title": "If We're On Fire (Let It Burn)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 566,
+      "artist": "Pat Mac",
+      "title": "The Indigo 144",
+      "to_title": "The Indigo",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 567,
+      "artist": "Shinedown",
+      "title": "A Symptom Of Being Human 134",
+      "to_title": "A Symptom Of Being Human",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 568,
+      "artist": "Slothrust",
+      "title": "Pony 140",
+      "to_title": "Pony",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 569,
+      "artist": "Staind",
+      "title": "Here And Now 125",
+      "to_title": "Here And Now",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 571,
+      "artist": "Taking Back Sunday",
+      "title": "S'old 83",
+      "to_title": "S'old",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 572,
+      "artist": "The 1975",
+      "title": "About You 96",
+      "to_title": "About You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 574,
+      "artist": "The Ramona Flowers F. Nile Rodgers",
+      "title": "Up All Night 122",
+      "to_title": "Up All Night",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 575,
+      "artist": "The Revivalists",
+      "title": "Good Old Days 109",
+      "to_title": "Good Old Days",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 576,
+      "artist": "U2",
+      "title": "Atomic City 140",
+      "to_title": "Atomic City",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 577,
+      "artist": "Alexsucks",
+      "title": "6 Pack And Cigarettes 83",
+      "to_title": "6 Pack And Cigarettes",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 578,
+      "artist": "Blindlove",
+      "title": "Juggernaut 100",
+      "to_title": "Juggernaut",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 579,
+      "artist": "Blue October",
+      "title": "Down Here Waiting 150",
+      "to_title": "Down Here Waiting",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 580,
+      "artist": "Cannons",
+      "title": "Loving You 111",
+      "to_title": "Loving You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 581,
+      "artist": "Declan Mckenna",
+      "title": "Sympathy 114",
+      "to_title": "Sympathy",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 583,
+      "artist": "Dogstar",
+      "title": "Everything Turns Around 102",
+      "to_title": "Everything Turns Around",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 584,
+      "artist": "Don't Believe In Ghosts",
+      "title": "Summer High 110",
+      "to_title": "Summer High",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 585,
+      "artist": "Foo Fighters",
+      "title": "Under You 150",
+      "to_title": "Under You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 586,
+      "artist": "Kennyhoopla & Travis Barker",
+      "title": "Marry Kill Fck 98",
+      "to_title": "Marry Kill Fck",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 587,
+      "artist": "Matt Maeson",
+      "title": "Get Happy 84",
+      "to_title": "Get Happy",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 588,
+      "artist": "Metric",
+      "title": "Just The Once 119",
+      "to_title": "Just The Once",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 590,
+      "artist": "Portugal. The Man F. Unknown Mortal Orchestra",
+      "title": "Summer Of Luv 76",
+      "to_title": "Summer Of Luv",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 591,
+      "artist": "Royal Blood",
+      "title": "Pull Me Through 132",
+      "to_title": "Pull Me Through",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 592,
+      "artist": "Slow Pulp",
+      "title": "Cramps 140",
+      "to_title": "Cramps",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 595,
+      "artist": "Yellowcard",
+      "title": "Childhood Eyes 79",
+      "to_title": "Childhood Eyes",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 596,
+      "artist": "Bad Wolves",
+      "title": "Legends Never Die 106",
+      "to_title": "Legends Never Die",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 597,
+      "artist": "Blame My Youth",
+      "title": "The Break 82",
+      "to_title": "The Break",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 598,
+      "artist": "Bleachers",
+      "title": "Tiny Moves 78",
+      "to_title": "Tiny Moves",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 599,
+      "artist": "Catfish And The Bottlemen",
+      "title": "Showtime 108",
+      "to_title": "Showtime",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 600,
+      "artist": "Del Water Gap & Holly Humberstone",
+      "title": "Cigarettes & Wine 83",
+      "to_title": "Cigarettes & Wine",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 603,
+      "artist": "Grouplove",
+      "title": "Chances 145",
+      "to_title": "Chances",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 606,
+      "artist": "Kings Of Leon",
+      "title": "Mustang 140",
+      "to_title": "Mustang",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 607,
+      "artist": "Late Night Drive Home",
+      "title": "Stress Relief 140",
+      "to_title": "Stress Relief",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 608,
+      "artist": "Linkin Park",
+      "title": "Friendly Fire 124",
+      "to_title": "Friendly Fire",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 609,
+      "artist": "Lo Moon",
+      "title": "Water 104",
+      "to_title": "Water",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 610,
+      "artist": "Noah Kahan & Hozier",
+      "title": "Northern Attitude 121",
+      "to_title": "Northern Attitude",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 611,
+      "artist": "Pearl Jam",
+      "title": "Dark Matter 100",
+      "to_title": "Dark Matter",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 612,
+      "artist": "Royel Otis",
+      "title": "Murder On The Dancefloor (Triple J Like A Version) 123",
+      "to_title": "Murder On The Dancefloor (Triple J Like A Version)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 613,
+      "artist": "The Decemberists",
+      "title": "Burial Ground 123",
+      "to_title": "Burial Ground",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 614,
+      "artist": "The Maine & Beach Weather",
+      "title": "Thoughts I Have While Lying In Bed 144",
+      "to_title": "Thoughts I Have While Lying In Bed",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 615,
+      "artist": "Twenty One Pilots",
+      "title": "Overcompensate 95",
+      "to_title": "Overcompensate",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 616,
+      "artist": "Vampire Weekend",
+      "title": "Capricorn 140",
+      "to_title": "Capricorn",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 617,
+      "artist": "10 Years",
+      "title": "The Optimist 99",
+      "to_title": "The Optimist",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 618,
+      "artist": "Bastille",
+      "title": "Blue Sky & The Painter 95",
+      "to_title": "Blue Sky & The Painter",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 620,
+      "artist": "Breaking Benjamin",
+      "title": "Awaken 97",
+      "to_title": "Awaken",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 621,
+      "artist": "Culture Wars",
+      "title": "It Hurts 105",
+      "to_title": "It Hurts",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 622,
+      "artist": "Damiano David",
+      "title": "Born With A Broken Heart 172",
+      "to_title": "Born With A Broken Heart",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 623,
+      "artist": "Daughtry",
+      "title": "The Dam 150",
+      "to_title": "The Dam",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 624,
+      "artist": "Fame On Fire F. Sim",
+      "title": "Chains (The Tower) 135",
+      "to_title": "Chains (The Tower)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 625,
+      "artist": "Gigi Perez",
+      "title": "Sailor Song 95",
+      "to_title": "Sailor Song",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 626,
+      "artist": "Half.Alive",
+      "title": "Sophie's House 119",
+      "to_title": "Sophie's House",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 628,
+      "artist": "Robbietheused",
+      "title": "Just A Little Bit 115",
+      "to_title": "Just A Little Bit",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 631,
+      "artist": "The Cure",
+      "title": "A Fragile Thing 90",
+      "to_title": "A Fragile Thing",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 633,
+      "artist": "The Head And The Heart",
+      "title": "Arrow 111",
+      "to_title": "Arrow",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 634,
+      "artist": "The Offspring",
+      "title": "Ok, But This Is The Last Time 147",
+      "to_title": "Ok, But This Is The Last Time",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 636,
+      "artist": "Wilderado",
+      "title": "Higher Than Most 132",
+      "to_title": "Higher Than Most",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 637,
+      "artist": "Alexsucks",
+      "title": "What're We Doing Here 136",
+      "to_title": "What're We Doing Here",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 638,
+      "artist": "Alvvays",
+      "title": "Belinda Says 119",
+      "to_title": "Belinda Says",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 639,
+      "artist": "Bad Nerves",
+      "title": "Usa 92",
+      "to_title": "Usa",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 640,
+      "artist": "Brigitte Calls Me Baby",
+      "title": "Impressively Average 85",
+      "to_title": "Impressively Average",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 641,
+      "artist": "Finnoguns Wake",
+      "title": "Blue Skies 76",
+      "to_title": "Blue Skies",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 642,
+      "artist": "Foo Fighters",
+      "title": "The Glass 146",
+      "to_title": "The Glass",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 643,
+      "artist": "Fozzy",
+      "title": "Spotlight 100",
+      "to_title": "Spotlight",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 644,
+      "artist": "Ida Kudo",
+      "title": "The Power That Is Woman 119",
+      "to_title": "The Power That Is Woman",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 646,
+      "artist": "Jay Putty",
+      "title": "The Best Days Are Yet To Come 112",
+      "to_title": "The Best Days Are Yet To Come",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 647,
+      "artist": "Jonah Kagen",
+      "title": "Save My Soul 116",
+      "to_title": "Save My Soul",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 649,
+      "artist": "Knox",
+      "title": "Not The 1975 134",
+      "to_title": "Not The 1975",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 651,
+      "artist": "Point North F. Set It Off",
+      "title": "Below The Belt 119",
+      "to_title": "Below The Belt",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 652,
+      "artist": "Porno For Pyros",
+      "title": "Agua 96",
+      "to_title": "Agua",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 653,
+      "artist": "Slightly Stoopid F. Stick Figure & Pepper",
+      "title": "Got Me On The Run 77",
+      "to_title": "Got Me On The Run",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 655,
+      "artist": "The Lemon Twigs",
+      "title": "My Golden Years 76",
+      "to_title": "My Golden Years",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 656,
+      "artist": "The Rockyts",
+      "title": "Falling Again 75",
+      "to_title": "Falling Again",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 657,
+      "artist": "Awaken I Am",
+      "title": "Roses 138",
+      "to_title": "Roses",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 658,
+      "artist": "Bakar",
+      "title": "All Night 80",
+      "to_title": "All Night",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 659,
+      "artist": "Beartooth",
+      "title": "Might Love Myself 150",
+      "to_title": "Might Love Myself",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 660,
+      "artist": "Boygenius",
+      "title": "Cool About It 94",
+      "to_title": "Cool About It",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 661,
+      "artist": "Boywithuke",
+      "title": "Migraine 97",
+      "to_title": "Migraine",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 663,
+      "artist": "Lovelytheband",
+      "title": "Nice To Know You 86",
+      "to_title": "Nice To Know You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 664,
+      "artist": "Mac Saturn",
+      "title": "Mint Julep 112",
+      "to_title": "Mint Julep",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 665,
+      "artist": "Mgmt",
+      "title": "Mother Nature 81",
+      "to_title": "Mother Nature",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 666,
+      "artist": "Milky Chance",
+      "title": "Feeling For You 118",
+      "to_title": "Feeling For You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 667,
+      "artist": "Nickelback",
+      "title": "Skinny Little Missy 84",
+      "to_title": "Skinny Little Missy",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 669,
+      "artist": "Phoenix F. Leon Larregui",
+      "title": "Artefact 112",
+      "to_title": "Artefact",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 670,
+      "artist": "Ripe",
+      "title": "Settling Live From Mgm Music Hall At Fenway 112",
+      "to_title": "Settling Live From Mgm Music Hall At Fenway",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 671,
+      "artist": "Sleep Token",
+      "title": "Granite 120",
+      "to_title": "Granite",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 672,
+      "artist": "The Gaslight Anthem",
+      "title": "Spider Bites 110",
+      "to_title": "Spider Bites",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 673,
+      "artist": "Thirty Seconds To Mars",
+      "title": "Seasons 85",
+      "to_title": "Seasons",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 674,
+      "artist": "Willow",
+      "title": "Alone 80",
+      "to_title": "Alone",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 676,
+      "artist": "Alice Merton",
+      "title": "Run Away Girl 140",
+      "to_title": "Run Away Girl",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 677,
+      "artist": "Asking Alexandria",
+      "title": "Dark Void 77",
+      "to_title": "Dark Void",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 678,
+      "artist": "Beartooth",
+      "title": "I Was Alive 76",
+      "to_title": "I Was Alive",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 679,
+      "artist": "Blue October",
+      "title": "Everything We Lost In The Fire 130",
+      "to_title": "Everything We Lost In The Fire",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 680,
+      "artist": "Brittany Howard",
+      "title": "Prove It To You 130",
+      "to_title": "Prove It To You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 681,
+      "artist": "Cigarettes After Sex",
+      "title": "Tejano Blue 82",
+      "to_title": "Tejano Blue",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 684,
+      "artist": "Des Rocs",
+      "title": "I Am The Lightning 143",
+      "to_title": "I Am The Lightning",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 685,
+      "artist": "Djo",
+      "title": "End Of Beginning 80",
+      "to_title": "End Of Beginning",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 686,
+      "artist": "Good Neighbours",
+      "title": "Home 77",
+      "to_title": "Home",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 688,
+      "artist": "Nothing More",
+      "title": "If It Doesn't Hurt 95",
+      "to_title": "If It Doesn't Hurt",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 689,
+      "artist": "Portugal. The Man",
+      "title": "Grim Generation 124",
+      "to_title": "Grim Generation",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 690,
+      "artist": "Rainbow Kitten Surprise",
+      "title": "Superstar 98",
+      "to_title": "Superstar",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 691,
+      "artist": "St. Vincent",
+      "title": "Broken Man 112",
+      "to_title": "Broken Man",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 692,
+      "artist": "The Avett Brothers",
+      "title": "Love Of A Girl 99",
+      "to_title": "Love Of A Girl",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 693,
+      "artist": "The Driver Era",
+      "title": "Get Off My Phone 140",
+      "to_title": "Get Off My Phone",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 695,
+      "artist": "Two Door Cinema Club",
+      "title": "Happy Customers 131",
+      "to_title": "Happy Customers",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 696,
+      "artist": "Winnetka Bowling League",
+      "title": "Sha La La 145",
+      "to_title": "Sha La La",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 697,
+      "artist": "Balu Brigada",
+      "title": "So Cold 3A 111",
+      "to_title": "So Cold",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 700,
+      "artist": "Dashboard Confessional, Boys Like Girls",
+      "title": "Watch The Fire 12B 83",
+      "to_title": "Watch The Fire",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 701,
+      "artist": "David Kushner",
+      "title": "Darkerside 3A 82",
+      "to_title": "Darkerside",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 702,
+      "artist": "Flat Black",
+      "title": "A Bit Of Lightning 7A 76",
+      "to_title": "A Bit Of Lightning",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 703,
+      "artist": "Franz Ferdinand",
+      "title": "Audacious 8A 79",
+      "to_title": "Audacious",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 704,
+      "artist": "Green Day",
+      "title": "Bobby Sox 1A 106",
+      "to_title": "Bobby Sox",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 705,
+      "artist": "Hozier",
+      "title": "Nobody's Soldier 7A 134",
+      "to_title": "Nobody's Soldier",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 708,
+      "artist": "Pearl Jam",
+      "title": "Waiting For Stevie 10B 87",
+      "to_title": "Waiting For Stevie",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 709,
+      "artist": "Poppy",
+      "title": "New Way Out 6A 109",
+      "to_title": "New Way Out",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 710,
+      "artist": "Royel Otis",
+      "title": "Linger 10B 99",
+      "to_title": "Linger",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 711,
+      "artist": "Sleep Theory",
+      "title": "Stuck In My Head 5A 94",
+      "to_title": "Stuck In My Head",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 713,
+      "artist": "Suki Waterhouse",
+      "title": "Supersad 10B 77",
+      "to_title": "Supersad",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 714,
+      "artist": "The Cure",
+      "title": "Alone 8A 100",
+      "to_title": "Alone",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 715,
+      "artist": "The Ramona Flowers",
+      "title": "Dangerous 3A 123",
+      "to_title": "Dangerous",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 716,
+      "artist": "U2",
+      "title": "Picture Of You (X+W) 9A 135",
+      "to_title": "Picture Of You (X+W)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 718,
+      "artist": "All Time Low",
+      "title": "Dear Maria, Count Me In (Atl's Version) 10B 180",
+      "to_title": "Dear Maria, Count Me In (Atl's Version)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 719,
+      "artist": "Badflower",
+      "title": "Detroit 8B 133",
+      "to_title": "Detroit",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 720,
+      "artist": "Beabadoobee",
+      "title": "Beaches 6B 82",
+      "to_title": "Beaches",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 721,
+      "artist": "Black Veil Brides",
+      "title": "Bleeders 3A 87",
+      "to_title": "Bleeders",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 722,
+      "artist": "Dorothy",
+      "title": "Mud 6A 70",
+      "to_title": "Mud",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 723,
+      "artist": "Fame On Fire",
+      "title": "Nightmare (The Devil) 2A 74",
+      "to_title": "Nightmare (The Devil)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 724,
+      "artist": "Finger Eleven",
+      "title": "Adrenaline 12A 130",
+      "to_title": "Adrenaline",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 725,
+      "artist": "Foster The People",
+      "title": "See You In The Afterlife 2A 122",
+      "to_title": "See You In The Afterlife",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 726,
+      "artist": "Glass Animals",
+      "title": "A Tear In Space (Airlock) 8A 94",
+      "to_title": "A Tear In Space (Airlock)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 727,
+      "artist": "Jack White",
+      "title": "That's How I'm Feeling 9A 129",
+      "to_title": "That's How I'm Feeling",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 728,
+      "artist": "James Bay, The Lumineers, Noah Kahan",
+      "title": "Up All Night 10B 91",
+      "to_title": "Up All Night",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 729,
+      "artist": "Jane's Addiction",
+      "title": "Imminent Redemption 9A 78",
+      "to_title": "Imminent Redemption",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 730,
+      "artist": "Jutes",
+      "title": "Sleepyhead 6A 70",
+      "to_title": "Sleepyhead",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 734,
+      "artist": "Sports Team",
+      "title": "I'm In Love (Subaru) 9B 111",
+      "to_title": "I'm In Love (Subaru)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 735,
+      "artist": "Staind, Dorothy",
+      "title": "Better Days 1A 68",
+      "to_title": "Better Days",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 736,
+      "artist": "The Funeral Portrait, Spencer Charnas",
+      "title": "Suffocate City 7A 113",
+      "to_title": "Suffocate City",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 737,
+      "artist": "The Killers",
+      "title": "Bright Lights 5B 84",
+      "to_title": "Bright Lights",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 738,
+      "artist": "The Linda Lindas",
+      "title": "All In My Head 8B 146",
+      "to_title": "All In My Head",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 739,
+      "artist": "311",
+      "title": "You're Gonna Get It 9A 79",
+      "to_title": "You're Gonna Get It",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 740,
+      "artist": "Bby",
+      "title": "Kinky 2B 85",
+      "to_title": "Kinky",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 741,
+      "artist": "Beabadoobee",
+      "title": "Take A Bite 9A 91",
+      "to_title": "Take A Bite",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 742,
+      "artist": "Beach Bunny",
+      "title": "Vertigo 11A 101",
+      "to_title": "Vertigo",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 743,
+      "artist": "Benson Boone",
+      "title": "Beautiful Things 6A 53",
+      "to_title": "Beautiful Things",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 745,
+      "artist": "Coldplay",
+      "title": "Feelslikeimfallinginlove 8B 121",
+      "to_title": "Feelslikeimfallinginlove",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 749,
+      "artist": "Highly Suspect",
+      "title": "Plastic Boxes 9A 112",
+      "to_title": "Plastic Boxes",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 750,
+      "artist": "Imagine Dragons",
+      "title": "Wake Up 12A 109",
+      "to_title": "Wake Up",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 751,
+      "artist": "Little Image",
+      "title": "Strange Friends 5A 120",
+      "to_title": "Strange Friends",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 753,
+      "artist": "Orville Peck, Beck",
+      "title": "Death Valley High 9A 108",
+      "to_title": "Death Valley High",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 754,
+      "artist": "Seether",
+      "title": "Judas Mind 6A 65",
+      "to_title": "Judas Mind",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 755,
+      "artist": "The Band Camino",
+      "title": "Nostalgia 12B 119",
+      "to_title": "Nostalgia",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 756,
+      "artist": "The Smashing Pumpkins",
+      "title": "Sighommi 10B 102",
+      "to_title": "Sighommi",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 757,
+      "artist": "Tim Montana",
+      "title": "Savage 12A 76",
+      "to_title": "Savage",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 758,
+      "artist": "Uncured",
+      "title": "Mask Of Sanity 4A 95",
+      "to_title": "Mask Of Sanity",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 759,
+      "artist": "Vampire Weekend",
+      "title": "Classical 9B 112",
+      "to_title": "Classical",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 760,
+      "artist": "Architects",
+      "title": "Everything Ends 9A 100",
+      "to_title": "Everything Ends",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 761,
+      "artist": "Beartooth",
+      "title": "Attn. 11B 85",
+      "to_title": "Attn.",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 762,
+      "artist": "Bon Iver",
+      "title": "Everything Is Peaceful Love 9A 80",
+      "to_title": "Everything Is Peaceful Love",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 763,
+      "artist": "Circa Waves",
+      "title": "Let's Leave Together 9A 134",
+      "to_title": "Let's Leave Together",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 767,
+      "artist": "Glass Animals",
+      "title": "Show Pony 1A 81",
+      "to_title": "Show Pony",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 769,
+      "artist": "Hardy",
+      "title": "Jim Bob 5A 124",
+      "to_title": "Jim Bob",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 770,
+      "artist": "Momma",
+      "title": "I Want You (Fever) 6B 134",
+      "to_title": "I Want You (Fever)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 771,
+      "artist": "Myles Smith",
+      "title": "Nice To Meet You 4B 115",
+      "to_title": "Nice To Meet You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 773,
+      "artist": "P.O.D.",
+      "title": "I Won't Bow Down 7A 140",
+      "to_title": "I Won't Bow Down",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 774,
+      "artist": "Return To Dust",
+      "title": "Belly Up 4A 94",
+      "to_title": "Belly Up",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 778,
+      "artist": "The Cure",
+      "title": "All I Ever Am 9A 135",
+      "to_title": "All I Ever Am",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 779,
+      "artist": "The Nocturnal Affair",
+      "title": "Cross Me Out 3A 78",
+      "to_title": "Cross Me Out",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 780,
+      "artist": "Yeah Yeah Yeahs, Perfume Genius",
+      "title": "Spitting Off The Edge Of The World 11B 110",
+      "to_title": "Spitting Off The Edge Of The World",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 781,
+      "artist": "Arrows In Action",
+      "title": "Cheekbones 8A 135",
+      "to_title": "Cheekbones",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 783,
+      "artist": "Balu Brigada",
+      "title": "Backseat 3A 126",
+      "to_title": "Backseat",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 784,
+      "artist": "Foo Fighters",
+      "title": "Today's Song 9B 70",
+      "to_title": "Today's Song",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 785,
+      "artist": "Ghost",
+      "title": "Lachryma 10B 111",
+      "to_title": "Lachryma",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 786,
+      "artist": "Girl Tones",
+      "title": "Blame 12A 106",
+      "to_title": "Blame",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 787,
+      "artist": "Good Charlotte",
+      "title": "Rejects 7B 112",
+      "to_title": "Rejects",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 788,
+      "artist": "I Prevail",
+      "title": "Into Hell 12A 105",
+      "to_title": "Into Hell",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 789,
+      "artist": "Kaleo",
+      "title": "Bloodline 8A 77",
+      "to_title": "Bloodline",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 793,
+      "artist": "Nation Of Language",
+      "title": "Inept Apollo 5B 125",
+      "to_title": "Inept Apollo",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 794,
+      "artist": "Nevertel",
+      "title": "Criminal 2A 77",
+      "to_title": "Criminal",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 795,
+      "artist": "Papa Roach, Toby Morse",
+      "title": "Braindead 10A 87",
+      "to_title": "Braindead",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 796,
+      "artist": "Rise Against",
+      "title": "I Want It All 6A 134",
+      "to_title": "I Want It All",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 797,
+      "artist": "Sleep Theory",
+      "title": "Gravity 12A 93",
+      "to_title": "Gravity",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 798,
+      "artist": "Sports Team",
+      "title": "Moving Together 6A 82",
+      "to_title": "Moving Together",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 800,
+      "artist": "The Pretty Wild",
+      "title": "Button Eyes (Whisper Rock Mix) 7A 83",
+      "to_title": "Button Eyes (Whisper Rock Mix)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 801,
+      "artist": "Twenty One Pilots",
+      "title": "The Contract 6A 135",
+      "to_title": "The Contract",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 802,
+      "artist": "Ajr",
+      "title": "The Big Goodbye 92",
+      "to_title": "The Big Goodbye",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 803,
+      "artist": "Almost Monday",
+      "title": "Lost 109",
+      "to_title": "Lost",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 804,
+      "artist": "Bby",
+      "title": "Fuggit 146",
+      "to_title": "Fuggit",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 806,
+      "artist": "Cannons",
+      "title": "All I Need 111",
+      "to_title": "All I Need",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 808,
+      "artist": "Five Finger Death Punch F. Babymetal",
+      "title": "The End 2025 Version 160",
+      "to_title": "The End 2025 Version",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 809,
+      "artist": "Foo Fighters",
+      "title": "Asking For A Friend 102",
+      "to_title": "Asking For A Friend",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 810,
+      "artist": "Hifi",
+      "title": "She's My Girl 127",
+      "to_title": "She's My Girl",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 811,
+      "artist": "Mammoth",
+      "title": "The Spell 100",
+      "to_title": "The Spell",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 812,
+      "artist": "Milky Chance",
+      "title": "Camouflage 122",
+      "to_title": "Camouflage",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 813,
+      "artist": "Mumford & Sons With Hozier",
+      "title": "Rubber Band Man 104",
+      "to_title": "Rubber Band Man",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 814,
+      "artist": "Portugal. The Man",
+      "title": "Tanana 160",
+      "to_title": "Tanana",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 815,
+      "artist": "Royel Otis",
+      "title": "Who's Your Boyfriend 145",
+      "to_title": "Who's Your Boyfriend",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 816,
+      "artist": "Stephen Wilson Jr.",
+      "title": "Tonight, Tonight 145",
+      "to_title": "Tonight, Tonight",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 817,
+      "artist": "The Format",
+      "title": "Holy Roller 110",
+      "to_title": "Holy Roller",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 818,
+      "artist": "The Wombats",
+      "title": "Holy Sugar 93",
+      "to_title": "Holy Sugar",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 819,
+      "artist": "Turnstile",
+      "title": "Seein' Stars 124",
+      "to_title": "Seein' Stars",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 820,
+      "artist": "Ufos, Braxe + Falcon, Phoenix & Alan Braxe",
+      "title": "Ufo 86",
+      "to_title": "Ufo",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 821,
+      "artist": "Vance Joy",
+      "title": "Fascination In The Dark 120",
+      "to_title": "Fascination In The Dark",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 822,
+      "artist": "Autumn Kings",
+      "title": "Sleep When I'm Dead 4A 67",
+      "to_title": "Sleep When I'm Dead",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 824,
+      "artist": "Cage The Elephant",
+      "title": "Metaverse 1A 144",
+      "to_title": "Metaverse",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 827,
+      "artist": "Inhaler",
+      "title": "Your House 11A 122",
+      "to_title": "Your House",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 828,
+      "artist": "Jack Kays, Travis Barker",
+      "title": "My Promise (90 Days) 11B 120",
+      "to_title": "My Promise (90 Days)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 829,
+      "artist": "Jack White",
+      "title": "Archbishop Harold Holmes 9A 106",
+      "to_title": "Archbishop Harold Holmes",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 831,
+      "artist": "Memphis May Fire",
+      "title": "Hell Is Empty 7A 142",
+      "to_title": "Hell Is Empty",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 832,
+      "artist": "Milky Chance",
+      "title": "Naked & Alive 6A 127",
+      "to_title": "Naked & Alive",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 833,
+      "artist": "Mk.Gee",
+      "title": "Rockman 6B 134",
+      "to_title": "Rockman",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 835,
+      "artist": "Point North",
+      "title": "World Vs. Peace 2A 61",
+      "to_title": "World Vs. Peace",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 837,
+      "artist": "Seven Hours After Violet",
+      "title": "Radiance 10A 87",
+      "to_title": "Radiance",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 838,
+      "artist": "Soccer Mommy",
+      "title": "Driver 8B 100",
+      "to_title": "Driver",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 839,
+      "artist": "Tetrarch",
+      "title": "Live Not Fantasize 8A 127",
+      "to_title": "Live Not Fantasize",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 840,
+      "artist": "Three Days Grace",
+      "title": "Mayday 12A 122",
+      "to_title": "Mayday",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 841,
+      "artist": "Tunde Adebimpe",
+      "title": "Magnetic 9A 84",
+      "to_title": "Magnetic",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 842,
+      "artist": "311",
+      "title": "Full Bloom 11B 91",
+      "to_title": "Full Bloom",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 843,
+      "artist": "Coldplay",
+      "title": "All My Love 11B 138",
+      "to_title": "All My Love",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 845,
+      "artist": "Declan Mckenna",
+      "title": "Champagne 1B 122",
+      "to_title": "Champagne",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 849,
+      "artist": "Honestav, Mod Sun",
+      "title": "I'd Rather Overdose (Mod Sun Remix) 1A 114",
+      "to_title": "I'd Rather Overdose (Mod Sun Remix)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 850,
+      "artist": "Jelly Roll",
+      "title": "Liar 3A 114",
+      "to_title": "Liar",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 853,
+      "artist": "Phantogram",
+      "title": "Come Alive 6A 82",
+      "to_title": "Come Alive",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 855,
+      "artist": "Seether",
+      "title": "Walls Come Down 5A 120",
+      "to_title": "Walls Come Down",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 856,
+      "artist": "The Kooks, Lovelytheband",
+      "title": "Jeanie 1A 99",
+      "to_title": "Jeanie",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 857,
+      "artist": "The Smashing Pumpkins",
+      "title": "Who Goes There 8B 85",
+      "to_title": "Who Goes There",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 858,
+      "artist": "The Struts",
+      "title": "Can't Stop Talking 2B 81",
+      "to_title": "Can't Stop Talking",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 861,
+      "artist": "Twenty One Pilots",
+      "title": "The Line 8A 71",
+      "to_title": "The Line",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 862,
+      "artist": "Wage War",
+      "title": "Blur 7A 110",
+      "to_title": "Blur",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 863,
+      "artist": "311",
+      "title": "Need Somebody 1B 106",
+      "to_title": "Need Somebody",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 864,
+      "artist": "Cameron Whitcomb",
+      "title": "Bad Apple 1B 73",
+      "to_title": "Bad Apple",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 865,
+      "artist": "Dropkick Murphys",
+      "title": "Who'll Stand With Us! 6B 190",
+      "to_title": "Who'll Stand With Us!",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 866,
+      "artist": "Evanescence",
+      "title": "Afterlife 5A 130",
+      "to_title": "Afterlife",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 871,
+      "artist": "Nothing More, Chris Daughtry",
+      "title": "Freefall 5B 100",
+      "to_title": "Freefall",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 872,
+      "artist": "Ok Go",
+      "title": "Love 12B 78",
+      "to_title": "Love",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 873,
+      "artist": "Royel Otis",
+      "title": "Moody 9B 85",
+      "to_title": "Moody",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 874,
+      "artist": "Sombr",
+      "title": "Undressed 8A 116",
+      "to_title": "Undressed",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 875,
+      "artist": "The All-American Rejects",
+      "title": "Easy Come, Easy Go 9A 122",
+      "to_title": "Easy Come, Easy Go",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 876,
+      "artist": "The All-American Rejects",
+      "title": "Sandbox 11A 120",
+      "to_title": "Sandbox",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 877,
+      "artist": "The Black Keys",
+      "title": "No Rain, No Flowers 8A 110",
+      "to_title": "No Rain, No Flowers",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 879,
+      "artist": "The Lumineers",
+      "title": "A--Hole [First We Ever Met] 3A 69",
+      "to_title": "A--Hole [First We Ever Met]",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 880,
+      "artist": "Three Days Grace",
+      "title": "Apologies 3A 119",
+      "to_title": "Apologies",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 881,
+      "artist": "Wolf Alice",
+      "title": "Bloom Baby Bloom 7A 96",
+      "to_title": "Bloom Baby Bloom",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 882,
+      "artist": "Yellowcard",
+      "title": "Better Days 10B 87",
+      "to_title": "Better Days",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 885,
+      "artist": "Badflower",
+      "title": "Paws 5B 106",
+      "to_title": "Paws",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 886,
+      "artist": "Blue October",
+      "title": "Hot Stuff 8A 121",
+      "to_title": "Hot Stuff",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 887,
+      "artist": "Bob Moses",
+      "title": "Time Of Your Life 7A 95",
+      "to_title": "Time Of Your Life",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 888,
+      "artist": "Chevelle",
+      "title": "Rabbit Hole (Cowards, Pt. 1) 1B 88",
+      "to_title": "Rabbit Hole (Cowards, Pt. 1)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 890,
+      "artist": "Halestorm",
+      "title": "Darkness Always Wins 12A 151",
+      "to_title": "Darkness Always Wins",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 891,
+      "artist": "Lorde",
+      "title": "What Was That 8B 127",
+      "to_title": "What Was That",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 892,
+      "artist": "Mammoth",
+      "title": "The End 9A 144",
+      "to_title": "The End",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 893,
+      "artist": "Role Model",
+      "title": "Sally, When The Wine Runs Out 4B 120",
+      "to_title": "Sally, When The Wine Runs Out",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 894,
+      "artist": "Sleep Theory",
+      "title": "Static 3A 135",
+      "to_title": "Static",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 895,
+      "artist": "Sombr",
+      "title": "Back To Friends 3A 92",
+      "to_title": "Back To Friends",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 896,
+      "artist": "The Beaches",
+      "title": "Last Girls At The Party 10A 86",
+      "to_title": "Last Girls At The Party",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 897,
+      "artist": "The Funeral Portrait",
+      "title": "Holy Water 7A 87",
+      "to_title": "Holy Water",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 900,
+      "artist": "Turnstile",
+      "title": "Never Enough 10A 154",
+      "to_title": "Never Enough",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 901,
+      "artist": "Twenty One Pilots",
+      "title": "Doubt 7A 123",
+      "to_title": "Doubt",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 906,
+      "artist": "Bad Suns",
+      "title": "Communicating 10B 120",
+      "to_title": "Communicating",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 908,
+      "artist": "Djo",
+      "title": "Basic Being Basic 3B 122",
+      "to_title": "Basic Being Basic",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 909,
+      "artist": "Good Neighbours",
+      "title": "Ripple 1B 85",
+      "to_title": "Ripple",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 910,
+      "artist": "Half.Alive",
+      "title": "Automatic 11B 81",
+      "to_title": "Automatic",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 912,
+      "artist": "Little Image",
+      "title": "The Pressure 8A 140",
+      "to_title": "The Pressure",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 914,
+      "artist": "Papa Roach",
+      "title": "Even If It Kills Me 7A 79",
+      "to_title": "Even If It Kills Me",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 915,
+      "artist": "Rise Against",
+      "title": "Nod 12A 116",
+      "to_title": "Nod",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 916,
+      "artist": "Shinedown",
+      "title": "Dance, Kid, Dance 10A 85",
+      "to_title": "Dance, Kid, Dance",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 917,
+      "artist": "Shinedown",
+      "title": "Three Six Five 10B 107",
+      "to_title": "Three Six Five",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 919,
+      "artist": "The Backfires",
+      "title": "Replace It All 10B 150",
+      "to_title": "Replace It All",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 920,
+      "artist": "The Lumineers",
+      "title": "Same Old Song 12B 86",
+      "to_title": "Same Old Song",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 921,
+      "artist": "The Rockyts",
+      "title": "A Girl Like You 9A 138",
+      "to_title": "A Girl Like You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 922,
+      "artist": "Tremonti",
+      "title": "Just Too Much 10A 77",
+      "to_title": "Just Too Much",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 924,
+      "artist": "Yeah Yeah Yeahs",
+      "title": "Maps 9B 120",
+      "to_title": "Maps",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 927,
+      "artist": "Almost Monday",
+      "title": "Jupiter 1A 104",
+      "to_title": "Jupiter",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 928,
+      "artist": "Durry",
+      "title": "This Movie Sucks 11B 82",
+      "to_title": "This Movie Sucks",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 929,
+      "artist": "Flipturn",
+      "title": "Rodeo Clown 8A 56",
+      "to_title": "Rodeo Clown",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 930,
+      "artist": "Franz Ferdinand",
+      "title": "Hooked 6A 128",
+      "to_title": "Hooked",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 933,
+      "artist": "Julia Wolf",
+      "title": "In My Room 12B 80",
+      "to_title": "In My Room",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 934,
+      "artist": "Killswitch Engage",
+      "title": "I Believe 7A 130",
+      "to_title": "I Believe",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 935,
+      "artist": "Linkin Park",
+      "title": "Up From The Bottom 4A 107",
+      "to_title": "Up From The Bottom",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 936,
+      "artist": "Malcolm Todd, Omar Apollo",
+      "title": "Bleed 8A 124",
+      "to_title": "Bleed",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 937,
+      "artist": "Neiked, Portugal. The Man",
+      "title": "Glide 6A 122",
+      "to_title": "Glide",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 939,
+      "artist": "Poppy",
+      "title": "The Cost Of Giving Up 6A 102",
+      "to_title": "The Cost Of Giving Up",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 940,
+      "artist": "Sleep Token",
+      "title": "Emergence (Rock Version) 9A 126",
+      "to_title": "Emergence (Rock Version)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 941,
+      "artist": "Slow Joy",
+      "title": "Gruesome 3B 87",
+      "to_title": "Gruesome",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 942,
+      "artist": "Sports Team",
+      "title": "Bang Bang Bang 9A 117",
+      "to_title": "Bang Bang Bang",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 943,
+      "artist": "The Marias",
+      "title": "No One Noticed 9B 98",
+      "to_title": "No One Noticed",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 944,
+      "artist": "Third Eye Blind",
+      "title": "Like A Lullaby 11B 93",
+      "to_title": "Like A Lullaby",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 945,
+      "artist": "Volbeat",
+      "title": "By A Monster's Hand 7A 122",
+      "to_title": "By A Monster's Hand",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 946,
+      "artist": "Aerosmith & Yungblud",
+      "title": "My Only Angel 110",
+      "to_title": "My Only Angel",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 947,
+      "artist": "Alkaline Trio",
+      "title": "Oblivion 153",
+      "to_title": "Oblivion",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 948,
+      "artist": "Avatar",
+      "title": "Tonight We Must Be Warriors 84",
+      "to_title": "Tonight We Must Be Warriors",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 949,
+      "artist": "Djo",
+      "title": "Delete Ya 118",
+      "to_title": "Delete Ya",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 950,
+      "artist": "Gorillaz F. Sparks",
+      "title": "The Happy Dictator 136",
+      "to_title": "The Happy Dictator",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 951,
+      "artist": "Hollywood Undead",
+      "title": "Savior 114",
+      "to_title": "Savior",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 955,
+      "artist": "Poppy, Amy Lee & Courtney Laplante",
+      "title": "End Of You 95",
+      "to_title": "End Of You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 958,
+      "artist": "Sombr",
+      "title": "12 To 12 124",
+      "to_title": "12 To 12",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 961,
+      "artist": "The Pretty Reckless",
+      "title": "For I Am Death 138",
+      "to_title": "For I Am Death",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 962,
+      "artist": "Twenty One Pilots",
+      "title": "City Walls 94",
+      "to_title": "City Walls",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 963,
+      "artist": "Wisp",
+      "title": "Save Me Now 93",
+      "to_title": "Save Me Now",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 964,
+      "artist": "Wolf Alice",
+      "title": "White Horses 146",
+      "to_title": "White Horses",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 968,
+      "artist": "Bob Moses",
+      "title": "Last Forever 118",
+      "to_title": "Last Forever",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 969,
+      "artist": "Chevelle",
+      "title": "Pale Horse 103",
+      "to_title": "Pale Horse",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 970,
+      "artist": "Daughtry",
+      "title": "The Bottom 87",
+      "to_title": "The Bottom",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 971,
+      "artist": "Deftones",
+      "title": "Infinite Source 152",
+      "to_title": "Infinite Source",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 972,
+      "artist": "Fall Out Boy",
+      "title": "Start Today 106",
+      "to_title": "Start Today",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 973,
+      "artist": "Florence + The Machine",
+      "title": "Everybody Scream 120",
+      "to_title": "Everybody Scream",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 976,
+      "artist": "Kenzo Cregan",
+      "title": "Talk Tonight 160",
+      "to_title": "Talk Tonight",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 978,
+      "artist": "Of Monsters And Men",
+      "title": "Ordinary Creature 157",
+      "to_title": "Ordinary Creature",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 979,
+      "artist": "Pierce The Veil",
+      "title": "So Far So Fake 126",
+      "to_title": "So Far So Fake",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 981,
+      "artist": "The Funeral Portrait",
+      "title": "Dark Thoughts 91",
+      "to_title": "Dark Thoughts",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 986,
+      "artist": "Bike Routes",
+      "title": "World Apart 10A 155",
+      "to_title": "World Apart",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 987,
+      "artist": "Bilmuri",
+      "title": "More Than Hate 11B 124",
+      "to_title": "More Than Hate",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 988,
+      "artist": "Dead Sugar",
+      "title": "Grudge 3A 128",
+      "to_title": "Grudge",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 989,
+      "artist": "Deftones",
+      "title": "My Mind Is A Mountain 5A 108",
+      "to_title": "My Mind Is A Mountain",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 990,
+      "artist": "Goo Goo Dolls",
+      "title": "Nothing Lasts Forever 8A 116",
+      "to_title": "Nothing Lasts Forever",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 991,
+      "artist": "Ice Nine Kills",
+      "title": "The Great Unknown 8A 119",
+      "to_title": "The Great Unknown",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 992,
+      "artist": "Matt Maeson",
+      "title": "Downstairs 2B 137",
+      "to_title": "Downstairs",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 994,
+      "artist": "Nine Inch Nails",
+      "title": "As Alive As You Need Me To Be 9A 107",
+      "to_title": "As Alive As You Need Me To Be",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 995,
+      "artist": "Ocean Alley",
+      "title": "Love Balloon 5A 100",
+      "to_title": "Love Balloon",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 997,
+      "artist": "Return To Dust",
+      "title": "Bored 4A 86",
+      "to_title": "Bored",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 998,
+      "artist": "Rome, Dirty Heads",
+      "title": "Slow & Easy 10A 92",
+      "to_title": "Slow & Easy",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 999,
+      "artist": "Saving Abel",
+      "title": "Dodged A Bullet 3A 160",
+      "to_title": "Dodged A Bullet",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1000,
+      "artist": "Shinedown",
+      "title": "Killing Fields 12A 134",
+      "to_title": "Killing Fields",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1003,
+      "artist": "Volbeat",
+      "title": "Time Will Heal 11B 127",
+      "to_title": "Time Will Heal",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1004,
+      "artist": "Wednesday",
+      "title": "Elderberry Wine 9B 112",
+      "to_title": "Elderberry Wine",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1005,
+      "artist": "White Reaper",
+      "title": "Honestly 3A 102",
+      "to_title": "Honestly",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1006,
+      "artist": "Aranda",
+      "title": "You Don't Wanna Know 10B 100",
+      "to_title": "You Don't Wanna Know",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1009,
+      "artist": "Brandi Carlile",
+      "title": "Human 2B 60",
+      "to_title": "Human",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1011,
+      "artist": "Cold War Kidj Double S",
+      "title": "Push My Luck 10B 152",
+      "to_title": "Push My Luck",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1012,
+      "artist": "Dominic Fike",
+      "title": "Babydoll 8A 84",
+      "to_title": "Babydoll",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1013,
+      "artist": "Foo Fighters",
+      "title": "Your Favorite Toy 11A 147",
+      "to_title": "Your Favorite Toy",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1014,
+      "artist": "Goo Goo Dolls",
+      "title": "Misery 5B 77",
+      "to_title": "Misery",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1015,
+      "artist": "Ice Nine Kills, Mckenna Grace",
+      "title": "Twisting The Knife 5B 91",
+      "to_title": "Twisting The Knife",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1016,
+      "artist": "Metric",
+      "title": "Victim Of Luck 6B 101",
+      "to_title": "Victim Of Luck",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1017,
+      "artist": "Mitski",
+      "title": "Where's My Phone! 6A 133",
+      "to_title": "Where's My Phone!",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1018,
+      "artist": "Post Sex Nachos",
+      "title": "Sos 1B 112",
+      "to_title": "Sos",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1020,
+      "artist": "Sleep Theory",
+      "title": "Wordj Double S Are Worthless 3A 50",
+      "to_title": "Wordj Double S Are Worthless",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1021,
+      "artist": "Social Distortion",
+      "title": "Born To Kill 5A 83",
+      "to_title": "Born To Kill",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1022,
+      "artist": "Sombr",
+      "title": "Homewrecker 3A 100",
+      "to_title": "Homewrecker",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1024,
+      "artist": "The Hellp",
+      "title": "Here I Am 12A 106",
+      "to_title": "Here I Am",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1025,
+      "artist": "Towa Bird",
+      "title": "Gentleman 9A 82",
+      "to_title": "Gentleman",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1026,
+      "artist": "Twenty One Pilots",
+      "title": "Drag Path 12B 95",
+      "to_title": "Drag Path",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1027,
+      "artist": "Weezer, Bethany Cosentino",
+      "title": "Go Away 3B 86",
+      "to_title": "Go Away",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1028,
+      "artist": "5 Secondj Double S Of Summer",
+      "title": "Not Ok 4A 140",
+      "to_title": "Not Ok",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1029,
+      "artist": "Buffalo Traffic Jam",
+      "title": "Fool's Gold 1A 70",
+      "to_title": "Fool's Gold",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1030,
+      "artist": "Chet Faker",
+      "title": "This Time For Real 9B 82",
+      "to_title": "This Time For Real",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1031,
+      "artist": "Des Rocs",
+      "title": "This Land (Theme From Borderlandj Double S 4) 9A 86",
+      "to_title": "This Land (Theme From Borderlandj Double S 4)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1032,
+      "artist": "Finger Eleven",
+      "title": "The Mountain 12A 65",
+      "to_title": "The Mountain",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1033,
+      "artist": "Florence + The Machine",
+      "title": "Sympathy Magic 9B 73",
+      "to_title": "Sympathy Magic",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1034,
+      "artist": "Florence Road",
+      "title": "Miss 9A 81",
+      "to_title": "Miss",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1035,
+      "artist": "Guns N' Roses",
+      "title": "Nothin' 1B 130",
+      "to_title": "Nothin'",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1036,
+      "artist": "Hatchie",
+      "title": "Sage 10A 120",
+      "to_title": "Sage",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1037,
+      "artist": "Inoha",
+      "title": "Seventh Heaven 10A 82",
+      "to_title": "Seventh Heaven",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1038,
+      "artist": "Joji",
+      "title": "Past Won't Leave My Bed 6A 70",
+      "to_title": "Past Won't Leave My Bed",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1039,
+      "artist": "Jutes",
+      "title": "It Takes Two 4A 116",
+      "to_title": "It Takes Two",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1041,
+      "artist": "Reverse Pathogen",
+      "title": "Sunday Afternoon 1B 78",
+      "to_title": "Sunday Afternoon",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1043,
+      "artist": "The Lumineers",
+      "title": "So Long 2B 74",
+      "to_title": "So Long",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1044,
+      "artist": "The Neighbourhood",
+      "title": "Hula Girl 7A 83",
+      "to_title": "Hula Girl",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1045,
+      "artist": "The Ramona Flowers",
+      "title": "That Summer 12A 85",
+      "to_title": "That Summer",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1046,
+      "artist": "The Strumbellas",
+      "title": "Skin Of My Teeth 12A 123",
+      "to_title": "Skin Of My Teeth",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1047,
+      "artist": "Twenty One Pilots",
+      "title": "Drum Show 3A 82",
+      "to_title": "Drum Show",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1048,
+      "artist": "Yungblud, The Smashing Pumpkins",
+      "title": "Zombie 1B 80",
+      "to_title": "Zombie",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1049,
+      "artist": "2Hollis",
+      "title": "Cope 4B 73",
+      "to_title": "Cope",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1050,
+      "artist": "Alter Bridge",
+      "title": "Silent Divide 12A 72",
+      "to_title": "Silent Divide",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1052,
+      "artist": "Bad Omens",
+      "title": "Dying To Love 4A 73",
+      "to_title": "Dying To Love",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1053,
+      "artist": "Cruz Beckham",
+      "title": "Optics 10B 126",
+      "to_title": "Optics",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1054,
+      "artist": "Daughtry",
+      "title": "Antidote 10A 75",
+      "to_title": "Antidote",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1055,
+      "artist": "Geese",
+      "title": "Cobra 9B 121",
+      "to_title": "Cobra",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1056,
+      "artist": "Goo Goo Dolls",
+      "title": "Not Goodbye (Close My Eyes) 9B 135",
+      "to_title": "Not Goodbye (Close My Eyes)",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1057,
+      "artist": "Halestorm",
+      "title": "Like A Woman Can 11A 57",
+      "to_title": "Like A Woman Can",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1058,
+      "artist": "Jonah Kagen",
+      "title": "The Roads 12B 110",
+      "to_title": "The Roads",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1060,
+      "artist": "Little Image",
+      "title": "Kill The Ghost 5A 78",
+      "to_title": "Kill The Ghost",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1063,
+      "artist": "Sabaton, Nothing More",
+      "title": "Crossing The Rubicon 9A 95",
+      "to_title": "Crossing The Rubicon",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1064,
+      "artist": "Shinedown",
+      "title": "Searchlight 8A 72",
+      "to_title": "Searchlight",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1067,
+      "artist": "Turnstile",
+      "title": "Look Out For Me 1A 132",
+      "to_title": "Look Out For Me",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1068,
+      "artist": "Velvet Chains",
+      "title": "How The Story Ends 7A 75",
+      "to_title": "How The Story Ends",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1069,
+      "artist": "Witch Post",
+      "title": "The Wolf 9B 140",
+      "to_title": "The Wolf",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1070,
+      "artist": "A Perfect Circle",
+      "title": "Starless 12A 135",
+      "to_title": "Starless",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1071,
+      "artist": "Almost Monday",
+      "title": "No More Regrets 3A 109",
+      "to_title": "No More Regrets",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1073,
+      "artist": "Bleachers",
+      "title": "We Should Talk 12B 129",
+      "to_title": "We Should Talk",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1074,
+      "artist": "Breaking Benjamin",
+      "title": "Something Wicked 4A 85",
+      "to_title": "Something Wicked",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1076,
+      "artist": "Cameron Whitcomb",
+      "title": "Kingdom Of Fear 10A 133",
+      "to_title": "Kingdom Of Fear",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1077,
+      "artist": "Edgehill",
+      "title": "Love To Go 10A 103",
+      "to_title": "Love To Go",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1078,
+      "artist": "Everlast",
+      "title": "Stones 9B 88",
+      "to_title": "Stones",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1079,
+      "artist": "Greta Van Fleet",
+      "title": "Play Your Games 1B 94",
+      "to_title": "Play Your Games",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1080,
+      "artist": "M.O.T.H.E.R.",
+      "title": "My Love 12B 78",
+      "to_title": "My Love",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1083,
+      "artist": "Michigander",
+      "title": "Freaking Out 1B 119",
+      "to_title": "Freaking Out",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1084,
+      "artist": "Mt. Joy, Gigi Perez",
+      "title": "In The Middle 10B 87",
+      "to_title": "In The Middle",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1085,
+      "artist": "Myles Smith",
+      "title": "Hold Me In The Dark 7B 132",
+      "to_title": "Hold Me In The Dark",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1087,
+      "artist": "Nothing But Thieves",
+      "title": "Evolution 8B 87",
+      "to_title": "Evolution",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1088,
+      "artist": "Switchfoot",
+      "title": "Absolution 11A 91",
+      "to_title": "Absolution",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1091,
+      "artist": "Autumn Kings",
+      "title": "Gone, Gone, Gone 8A 93",
+      "to_title": "Gone, Gone, Gone",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1093,
+      "artist": "Beck",
+      "title": "Ride Lonesome 12B 63",
+      "to_title": "Ride Lonesome",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1094,
+      "artist": "Black Veil Brides",
+      "title": "Vindicate 1A 120",
+      "to_title": "Vindicate",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1095,
+      "artist": "Eva Under Fire, Maria Brink",
+      "title": "Villainous 12A 100",
+      "to_title": "Villainous",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1096,
+      "artist": "Evanescence",
+      "title": "Who Will You Follow 8A 96",
+      "to_title": "Who Will You Follow",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1098,
+      "artist": "Iration",
+      "title": "Shoyu 8A 104",
+      "to_title": "Shoyu",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1099,
+      "artist": "Joyce Manor",
+      "title": "I Used To Go To This Bar 12B 100",
+      "to_title": "I Used To Go To This Bar",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1103,
+      "artist": "Poppy",
+      "title": "Time Will Tell 3A 101",
+      "to_title": "Time Will Tell",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1106,
+      "artist": "The Neighbourhood",
+      "title": "Private 7A 124",
+      "to_title": "Private",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1108,
+      "artist": "The Strokes",
+      "title": "Going Shopping 12B 76",
+      "to_title": "Going Shopping",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1109,
+      "artist": "The Temper Trap",
+      "title": "Giving Up Air 5A 126",
+      "to_title": "Giving Up Air",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1110,
+      "artist": "Tim Montana",
+      "title": "Break Me Down 1A 99",
+      "to_title": "Break Me Down",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1112,
+      "artist": "Architects",
+      "title": "Broken Mirror 8A 82",
+      "to_title": "Broken Mirror",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1113,
+      "artist": "Arctic Monkeys",
+      "title": "Opening Night 9A 123",
+      "to_title": "Opening Night",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1114,
+      "artist": "Balu Brigada",
+      "title": "Sideways 10B 137",
+      "to_title": "Sideways",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1116,
+      "artist": "Cannons",
+      "title": "Starlight 9B 125",
+      "to_title": "Starlight",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1118,
+      "artist": "Hayley Williams",
+      "title": "Parachute 10A 110",
+      "to_title": "Parachute",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1119,
+      "artist": "In Color",
+      "title": "Headlights 3B 94",
+      "to_title": "Headlights",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1120,
+      "artist": "Ivri",
+      "title": "Tower Of Memories 10A 80",
+      "to_title": "Tower Of Memories",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1122,
+      "artist": "Out In Front",
+      "title": "Float 5B 143",
+      "to_title": "Float",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1124,
+      "artist": "Spiritual Cramp",
+      "title": "Young Offenders 11B 113",
+      "to_title": "Young Offenders",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1125,
+      "artist": "The All-American Rejects",
+      "title": "Get This 12A 120",
+      "to_title": "Get This",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1126,
+      "artist": "The Black Keys",
+      "title": "You Got To Lose 9A 93",
+      "to_title": "You Got To Lose",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1127,
+      "artist": "The Last Dinner Party",
+      "title": "Count The Ways 9A 142",
+      "to_title": "Count The Ways",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1128,
+      "artist": "Twenty One Pilots",
+      "title": "Rawfear 10A 110",
+      "to_title": "Rawfear",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1129,
+      "artist": "Violet Grohl",
+      "title": "Thum 11A 147",
+      "to_title": "Thum",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1131,
+      "artist": "Yellowcard, Good Charlotte",
+      "title": "Bedroom Posters 9B 140",
+      "to_title": "Bedroom Posters",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1132,
+      "artist": "Young The Giant",
+      "title": "Different Kind Of Love 8A 105",
+      "to_title": "Different Kind Of Love",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1133,
+      "artist": "Beabadoobee, The Marias",
+      "title": "All I Did Was Dream Of You 11A 83",
+      "to_title": "All I Did Was Dream Of You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1135,
+      "artist": "Bilmuri, A Day To Remember",
+      "title": "Always Let You Down 3A 89",
+      "to_title": "Always Let You Down",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1136,
+      "artist": "Clarion",
+      "title": "Hello Juliet 6A 139",
+      "to_title": "Hello Juliet",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1137,
+      "artist": "Death Cab For Cutie",
+      "title": "Riptides 8B 125",
+      "to_title": "Riptides",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1139,
+      "artist": "Dirty Headj Double S",
+      "title": "One Of Those Days 9B 86",
+      "to_title": "One Of Those Days",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1140,
+      "artist": "Dogstar",
+      "title": "All In Now 12A 146",
+      "to_title": "All In Now",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1141,
+      "artist": "Gorillaz, Bizarrap, Kara Jackson, Anoushka Shankar",
+      "title": "Orange County 5B 130",
+      "to_title": "Orange County",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1143,
+      "artist": "Muse",
+      "title": "Be With You 4B 132",
+      "to_title": "Be With You",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1145,
+      "artist": "Ryan Perdz",
+      "title": "Sour 6A 146",
+      "to_title": "Sour",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1146,
+      "artist": "Sevendust",
+      "title": "Unbreakable 10A 105",
+      "to_title": "Unbreakable",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1147,
+      "artist": "Spacey Jane",
+      "title": "Do You Really Love Her 10B 120",
+      "to_title": "Do You Really Love Her",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1148,
+      "artist": "Sublime",
+      "title": "Until The Sun Explodes 2A 81",
+      "to_title": "Until The Sun Explodes",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1150,
+      "artist": "The Black Crowes",
+      "title": "Profane Prophecy 8A 136",
+      "to_title": "Profane Prophecy",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1152,
+      "artist": "The Runaroundj Double S",
+      "title": "Chasing The Good Times 11A 91",
+      "to_title": "Chasing The Good Times",
+      "reason": "strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1153,
+      "artist": "The Warning",
+      "title": "Kerosene 11A 160",
+      "to_title": "Kerosene",
+      "reason": "strip Promo Only key/BPM suffix"
+    }
+  ]
+}

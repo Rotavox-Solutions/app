@@ -1,0 +1,404 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-18-tags-artists",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-18",
+  "intent": "Correct mangled and variant artist tags so artist separation sees one artist per act (comma-split band names, AC; DC, band-member lists, spelling variants). Title fixes for the same songs ride along.",
+  "basis": {
+    "sheet_id": "2026-10-17-bolt-metadata-cleanup",
+    "sheet_captured_at": "2026-10-18T20:01:06Z"
+  },
+  "set_tags": [
+    {
+      "rdj_song_id": 4,
+      "artist": "AC; DC",
+      "title": "Back In Black",
+      "to_artist": "AC/DC",
+      "reason": "artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 22,
+      "artist": "AC; DC",
+      "title": "You Shook Me All Night Long",
+      "to_artist": "AC/DC",
+      "reason": "artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 81,
+      "artist": "Pretenders",
+      "title": "Back On The Chain Gang (2007 Remaster)",
+      "to_artist": "The Pretenders",
+      "to_title": "Back On The Chain Gang",
+      "reason": "artist: 'Pretenders' -> 'The Pretenders'; strip version tag"
+    },
+    {
+      "rdj_song_id": 101,
+      "artist": "AC; DC",
+      "title": "Thunderstruck",
+      "to_artist": "AC/DC",
+      "reason": "artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 116,
+      "artist": "The Goo Goo Dolls",
+      "title": "Iris",
+      "to_artist": "Goo Goo Dolls",
+      "reason": "artist: 'The Goo Goo Dolls' -> 'Goo Goo Dolls'"
+    },
+    {
+      "rdj_song_id": 272,
+      "artist": "P.O.D",
+      "title": "Youth Of The Nation",
+      "to_artist": "P.O.D.",
+      "reason": "artist: 'P.O.D' -> 'P.O.D.'"
+    },
+    {
+      "rdj_song_id": 280,
+      "artist": "Black Crowes, The",
+      "title": "Lickin'",
+      "to_artist": "The Black Crowes",
+      "reason": "artist: 'Black Crowes, The' -> 'The Black Crowes'"
+    },
+    {
+      "rdj_song_id": 436,
+      "artist": "Letdown",
+      "title": "Do It For The Love (Clean)",
+      "to_artist": "Letdown.",
+      "to_title": "Do It For The Love",
+      "reason": "artist: 'Letdown' -> 'Letdown.'; strip version tag"
+    },
+    {
+      "rdj_song_id": 469,
+      "artist": "Caroline  Lachek",
+      "title": "So Hot You're Hurting My Feelings",
+      "to_artist": "Caroline Polachek",
+      "reason": "artist: 'Caroline  Lachek' -> 'Caroline Polachek'"
+    },
+    {
+      "rdj_song_id": 488,
+      "artist": "Big Time Nate F.; Ofi",
+      "title": "Twenty Seconds",
+      "to_artist": "Big Time Nate feat. Ofi",
+      "reason": "artist: 'Big Time Nate F.; Ofi' -> 'Big Time Nate feat. Ofi'"
+    },
+    {
+      "rdj_song_id": 492,
+      "artist": "Matisyahu F.; Salt Cathedral",
+      "title": "Chameleon (Clean Edit)",
+      "to_artist": "Matisyahu feat. Salt Cathedral",
+      "to_title": "Chameleon",
+      "reason": "artist: 'Matisyahu F.; Salt Cathedral' -> 'Matisyahu feat. Salt Cathedral'; strip version tag"
+    },
+    {
+      "rdj_song_id": 493,
+      "artist": "Nick Brodeur F.; Kymani Marley",
+      "title": "She's So Crazy",
+      "to_artist": "Nick Brodeur feat. Kymani Marley",
+      "reason": "artist: 'Nick Brodeur F.; Kymani Marley' -> 'Nick Brodeur feat. Kymani Marley'"
+    },
+    {
+      "rdj_song_id": 494,
+      "artist": "Our Lady Peace F.; Pussy Riot",
+      "title": "Stop Making Stupid People Famous",
+      "to_artist": "Our Lady Peace feat. Pussy Riot",
+      "reason": "artist: 'Our Lady Peace F.; Pussy Riot' -> 'Our Lady Peace feat. Pussy Riot'"
+    },
+    {
+      "rdj_song_id": 496,
+      "artist": "Willow F.; Travis Barker",
+      "title": "Gaslight",
+      "to_artist": "Willow feat. Travis Barker",
+      "reason": "artist: 'Willow F.; Travis Barker' -> 'Willow feat. Travis Barker'"
+    },
+    {
+      "rdj_song_id": 508,
+      "artist": "Weathers F.; John The Ghost",
+      "title": "ALL CAPS",
+      "to_artist": "Weathers feat. John The Ghost",
+      "reason": "artist: 'Weathers F.; John The Ghost' -> 'Weathers feat. John The Ghost'"
+    },
+    {
+      "rdj_song_id": 525,
+      "artist": "Smith",
+      "title": "Lemon",
+      "to_artist": "SMITH",
+      "reason": "artist: 'Smith' -> 'SMITH'"
+    },
+    {
+      "rdj_song_id": 545,
+      "artist": "Don T Believe In Ghosts",
+      "title": "Makes No Difference 120",
+      "to_artist": "Don't Believe In Ghosts",
+      "to_title": "Makes No Difference",
+      "reason": "artist: 'Don T Believe In Ghosts' -> \"Don't Believe In Ghosts\"; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 554,
+      "artist": "Rezz   Grabbitz",
+      "title": "Signal 85",
+      "to_artist": "Rezz & Grabbitz",
+      "to_title": "Signal",
+      "reason": "artist: 'Rezz   Grabbitz' -> 'Rezz & Grabbitz'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 589,
+      "artist": "Noah Kahan W;  Post Malone",
+      "title": "Dial Drunk (Clean) 112",
+      "to_artist": "Noah Kahan feat. Post Malone",
+      "to_title": "Dial Drunk",
+      "reason": "artist: 'Noah Kahan W;  Post Malone' -> 'Noah Kahan feat. Post Malone'; strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 764,
+      "artist": "Dexter, The Moonrocks",
+      "title": "Ritalin (Rado Edit) 12B 114",
+      "to_artist": "Dexter and the Moonrocks",
+      "to_title": "Ritalin",
+      "reason": "artist: 'Dexter, The Moonrocks' -> 'Dexter and the Moonrocks'; strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 766,
+      "artist": "Giovannie, The Hired Guns",
+      "title": "Quitter (Clean) 11B 105",
+      "to_artist": "Giovannie and the Hired Guns",
+      "to_title": "Quitter",
+      "reason": "artist: 'Giovannie, The Hired Guns' -> 'Giovannie and the Hired Guns'; strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 791,
+      "artist": "Mumford, Sons",
+      "title": "Caroline 9B 81",
+      "to_artist": "Mumford & Sons",
+      "to_title": "Caroline",
+      "reason": "artist: 'Mumford, Sons' -> 'Mumford & Sons'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 852,
+      "artist": "Mod Sun",
+      "title": "Hotel Lights 8B 126",
+      "to_artist": "MOD SUN",
+      "to_title": "Hotel Lights",
+      "reason": "artist: 'Mod Sun' -> 'MOD SUN'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 867,
+      "artist": "Falling In Reverse, Marilyn Mansion",
+      "title": "God Is A Weapon [Clean] 9A 67",
+      "to_artist": "Falling In Reverse, Marilyn Manson",
+      "to_title": "God Is A Weapon",
+      "reason": "artist: 'Falling In Reverse, Marilyn Mansion' -> 'Falling In Reverse, Marilyn Manson'; strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 884,
+      "artist": "Ax, The Hatchetmen With Albert Hammond Jr.",
+      "title": "Blurry Lights 8A 120",
+      "to_artist": "Ax and the Hatchetmen feat. Albert Hammond Jr.",
+      "to_title": "Blurry Lights",
+      "reason": "artist: 'Ax, The Hatchetmen With Albert Hammond Jr.' -> 'Ax and the Hatchetmen feat. Albert Hammond Jr.'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 904,
+      "artist": "Amyl, The Sniffers",
+      "title": "U Should Not Be Doing That (PO Clean Edit) 1A 125",
+      "to_artist": "Amyl and the Sniffers",
+      "to_title": "U Should Not Be Doing That",
+      "reason": "artist: 'Amyl, The Sniffers' -> 'Amyl and the Sniffers'; strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 905,
+      "artist": "Awolnation",
+      "title": "Barbarian 6B 74",
+      "to_artist": "AWOLNATION",
+      "to_title": "Barbarian",
+      "reason": "artist: 'Awolnation' -> 'AWOLNATION'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 907,
+      "artist": "Coheed, Cambria",
+      "title": "Someone Who Can 12B 168",
+      "to_artist": "Coheed and Cambria",
+      "to_title": "Someone Who Can",
+      "reason": "artist: 'Coheed, Cambria' -> 'Coheed and Cambria'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 913,
+      "artist": "Mumford, Sons",
+      "title": "Rushmere 6B 138",
+      "to_artist": "Mumford & Sons",
+      "to_title": "Rushmere",
+      "reason": "artist: 'Mumford, Sons' -> 'Mumford & Sons'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 996,
+      "artist": "Of Mice, Men",
+      "title": "Wake Up 10A 128",
+      "to_artist": "Of Mice & Men",
+      "to_title": "Wake Up",
+      "reason": "artist: 'Of Mice, Men' -> 'Of Mice & Men'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1072,
+      "artist": "Ax, The Hatchetmen",
+      "title": "Hotel Room 11A 82",
+      "to_artist": "Ax and the Hatchetmen",
+      "to_title": "Hotel Room",
+      "reason": "artist: 'Ax, The Hatchetmen' -> 'Ax and the Hatchetmen'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1075,
+      "artist": "Brian Fallon, The Painkillers",
+      "title": "Better Before 8B 125",
+      "to_artist": "Brian Fallon & The Painkillers",
+      "to_title": "Better Before",
+      "reason": "artist: 'Brian Fallon, The Painkillers' -> 'Brian Fallon & The Painkillers'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1138,
+      "artist": "Dexter, The Moonrocks",
+      "title": "Freakin' Out 9A 124",
+      "to_artist": "Dexter and the Moonrocks",
+      "to_title": "Freakin' Out",
+      "reason": "artist: 'Dexter, The Moonrocks' -> 'Dexter and the Moonrocks'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1398,
+      "artist": "Three Days Grace, Three Days Grace",
+      "title": "Chalk Outline",
+      "to_artist": "Three Days Grace",
+      "reason": "artist: 'Three Days Grace, Three Days Grace' -> 'Three Days Grace'"
+    },
+    {
+      "rdj_song_id": 1512,
+      "artist": "4 Non Blondes, Shaunna Hall, Christa Hillhouse, Linda Perry",
+      "title": "What's Up?",
+      "to_artist": "4 Non Blondes",
+      "reason": "artist: '4 Non Blondes, Shaunna Hall, Christa Hillhouse, Linda Perry' -> '4 Non Blondes'"
+    },
+    {
+      "rdj_song_id": 1517,
+      "artist": "U2, Bono, The Edge, Adam Clayton, Larry Mullen, Jr.",
+      "title": "Even Better Than The Real Thing",
+      "to_artist": "U2",
+      "reason": "artist: 'U2, Bono, The Edge, Adam Clayton, Larry Mullen, Jr.' -> 'U2'"
+    },
+    {
+      "rdj_song_id": 1518,
+      "artist": "Queen, John Deacon, Brian May, Freddie Mercury, Roger Taylor, David Richards",
+      "title": "The Show Must Go On",
+      "to_artist": "Queen",
+      "reason": "artist: 'Queen, John Deacon, Brian May, Freddie Mercury, Roger Taylor, David Richards' -> 'Queen'"
+    },
+    {
+      "rdj_song_id": 1524,
+      "artist": "No Doubt, Gwen Stefani, Tony Kanal, Tom Dumont, Adrian Young, Eric Stefani, Melissa Hasin",
+      "title": "Don't Speak",
+      "to_artist": "No Doubt",
+      "reason": "artist: 'No Doubt, Gwen Stefani, Tony Kanal, Tom Dumont, Adrian Young, Eric Stefani, Melissa Hasin' -> 'No Doubt'"
+    },
+    {
+      "rdj_song_id": 1531,
+      "artist": "Ocean Colour Scene, Simon Fowler, Damon Minchella, Oscar Harrison, Steve Cradock, Paul Weller",
+      "title": "The Riverboat Song",
+      "to_artist": "Ocean Colour Scene",
+      "reason": "artist: 'Ocean Colour Scene, Simon Fowler, Damon Minchella, Oscar Harrison, Steve Cradock, Paul Weller' -> 'Ocean Colour Scene'"
+    },
+    {
+      "rdj_song_id": 1534,
+      "artist": "Def Leppard, Joe Elliott, Phil Collen, Rick Savage, Rick Allen",
+      "title": "Let's Get Rocked",
+      "to_artist": "Def Leppard",
+      "reason": "artist: 'Def Leppard, Joe Elliott, Phil Collen, Rick Savage, Rick Allen' -> 'Def Leppard'"
+    },
+    {
+      "rdj_song_id": 1536,
+      "artist": "Koяn, Korn",
+      "title": "Falling Away From Me",
+      "to_artist": "Korn",
+      "reason": "artist: 'Koяn, Korn' -> 'Korn'"
+    },
+    {
+      "rdj_song_id": 1538,
+      "artist": "Stereophonics, Kelly Jones, Richard Jones, Stuart Cable, Marshall Bird",
+      "title": "The Bartender And The Thief",
+      "to_artist": "Stereophonics",
+      "reason": "artist: 'Stereophonics, Kelly Jones, Richard Jones, Stuart Cable, Marshall Bird' -> 'Stereophonics'"
+    },
+    {
+      "rdj_song_id": 1545,
+      "artist": "Lit, Jeremy Popoff",
+      "title": "My Own Worst Enemy",
+      "to_artist": "Lit",
+      "reason": "artist: 'Lit, Jeremy Popoff' -> 'Lit'"
+    },
+    {
+      "rdj_song_id": 1547,
+      "artist": "Longpigs, Crispin Hunt, Richard Hawley, Simon Stafford, Dee Boyle",
+      "title": "She Said",
+      "to_artist": "Longpigs",
+      "reason": "artist: 'Longpigs, Crispin Hunt, Richard Hawley, Simon Stafford, Dee Boyle' -> 'Longpigs'"
+    },
+    {
+      "rdj_song_id": 1553,
+      "artist": "Scorpions, Klaus Meine, Matthias Jabs, Rudolf Schenker, Francis Buchholz, Herman Rarebell",
+      "title": "Wind Of Change",
+      "to_artist": "Scorpions",
+      "reason": "artist: 'Scorpions, Klaus Meine, Matthias Jabs, Rudolf Schenker, Francis Buchholz, Herman Rarebell' -> 'Scorpions'"
+    },
+    {
+      "rdj_song_id": 1563,
+      "artist": "Smashing Pumpkins, Billy Corgan, James Iha, D'arcy Wretzky, Jimmy Chamberlin",
+      "title": "Today",
+      "to_artist": "The Smashing Pumpkins",
+      "reason": "artist: \"Smashing Pumpkins, Billy Corgan, James Iha, D'arcy Wretzky, Jimmy Chamberlin\" -> 'The Smashing Pumpkins'"
+    },
+    {
+      "rdj_song_id": 1574,
+      "artist": "E, Tommy Walter",
+      "title": "Novocaine For The Soul",
+      "to_artist": "Eels",
+      "reason": "artist: 'E, Tommy Walter' -> 'Eels'"
+    },
+    {
+      "rdj_song_id": 1578,
+      "artist": "Buckcherry, Scott Olsen, Steve Durkey, Ulrich Wild, Joshua Todd, Keith Nelson, Jonathan Brightman, Devon Glenn, Kim Bullard, Steve Jones",
+      "title": "Lit Up",
+      "to_artist": "Buckcherry",
+      "reason": "artist: 'Buckcherry, Scott Olsen, Steve Durkey, Ulrich Wild, Joshua Todd, Keith Nelson, Jonathan Brightman, Devon Glenn, Kim Bullard, Steve Jones' -> 'Buckcherry'"
+    },
+    {
+      "rdj_song_id": 1647,
+      "artist": "AC; DC",
+      "title": "Hells Bells",
+      "to_artist": "AC/DC",
+      "reason": "artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 1659,
+      "artist": "AC; DC",
+      "title": "Dirty Deeds Done Dirt Cheap",
+      "to_artist": "AC/DC",
+      "reason": "artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 1673,
+      "artist": "AC; DC",
+      "title": "T.N.T.",
+      "to_artist": "AC/DC",
+      "reason": "artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 1688,
+      "artist": "Koяn",
+      "title": "Coming Undone",
+      "to_artist": "Korn",
+      "reason": "artist: 'Koяn' -> 'Korn'"
+    },
+    {
+      "rdj_song_id": 1707,
+      "artist": "Tom Petty & The Heartbreakers",
+      "title": "Learning To Fly",
+      "to_artist": "Tom Petty And The Heartbreakers",
+      "reason": "artist: 'Tom Petty & The Heartbreakers' -> 'Tom Petty And The Heartbreakers'"
+    }
+  ]
+}

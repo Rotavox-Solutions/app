@@ -2,9 +2,15 @@
 
 - **Captured:** 2026-10-17 from live RadioDJ (`clubfm-broadcast-1`, `radiodj3`), enabled Music songs only (1,511).
 - **Rows:** `2026-10-17-bolt-metadata-cleanup.tsv` — 851 songs, one row each, live value beside proposed value.
-- **Status:** proposal, pending PD review. It can be applied as a `set_tags` changeset
-  (CHANGESET-CONTRACT.md §3, added 2026-10-17). The changeset is not yet cut: it must be cut from a fresh
-  live read, because `set_tags` preconditions are exact.
+- **Status:** cut 2026-10-18 from a live snapshot taken at 20:01Z, by `tools/tag-cleanup.py`. **Not applied.**
+  There are three changesets with no song in more than one, so each can be applied or skipped on its own. Together they
+  hold exactly the 851 rows below, with identical values:
+  - `changesets/2026-10-18-tags-artists.json`: 53 songs whose artist changes, with their title fixes too.
+  - `changesets/2026-10-18-tags-versions.json`: 342 title fixes that strip a version tag, plus any key/BPM suffix.
+  - `changesets/2026-10-18-tags-bpm.json`: 456 title fixes that are only a key/BPM suffix.
+
+  Skipping `versions` also leaves the key/BPM suffixes on those 342 titles. Re-cut with the version rule
+  off if the PD wants suffixes stripped but version tags kept.
 - **Knock-on:** retagging trips the artist/title precondition in every earlier changeset and inverse. Replaying or
   rolling one back afterwards needs `--allow-tag-drift`.
 

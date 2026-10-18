@@ -1,0 +1,2407 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-18-tags-versions",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-18",
+  "intent": "Strip version tags from titles ((Clean), (PO Clean Edit), (Radio Edit), (Original Mix), remaster notes); real alternate versions (Acoustic, Live, Remix) are kept. Key/BPM suffixes on the same titles ride along.",
+  "basis": {
+    "sheet_id": "2026-10-17-bolt-metadata-cleanup",
+    "sheet_captured_at": "2026-10-18T20:01:06Z"
+  },
+  "set_tags": [
+    {
+      "rdj_song_id": 1,
+      "artist": "Queen",
+      "title": "Another One Bites The Dust (2011 Remaster)",
+      "to_title": "Another One Bites The Dust",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 10,
+      "artist": "Def Leppard",
+      "title": "Pour Some Sugar On Me (Remastered 2017)",
+      "to_title": "Pour Some Sugar On Me",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 14,
+      "artist": "The Rolling Stones",
+      "title": "Start Me Up (Remastered)",
+      "to_title": "Start Me Up",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 15,
+      "artist": "U2",
+      "title": "With Or Without You (Remastered)",
+      "to_title": "With Or Without You",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 21,
+      "artist": "Queen, David Bowie",
+      "title": "Under Pressure (Remastered 2011 / New Master)",
+      "to_title": "Under Pressure",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 36,
+      "artist": "The Police",
+      "title": "Every Breath You Take (Remastered 2003)",
+      "to_title": "Every Breath You Take",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 38,
+      "artist": "Genesis",
+      "title": "That's All (2007 Remaster)",
+      "to_title": "That's All",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 43,
+      "artist": "The Pretenders",
+      "title": "Brass In Pocket (2006 Remaster)",
+      "to_title": "Brass In Pocket",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 47,
+      "artist": "Poison",
+      "title": "Every Rose Has Its Thorn (Remastered 2003)",
+      "to_title": "Every Rose Has Its Thorn",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 51,
+      "artist": "Pat Benatar",
+      "title": "Hit Me With Your Best Shot (Remastered)",
+      "to_title": "Hit Me With Your Best Shot",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 53,
+      "artist": "U2",
+      "title": "Pride (In The Name Of Love) (Remastered 2009)",
+      "to_title": "Pride (In The Name Of Love)",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 58,
+      "artist": "Queen",
+      "title": "Crazy Little Thing Called Love (2011 Remaster)",
+      "to_title": "Crazy Little Thing Called Love",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 59,
+      "artist": "Def Leppard",
+      "title": "Hysteria (Remastered 2017)",
+      "to_title": "Hysteria",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 72,
+      "artist": "The Police",
+      "title": "Every Little Thing She Does Is Magic (Remastered 2003)",
+      "to_title": "Every Little Thing She Does Is Magic",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 74,
+      "artist": "Genesis",
+      "title": "Invisible Touch (2007 Remaster)",
+      "to_title": "Invisible Touch",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 82,
+      "artist": "Foreigner",
+      "title": "I Want To Know What Love Is (1999 Remaster)",
+      "to_title": "I Want To Know What Love Is",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 84,
+      "artist": "Peter Gabriel",
+      "title": "Sledgehammer (2012 Remaster)",
+      "to_title": "Sledgehammer",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 86,
+      "artist": "Poison",
+      "title": "Nothin' But A Good Time (Remastered 2006)",
+      "to_title": "Nothin' But A Good Time",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 89,
+      "artist": "R.E.M.",
+      "title": "The One I Love (Remastered 2012)",
+      "to_title": "The One I Love",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 91,
+      "artist": "The Clash",
+      "title": "Should I Stay Or Should I Go (Remastered)",
+      "to_title": "Should I Stay Or Should I Go",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 92,
+      "artist": "U2",
+      "title": "Where The Streets Have No Name (Remastered)",
+      "to_title": "Where The Streets Have No Name",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 99,
+      "artist": "The Police",
+      "title": "Wrapped Around Your Finger (Remastered 2003)",
+      "to_title": "Wrapped Around Your Finger",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 107,
+      "artist": "Oasis",
+      "title": "Wonderwall (Remastered)",
+      "to_title": "Wonderwall",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 114,
+      "artist": "Stone Temple Pilots",
+      "title": "Plush (Remastered)",
+      "to_title": "Plush",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 115,
+      "artist": "Tom Petty",
+      "title": "You Don't Know How It Feels (2014 Remaster)",
+      "to_title": "You Don't Know How It Feels",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 139,
+      "artist": "The Smashing Pumpkins",
+      "title": "1979 (Remastered 2012)",
+      "to_title": "1979",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 142,
+      "artist": "Stone Temple Pilots",
+      "title": "Interstate Love Song (2019 Remaster)",
+      "to_title": "Interstate Love Song",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 144,
+      "artist": "Beastie Boys",
+      "title": "Sabotage (Remastered 2009)",
+      "to_title": "Sabotage",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 156,
+      "artist": "Depeche Mode",
+      "title": "Personal Jesus (2006 Remaster)",
+      "to_title": "Personal Jesus",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 165,
+      "artist": "The Smashing Pumpkins",
+      "title": "Bullet With Butterfly Wings (Remastered 2012)",
+      "to_title": "Bullet With Butterfly Wings",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 173,
+      "artist": "Garbage",
+      "title": "Only Happy When It Rains (2015 - Remaster)",
+      "to_title": "Only Happy When It Rains",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 189,
+      "artist": "Pearl Jam",
+      "title": "Daughter (Remastered)",
+      "to_title": "Daughter",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 191,
+      "artist": "Oasis",
+      "title": "Don't Look Back In Anger (Remastered)",
+      "to_title": "Don't Look Back In Anger",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 285,
+      "artist": "Nickelback",
+      "title": "Photograph (Acoustic) (2020 Remaster)",
+      "to_title": "Photograph (Acoustic)",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 403,
+      "artist": "Electric Callboy Feat. The Offspring",
+      "title": "Let The Good Times Roll (Clean)",
+      "to_title": "Let The Good Times Roll",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 413,
+      "artist": "U2",
+      "title": "Street Of Dreams (Radio Edit)",
+      "to_title": "Street Of Dreams",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 427,
+      "artist": "Beabadoobee",
+      "title": "Write Me A Letter (Clean)",
+      "to_title": "Write Me A Letter",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 430,
+      "artist": "Dead Poet Society",
+      "title": "Cold (Clean)",
+      "to_title": "Cold",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 431,
+      "artist": "Death Cab For Cutie",
+      "title": "Stone Over Water (Clean)",
+      "to_title": "Stone Over Water",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 432,
+      "artist": "Evanescence",
+      "title": "Tell Me When You've Had Enough (Clean)",
+      "to_title": "Tell Me When You've Had Enough",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 433,
+      "artist": "Five Finger Death Punch",
+      "title": "Nails In The Coffin (Clean)",
+      "to_title": "Nails In The Coffin",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 434,
+      "artist": "Fozzy",
+      "title": "I Know Evil (Original Mix)",
+      "to_title": "I Know Evil",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 435,
+      "artist": "In Color",
+      "title": "High (Clean)",
+      "to_title": "High",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 437,
+      "artist": "Muse",
+      "title": "Cryogen (Clean)",
+      "to_title": "Cryogen",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 438,
+      "artist": "Spiritbox",
+      "title": "Perfect Soul (Radio Edit)",
+      "to_title": "Perfect Soul",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 439,
+      "artist": "Sublime",
+      "title": "F.T.R (Dirty)",
+      "to_title": "F.T.R",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 440,
+      "artist": "Tame Impala",
+      "title": "Loser (Clean)",
+      "to_title": "Loser",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 441,
+      "artist": "The Paradox",
+      "title": "I Kinda Like That (Dirty)",
+      "to_title": "I Kinda Like That",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 442,
+      "artist": "The Warning",
+      "title": "Bite My Tongue (Clean)",
+      "to_title": "Bite My Tongue",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 443,
+      "artist": "Theory Of A Deadman",
+      "title": "Winnebago (Lay Low) (Original Mix)",
+      "to_title": "Winnebago (Lay Low)",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 444,
+      "artist": "U2",
+      "title": "Silencio (Clean)",
+      "to_title": "Silencio",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 445,
+      "artist": "Wage War",
+      "title": "Blindfold (Clean)",
+      "to_title": "Blindfold",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 446,
+      "artist": "Des Rocs",
+      "title": "When The Love Is Gone (Clean)",
+      "to_title": "When The Love Is Gone",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 447,
+      "artist": "Fontaines D.C.",
+      "title": "Marianne (Clean)",
+      "to_title": "Marianne",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 448,
+      "artist": "Royal Blood",
+      "title": "Ten Over Ten (Clean)",
+      "to_title": "Ten Over Ten",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 449,
+      "artist": "Steve Lacy",
+      "title": "Oh Yeah (Dirty)",
+      "to_title": "Oh Yeah",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 450,
+      "artist": "The Beaches",
+      "title": "Edge Of The Earth (Clean)",
+      "to_title": "Edge Of The Earth",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 451,
+      "artist": "The Revivalists",
+      "title": "Heart Stop (Radio Edit)",
+      "to_title": "Heart Stop",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 452,
+      "artist": "Adult Leisure",
+      "title": "Kiss Me Like You Miss Her (Clean)",
+      "to_title": "Kiss Me Like You Miss Her",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 453,
+      "artist": "Bad Wolves",
+      "title": "Jolene (Clean)",
+      "to_title": "Jolene",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 454,
+      "artist": "Chvrches",
+      "title": "Roses (Clean)",
+      "to_title": "Roses",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 456,
+      "artist": "K.Flay",
+      "title": "Ants (Clean)",
+      "to_title": "Ants",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 457,
+      "artist": "Sylvan Esso",
+      "title": "Sledge (Original Mix)",
+      "to_title": "Sledge",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 458,
+      "artist": "Three Days Grace",
+      "title": "Don't Wanna Go Home Tonight (Dirty)",
+      "to_title": "Don't Wanna Go Home Tonight",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 459,
+      "artist": "Blossoms",
+      "title": "Meet Me In Love (Clean)",
+      "to_title": "Meet Me In Love",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 460,
+      "artist": "In This Moment, Dayseeker",
+      "title": "I Want To Believe (Clean)",
+      "to_title": "I Want To Believe",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 461,
+      "artist": "Kings Of Leon",
+      "title": "My Whole World (Clean)",
+      "to_title": "My Whole World",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 462,
+      "artist": "Mastodon",
+      "title": "Snakes For Dinner (Clean)",
+      "to_title": "Snakes For Dinner",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 463,
+      "artist": "PRESIDENT",
+      "title": "Sleepwalker (Clean)",
+      "to_title": "Sleepwalker",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 464,
+      "artist": "Slipknot",
+      "title": "Arsenal (Dirty)",
+      "to_title": "Arsenal",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 465,
+      "artist": "Judah & The Lion",
+      "title": "Maybe The Best Is Now (Radio Edit 1)",
+      "to_title": "Maybe The Best Is Now",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 466,
+      "artist": "Slightly Stoopid, Wiz Khalifa, G. Love",
+      "title": "Backseat Drivin (Clean)",
+      "to_title": "Backseat Drivin",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 470,
+      "artist": "Falling In Reverse",
+      "title": "Zombified (Clean)",
+      "to_title": "Zombified",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 473,
+      "artist": "Jack Kays With Travis Barker",
+      "title": "Sideways (Clean Edit)",
+      "to_title": "Sideways",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 480,
+      "artist": "Slothrust",
+      "title": "Waiting (Clean Radio Edit)",
+      "to_title": "Waiting",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 481,
+      "artist": "Slotide",
+      "title": "Neck High (Clean Edit)",
+      "to_title": "Neck High",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 482,
+      "artist": "SMITH",
+      "title": "Scab (PO Clean Edit)",
+      "to_title": "Scab",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 487,
+      "artist": "Avril Lavigne",
+      "title": "Bite Me (Clean Edit)",
+      "to_title": "Bite Me",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 497,
+      "artist": "100 Gecs",
+      "title": "Hollywood Baby (Clean.)",
+      "to_title": "Hollywood Baby",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 500,
+      "artist": "Del Water Gap",
+      "title": "Ode To A Conversation Stuck In Your Throat (Clean)",
+      "to_title": "Ode To A Conversation Stuck In Your Throat",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 502,
+      "artist": "Letdown.",
+      "title": "Crying In The Shower (Clean)",
+      "to_title": "Crying In The Shower",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 505,
+      "artist": "Milky Chance",
+      "title": "Living In A Haze (PO Clean Edit)",
+      "to_title": "Living In A Haze",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 513,
+      "artist": "Daughtry",
+      "title": "Artificial (Radio Edit)",
+      "to_title": "Artificial",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 517,
+      "artist": "I Don't Know How But They Found Me",
+      "title": "What Love (Radio Edit)",
+      "to_title": "What Love",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 531,
+      "artist": "Hannah Cutt",
+      "title": "Messy (Radio Edit)",
+      "to_title": "Messy",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 534,
+      "artist": "Koe Wetzel",
+      "title": "Creeps (Clean)",
+      "to_title": "Creeps",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 539,
+      "artist": "Bishop Briggs",
+      "title": "Baggage (Clean) 95",
+      "to_title": "Baggage",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 541,
+      "artist": "Bring Me The Horizon",
+      "title": "Lost (Clean) 92",
+      "to_title": "Lost",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 557,
+      "artist": "Ajr",
+      "title": "Yes I'm A Mess (Clean) 92",
+      "to_title": "Yes I'm A Mess",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 559,
+      "artist": "Bad Omens",
+      "title": "The Death Of Peace Of Mind (Clean Edit) 77",
+      "to_title": "The Death Of Peace Of Mind",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 560,
+      "artist": "Barns Courtney",
+      "title": "Young In America (Explicit) 140",
+      "to_title": "Young In America",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 570,
+      "artist": "Sum 41",
+      "title": "Landmines (Clean) 86",
+      "to_title": "Landmines",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 573,
+      "artist": "The Moss",
+      "title": "The Place That Makes Me Happy (Po Clean Edit) 78",
+      "to_title": "The Place That Makes Me Happy",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 582,
+      "artist": "Destroy Boys",
+      "title": "Shadow (I'm Breaking Down) (Po Intro Edit - Clean) 78",
+      "to_title": "Shadow (I'm Breaking Down)",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 593,
+      "artist": "The Hives",
+      "title": "Rigor Mortis Radio (Clean) 130",
+      "to_title": "Rigor Mortis Radio",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 594,
+      "artist": "The Last Dinner Party",
+      "title": "Nothing Matters (Clean) 101",
+      "to_title": "Nothing Matters",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 601,
+      "artist": "Girl In Red",
+      "title": "Too Much (Po Clean Edit) 81",
+      "to_title": "Too Much",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 602,
+      "artist": "Godsmack",
+      "title": "Truth (Clean) 117",
+      "to_title": "Truth",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 604,
+      "artist": "Hardy",
+      "title": "Rockstar (Po Clean Edit) 150",
+      "to_title": "Rockstar",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 605,
+      "artist": "Judah & The Lion",
+      "title": "Long Dark Night (Radio Edit) 83",
+      "to_title": "Long Dark Night",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 619,
+      "artist": "Bishop Briggs",
+      "title": "My Serotonin (Clean) 164",
+      "to_title": "My Serotonin",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 627,
+      "artist": "Judah & The Lion",
+      "title": "Floating In The Night (Radio Edit) 124",
+      "to_title": "Floating In The Night",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 629,
+      "artist": "St. Vincent",
+      "title": "Flea (Radio Edit) 140",
+      "to_title": "Flea",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 630,
+      "artist": "The All-American Rejects",
+      "title": "Flagpole Sitta (Po Clean Edit) 142",
+      "to_title": "Flagpole Sitta",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 632,
+      "artist": "The Dare",
+      "title": "Girls (Super Clean) 122",
+      "to_title": "Girls",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 635,
+      "artist": "Vienna Vienna",
+      "title": "Vienna (Everything's Fine) (Clean) 86",
+      "to_title": "Vienna (Everything's Fine)",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 645,
+      "artist": "Jagwar Twin",
+      "title": "Bad Feeling Oompa Loompa  Clean 95",
+      "to_title": "Bad Feeling Oompa Loompa",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 648,
+      "artist": "Jungle",
+      "title": "Back On 74 Edit 146",
+      "to_title": "Back On 74",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 650,
+      "artist": "Love Fame Tragedy",
+      "title": "Don't You Want To Sleep With Someone Normal Clean 136",
+      "to_title": "Don't You Want To Sleep With Someone Normal",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 654,
+      "artist": "Tarric",
+      "title": "I Had It Wrong Edit 77",
+      "to_title": "I Had It Wrong",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 662,
+      "artist": "Idles & Lcd Soundsystem",
+      "title": "Dancer Radio Edit 141",
+      "to_title": "Dancer",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 668,
+      "artist": "Oxymorrons F. Netic",
+      "title": "Look Alive Clean Edit 84",
+      "to_title": "Look Alive",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 675,
+      "artist": "Yonaka",
+      "title": "By The Time You're Reading This Clean 139",
+      "to_title": "By The Time You're Reading This",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 682,
+      "artist": "Dead Poet Society",
+      "title": "My Condition (Clean) 82",
+      "to_title": "My Condition",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 683,
+      "artist": "Dead Poet Society",
+      "title": "Running In Circles (Clean) 142",
+      "to_title": "Running In Circles",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 687,
+      "artist": "Krooked Kings",
+      "title": "Sick Of Being Young (Clean) 150",
+      "to_title": "Sick Of Being Young",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 694,
+      "artist": "The Marias",
+      "title": "Run Your Mouth (Clean) 111",
+      "to_title": "Run Your Mouth",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 698,
+      "artist": "Blink-182",
+      "title": "All In My Head (Clean) 10B 93",
+      "to_title": "All In My Head",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 699,
+      "artist": "Blink-182",
+      "title": "Take Me In (Clean) 3B 80",
+      "to_title": "Take Me In",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 706,
+      "artist": "Jonah Kagen",
+      "title": "God Needs The Devil (Clean) 8A 81",
+      "to_title": "God Needs The Devil",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 707,
+      "artist": "Linkin Park",
+      "title": "The Emptiness Machine (Clean) 6A 91",
+      "to_title": "The Emptiness Machine",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 712,
+      "artist": "Starset",
+      "title": "Toksik (Edit) 4A 85",
+      "to_title": "Toksik",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 717,
+      "artist": "Weathers",
+      "title": "Wasn't Gonna Go Out (Clean) 6B 83",
+      "to_title": "Wasn't Gonna Go Out",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 731,
+      "artist": "Nothing More, David Draiman",
+      "title": "Angel Song (PO Clean Edit) 11A 100",
+      "to_title": "Angel Song",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 732,
+      "artist": "Palaye Royale",
+      "title": "Showbiz (Radio Edit) 7A 116",
+      "to_title": "Showbiz",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 733,
+      "artist": "Something Corporate, Andrew Mcmahon In The Wilderness",
+      "title": "Happy (Radio Edit) 10A 82",
+      "to_title": "Happy",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 744,
+      "artist": "Bright Eyes",
+      "title": "Bells & Whistles (Radio Edit) 11B 128",
+      "to_title": "Bells & Whistles",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 746,
+      "artist": "Dead Poet Society",
+      "title": "Hurt (PO Clean Edit) 9A 80",
+      "to_title": "Hurt",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 747,
+      "artist": "Eddie Vedder",
+      "title": "Save It For Later (Clean) 11B 116",
+      "to_title": "Save It For Later",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 748,
+      "artist": "Hardy",
+      "title": "Psycho (Clean) 12B 123",
+      "to_title": "Psycho",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 752,
+      "artist": "Neon Trees",
+      "title": "Bad Dreams (Clean) 3B 101",
+      "to_title": "Bad Dreams",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 765,
+      "artist": "Disturbed",
+      "title": "I Will Not Break (Radio Edit) 10A 103",
+      "to_title": "I Will Not Break",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 768,
+      "artist": "Green Day",
+      "title": "One Eyed Bastard (Album Version) 11A 130",
+      "to_title": "One Eyed Bastard",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 772,
+      "artist": "Nothing More, Eric V.",
+      "title": "House On Sand (PO Clean Edit) 4A 110",
+      "to_title": "House On Sand",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 775,
+      "artist": "Sunday (1994)",
+      "title": "Tired Boy (Clean) 9A 87",
+      "to_title": "Tired Boy",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 776,
+      "artist": "The Black Keys",
+      "title": "The Night Before (Album Version) 4B 122",
+      "to_title": "The Night Before",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 777,
+      "artist": "The Blue Stones",
+      "title": "Come Apart (Radio Edit) 3A 92",
+      "to_title": "Come Apart",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 782,
+      "artist": "Avatar",
+      "title": "Captain Goat (Radio Edit) 7A 133",
+      "to_title": "Captain Goat",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 790,
+      "artist": "Kevin Abstract, Dominic Fike",
+      "title": "Geezer (PO Clean Edit) 12A 82",
+      "to_title": "Geezer",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 792,
+      "artist": "Muse",
+      "title": "Unravelling (Album Version) 10A 88",
+      "to_title": "Unravelling",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 799,
+      "artist": "The Offspring",
+      "title": "Looking Out For #1 (Radio Edit) 7A 142",
+      "to_title": "Looking Out For #1",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 805,
+      "artist": "Braison Cyrus F. Miley Cyrus",
+      "title": "Know This Clean 110",
+      "to_title": "Know This",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 807,
+      "artist": "Evanescence F. K.Flay",
+      "title": "Fight Like A Girl Po Clean Edit 91",
+      "to_title": "Fight Like A Girl",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 823,
+      "artist": "Black Stone Cherry, Jesse Leach",
+      "title": "Out Of Pocket (Clean) 12A 155",
+      "to_title": "Out Of Pocket",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 825,
+      "artist": "Hollywood Undead",
+      "title": "Hollywood Forever (PO Clean Edit) 2A 87",
+      "to_title": "Hollywood Forever",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 826,
+      "artist": "Idles",
+      "title": "Gift Horse (Clean) 6A 143",
+      "to_title": "Gift Horse",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 830,
+      "artist": "Lola Young",
+      "title": "Messy (Clean) 12B 111",
+      "to_title": "Messy",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 834,
+      "artist": "Pistols At Dawn",
+      "title": "Not Sorry (PO Clean Edit) 5A 95",
+      "to_title": "Not Sorry",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 836,
+      "artist": "Saliva, Peyton Parrish",
+      "title": "Time Bomb (Clean) 8A 96",
+      "to_title": "Time Bomb",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 844,
+      "artist": "Cory Marks, Travis Tritt, Mick Mars, Sully Erna",
+      "title": "(Make My) Country Rock (Active Rock Mix) (PO Clean Edit) 10A 83",
+      "to_title": "(Make My) Country Rock (Active Rock Mix)",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 846,
+      "artist": "Ekoh, Lo Spirit",
+      "title": "Good Things (PO Clean Edit) 2A 120",
+      "to_title": "Good Things",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 847,
+      "artist": "Falling In Reverse, Saraya",
+      "title": "Bad Guy (PO Clean Edit) 5A 93",
+      "to_title": "Bad Guy",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 848,
+      "artist": "Father John Misty",
+      "title": "She Cleans Up (Clean) 8A 120",
+      "to_title": "She Cleans Up",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 851,
+      "artist": "Linkin Park",
+      "title": "Heavy Is The Crown (Album Version) 10A 128",
+      "to_title": "Heavy Is The Crown",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 854,
+      "artist": "Sam Fender",
+      "title": "People Watching (Radio Edit) 3B 80",
+      "to_title": "People Watching",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 859,
+      "artist": "The Wombats",
+      "title": "Sorry I'm Late, I Didn't Want To Come (Clean) 10A 127",
+      "to_title": "Sorry I'm Late, I Didn't Want To Come",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 860,
+      "artist": "Twenty One Pilots",
+      "title": "Routines In The Night (Radio Edit) 12A 113",
+      "to_title": "Routines In The Night",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 868,
+      "artist": "Five Finger Death Punch, Maria Brink",
+      "title": "I Refuse [2025 Version] [PO Clean Edit] 1B 77",
+      "to_title": "I Refuse [2025 Version]",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 869,
+      "artist": "Lola Young",
+      "title": "One Thing [Clean] 4A 97",
+      "to_title": "One Thing",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 870,
+      "artist": "Lord Huron",
+      "title": "Nothing I Need [PO Clean Edit] 10B 112",
+      "to_title": "Nothing I Need",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 878,
+      "artist": "The Haunt, Escape The Fate",
+      "title": "Masochistic Lovers [Clean] 2A 73",
+      "to_title": "Masochistic Lovers",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 883,
+      "artist": "Yungblud",
+      "title": "Lovesick Lullaby [Clean] 1B 130",
+      "to_title": "Lovesick Lullaby",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 889,
+      "artist": "Gigi Perez",
+      "title": "Chemistry (Clean) 6A 87",
+      "to_title": "Chemistry",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 898,
+      "artist": "The Hives",
+      "title": "Enough Is Enough (Clean) 10A 135",
+      "to_title": "Enough Is Enough",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 899,
+      "artist": "The Ramona Flowers",
+      "title": "Human (Clean) 6B 94",
+      "to_title": "Human",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 902,
+      "artist": "Wet Leg",
+      "title": "Catch These Fists (Clean) 10A 128",
+      "to_title": "Catch These Fists",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 903,
+      "artist": "Winona Fighter",
+      "title": "You Look Like A Drunk Phoebe Bridgers (PO Clean Edit) 9A 88",
+      "to_title": "You Look Like A Drunk Phoebe Bridgers",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 911,
+      "artist": "Honestav",
+      "title": "Hurts To Fall In Love (PO Clean Edit) 5A 70",
+      "to_title": "Hurts To Fall In Love",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 923,
+      "artist": "Velvet Chains",
+      "title": "Dead Inside (PO Clean Edit) 8A 97",
+      "to_title": "Dead Inside",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 925,
+      "artist": "Zero 9-36, Brandon Saller",
+      "title": "Chasing Shadows (Clean) 12A 68",
+      "to_title": "Chasing Shadows",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 926,
+      "artist": "A Day To Remember",
+      "title": "All My Friends (Clean) 2A 85",
+      "to_title": "All My Friends",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 931,
+      "artist": "Ghost",
+      "title": "Satanized (Radio Edit) 9A 58",
+      "to_title": "Satanized",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 932,
+      "artist": "Haim",
+      "title": "Relationships (Clean) 10B 101",
+      "to_title": "Relationships",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 938,
+      "artist": "Palaye Royale",
+      "title": "Addicted To The Wicked & Twisted (Clean) 2A 91",
+      "to_title": "Addicted To The Wicked & Twisted",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 952,
+      "artist": "Joyce Manor",
+      "title": "All My Friends Are So Depressed (Clean) 106",
+      "to_title": "All My Friends Are So Depressed",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 953,
+      "artist": "Limp Bizkit",
+      "title": "Making Love To Morgan Wallen (Clean Version) 105",
+      "to_title": "Making Love To Morgan Wallen",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 954,
+      "artist": "Mudvayne",
+      "title": "Sticks And Stones (Clean Edit) 112",
+      "to_title": "Sticks And Stones",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 956,
+      "artist": "Seether",
+      "title": "Lost All Control (Radio Edit) 137",
+      "to_title": "Lost All Control",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 957,
+      "artist": "Sleep Token",
+      "title": "Caramel (Radio Edit) 94",
+      "to_title": "Caramel",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 959,
+      "artist": "Tame Impala",
+      "title": "Dracula (Po Clean Edit) 115",
+      "to_title": "Dracula",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 960,
+      "artist": "The Beaches",
+      "title": "Can I Call You In The Morning (Po Clean Edit) 157",
+      "to_title": "Can I Call You In The Morning",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 965,
+      "artist": "Ajr",
+      "title": "Betty (Clean) 92",
+      "to_title": "Betty",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 966,
+      "artist": "All Time Low",
+      "title": "The Weather (Clean) 94",
+      "to_title": "The Weather",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 967,
+      "artist": "Bad Omens",
+      "title": "Specter (Radio Edit) 120",
+      "to_title": "Specter",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 974,
+      "artist": "Glass Animals",
+      "title": "Vampire Bat (Clean) 90",
+      "to_title": "Vampire Bat",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 975,
+      "artist": "Inhaler",
+      "title": "Billy (Yeah Yeah Yeah) (Radio Edit) 107",
+      "to_title": "Billy (Yeah Yeah Yeah)",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 977,
+      "artist": "Lovejoy",
+      "title": "Pay & Display (Radio Edit) 148",
+      "to_title": "Pay & Display",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 980,
+      "artist": "Rainbow Kitten Surprise",
+      "title": "Dang (Clean) 148",
+      "to_title": "Dang",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 982,
+      "artist": "The Last Dinner Party",
+      "title": "This Is The Killer Speaking (Clean) 117",
+      "to_title": "This Is The Killer Speaking",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 983,
+      "artist": "Waterparks",
+      "title": "Red Guitar (Clean) 90",
+      "to_title": "Red Guitar",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 984,
+      "artist": "Wet Leg",
+      "title": "Mangetout (Clean) 128",
+      "to_title": "Mangetout",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 993,
+      "artist": "Mt. Joy",
+      "title": "Lucy (Pg Clean) 7B 125",
+      "to_title": "Lucy",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1002,
+      "artist": "The Paradox",
+      "title": "Get The Message (PO Clean Edit) 12B 95",
+      "to_title": "Get The Message",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1007,
+      "artist": "Awolnation, Makua",
+      "title": "Catch A Wave (Clean) 9A 88",
+      "to_title": "Catch A Wave",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1008,
+      "artist": "Bleachers",
+      "title": "You & Forever (Clean) 5B 123",
+      "to_title": "You & Forever",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1010,
+      "artist": "Codefendants",
+      "title": "Lonely Life (Po Clean Edit) 9A 55",
+      "to_title": "Lonely Life",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1019,
+      "artist": "Shinedown",
+      "title": "Safe & Sound (Clean) 5A 96",
+      "to_title": "Safe & Sound",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1023,
+      "artist": "Story Of The Year",
+      "title": "Gasoline (All Rage Still Only Numb) (Po Clean Edit) 10A 155",
+      "to_title": "Gasoline (All Rage Still Only Numb)",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1040,
+      "artist": "Morrissey",
+      "title": "Make-Up Is A Lie (Album Version) 6A 107",
+      "to_title": "Make-Up Is A Lie",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1042,
+      "artist": "Soap",
+      "title": "Awkward Now (PO Clean Edit) 10A 133",
+      "to_title": "Awkward Now",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1051,
+      "artist": "Autumn Kings",
+      "title": "Hellbound (Clean) 4A 102",
+      "to_title": "Hellbound",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1059,
+      "artist": "Kings Of Leon",
+      "title": "To Space (Radio Edit) 11A 116",
+      "to_title": "To Space",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1061,
+      "artist": "Magnolia Park",
+      "title": "Shallow (PO Clean Edit) 9A 135",
+      "to_title": "Shallow",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1062,
+      "artist": "Nevertel, Sleep Theory",
+      "title": "Break The Silence (Radio Edit) 12A 105",
+      "to_title": "Break The Silence",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1065,
+      "artist": "Silversun Pickups",
+      "title": "The Wreckage (Radio Edit) 10A 113",
+      "to_title": "The Wreckage",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1066,
+      "artist": "The Haunt",
+      "title": "Bad Omen (Radio Edit) (Clean) 9A 140",
+      "to_title": "Bad Omen",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1081,
+      "artist": "Meek",
+      "title": "Fabulous (Clean) 11B 121",
+      "to_title": "Fabulous",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1082,
+      "artist": "Mgk, Fred Durst",
+      "title": "Fix Ur Face (Po Clean Edit) 4A 102",
+      "to_title": "Fix Ur Face",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1086,
+      "artist": "Noah Kahan",
+      "title": "Doors (Clean) 10A 164",
+      "to_title": "Doors",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1090,
+      "artist": "Atreyu",
+      "title": "All For You (Po Clean Edit) 3A 90",
+      "to_title": "All For You",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1092,
+      "artist": "Beartooth",
+      "title": "Free (Clean) 10A 80",
+      "to_title": "Free",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1097,
+      "artist": "Holly Humberstone",
+      "title": "To Love Somebody (Po Clean Edit) 11B 104",
+      "to_title": "To Love Somebody",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1100,
+      "artist": "Modest Mouse",
+      "title": "Picking Dragons' Pockets (Radio Edit) 1B 90",
+      "to_title": "Picking Dragons' Pockets",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1102,
+      "artist": "Noah Kahan",
+      "title": "Porch Light (Clean) 9B 119",
+      "to_title": "Porch Light",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1104,
+      "artist": "Sam Fender, Olivia Dean",
+      "title": "Rein Me In (Radio Edit) (Clean) 1B 124",
+      "to_title": "Rein Me In",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1105,
+      "artist": "The Beaches",
+      "title": "Should've Known Better (Clean) 12B 80",
+      "to_title": "Should've Known Better",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1111,
+      "artist": "A$Ap Rocky",
+      "title": "Punk Rocky (PO Clean Edit) 9A 140",
+      "to_title": "Punk Rocky",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1115,
+      "artist": "Brigitte Calls Me Baby",
+      "title": "Slumber Party (Radio Edit) 8A 81",
+      "to_title": "Slumber Party",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1117,
+      "artist": "From Ashes To New",
+      "title": "Drag Me (PO Clean Edit) 2A 99",
+      "to_title": "Drag Me",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1121,
+      "artist": "Noah Kahan",
+      "title": "The Great Divide (Clean) 1B 80",
+      "to_title": "The Great Divide",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1134,
+      "artist": "Bike Routes, Jake Clemons",
+      "title": "Delicate (Po Clean Edit) 10B 138",
+      "to_title": "Delicate",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1142,
+      "artist": "Jonah Kagen",
+      "title": "Talkin' About Jesus (Po Clean Edit) 4B 99",
+      "to_title": "Talkin' About Jesus",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1144,
+      "artist": "PRESIDENT",
+      "title": "Destroy Me (Clean) 8A 74",
+      "to_title": "Destroy Me",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1151,
+      "artist": "The Pretty Reckless",
+      "title": "When I Wake Up (Clean) 1A 81",
+      "to_title": "When I Wake Up",
+      "reason": "strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1155,
+      "artist": "Broken Social Scene",
+      "title": "Only The Good I Keep (Clean)",
+      "to_title": "Only The Good I Keep",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1156,
+      "artist": "Bryan Adams",
+      "title": "51St State (Clean)",
+      "to_title": "51St State",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1159,
+      "artist": "Jack White",
+      "title": "Dollar Bill (Clean)",
+      "to_title": "Dollar Bill",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1160,
+      "artist": "Joyce Manor",
+      "title": "I Used To Go To This (Clean)",
+      "to_title": "I Used To Go To This",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1161,
+      "artist": "Motionless In White, Skylar Grey",
+      "title": "R.I.P. (Clean)",
+      "to_title": "R.I.P.",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1162,
+      "artist": "Papa Roach, Hanumankind",
+      "title": "See U In Hell (Original Mix)",
+      "to_title": "See U In Hell",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1164,
+      "artist": "Saving Abel, Scotty Austin",
+      "title": "Hive Skidco (Clean)",
+      "to_title": "Hive Skidco",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1168,
+      "artist": "Ark Identity",
+      "title": "Closer (Clean)",
+      "to_title": "Closer",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1169,
+      "artist": "Big Wreck",
+      "title": "Around (Clean)",
+      "to_title": "Around",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1170,
+      "artist": "Good Kid",
+      "title": "Cicada (Clean)",
+      "to_title": "Cicada",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1171,
+      "artist": "Hollerado",
+      "title": "Keep On Moving (Clean)",
+      "to_title": "Keep On Moving",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1172,
+      "artist": "LØLØ",
+      "title": "The Punisher (Clean)",
+      "to_title": "The Punisher",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1176,
+      "artist": "Valley",
+      "title": "Vending Machine (Clean)",
+      "to_title": "Vending Machine",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1177,
+      "artist": "Weezer, Wednesday",
+      "title": "We Might As Well Be Strangers (Clean)",
+      "to_title": "We Might As Well Be Strangers",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1178,
+      "artist": "Young The Giant",
+      "title": "Evergreen (Clean)",
+      "to_title": "Evergreen",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1180,
+      "artist": "Begonia",
+      "title": "Hotter Than The Sun (Clean)",
+      "to_title": "Hotter Than The Sun",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1181,
+      "artist": "Billy Morrison, Sully Erna, Nuno Bettencourt",
+      "title": "Becoming (Original Mix)",
+      "to_title": "Becoming",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1183,
+      "artist": "Broken Social Scene",
+      "title": "Hey Amanda (Original Mix)",
+      "to_title": "Hey Amanda",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1185,
+      "artist": "Crown Lands",
+      "title": "Blackstar (Clean)",
+      "to_title": "Blackstar",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1187,
+      "artist": "Ilovemakonnen, Yellow Trash Can",
+      "title": "Stuntin On Em (Clean)",
+      "to_title": "Stuntin On Em",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1188,
+      "artist": "Royal & The Serpent",
+      "title": "Favorite Person (Clean)",
+      "to_title": "Favorite Person",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1189,
+      "artist": "Softcult",
+      "title": "Not Sorry (Clean)",
+      "to_title": "Not Sorry",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1191,
+      "artist": "Field Guide",
+      "title": "To Be Lost (Original Mix)",
+      "to_title": "To Be Lost",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1193,
+      "artist": "Jimi",
+      "title": "Leather Jacket (Clean)",
+      "to_title": "Leather Jacket",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1194,
+      "artist": "Muse",
+      "title": "Hexagons (Original Mix)",
+      "to_title": "Hexagons",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1196,
+      "artist": "Talk",
+      "title": "Time Machine (Original Mix)",
+      "to_title": "Time Machine",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1198,
+      "artist": "The Tragically Hip, City And Colour, Ruby Waters, BOI-1DA, Canada Soccer",
+      "title": "Ahead By A Century (Original Mix)",
+      "to_title": "Ahead By A Century",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1199,
+      "artist": "The Warning",
+      "title": "Ego (Clean)",
+      "to_title": "Ego",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1200,
+      "artist": "Uncle Strut",
+      "title": "Call My Name (Original Mix)",
+      "to_title": "Call My Name",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1202,
+      "artist": "Bleeker",
+      "title": "Great Unknown (Original Mix)",
+      "to_title": "Great Unknown",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1205,
+      "artist": "Jack White",
+      "title": "GOD And The Broken Ribs (Clean)",
+      "to_title": "GOD And The Broken Ribs",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1206,
+      "artist": "LOLO",
+      "title": "007 (Clean)",
+      "to_title": "007",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1208,
+      "artist": "Royel Otis",
+      "title": "Sweet Hallelujah (Original Mix)",
+      "to_title": "Sweet Hallelujah",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1210,
+      "artist": "The Rolling Stones",
+      "title": "In The Stars (Clean)",
+      "to_title": "In The Stars",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1211,
+      "artist": "Theory Of A Deadman",
+      "title": "Barricade (Original Mix)",
+      "to_title": "Barricade",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1213,
+      "artist": "Bleachers",
+      "title": "You And Forever (Original Mix)",
+      "to_title": "You And Forever",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1216,
+      "artist": "Nickelback",
+      "title": "Bones For The Crows (Original Mix)",
+      "to_title": "Bones For The Crows",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1217,
+      "artist": "Royal Tusk",
+      "title": "Armistice (Original Mix)",
+      "to_title": "Armistice",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1220,
+      "artist": "The Darcys",
+      "title": "Goodtime (Original Mix)",
+      "to_title": "Goodtime",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1222,
+      "artist": "The Lazys",
+      "title": "Too Tough To Die (Original Mix)",
+      "to_title": "Too Tough To Die",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1224,
+      "artist": "Arkells, Grouplove",
+      "title": "Ride (Clean)",
+      "to_title": "Ride",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1228,
+      "artist": "Boy Golden, Cat Clyde",
+      "title": "Cowboy Dreams (Clean)",
+      "to_title": "Cowboy Dreams",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1229,
+      "artist": "Cold War Kids",
+      "title": "Push My Luck  (Clean)",
+      "to_title": "Push My Luck",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1231,
+      "artist": "Dexter And The Moonrocks",
+      "title": "Freakin' Out (Clean)",
+      "to_title": "Freakin' Out",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1232,
+      "artist": "Dirty Heads",
+      "title": "One Of Those Days (Clean)",
+      "to_title": "One Of Those Days",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1237,
+      "artist": "Sevendust",
+      "title": "Unbreakable Motor (Clean)",
+      "to_title": "Unbreakable Motor",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1238,
+      "artist": "Sleep Theory",
+      "title": "Words Are Worthless (Clean)",
+      "to_title": "Words Are Worthless",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1242,
+      "artist": "Violet Grohl",
+      "title": "595 (Clean)",
+      "to_title": "595",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1245,
+      "artist": "54-40",
+      "title": "Running For The Fence (Original Mix)",
+      "to_title": "Running For The Fence",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1246,
+      "artist": "Alice Merton",
+      "title": "Ignorance Is Bliss (Original Mix)",
+      "to_title": "Ignorance Is Bliss",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1250,
+      "artist": "Rob Zombie",
+      "title": "(I'm A) Rock 'N' Roller (Original Mix)",
+      "to_title": "(I'm A) Rock 'N' Roller",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1251,
+      "artist": "Shinedown",
+      "title": "Safe And Sound (Clean)",
+      "to_title": "Safe And Sound",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1252,
+      "artist": "Stuck On Planet Earth",
+      "title": "High Vibration (Original Mix)",
+      "to_title": "High Vibration",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1254,
+      "artist": "The Beaches",
+      "title": "I Ran (So Far Away) (Clean)",
+      "to_title": "I Ran (So Far Away)",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1255,
+      "artist": "The Sheepdogs",
+      "title": "Keep Out The Storm (Original Mix)",
+      "to_title": "Keep Out The Storm",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1256,
+      "artist": "The Trews",
+      "title": "Carolina  (Original Mix)",
+      "to_title": "Carolina",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1257,
+      "artist": "Black Tea",
+      "title": "Living Easy (Original Mix)",
+      "to_title": "Living Easy",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1259,
+      "artist": "Lights",
+      "title": "Come Get Your Girl (Clean)",
+      "to_title": "Come Get Your Girl",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1264,
+      "artist": "Thirty Seconds To Mars",
+      "title": "God's Eye (Clean)",
+      "to_title": "God's Eye",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1266,
+      "artist": "U2",
+      "title": "American Obituary (Clean)",
+      "to_title": "American Obituary",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1267,
+      "artist": "Allie X",
+      "title": "7Th Floor (Clean)",
+      "to_title": "7Th Floor",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1269,
+      "artist": "Ruby Waters",
+      "title": "Blinders (Clean)",
+      "to_title": "Blinders",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1270,
+      "artist": "Suffer",
+      "title": "Boy Golden (Original Mix)",
+      "to_title": "Boy Golden",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1278,
+      "artist": "Gus",
+      "title": "I Think We're Worth Saving (Clean)",
+      "to_title": "I Think We're Worth Saving",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1279,
+      "artist": "Joji",
+      "title": "Last Of A Dying Breed (Clean)",
+      "to_title": "Last Of A Dying Breed",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1281,
+      "artist": "Mumford & Sons",
+      "title": "The Banjo Song (Clean)",
+      "to_title": "The Banjo Song",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1282,
+      "artist": "Story Of The Year",
+      "title": "Gasoline (Clean)",
+      "to_title": "Gasoline",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1285,
+      "artist": "Tom Morello, Beartooth",
+      "title": "Everything Burns (Radio Edit)",
+      "to_title": "Everything Burns",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1286,
+      "artist": "Zach Bryan",
+      "title": "With Heaven On Top (Clean)",
+      "to_title": "With Heaven On Top",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1288,
+      "artist": "Arkells, Portugal. The Man",
+      "title": "Money (Clean)",
+      "to_title": "Money",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1289,
+      "artist": "Big Wreck",
+      "title": "Dog With A Gun (Clean)",
+      "to_title": "Dog With A Gun",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1291,
+      "artist": "Fionn",
+      "title": "I Put My Makeup On (Clean)",
+      "to_title": "I Put My Makeup On",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1292,
+      "artist": "Headstones",
+      "title": "An Effort To Forget (Clean)",
+      "to_title": "An Effort To Forget",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1293,
+      "artist": "Joyce Manor",
+      "title": "All My Friends Are So (Clean)",
+      "to_title": "All My Friends Are So",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1297,
+      "artist": "The Devil Wears Prada",
+      "title": "Everybody Knows (Radio Edit)",
+      "to_title": "Everybody Knows",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1298,
+      "artist": "Wintersleep",
+      "title": "I Got A Feeling (Clean)",
+      "to_title": "I Got A Feeling",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1299,
+      "artist": "Aerosmith, Yungblud",
+      "title": "Wild Woman (Clean)",
+      "to_title": "Wild Woman",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1300,
+      "artist": "Bad Child",
+      "title": "High Ground (Original Mix)",
+      "to_title": "High Ground",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1301,
+      "artist": "Black Pistol Fire",
+      "title": "High Horse (Original Mix)",
+      "to_title": "High Horse",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1302,
+      "artist": "Des Rocs",
+      "title": "This Land (Theme Borderlands 4) (Original Mix)",
+      "to_title": "This Land (Theme Borderlands 4)",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1305,
+      "artist": "Stuck On Planet Earth",
+      "title": "Roll (Original Mix)",
+      "to_title": "Roll",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1306,
+      "artist": "The Strumbellas",
+      "title": "Come Back Around (Radio Edit)",
+      "to_title": "Come Back Around",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1308,
+      "artist": "Yukon Blonde",
+      "title": "Adore You (Original Mix)",
+      "to_title": "Adore You",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1310,
+      "artist": "Avenged Sevenfold",
+      "title": "Magic (Radio Edit)",
+      "to_title": "Magic",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1311,
+      "artist": "Aysanabee",
+      "title": "Gone Baby Gone (Clean)",
+      "to_title": "Gone Baby Gone",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1312,
+      "artist": "Danko Jones",
+      "title": "Diamond In The Rough (Clean)",
+      "to_title": "Diamond In The Rough",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1314,
+      "artist": "Good Kid",
+      "title": "Wall (Clean)",
+      "to_title": "Wall",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1316,
+      "artist": "Hollerado",
+      "title": "What Killed Elvis Presley? (Clean)",
+      "to_title": "What Killed Elvis Presley?",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1317,
+      "artist": "NOBRO",
+      "title": "Doomtown (Clean)",
+      "to_title": "Doomtown",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1319,
+      "artist": "The Beaches",
+      "title": "Did I Say Too Much? (Clean)",
+      "to_title": "Did I Say Too Much?",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1320,
+      "artist": "The Strumbellas",
+      "title": "Hard Lines (Radio Edit)",
+      "to_title": "Hard Lines",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1321,
+      "artist": "Wunderhorse",
+      "title": "The Rope (Radio Edit)",
+      "to_title": "The Rope",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1323,
+      "artist": "Black Stone Cherry",
+      "title": "Celebrate (Radio Edit)",
+      "to_title": "Celebrate",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1328,
+      "artist": "Ruby Waters",
+      "title": "Wet T-Shirt (Radio Edit)",
+      "to_title": "Wet T-Shirt",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1330,
+      "artist": "The Marias",
+      "title": "Sienna (Radio Edit)",
+      "to_title": "Sienna",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1333,
+      "artist": "Valley",
+      "title": "Water The Flowers, Pray For A Garden (Original Mix)",
+      "to_title": "Water The Flowers, Pray For A Garden",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1337,
+      "artist": "Colony House",
+      "title": "OK OK OK OK (Clean)",
+      "to_title": "OK OK OK OK",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1338,
+      "artist": "Dinosaur Pile-Up",
+      "title": "Bout To Lose It (Radio Edit)",
+      "to_title": "Bout To Lose It",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1342,
+      "artist": "The Rural Alberta Advantage",
+      "title": "Falling Apart (Clean)",
+      "to_title": "Falling Apart",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1347,
+      "artist": "Dorothy",
+      "title": "Bones (Radio Edit)",
+      "to_title": "Bones",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1349,
+      "artist": "Finger Eleven, Filter",
+      "title": "Blue Sky Mystery (Clean)",
+      "to_title": "Blue Sky Mystery",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1362,
+      "artist": "The Glorious Sons",
+      "title": "New Plan (Original Mix)",
+      "to_title": "New Plan",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1364,
+      "artist": "The Sheepdogs",
+      "title": "Nobody But You (Clean)",
+      "to_title": "Nobody But You",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1365,
+      "artist": "The Trews",
+      "title": "Manifest\t (Original Mix)",
+      "to_title": "Manifest",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1367,
+      "artist": "Marilyn Manson",
+      "title": "Exit Wound (Clean)",
+      "to_title": "Exit Wound",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1368,
+      "artist": "Nickelback, John 5",
+      "title": "Rattle The Cage (Clean)",
+      "to_title": "Rattle The Cage",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1372,
+      "artist": "Alice Cooper",
+      "title": "School's Out  (2023 Remaster)",
+      "to_title": "School's Out",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1465,
+      "artist": "Rush",
+      "title": "Dreamline (2004 Remaster)",
+      "to_title": "Dreamline",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1469,
+      "artist": "Robert Plant",
+      "title": "Heaven Knows (2006 Remaster)",
+      "to_title": "Heaven Knows",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1544,
+      "artist": "The Lemonheads",
+      "title": "It's A Shame About Ray (Remastered)",
+      "to_title": "It's A Shame About Ray",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1567,
+      "artist": "Silverchair",
+      "title": "Tomorrow (Remastered)",
+      "to_title": "Tomorrow",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1579,
+      "artist": "Megadeth",
+      "title": "A Tout Le Monde (Remastered 2004)",
+      "to_title": "A Tout Le Monde",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1587,
+      "artist": "Primus",
+      "title": "John The Fisherman (Album Version)",
+      "to_title": "John The Fisherman",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1588,
+      "artist": "Powerman 5000",
+      "title": "When Worlds Collide (Album Version)",
+      "to_title": "When Worlds Collide",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1739,
+      "artist": "Amy Grant",
+      "title": "Baby, Baby (Remastered 2007)",
+      "to_title": "Baby, Baby",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1750,
+      "artist": "Amy Grant",
+      "title": "Every Heartbeat (Remastered 2007)",
+      "to_title": "Every Heartbeat",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1751,
+      "artist": "Arrested Development",
+      "title": "Mr Wendal (Remastered 2002)",
+      "to_title": "Mr Wendal",
+      "reason": "strip version tag"
+    },
+    {
+      "rdj_song_id": 1753,
+      "artist": "Travis",
+      "title": "Sing (Remastered 2021)",
+      "to_title": "Sing",
+      "reason": "strip version tag"
+    }
+  ]
+}
