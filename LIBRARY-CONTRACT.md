@@ -1,10 +1,67 @@
-# Library ↔ Clockset Contract — 2026-08-01
+# Library ↔ Clockset Contract — 2026-10-15 (rebuilt box)
+
+Captured live from the fresh RadioDJ on `clubfm-broadcast-1` after the 2026-10-15 rebuild. This is
+the coupling ADR-0001 §6 requires be recorded: the M4 seed (`tools/m4-seed.mjs` `SUBCAT`) binds
+scheduler categories to these subcategory IDs, and a renumbering or rename here silently yields an
+empty scheduler category. **Every ID changed in the rebuild**; the 2026-08-01 table is kept below
+for history only. Song IDs also changed, so no pre-rebuild changeset can be replayed.
+
+## Mapped by the M4 seed
+
+| Scheduler category | RadioDJ subcat | Enabled |
+|---|---|---|
+| A1 | 5 | 10 |
+| A2 | 3 | 11 |
+| B | 6 | 14 |
+| C | 23 | 19 |
+| N | 24 | 18 |
+| R1 | 26 | 31 |
+| R2 | 27 | 49 |
+| R3 | 28 | 73 |
+| G2010 | 29 | 158 |
+| G2000 | 4 | 143 |
+| G1990 | 1 | 205 |
+| H1 | 2 (H) | 105 |
+| H2 | 36 | 22 |
+| Discovery | 30 (X) | 32 |
+| F | 25 | 66 |
+| TOH IDs (fallback for every per-block TOH pool) | 42 | 12 |
+| Liners | 37 | 41 |
+| New-Music Sweepers | 38 | 44 |
+| Relaunch Sweepers | 40 | 12 |
+| Gold Backsells | 41 | 26 |
+| Station Promos | 43 | 20 |
+
+Mapped to an empty list (no RadioDJ subcategory yet, so the engine falls back): the nine per-block
+TOH pools (to TOH IDs), GDEEP, Heritage Backsells (to Gold Backsells).
+
+**Membership is a seed-time snapshot.** `song_categories` is derived from
+`songs.rdj_subcategory_id` only when the seed runs; `sync-library` updates the subcategory but
+not the membership. After any changeset, re-derive membership (the seed's `INSERT INTO
+song_categories` block, preceded by a DELETE for the station) before generating, or moved songs
+keep their old category. Re-running the whole seed also works but clears `clock_position_id` on
+approved logs, which breaks TOH timing for a log that is on air.
+
+## Deliberately unmapped
+
+| Subcat | Name | Why |
+|---|---|---|
+| 39 | New-Music Trail | Imaging, 16 enabled; no clock position calls it yet |
+| 31 | Y | Import staging for gold compilations |
+| 32 | Z | Rested |
+| 33 | ZN | Rested from N |
+| 34 | K | Killed: records the PD has removed from the format for good |
+| 35 | W | Bench |
+
+---
+
+## Historical: 2026-08-01 install (destroyed box)
 
 Captured live from RadioDJ. This is the coupling ADR-0001 §6 requires be recorded:
 the M4 seed binds scheduler categories to these subcategory IDs, and a renumbering
 or rename here silently yields an empty scheduler category.
 
-## Mapped by the M4 seed
+### Mapped by the M4 seed
 
 | Scheduler category | RadioDJ subcat | Name | Songs | Enabled |
 |---|---|---|---|---|
@@ -37,7 +94,7 @@ or rename here silently yields an empty scheduler category.
 | TOH EM | 47 | TOH EM | 0 |  |
 | TOH DN | 48 | TOH DN | 0 |  |
 
-## Deliberately unmapped
+### Deliberately unmapped
 
 | Subcat | Name | Songs | Why |
 |---|---|---|---|
@@ -50,7 +107,7 @@ or rename here silently yields an empty scheduler category.
 | 32 | Sonic Logos | 0 | Empty |
 | 35 | Heritage Backsells | 0 | Empty |
 
-## Note
+### Note
 
 The nine TOH pools (40–48) are **empty pending script production**. Their positions
 fall back to Liners until filled, per the M4 fallback policy — so the seed is safe to

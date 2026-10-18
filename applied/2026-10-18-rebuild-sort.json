@@ -1,0 +1,10 @@
+{
+  "changeset_id": "2026-10-18-rebuild-sort",
+  "sheet_id": "charts/2026-10-15",
+  "applied_at": "2026-10-15T20:23:28.000Z",
+  "database": "radiodj3",
+  "moves": 698,
+  "set_enabled": 17,
+  "tag_drift_allowed": false,
+  "inverse": "inverse/2026-10-18-rebuild-sort.json"
+}

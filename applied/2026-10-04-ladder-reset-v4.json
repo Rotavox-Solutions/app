@@ -1,0 +1,10 @@
+{
+  "changeset_id": "2026-10-04-ladder-reset-v4",
+  "sheet_id": "charts/2026-09-28",
+  "applied_at": "2026-09-30T23:31:45.000Z",
+  "database": "radiodj3",
+  "moves": 95,
+  "set_enabled": 9,
+  "tag_drift_allowed": false,
+  "inverse": "inverse/2026-10-04-ladder-reset-v4.json"
+}

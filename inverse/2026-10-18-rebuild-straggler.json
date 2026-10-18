@@ -1,0 +1,22 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-18-rebuild-straggler-inverse",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-15",
+  "intent": "Inverse of \"2026-10-18-rebuild-straggler\". Restores the state that changeset replaced.",
+  "basis": {
+    "sheet_id": "charts/2026-10-15",
+    "sheet_captured_at": "2026-10-15"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 1365,
+      "artist": "The Trews",
+      "title": "Manifest\t (Original Mix)",
+      "from_subcat": 35,
+      "to_subcat": 31,
+      "reason": "Rollback of: W: no recorded pool, never aired on the BOLT (Jul 15-Oct 11), not on the panel: bench."
+    }
+  ],
+  "set_enabled": []
+}

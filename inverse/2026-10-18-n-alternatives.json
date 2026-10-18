@@ -1,0 +1,86 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-18-n-alternatives-inverse",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-16",
+  "intent": "Inverse of \"2026-10-18-n-alternatives\". Restores the state that changeset replaced.",
+  "basis": {
+    "sheet_id": "charts/2026-10-15",
+    "sheet_captured_at": "2026-10-15"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 1094,
+      "artist": "Black Veil Brides",
+      "title": "Vindicate 1A 120",
+      "from_subcat": 24,
+      "to_subcat": 35,
+      "reason": "Rollback of: N alternative: Active Rock. PO Modern Rock Radio June 2026; no other BVB record in rotation."
+    },
+    {
+      "rdj_song_id": 1250,
+      "artist": "Rob Zombie",
+      "title": "(I'm A) Rock 'N' Roller (Original Mix)",
+      "from_subcat": 24,
+      "to_subcat": 35,
+      "reason": "Rollback of: N alternative: Active Rock. 2026 single; original mix (PD prefers originals)."
+    },
+    {
+      "rdj_song_id": 1164,
+      "artist": "Saving Abel, Scotty Austin",
+      "title": "Hive Skidco (Clean)",
+      "from_subcat": 24,
+      "to_subcat": 35,
+      "reason": "Rollback of: N alternative: Active Rock. 2026 single; stands in for the Three Days Grace / Staind adds."
+    },
+    {
+      "rdj_song_id": 1185,
+      "artist": "Crown Lands",
+      "title": "Blackstar (Clean)",
+      "from_subcat": 24,
+      "to_subcat": 35,
+      "reason": "Rollback of: N alternative: Active Rock / heritage-leaning hybrid. 2026 single."
+    },
+    {
+      "rdj_song_id": 1301,
+      "artist": "Black Pistol Fire",
+      "title": "High Horse (Original Mix)",
+      "from_subcat": 24,
+      "to_subcat": 35,
+      "reason": "Rollback of: N alternative: Active Rock / blues-rock. 2026 single; original mix; 1 BOLT play."
+    },
+    {
+      "rdj_song_id": 1073,
+      "artist": "Bleachers",
+      "title": "We Should Talk 12B 129",
+      "from_subcat": 24,
+      "to_subcat": 35,
+      "reason": "Rollback of: N alternative: Alternative. PO Modern Rock Radio July 2026, the newest PO issue on disk."
+    },
+    {
+      "rdj_song_id": 1205,
+      "artist": "Jack White",
+      "title": "GOD And The Broken Ribs (Clean)",
+      "from_subcat": 24,
+      "to_subcat": 35,
+      "reason": "Rollback of: N alternative: Alternative. 2026 single; stands in for The Strokes 'Lonely In The Future'."
+    },
+    {
+      "rdj_song_id": 1113,
+      "artist": "Arctic Monkeys",
+      "title": "Opening Night 9A 123",
+      "from_subcat": 24,
+      "to_subcat": 35,
+      "reason": "Rollback of: N alternative: Alternative. PO Modern Rock Radio March 2026."
+    },
+    {
+      "rdj_song_id": 1208,
+      "artist": "Royel Otis",
+      "title": "Sweet Hallelujah (Original Mix)",
+      "from_subcat": 24,
+      "to_subcat": 35,
+      "reason": "Rollback of: N alternative: Alternative. 2026 single; original mix; stands in for the Interrupters add."
+    }
+  ],
+  "set_enabled": []
+}

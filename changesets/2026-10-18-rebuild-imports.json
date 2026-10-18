@@ -1,0 +1,4911 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-18-rebuild-imports",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-15",
+  "intent": "Second pass of the 2026-10-15 rebuild. Places the PD's late import staged in Y (Music\\Recurrents ZIPDJ batch + four gold compilations), re-ranks the current ladder now that Papa Roach, Nickelback, Motionless In White, Weezer and Young The Giant are owned (same Config 11.2 floors, panel charts/2026-10-15), and disables duplicates. The PD's manual file choices made after 2026-10-18-rebuild-sort are kept as the placed copies. Gold imports are placed by original-year tag; the uDiscover 90s set only where the track aired on the old BOLT. Notes: sheets/2026-10-15-rebuild-sort.md.",
+  "basis": {
+    "sheet_id": "charts/2026-10-15",
+    "sheet_captured_at": "2026-10-15"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 424,
+      "artist": "From Ashes To New",
+      "title": "Die For You",
+      "from_subcat": 24,
+      "to_subcat": 5,
+      "reason": "A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 1177,
+      "artist": "Weezer, Wednesday",
+      "title": "We Might As Well Be Strangers (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 5,
+      "reason": "A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 1077,
+      "artist": "Edgehill",
+      "title": "Love To Go 10A 103",
+      "from_subcat": 5,
+      "to_subcat": 3,
+      "reason": "A2: 7-Day top-8; A1 full -> A2"
+    },
+    {
+      "rdj_song_id": 1161,
+      "artist": "Motionless In White, Skylar Grey",
+      "title": "R.I.P. (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 3,
+      "reason": "A2: 7-Day top-8; A1 full -> A2"
+    },
+    {
+      "rdj_song_id": 1368,
+      "artist": "Nickelback, John 5",
+      "title": "Rattle The Cage (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 3,
+      "reason": "A2: 7-Day top-8; A1 full -> A2"
+    },
+    {
+      "rdj_song_id": 1162,
+      "artist": "Papa Roach, Hanumankind",
+      "title": "See U In Hell (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 3,
+      "reason": "A2: 7-Day top-8; A1 full -> A2"
+    },
+    {
+      "rdj_song_id": 419,
+      "artist": "Avatar",
+      "title": "Crying Fire",
+      "from_subcat": 3,
+      "to_subcat": 6,
+      "reason": "B: 7-Day top-15; A2 full -> B"
+    },
+    {
+      "rdj_song_id": 418,
+      "artist": "Shinedown",
+      "title": "Young Again",
+      "from_subcat": 3,
+      "to_subcat": 6,
+      "reason": "B: 7-Day top-15; A2 full -> B"
+    },
+    {
+      "rdj_song_id": 449,
+      "artist": "Steve Lacy",
+      "title": "Oh Yeah (Dirty)",
+      "from_subcat": 3,
+      "to_subcat": 6,
+      "reason": "B: 7-Day top-15; A2 full -> B"
+    },
+    {
+      "rdj_song_id": 1106,
+      "artist": "The Neighbourhood",
+      "title": "Private 7A 124",
+      "from_subcat": 3,
+      "to_subcat": 6,
+      "reason": "B: 7-Day top-15; A2 full -> B"
+    },
+    {
+      "rdj_song_id": 1178,
+      "artist": "Young The Giant",
+      "title": "Evergreen (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 6,
+      "reason": "B: 7-Day top-15; A2 full -> B"
+    },
+    {
+      "rdj_song_id": 427,
+      "artist": "Beabadoobee",
+      "title": "Write Me A Letter (Clean)",
+      "from_subcat": 6,
+      "to_subcat": 23,
+      "reason": "C: on Spincrease, already on the ladder; B full -> C"
+    },
+    {
+      "rdj_song_id": 422,
+      "artist": "Black Stone Cherry",
+      "title": "Deep",
+      "from_subcat": 6,
+      "to_subcat": 23,
+      "reason": "C: 7-Day top-25; B full -> C"
+    },
+    {
+      "rdj_song_id": 448,
+      "artist": "Royal Blood",
+      "title": "Ten Over Ten (Clean)",
+      "from_subcat": 6,
+      "to_subcat": 23,
+      "reason": "C: 7-Day top-25; B full -> C"
+    },
+    {
+      "rdj_song_id": 466,
+      "artist": "Slightly Stoopid, Wiz Khalifa, G. Love",
+      "title": "Backseat Drivin (Clean)",
+      "from_subcat": 6,
+      "to_subcat": 23,
+      "reason": "C: 7-Day top-25; B full -> C"
+    },
+    {
+      "rdj_song_id": 439,
+      "artist": "Sublime",
+      "title": "F.T.R (Dirty)",
+      "from_subcat": 6,
+      "to_subcat": 23,
+      "reason": "C: on Spincrease, already on the ladder; B full -> C"
+    },
+    {
+      "rdj_song_id": 1289,
+      "artist": "Big Wreck",
+      "title": "Dog With A Gun (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 26,
+      "reason": "R1: last BOLT pool R1 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1312,
+      "artist": "Danko Jones",
+      "title": "Diamond In The Rough (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 26,
+      "reason": "R1: last BOLT pool R1 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1231,
+      "artist": "Dexter And The Moonrocks",
+      "title": "Freakin' Out (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 26,
+      "reason": "R1: was A2 earlier, now off every chart -> R1"
+    },
+    {
+      "rdj_song_id": 1367,
+      "artist": "Marilyn Manson",
+      "title": "Exit Wound (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 26,
+      "reason": "R1: aired 117x in the M4 rotation (Aug 4-Sep 29), no recorded pool; year tag 2026 -> R1"
+    },
+    {
+      "rdj_song_id": 1237,
+      "artist": "Sevendust",
+      "title": "Unbreakable Motor (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 26,
+      "reason": "R1: aired 14x in the M4 rotation (Aug 4-Sep 29), no recorded pool; year tag 2026 -> R1"
+    },
+    {
+      "rdj_song_id": 1251,
+      "artist": "Shinedown",
+      "title": "Safe And Sound (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 26,
+      "reason": "R1: last BOLT pool R1 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1238,
+      "artist": "Sleep Theory",
+      "title": "Words Are Worthless (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 26,
+      "reason": "R1: last BOLT pool R1 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1360,
+      "artist": "Sloan",
+      "title": "Dream Destroyer (Radio Edit - Full Intro)",
+      "from_subcat": 31,
+      "to_subcat": 26,
+      "reason": "R1: last BOLT pool R1 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 946,
+      "artist": "Aerosmith & Yungblud",
+      "title": "My Only Angel 110",
+      "from_subcat": 26,
+      "to_subcat": 27,
+      "reason": "R2: was R1; R1 over target, lowest-airplay unrecorded record (11 plays) -> R2"
+    },
+    {
+      "rdj_song_id": 1310,
+      "artist": "Avenged Sevenfold",
+      "title": "Magic (Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 27,
+      "reason": "R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 971,
+      "artist": "Deftones",
+      "title": "Infinite Source 152",
+      "from_subcat": 26,
+      "to_subcat": 27,
+      "reason": "R2: was R1; R1 over target, lowest-airplay unrecorded record (10 plays) -> R2"
+    },
+    {
+      "rdj_song_id": 1117,
+      "artist": "From Ashes To New",
+      "title": "Drag Me (PO Clean Edit) 2A 99",
+      "from_subcat": 26,
+      "to_subcat": 27,
+      "reason": "R2: was R1; R1 over target, lowest-airplay unrecorded record (11 plays) -> R2"
+    },
+    {
+      "rdj_song_id": 1118,
+      "artist": "Hayley Williams",
+      "title": "Parachute 10A 110",
+      "from_subcat": 26,
+      "to_subcat": 27,
+      "reason": "R2: was R1; R1 over target, lowest-airplay unrecorded record (11 plays) -> R2"
+    },
+    {
+      "rdj_song_id": 1281,
+      "artist": "Mumford & Sons",
+      "title": "The Banjo Song (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 27,
+      "reason": "R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 957,
+      "artist": "Sleep Token",
+      "title": "Caramel (Radio Edit) 94",
+      "from_subcat": 26,
+      "to_subcat": 27,
+      "reason": "R2: was R1; R1 over target, lowest-airplay unrecorded record (11 plays) -> R2"
+    },
+    {
+      "rdj_song_id": 1282,
+      "artist": "Story Of The Year",
+      "title": "Gasoline (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 27,
+      "reason": "R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1211,
+      "artist": "Theory Of A Deadman",
+      "title": "Barricade (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 27,
+      "reason": "R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1266,
+      "artist": "U2",
+      "title": "American Obituary (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 27,
+      "reason": "R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 741,
+      "artist": "Beabadoobee",
+      "title": "Take A Bite 9A 91",
+      "from_subcat": 27,
+      "to_subcat": 28,
+      "reason": "R3: was R2; R2 over target, lowest-airplay unrecorded record (9 plays) -> R3"
+    },
+    {
+      "rdj_song_id": 745,
+      "artist": "Coldplay",
+      "title": "Feelslikeimfallinginlove 8B 121",
+      "from_subcat": 27,
+      "to_subcat": 28,
+      "reason": "R3: was R2; R2 over target, lowest-airplay unrecorded record (9 plays) -> R3"
+    },
+    {
+      "rdj_song_id": 850,
+      "artist": "Jelly Roll",
+      "title": "Liar 3A 114",
+      "from_subcat": 27,
+      "to_subcat": 28,
+      "reason": "R3: was R2; R2 over target, lowest-airplay unrecorded record (9 plays) -> R3"
+    },
+    {
+      "rdj_song_id": 792,
+      "artist": "Muse",
+      "title": "Unravelling (Album Version) 10A 88",
+      "from_subcat": 27,
+      "to_subcat": 28,
+      "reason": "R3: was R2; R2 over target, lowest-airplay unrecorded record (9 plays) -> R3"
+    },
+    {
+      "rdj_song_id": 780,
+      "artist": "Yeah Yeah Yeahs, Perfume Genius",
+      "title": "Spitting Off The Edge Of The World 11B 110",
+      "from_subcat": 27,
+      "to_subcat": 28,
+      "reason": "R3: was R2; R2 over target, lowest-airplay unrecorded record (9 plays) -> R3"
+    },
+    {
+      "rdj_song_id": 1245,
+      "artist": "54-40",
+      "title": "Running For The Fence (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1299,
+      "artist": "Aerosmith, Yungblud",
+      "title": "Wild Woman (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1246,
+      "artist": "Alice Merton",
+      "title": "Ignorance Is Bliss (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1267,
+      "artist": "Allie X",
+      "title": "7Th Floor (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1739,
+      "artist": "Amy Grant",
+      "title": "Baby, Baby (Remastered 2007)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1750,
+      "artist": "Amy Grant",
+      "title": "Every Heartbeat (Remastered 2007)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1699,
+      "artist": "Aqua",
+      "title": "Barbie Girl",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1732,
+      "artist": "Aqua",
+      "title": "Doctor Jones",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1168,
+      "artist": "Ark Identity",
+      "title": "Closer (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1224,
+      "artist": "Arkells, Grouplove",
+      "title": "Ride (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1288,
+      "artist": "Arkells, Portugal. The Man",
+      "title": "Money (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1751,
+      "artist": "Arrested Development",
+      "title": "Mr Wendal (Remastered 2002)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1311,
+      "artist": "Aysanabee",
+      "title": "Gone Baby Gone (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1300,
+      "artist": "Bad Child",
+      "title": "High Ground (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1728,
+      "artist": "Baha Men",
+      "title": "Who Let The Dogs Out",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1180,
+      "artist": "Begonia",
+      "title": "Hotter Than The Sun (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1169,
+      "artist": "Big Wreck",
+      "title": "Around (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1181,
+      "artist": "Billy Morrison, Sully Erna, Nuno Bettencourt",
+      "title": "Becoming (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1301,
+      "artist": "Black Pistol Fire",
+      "title": "High Horse (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1323,
+      "artist": "Black Stone Cherry",
+      "title": "Celebrate (Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1257,
+      "artist": "Black Tea",
+      "title": "Living Easy (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1213,
+      "artist": "Bleachers",
+      "title": "You And Forever (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1202,
+      "artist": "Bleeker",
+      "title": "Great Unknown (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1228,
+      "artist": "Boy Golden, Cat Clyde",
+      "title": "Cowboy Dreams (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1735,
+      "artist": "Boyzone",
+      "title": "No Matter What",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1155,
+      "artist": "Broken Social Scene",
+      "title": "Only The Good I Keep (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1183,
+      "artist": "Broken Social Scene",
+      "title": "Hey Amanda (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1156,
+      "artist": "Bryan Adams",
+      "title": "51St State (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1719,
+      "artist": "Charles & Eddie",
+      "title": "Would I Lie To You? (Album Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1747,
+      "artist": "Cher",
+      "title": "The Shoop Shoop Song (It's In His Kiss)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1229,
+      "artist": "Cold War Kids",
+      "title": "Push My Luck  (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1337,
+      "artist": "Colony House",
+      "title": "OK OK OK OK (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1185,
+      "artist": "Crown Lands",
+      "title": "Blackstar (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1154,
+      "artist": "Dayseeker",
+      "title": "Crawl Back To My Coffin",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1302,
+      "artist": "Des Rocs",
+      "title": "This Land (Theme Borderlands 4) (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1338,
+      "artist": "Dinosaur Pile-Up",
+      "title": "Bout To Lose It (Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1232,
+      "artist": "Dirty Heads",
+      "title": "One Of Those Days (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1738,
+      "artist": "DJ Alice",
+      "title": "Back In My Life",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1347,
+      "artist": "Dorothy",
+      "title": "Bones (Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1731,
+      "artist": "Enigma",
+      "title": "Return To Innocence",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1740,
+      "artist": "Enigma",
+      "title": "Sadeness (Pt. 1 / Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 547,
+      "artist": "Fall Out Boy",
+      "title": "Hold Me Like A Grudge 114",
+      "from_subcat": 28,
+      "to_subcat": 35,
+      "reason": "W: was R3; R3 over target, lowest-airplay unrecorded record (8 plays) -> W"
+    },
+    {
+      "rdj_song_id": 1191,
+      "artist": "Field Guide",
+      "title": "To Be Lost (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1349,
+      "artist": "Finger Eleven, Filter",
+      "title": "Blue Sky Mystery (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1291,
+      "artist": "Fionn",
+      "title": "I Put My Makeup On (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 725,
+      "artist": "Foster The People",
+      "title": "See You In The Afterlife 2A 122",
+      "from_subcat": 27,
+      "to_subcat": 35,
+      "reason": "W: was R2; R2 over target, lowest-airplay unrecorded record (7 plays) -> R3; R3 over target, lowest-airplay unrecorded record (7 plays) -> W"
+    },
+    {
+      "rdj_song_id": 1733,
+      "artist": "Gabrielle",
+      "title": "Dreams",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 601,
+      "artist": "Girl In Red",
+      "title": "Too Much (Po Clean Edit) 81",
+      "from_subcat": 28,
+      "to_subcat": 35,
+      "reason": "W: was R3; R3 over target, lowest-airplay unrecorded record (8 plays) -> W"
+    },
+    {
+      "rdj_song_id": 1752,
+      "artist": "Glass Tiger",
+      "title": "My Town",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1170,
+      "artist": "Good Kid",
+      "title": "Cicada (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1314,
+      "artist": "Good Kid",
+      "title": "Wall (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1278,
+      "artist": "Gus",
+      "title": "I Think We're Worth Saving (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1711,
+      "artist": "Hanson",
+      "title": "Mmmbop",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1292,
+      "artist": "Headstones",
+      "title": "An Effort To Forget (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1734,
+      "artist": "Heavy D & The Boyz",
+      "title": "Now That We Found Love",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1171,
+      "artist": "Hollerado",
+      "title": "Keep On Moving (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1316,
+      "artist": "Hollerado",
+      "title": "What Killed Elvis Presley? (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1187,
+      "artist": "Ilovemakonnen, Yellow Trash Can",
+      "title": "Stuntin On Em (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1159,
+      "artist": "Jack White",
+      "title": "Dollar Bill (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1205,
+      "artist": "Jack White",
+      "title": "GOD And The Broken Ribs (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 728,
+      "artist": "James Bay, The Lumineers, Noah Kahan",
+      "title": "Up All Night 10B 91",
+      "from_subcat": 27,
+      "to_subcat": 35,
+      "reason": "W: was R2; R2 over target, lowest-airplay unrecorded record (8 plays) -> R3; R3 over target, lowest-airplay unrecorded record (8 plays) -> W"
+    },
+    {
+      "rdj_song_id": 1723,
+      "artist": "Janet Jackson",
+      "title": "Together Again",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1193,
+      "artist": "Jimi",
+      "title": "Leather Jacket (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1279,
+      "artist": "Joji",
+      "title": "Last Of A Dying Breed (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1729,
+      "artist": "Jon Secada",
+      "title": "Just Another Day",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1736,
+      "artist": "Joshua Kadison",
+      "title": "Jessie",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1160,
+      "artist": "Joyce Manor",
+      "title": "I Used To Go To This (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: was B earlier, now off every chart -> bench"
+    },
+    {
+      "rdj_song_id": 1293,
+      "artist": "Joyce Manor",
+      "title": "All My Friends Are So (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1743,
+      "artist": "Lighthouse Family",
+      "title": "High",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1754,
+      "artist": "Lighthouse Family",
+      "title": "Lifted",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1259,
+      "artist": "Lights",
+      "title": "Come Get Your Girl (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1206,
+      "artist": "LOLO",
+      "title": "007 (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1172,
+      "artist": "LØLØ",
+      "title": "The Punisher (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1693,
+      "artist": "M.C. Hammer",
+      "title": "U Can't Touch This",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1737,
+      "artist": "Maria Mckee",
+      "title": "Show Me Heaven (Acoustic Demo Version)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1748,
+      "artist": "Maxi Priest",
+      "title": "Close To You",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1746,
+      "artist": "Melanie C",
+      "title": "I Turn To You (Hex Hector Radio Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1194,
+      "artist": "Muse",
+      "title": "Hexagons (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 771,
+      "artist": "Myles Smith",
+      "title": "Nice To Meet You 4B 115",
+      "from_subcat": 27,
+      "to_subcat": 35,
+      "reason": "W: was R2; R2 over target, lowest-airplay unrecorded record (7 plays) -> R3; R3 over target, lowest-airplay unrecorded record (7 plays) -> W"
+    },
+    {
+      "rdj_song_id": 752,
+      "artist": "Neon Trees",
+      "title": "Bad Dreams (Clean) 3B 101",
+      "from_subcat": 27,
+      "to_subcat": 35,
+      "reason": "W: was R2; R2 over target, lowest-airplay unrecorded record (7 plays) -> R3; R3 over target, lowest-airplay unrecorded record (7 plays) -> W"
+    },
+    {
+      "rdj_song_id": 1216,
+      "artist": "Nickelback",
+      "title": "Bones For The Crows (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1724,
+      "artist": "Nightcrawlers",
+      "title": "Push The Feeling On (Mk Dub Revisited Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1317,
+      "artist": "NOBRO",
+      "title": "Doomtown (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 688,
+      "artist": "Nothing More",
+      "title": "If It Doesn't Hurt 95",
+      "from_subcat": 28,
+      "to_subcat": 35,
+      "reason": "W: was R3; R3 over target, lowest-airplay unrecorded record (8 plays) -> W"
+    },
+    {
+      "rdj_song_id": 1250,
+      "artist": "Rob Zombie",
+      "title": "(I'm A) Rock 'N' Roller (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1706,
+      "artist": "Ronan Keating",
+      "title": "When You Say Nothing At All",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1188,
+      "artist": "Royal & The Serpent",
+      "title": "Favorite Person (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1217,
+      "artist": "Royal Tusk",
+      "title": "Armistice (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1208,
+      "artist": "Royel Otis",
+      "title": "Sweet Hallelujah (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1269,
+      "artist": "Ruby Waters",
+      "title": "Blinders (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1328,
+      "artist": "Ruby Waters",
+      "title": "Wet T-Shirt (Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 477,
+      "artist": "Rufus Du Sol",
+      "title": "On My Knees",
+      "from_subcat": 28,
+      "to_subcat": 35,
+      "reason": "W: was R3; R3 over target, lowest-airplay unrecorded record (9 plays) -> W"
+    },
+    {
+      "rdj_song_id": 1727,
+      "artist": "S Club",
+      "title": "Bring It All Back",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1164,
+      "artist": "Saving Abel, Scotty Austin",
+      "title": "Hive Skidco (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1744,
+      "artist": "Scooter",
+      "title": "How Much Is The Fish?",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1189,
+      "artist": "Softcult",
+      "title": "Not Sorry (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1708,
+      "artist": "Spice Girls",
+      "title": "Viva Forever",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 569,
+      "artist": "Staind",
+      "title": "Here And Now 125",
+      "from_subcat": 28,
+      "to_subcat": 35,
+      "reason": "W: was R3; R3 over target, lowest-airplay unrecorded record (8 plays) -> W"
+    },
+    {
+      "rdj_song_id": 1252,
+      "artist": "Stuck On Planet Earth",
+      "title": "High Vibration (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1305,
+      "artist": "Stuck On Planet Earth",
+      "title": "Roll (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1270,
+      "artist": "Suffer",
+      "title": "Boy Golden (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1196,
+      "artist": "Talk",
+      "title": "Time Machine (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1254,
+      "artist": "The Beaches",
+      "title": "I Ran (So Far Away) (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1319,
+      "artist": "The Beaches",
+      "title": "Did I Say Too Much? (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1220,
+      "artist": "The Darcys",
+      "title": "Goodtime (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1297,
+      "artist": "The Devil Wears Prada",
+      "title": "Everybody Knows (Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1362,
+      "artist": "The Glorious Sons",
+      "title": "New Plan (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 737,
+      "artist": "The Killers",
+      "title": "Bright Lights 5B 84",
+      "from_subcat": 27,
+      "to_subcat": 35,
+      "reason": "W: was R2; R2 over target, lowest-airplay unrecorded record (7 plays) -> R3; R3 over target, lowest-airplay unrecorded record (7 plays) -> W"
+    },
+    {
+      "rdj_song_id": 1222,
+      "artist": "The Lazys",
+      "title": "Too Tough To Die (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1330,
+      "artist": "The Marias",
+      "title": "Sienna (Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1210,
+      "artist": "The Rolling Stones",
+      "title": "In The Stars (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1342,
+      "artist": "The Rural Alberta Advantage",
+      "title": "Falling Apart (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1255,
+      "artist": "The Sheepdogs",
+      "title": "Keep Out The Storm (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1364,
+      "artist": "The Sheepdogs",
+      "title": "Nobody But You (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1306,
+      "artist": "The Strumbellas",
+      "title": "Come Back Around (Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1320,
+      "artist": "The Strumbellas",
+      "title": "Hard Lines (Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1198,
+      "artist": "The Tragically Hip, City And Colour, Ruby Waters, BOI-1DA, Canada Soccer",
+      "title": "Ahead By A Century (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1256,
+      "artist": "The Trews",
+      "title": "Carolina  (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1199,
+      "artist": "The Warning",
+      "title": "Ego (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1264,
+      "artist": "Thirty Seconds To Mars",
+      "title": "God's Eye (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1714,
+      "artist": "Tom Jones",
+      "title": "Sexbomb",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1285,
+      "artist": "Tom Morello, Beartooth",
+      "title": "Everything Burns (Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1200,
+      "artist": "Uncle Strut",
+      "title": "Call My Name (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1176,
+      "artist": "Valley",
+      "title": "Vending Machine (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1333,
+      "artist": "Valley",
+      "title": "Water The Flowers, Pray For A Garden (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1702,
+      "artist": "Vanilla Ice",
+      "title": "Ice Ice Baby",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1697,
+      "artist": "Vengaboys",
+      "title": "Boom, Boom, Boom, Boom!!",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1718,
+      "artist": "Vengaboys",
+      "title": "We Like To Party! (The Vengabus)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1730,
+      "artist": "Vengaboys",
+      "title": "We're Going To Ibiza!",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: 90s Best of (uDiscover) is largely pop; this track never aired on the BOLT (Jul 15-Oct 11), so benched. The 30 that did air go to G1990."
+    },
+    {
+      "rdj_song_id": 1242,
+      "artist": "Violet Grohl",
+      "title": "595 (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1298,
+      "artist": "Wintersleep",
+      "title": "I Got A Feeling (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1321,
+      "artist": "Wunderhorse",
+      "title": "The Rope (Radio Edit)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1308,
+      "artist": "Yukon Blonde",
+      "title": "Adore You (Original Mix)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1286,
+      "artist": "Zach Bryan",
+      "title": "With Heaven On Top (Clean)",
+      "from_subcat": 31,
+      "to_subcat": 35,
+      "reason": "W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench"
+    },
+    {
+      "rdj_song_id": 1396,
+      "artist": "3 Doors Down",
+      "title": "Loser",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1999 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1512,
+      "artist": "4 Non Blondes, Shaunna Hall, Christa Hillhouse, Linda Perry",
+      "title": "What's Up?",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1741,
+      "artist": "Adamski",
+      "title": "Killer",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1519,
+      "artist": "Aerosmith",
+      "title": "I Don't Want To Miss A Thing",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1554,
+      "artist": "Alice In Chains",
+      "title": "Down In A Hole",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1604,
+      "artist": "Alice In Chains",
+      "title": "Rooster",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1992 -> G1990; aired 11x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1569,
+      "artist": "Ash",
+      "title": "Girl From Mars",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1589,
+      "artist": "Babylon Zoo",
+      "title": "Spaceman",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1704,
+      "artist": "Bloodhound Gang",
+      "title": "The Bad Touch",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1516,
+      "artist": "Bon Jovi",
+      "title": "Keep The Faith",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1698,
+      "artist": "Bon Jovi",
+      "title": "Bed Of Roses",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 21x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1578,
+      "artist": "Buckcherry, Scott Olsen, Steve Durkey, Ulrich Wild, Joshua Todd, Keith Nelson, Jonathan Brightman, Devon Glenn, Kim Bullard, Steve Jones",
+      "title": "Lit Up",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1581,
+      "artist": "Butthole Surfers",
+      "title": "Pepper",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1550,
+      "artist": "CAKE",
+      "title": "The Distance",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1696,
+      "artist": "Cher",
+      "title": "If I Could Turn Back Time",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 6x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1549,
+      "artist": "Crash Test Dummies",
+      "title": "Mmm Mmm Mmm Mmm",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 21x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1715,
+      "artist": "Crowded House",
+      "title": "Weather With You",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1709,
+      "artist": "Deep Blue Something",
+      "title": "Breakfast At Tiffany's",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1534,
+      "artist": "Def Leppard, Joe Elliott, Phil Collen, Rick Savage, Rick Allen",
+      "title": "Let's Get Rocked",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 3x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1574,
+      "artist": "E, Tommy Walter",
+      "title": "Novocaine For The Soul",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1543,
+      "artist": "Eagle-Eye Cherry",
+      "title": "Save Tonight",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1575,
+      "artist": "Edwyn Collins",
+      "title": "A Girl Like You",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 9x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1570,
+      "artist": "Elastica",
+      "title": "Connection",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1572,
+      "artist": "Everclear",
+      "title": "Santa Monica",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 12x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1535,
+      "artist": "Faith No More",
+      "title": "Epic",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1586,
+      "artist": "Godsmack",
+      "title": "Whatever",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1640,
+      "artist": "Incubus",
+      "title": "Drive",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1999 -> G1990; aired 7x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1551,
+      "artist": "Iron Maiden",
+      "title": "Fear Of The Dark (1998 Remastered Version)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1502,
+      "artist": "Jeff Buckley",
+      "title": "Last Goodbye",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1426,
+      "artist": "Kenny Wayne Shepherd",
+      "title": "Blue On Black",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1997 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1536,
+      "artist": "Koяn, Korn",
+      "title": "Falling Away From Me",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1528,
+      "artist": "Kula Shaker",
+      "title": "Hey Dude",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1582,
+      "artist": "Kyuss",
+      "title": "Green Machine",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1559,
+      "artist": "Limp Bizkit",
+      "title": "Nookie",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1545,
+      "artist": "Lit, Jeremy Popoff",
+      "title": "My Own Worst Enemy",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 24x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1461,
+      "artist": "Live",
+      "title": "Lightning Crashes",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1994 -> G1990; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1547,
+      "artist": "Longpigs, Crispin Hunt, Richard Hawley, Simon Stafford, Dee Boyle",
+      "title": "She Said",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 22x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1540,
+      "artist": "Manic Street Preachers",
+      "title": "A Design For Life (2016 Remastered Version)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1716,
+      "artist": "Marcy Playground",
+      "title": "Sex & Candy",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1561,
+      "artist": "Marilyn Manson",
+      "title": "The Beautiful People",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1577,
+      "artist": "Matchbox Twenty",
+      "title": "3AM",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1579,
+      "artist": "Megadeth",
+      "title": "A Tout Le Monde (Remastered 2004)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1712,
+      "artist": "Meredith Brooks",
+      "title": "Bitch",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 11x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1457,
+      "artist": "Metallica",
+      "title": "Until It Sleeps",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1996 -> G1990; aired 12x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1480,
+      "artist": "Metallica",
+      "title": "Hero Of The Day",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1996 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1555,
+      "artist": "Muse",
+      "title": "Sunburn",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1583,
+      "artist": "Nada Surf",
+      "title": "Popular",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 22x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1700,
+      "artist": "New Radicals",
+      "title": "You Get What You Give",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1524,
+      "artist": "No Doubt, Gwen Stefani, Tony Kanal, Tom Dumont, Adrian Young, Eric Stefani, Melissa Hasin",
+      "title": "Don't Speak",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1505,
+      "artist": "Oasis",
+      "title": "Cigarettes & Alcohol",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1531,
+      "artist": "Ocean Colour Scene, Simon Fowler, Damon Minchella, Oscar Harrison, Steve Cradock, Paul Weller",
+      "title": "The Riverboat Song",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1745,
+      "artist": "Orchestral Manoeuvres In The Dark (OMD)",
+      "title": "Sailing On The Seven Seas",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1548,
+      "artist": "Paul Weller",
+      "title": "The Changingman",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1644,
+      "artist": "Pearl Jam",
+      "title": "Black",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1992 -> G1990; aired 12x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1568,
+      "artist": "Pixies",
+      "title": "Velouria",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 26x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1541,
+      "artist": "Placebo",
+      "title": "Every You Every Me",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1588,
+      "artist": "Powerman 5000",
+      "title": "When Worlds Collide (Album Version)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 11x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1587,
+      "artist": "Primus",
+      "title": "John The Fisherman (Album Version)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1518,
+      "artist": "Queen, John Deacon, Brian May, Freddie Mercury, Roger Taylor, David Richards",
+      "title": "The Show Must Go On",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 21x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1565,
+      "artist": "Queens Of The Stone Age",
+      "title": "Regular John",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1514,
+      "artist": "R.E.M.",
+      "title": "What's The Frequency, Kenneth?",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1705,
+      "artist": "R.E.M.",
+      "title": "Shiny Happy People",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1619,
+      "artist": "Red Hot Chili Peppers",
+      "title": "Scar Tissue",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1999 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1509,
+      "artist": "Reef",
+      "title": "Place Your Hands",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1529,
+      "artist": "Republica",
+      "title": "Ready To Go",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 24x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1465,
+      "artist": "Rush",
+      "title": "Dreamline (2004 Remaster)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1991 -> G1990; aired 11x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1553,
+      "artist": "Scorpions, Klaus Meine, Matthias Jabs, Rudolf Schenker, Francis Buchholz, Herman Rarebell",
+      "title": "Wind Of Change",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1710,
+      "artist": "Semisonic",
+      "title": "Closing Time",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1580,
+      "artist": "Sepultura",
+      "title": "Refuse / Resist",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1442,
+      "artist": "Seven Mary Three",
+      "title": "Cumbersome",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1995 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1725,
+      "artist": "Shaggy",
+      "title": "Boombastic",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 12x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1692,
+      "artist": "Shania Twain",
+      "title": "Man! I Feel Like A Woman!",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1720,
+      "artist": "Shania Twain",
+      "title": "That Don't Impress Me Much (International Mix)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 11x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1567,
+      "artist": "Silverchair",
+      "title": "Tomorrow (Remastered)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1542,
+      "artist": "Skunk Anansie",
+      "title": "Hedonism (Just Because You Feel Good)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1560,
+      "artist": "Slipknot",
+      "title": "Spit It Out",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 21x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1563,
+      "artist": "Smashing Pumpkins, Billy Corgan, James Iha, D'arcy Wretzky, Jimmy Chamberlin",
+      "title": "Today",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1564,
+      "artist": "Sonic Youth",
+      "title": "Sugar Kane",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1576,
+      "artist": "Soul Asylum",
+      "title": "Runaway Train",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1573,
+      "artist": "Spacehog",
+      "title": "In The Meantime",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1691,
+      "artist": "Spice Girls",
+      "title": "Wannabe",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1721,
+      "artist": "Spice Girls",
+      "title": "Spice Up Your Life",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 11x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1749,
+      "artist": "Stereo MC's",
+      "title": "Connected",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1538,
+      "artist": "Stereophonics, Kelly Jones, Richard Jones, Stuart Cable, Marshall Bird",
+      "title": "The Bartender And The Thief",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1557,
+      "artist": "Suede",
+      "title": "Trash",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1539,
+      "artist": "Supergrass",
+      "title": "Richard III",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1556,
+      "artist": "Terrorvision",
+      "title": "Tequila",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1726,
+      "artist": "The Connells",
+      "title": "'74-'75",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1544,
+      "artist": "The Lemonheads",
+      "title": "It's A Shame About Ray (Remastered)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1742,
+      "artist": "The Mavericks",
+      "title": "Dance The Night Away",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 29x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1526,
+      "artist": "The Offspring",
+      "title": "Pretty Fly (For A White Guy)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1537,
+      "artist": "The Presidents Of The United States Of America",
+      "title": "Lump",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1566,
+      "artist": "Therapy?, Andy Cairns, Fyfe Ewing, Michael Mckeegan",
+      "title": "Screamager",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1707,
+      "artist": "Tom Petty & The Heartbreakers",
+      "title": "Learning To Fly",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1422,
+      "artist": "Tonic",
+      "title": "If You Could Only See",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1996 -> G1990; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1674,
+      "artist": "TOOL",
+      "title": "Forty Six & 2",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1996 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1753,
+      "artist": "Travis",
+      "title": "Sing (Remastered 2021)",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 10x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1517,
+      "artist": "U2, Bono, The Edge, Adam Clayton, Larry Mullen, Jr.",
+      "title": "Even Better Than The Real Thing",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1533,
+      "artist": "Ugly Kid Joe",
+      "title": "Everything About You",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2020 -> G1990; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1722,
+      "artist": "Ugly Kid Joe",
+      "title": "Cats In The Cradle",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1404,
+      "artist": "Van Halen",
+      "title": "Top Of The World",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1991 -> G1990; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1701,
+      "artist": "Wet Wet Wet",
+      "title": "Love Is All Around (From \"Four Weddings And A Funeral\")",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1717,
+      "artist": "Wilson Phillips",
+      "title": "Hold On",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 2026 -> G1990; aired 9x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1471,
+      "artist": "ZZ Top",
+      "title": "My Head's In Mississippi",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1994 -> G1990; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1479,
+      "artist": "ZZ Top",
+      "title": "Doubleback",
+      "from_subcat": 31,
+      "to_subcat": 1,
+      "reason": "G1990: gold import, era by original-year tag 1992 -> G1990; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1443,
+      "artist": "Eric Clapton",
+      "title": "Pretending",
+      "from_subcat": 31,
+      "to_subcat": 2,
+      "reason": "H1: gold import, era by original-year tag 1989 -> H1; aired 3x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1488,
+      "artist": "Lou Gramm",
+      "title": "Midnight Blue",
+      "from_subcat": 31,
+      "to_subcat": 2,
+      "reason": "H1: gold import, era by original-year tag 1987 -> H1; aired 1x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1460,
+      "artist": "Steve Winwood",
+      "title": "Higher Love",
+      "from_subcat": 31,
+      "to_subcat": 2,
+      "reason": "H1: gold import, era by original-year tag 1986 -> H1; aired 3x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1474,
+      "artist": "The Smithereens",
+      "title": "A Girl Like You",
+      "from_subcat": 31,
+      "to_subcat": 2,
+      "reason": "H1: gold import, era by original-year tag 1989 -> H1; aired 55x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1453,
+      "artist": "ZZ Top",
+      "title": "Stages",
+      "from_subcat": 31,
+      "to_subcat": 2,
+      "reason": "H1: gold import, era by original-year tag 1985 -> H1; aired 3x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1403,
+      "artist": "3 Doors Down",
+      "title": "When I'm Gone",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2007 -> G2000; aired 9x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1427,
+      "artist": "Breaking Benjamin",
+      "title": "I Will Not Bow",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2009 -> G2000; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1658,
+      "artist": "Chevelle",
+      "title": "The Red",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2003 -> G2000; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1438,
+      "artist": "Collective Soul",
+      "title": "Heavy",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2001 -> G2000; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1444,
+      "artist": "Creed",
+      "title": "My Own Prison",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2009 -> G2000; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1481,
+      "artist": "Creed",
+      "title": "What's This Life For",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2009 -> G2000; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1441,
+      "artist": "Disturbed",
+      "title": "Inside The Fire",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2008 -> G2000; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1428,
+      "artist": "Fuel",
+      "title": "Hemorrhage (In My Hands)",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2000 -> G2000; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1451,
+      "artist": "Godsmack",
+      "title": "I Stand Alone",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2007 -> G2000; aired 22x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1454,
+      "artist": "Godsmack",
+      "title": "Awake",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2007 -> G2000; aired 21x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1620,
+      "artist": "Green Day",
+      "title": "Wake Me Up When September Ends",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2004 -> G2000; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1688,
+      "artist": "Koяn",
+      "title": "Coming Undone",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2005 -> G2000; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1439,
+      "artist": "Lenny Kravitz",
+      "title": "Fly Away",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2000 -> G2000; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1685,
+      "artist": "Limp Bizkit",
+      "title": "Break Stuff",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2008 -> G2000; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1678,
+      "artist": "Linkin Park",
+      "title": "What I've Done",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2007 -> G2000; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1414,
+      "artist": "Nickelback",
+      "title": "Figured You Out",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2003 -> G2000; aired 12x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1630,
+      "artist": "Pearl Jam",
+      "title": "Yellow Ledbetter",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2003 -> G2000; aired 29x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1420,
+      "artist": "Puddle Of Mudd",
+      "title": "Blurry",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2002 -> G2000; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1434,
+      "artist": "Puddle Of Mudd",
+      "title": "Psycho",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2007 -> G2000; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1680,
+      "artist": "Rise Against",
+      "title": "Savior",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2008 -> G2000; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1469,
+      "artist": "Robert Plant",
+      "title": "Heaven Knows (2006 Remaster)",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2007 -> G2000; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1400,
+      "artist": "Seether",
+      "title": "Fake It",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2009 -> G2000; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1425,
+      "artist": "Seether",
+      "title": "Remedy",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2009 -> G2000; aired 9x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1408,
+      "artist": "Shinedown",
+      "title": "Second Chance",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2008 -> G2000; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1449,
+      "artist": "Shinedown",
+      "title": "Save Me",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2005 -> G2000; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1603,
+      "artist": "Shinedown",
+      "title": "Simple Man",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2004 -> G2000; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1660,
+      "artist": "Shinedown",
+      "title": "Sound Of Madness",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2008 -> G2000; aired 22x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1656,
+      "artist": "Skillet",
+      "title": "Monster",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2009 -> G2000; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1666,
+      "artist": "Skillet",
+      "title": "Hero",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2009 -> G2000; aired 22x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1646,
+      "artist": "Slipknot",
+      "title": "Psychosocial",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2008 -> G2000; aired 12x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1684,
+      "artist": "Slipknot",
+      "title": "Snuff",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2008 -> G2000; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1411,
+      "artist": "Staind",
+      "title": "So Far Away",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2003 -> G2000; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1436,
+      "artist": "Steve Miller Band",
+      "title": "I Want To Make The World Turn Around",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2008 -> G2000; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1431,
+      "artist": "Stone Sour",
+      "title": "Through Glass",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2006 -> G2000; aired 15x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1417,
+      "artist": "The Black Crowes",
+      "title": "Remedy",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2009 -> G2000; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1435,
+      "artist": "The Rolling Stones",
+      "title": "Rock And A Hard Place",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2008 -> G2000; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1655,
+      "artist": "Theory Of A Deadman",
+      "title": "Bad Girlfriend",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2008 -> G2000; aired 14x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1397,
+      "artist": "Three Days Grace",
+      "title": "Break",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2009 -> G2000; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1416,
+      "artist": "Three Days Grace",
+      "title": "Pain",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2006 -> G2000; aired 11x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1432,
+      "artist": "Three Days Grace",
+      "title": "Animal I Have Become",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2006 -> G2000; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1671,
+      "artist": "TOOL",
+      "title": "Schism",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2001 -> G2000; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1399,
+      "artist": "U2",
+      "title": "Angel Of Harlem",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2005 -> G2000; aired 12x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1430,
+      "artist": "Velvet Revolver",
+      "title": "Fall To Pieces",
+      "from_subcat": 31,
+      "to_subcat": 4,
+      "reason": "G2000: gold import, era by original-year tag 2004 -> G2000; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1647,
+      "artist": "AC; DC",
+      "title": "Hells Bells",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2014 -> G2010; aired 1x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1659,
+      "artist": "AC; DC",
+      "title": "Dirty Deeds Done Dirt Cheap",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2015 -> G2010; aired 1x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1673,
+      "artist": "AC; DC",
+      "title": "T.N.T.",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2014 -> G2010"
+    },
+    {
+      "rdj_song_id": 1410,
+      "artist": "Avenged Sevenfold",
+      "title": "Hail To The King",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2013 -> G2010; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1473,
+      "artist": "Avenged Sevenfold",
+      "title": "Shepherd Of Fire",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2013 -> G2010; aired 26x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1484,
+      "artist": "Bad Wolves",
+      "title": "Remember When",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 23x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1601,
+      "artist": "Bad Wolves",
+      "title": "Zombie",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1458,
+      "artist": "Billy Squier",
+      "title": "Everybody Wants You",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2010 -> G2010; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1424,
+      "artist": "Breaking Benjamin",
+      "title": "So Cold",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2011 -> G2010; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1456,
+      "artist": "Breaking Benjamin",
+      "title": "Failure",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2015 -> G2010; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1407,
+      "artist": "Chevelle",
+      "title": "Face To The Floor",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2011 -> G2010; aired 22x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1395,
+      "artist": "Creed",
+      "title": "Higher",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2014 -> G2010; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1391,
+      "artist": "Days Of The New",
+      "title": "Touch, Peel And Stand",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 28x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1467,
+      "artist": "Disturbed",
+      "title": "Are You Ready",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1468,
+      "artist": "Disturbed",
+      "title": "Another Way To Die",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2010 -> G2010; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1607,
+      "artist": "Disturbed",
+      "title": "Down With The Sickness",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2011 -> G2010; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1689,
+      "artist": "Disturbed",
+      "title": "If I Ever Lose My Faith In You",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2020 -> G2010; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1645,
+      "artist": "Falling In Reverse",
+      "title": "Popular Monster",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2019 -> G2010; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1459,
+      "artist": "Five Finger Death Punch",
+      "title": "A Little Bit Off",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2020 -> G2010; aired 13x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1475,
+      "artist": "Five Finger Death Punch",
+      "title": "Inside Out",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2019 -> G2010; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1429,
+      "artist": "Godsmack",
+      "title": "Bulletproof",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1487,
+      "artist": "Godsmack",
+      "title": "When Legends Rise",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1490,
+      "artist": "Godsmack",
+      "title": "Cryin' Like A Bitch!!",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2010 -> G2010; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1643,
+      "artist": "Godsmack",
+      "title": "Under Your Scars",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1464,
+      "artist": "Green Day",
+      "title": "Boulevard Of Broken Dreams",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2017 -> G2010; aired 21x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1679,
+      "artist": "Green Day",
+      "title": "Father Of All...",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2020 -> G2010; aired 9x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1610,
+      "artist": "Guns N' Roses",
+      "title": "Patience",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2020 -> G2010; aired 4x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1412,
+      "artist": "Highly Suspect",
+      "title": "My Name Is Human",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2016 -> G2010; aired 21x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1450,
+      "artist": "Highly Suspect",
+      "title": "16",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2019 -> G2010; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1472,
+      "artist": "Highly Suspect",
+      "title": "Little One",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2016 -> G2010; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1594,
+      "artist": "Imagine Dragons",
+      "title": "Thunder",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2017 -> G2010; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1602,
+      "artist": "Imagine Dragons",
+      "title": "Whatever It Takes",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 24x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1635,
+      "artist": "Imagine Dragons",
+      "title": "Bad Liar",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 25x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1653,
+      "artist": "Imagine Dragons",
+      "title": "Natural",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 22x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1675,
+      "artist": "Imagine Dragons",
+      "title": "I Bet My Life",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2015 -> G2010; aired 16x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1690,
+      "artist": "Jeris Johnson, Ricky Desktop, Chad Kroeger",
+      "title": "Damn! (With Chad Kroeger) [Remix]",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2020 -> G2010"
+    },
+    {
+      "rdj_song_id": 1409,
+      "artist": "Mike + The Mechanics",
+      "title": "Silent Running",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2014 -> G2010; aired 26x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1676,
+      "artist": "NEEDTOBREATHE",
+      "title": "Who Am I",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2020 -> G2010; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1593,
+      "artist": "Nirvana",
+      "title": "Come As You Are",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2011 -> G2010; aired 22x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1595,
+      "artist": "Papa Roach",
+      "title": "Last Resort",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2015 -> G2010; aired 24x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1462,
+      "artist": "Pop Evil",
+      "title": "Footsteps",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2015 -> G2010; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1419,
+      "artist": "Shinedown",
+      "title": "Bully",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2012 -> G2010; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1651,
+      "artist": "Shinedown",
+      "title": "MONSTERS",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 12x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1669,
+      "artist": "Shinedown",
+      "title": "DEVIL",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1686,
+      "artist": "Skillet",
+      "title": "Feel Invincible",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2016 -> G2010; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1463,
+      "artist": "Staind",
+      "title": "Not Again",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2011 -> G2010; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1413,
+      "artist": "Stone Sour",
+      "title": "Say You'll Haunt Me",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2010 -> G2010; aired 20x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1455,
+      "artist": "Stone Sour",
+      "title": "Tired",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2012 -> G2010; aired 21x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1478,
+      "artist": "Stone Sour",
+      "title": "Absolute Zero",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2012 -> G2010; aired 23x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1477,
+      "artist": "The Pretty Reckless",
+      "title": "Heaven Knows",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2014 -> G2010; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1486,
+      "artist": "The Pretty Reckless",
+      "title": "Death By Rock And Roll",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2020 -> G2010; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1421,
+      "artist": "Theory Of A Deadman",
+      "title": "Rx (Medicate)",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2017 -> G2010; aired 17x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1482,
+      "artist": "Three Days Grace",
+      "title": "I Am Machine",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2014 -> G2010; aired 18x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1398,
+      "artist": "Three Days Grace, Three Days Grace",
+      "title": "Chalk Outline",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2012 -> G2010; aired 22x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1687,
+      "artist": "TOOL",
+      "title": "Fear Inoculum",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2019 -> G2010; aired 21x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1437,
+      "artist": "Volbeat",
+      "title": "The Devil's Bleeding Crown",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2016 -> G2010; aired 19x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1636,
+      "artist": "Weezer",
+      "title": "Africa",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2018 -> G2010; aired 22x on the old BOLT"
+    },
+    {
+      "rdj_song_id": 1670,
+      "artist": "Weezer",
+      "title": "The End Of The Game",
+      "from_subcat": 31,
+      "to_subcat": 29,
+      "reason": "G2010: gold import, era by original-year tag 2021 -> G2010"
+    }
+  ],
+  "set_enabled": [
+    {
+      "rdj_song_id": 1101,
+      "artist": "Nine Inch Nails, Boys Noize",
+      "title": "Closer (Nine Inch Noize Version) (Clean) 5A 91",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Two enabled copies of this song (ids 120, 1101); keeping 120 (020. Nine Inch Nails - Closer.mp3), per the PD's record-pool/WAV-over-Clean-MP3 preference."
+    },
+    {
+      "rdj_song_id": 455,
+      "artist": "From Ashes To New",
+      "title": "Die For You (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Two enabled copies of this song (ids 424, 455); keeping 424 (from_ashes_to_new-die_for_you.wav), per the PD's record-pool/WAV-over-Clean-MP3 preference."
+    },
+    {
+      "rdj_song_id": 1277,
+      "artist": "Dayseeker",
+      "title": "Crawl Back To My Coffin (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1154."
+    },
+    {
+      "rdj_song_id": 1157,
+      "artist": "Cage The Elephant",
+      "title": "Beaches In Tennessee (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 408 (A1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1158,
+      "artist": "Everlast",
+      "title": "Stones (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1078 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1163,
+      "artist": "Ryan Perdz",
+      "title": "Sour (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1145 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1165,
+      "artist": "Shinedown",
+      "title": "Young Again (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 418 (A2); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1166,
+      "artist": "U2",
+      "title": "Street Of Dreams (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 413 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1167,
+      "artist": "Almost Monday",
+      "title": "No More Regrets (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1071 (A1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1173,
+      "artist": "M.O.T.H.E.R.",
+      "title": "My Love (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1080 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1174,
+      "artist": "Sam Fender, Olivia Dean",
+      "title": "Rein Me In (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1104 (B); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1175,
+      "artist": "The Hu, Jonny Hawkins",
+      "title": "Lost Soul (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 425 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1179,
+      "artist": "A Perfect Circle",
+      "title": "Starless (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1070 (B); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1182,
+      "artist": "Breaking Benjamin",
+      "title": "Something Wicked (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1074 (C); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1184,
+      "artist": "Cameron Whitcomb",
+      "title": "Kingdom Of Fear (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1076 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1186,
+      "artist": "Greta Van Fleet",
+      "title": "Play Your Games (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1079 (C); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1190,
+      "artist": "Beabadoobee, The Marias",
+      "title": "All I Did Was Dream Of You (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1133 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1192,
+      "artist": "Five Finger Death Punch",
+      "title": "Eye Of The Storm (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 423 (C); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1195,
+      "artist": "Noah Kahan",
+      "title": "Doors (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1086 (F); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1197,
+      "artist": "The Beaches",
+      "title": "Should've Known Better (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1105 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1201,
+      "artist": "Autumn Kings",
+      "title": "Gone, Gone, Gone (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1091 (A1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1203,
+      "artist": "Dogstar",
+      "title": "All In Now (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1140 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1204,
+      "artist": "Eva Under Fire, Maria Brink, In This Moment",
+      "title": "Villainous (Original Mix)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1095 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1207,
+      "artist": "Modest Mouse",
+      "title": "Picking Dragons' Pockets (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1100 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1209,
+      "artist": "Temper City",
+      "title": "Self Aware (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 414 (A1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1212,
+      "artist": "Tim Montana",
+      "title": "Break Me Down (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1110 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1214,
+      "artist": "Evanescence",
+      "title": "Who Will You Follow (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1096 (C); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1215,
+      "artist": "MGK, Fred Durst",
+      "title": "Fix Ur Face (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1082 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1218,
+      "artist": "Sublime",
+      "title": "Until The Sun Explodes (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1148 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1219,
+      "artist": "The Black Crowes",
+      "title": "Profane Prophecy (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1150 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1221,
+      "artist": "The Last Dinner Party",
+      "title": "Count The Ways (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1127 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1223,
+      "artist": "The Strokes",
+      "title": "Going Shopping (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1108 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1225,
+      "artist": "Atreyu",
+      "title": "All For You (Original Mix)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1090 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1226,
+      "artist": "Beartooth",
+      "title": "Free (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1092 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1227,
+      "artist": "Black Label Society",
+      "title": "Name In Blood (Radio Edit 1)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 405 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1230,
+      "artist": "Death Cab For Cutie",
+      "title": "Riptides (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1137 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1233,
+      "artist": "Ice Nine Kills, Mckenna Grace",
+      "title": "Twisting The Knife (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1015 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1234,
+      "artist": "Muse",
+      "title": "Be With You (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1143 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1235,
+      "artist": "Noah Kahan",
+      "title": "Porch Light (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1102 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1236,
+      "artist": "President",
+      "title": "Destroy Me (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1144 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1239,
+      "artist": "Social Distortion",
+      "title": "Born To Kill (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1021 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1240,
+      "artist": "The Pretty Reckless",
+      "title": "When I Wake Up (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1151 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1241,
+      "artist": "The Warning",
+      "title": "Kerosene (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1153 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1243,
+      "artist": "Weezer, Bethany Cosentino",
+      "title": "Go Away (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1027 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1244,
+      "artist": "Yellowcard, Good Charlotte",
+      "title": "Bedroom Posters (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1131 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1247,
+      "artist": "Architects",
+      "title": "Broken Mirror (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1112 (C); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1248,
+      "artist": "From Ashes To New",
+      "title": "Drag Me (Original Mix)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1117 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1249,
+      "artist": "Noah Kahan",
+      "title": "The Great Divide (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1121 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1253,
+      "artist": "The All-American Rejects",
+      "title": "Get This (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1125 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1258,
+      "artist": "In Color",
+      "title": "Headlights (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1119 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1260,
+      "artist": "Papa Roach",
+      "title": "Wake Up Calling (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 409 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1261,
+      "artist": "Return To Dust",
+      "title": "Bored (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 997 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1262,
+      "artist": "Sombr",
+      "title": "12 To 12 (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 958 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1263,
+      "artist": "Sombr",
+      "title": "Homewrecker (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1022 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1265,
+      "artist": "Twenty One Pilots",
+      "title": "Drag Path (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1026 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1268,
+      "artist": "Brigitte Calls Me Baby",
+      "title": "Slumber Party (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1115 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1271,
+      "artist": "The Black Keys",
+      "title": "You Got To Lose (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1126 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1272,
+      "artist": "The Ramona Flowers",
+      "title": "That Summer (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1045 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1273,
+      "artist": "The Strumbellas",
+      "title": "Skin Of My Teeth (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1046 (R2); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1274,
+      "artist": "Violet Grohl",
+      "title": "THUM (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1129 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1275,
+      "artist": "Volbeat",
+      "title": "Demonic Depression (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 410 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1276,
+      "artist": "Young The Giant",
+      "title": "Different Kind Of Love (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1132 (R2); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1280,
+      "artist": "Jutes",
+      "title": "It Takes Two  (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1039 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1283,
+      "artist": "The Beaches",
+      "title": "Can I Call You In The Morning (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 960 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1284,
+      "artist": "The Lumineers",
+      "title": "So Long (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1043 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1287,
+      "artist": "Alter Bridge",
+      "title": "Silent Divide (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1050 (R3); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1290,
+      "artist": "Finger Eleven",
+      "title": "The Mountain (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1032 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1294,
+      "artist": "NEVERTEL, Sleep Theory",
+      "title": "Break The Silence (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1062 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1295,
+      "artist": "Out In Front",
+      "title": "Float (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1122 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1296,
+      "artist": "Royel Otis",
+      "title": "Who's Your Boyfriend (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 815 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1303,
+      "artist": "Silversun Pickups",
+      "title": "The Wreckage (Original Mix)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1065 (R2); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1304,
+      "artist": "Stephen Wilson Jr.",
+      "title": "Tonight, Tonight (Original Mix)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 816 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1307,
+      "artist": "Velvet Chains",
+      "title": "How The Story Ends (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1068 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1309,
+      "artist": "Yungblud",
+      "title": "Zombie (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1048 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1313,
+      "artist": "Geese",
+      "title": "Cobra (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1055 (F); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1315,
+      "artist": "Guns N' Roses",
+      "title": "Nothin' (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1035 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1318,
+      "artist": "Reverse Pathogen",
+      "title": "Sunday Afternoon (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1041 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1322,
+      "artist": "Balu Brigada",
+      "title": "Backseat (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 783 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1324,
+      "artist": "Chevelle",
+      "title": "Pale Horse (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 969 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1325,
+      "artist": "Foo Fighters",
+      "title": "Asking For A Friend (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 809 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1326,
+      "artist": "Hayley Williams",
+      "title": "Parachute (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1118 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1327,
+      "artist": "Mumford & Sons, Hozier",
+      "title": "Rubber Band Man (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 813 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1329,
+      "artist": "Shinedown",
+      "title": "Searchlight (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1064 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1331,
+      "artist": "The Neighbourhood",
+      "title": "Hula Girl (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1044 (R2); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1332,
+      "artist": "Turnstile",
+      "title": "Look Out For Me (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1067 (R2); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1334,
+      "artist": "AJR",
+      "title": "The Big Goodbye (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 802 (R2); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1335,
+      "artist": "Almost Monday",
+      "title": "Lost (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 803 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1336,
+      "artist": "Braison Cyrus, Miley Cyrus",
+      "title": "Know This (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 805 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1339,
+      "artist": "Djo",
+      "title": "Delete Ya (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 949 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1340,
+      "artist": "Halestorm",
+      "title": "Like A Woman Can (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1057 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1341,
+      "artist": "Little Image",
+      "title": "Kill The Ghost (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1060 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1343,
+      "artist": "Vance Joy",
+      "title": "Fascination In The Dark (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 821 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1344,
+      "artist": "Wisp",
+      "title": "Save Me Now (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 963 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1345,
+      "artist": "Avatar",
+      "title": "Tonight We Must Be Warriors (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 948 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1346,
+      "artist": "Bad Omens",
+      "title": "Dying To Love (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1052 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1348,
+      "artist": "Edgehill",
+      "title": "Doubletake (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 416 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1350,
+      "artist": "Florence, The Machine",
+      "title": "Everybody Scream (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 973 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1351,
+      "artist": "Good Charlotte",
+      "title": "Rejects (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 787 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1352,
+      "artist": "I Prevail",
+      "title": "Into Hell (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 788 (F); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1353,
+      "artist": "Magnolia Park",
+      "title": "Shallow (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1061 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1354,
+      "artist": "Matt Maeson",
+      "title": "Downstairs (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 992 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1355,
+      "artist": "Mt. Joy",
+      "title": "Lucy (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 993 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1356,
+      "artist": "Pierce The Veil",
+      "title": "So Far So Fake (Radio Edit)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 979 (R1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1357,
+      "artist": "Portugal. The Man",
+      "title": "Tanana (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 814 (R2); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1358,
+      "artist": "Rainbow Kitten Surprise",
+      "title": "Dang (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 980 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1359,
+      "artist": "Sabaton, Nothing More",
+      "title": "Crossing The Rubicon (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1063 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1361,
+      "artist": "The Format",
+      "title": "Holy Roller (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 817 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1363,
+      "artist": "The Last Dinner Party",
+      "title": "This Is The Killer Speaking (Clean)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 982 (R2); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1366,
+      "artist": "White Reaper",
+      "title": "Honestly (Original Mix)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 1005 (W); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1392,
+      "artist": "Stone Temple Pilots",
+      "title": "Interstate Love Song (2019 Remaster)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 142 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1558,
+      "artist": "Stone Temple Pilots",
+      "title": "Interstate Love Song",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 142 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1609,
+      "artist": "Stone Temple Pilots",
+      "title": "Interstate Love Song",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 142 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1393,
+      "artist": "U2",
+      "title": "Mysterious Ways",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 151 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1394,
+      "artist": "Nickelback",
+      "title": "How You Remind Me",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 206 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1637,
+      "artist": "Nickelback",
+      "title": "How You Remind Me",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 206 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1668,
+      "artist": "Seether",
+      "title": "Fake It",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1400."
+    },
+    {
+      "rdj_song_id": 1401,
+      "artist": "Bruce Springsteen",
+      "title": "Dancing In The Dark",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 3 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1402,
+      "artist": "Staind",
+      "title": "It's Been Awhile",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 283 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1606,
+      "artist": "Staind",
+      "title": "It's Been Awhile",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 283 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1405,
+      "artist": "The Glorious Sons",
+      "title": "S.O.S. (Sawed Off Shotgun)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 350 (G2010); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1406,
+      "artist": "3 Doors Down",
+      "title": "Kryptonite",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 229 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1617,
+      "artist": "3 Doors Down",
+      "title": "Kryptonite",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 229 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1681,
+      "artist": "Shinedown",
+      "title": "Second Chance",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1408."
+    },
+    {
+      "rdj_song_id": 1682,
+      "artist": "Highly Suspect",
+      "title": "My Name Is Human",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1412."
+    },
+    {
+      "rdj_song_id": 1415,
+      "artist": "The Rolling Stones",
+      "title": "Start Me Up (Remastered 2009)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 14 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1418,
+      "artist": "Bruce Springsteen",
+      "title": "Tunnel Of Love",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 65 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1624,
+      "artist": "Theory Of A Deadman",
+      "title": "Rx (Medicate)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1421."
+    },
+    {
+      "rdj_song_id": 1423,
+      "artist": "The Black Crowes",
+      "title": "Hard To Handle",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 130 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1638,
+      "artist": "Breaking Benjamin",
+      "title": "I Will Not Bow",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1427."
+    },
+    {
+      "rdj_song_id": 1649,
+      "artist": "Godsmack",
+      "title": "Bulletproof",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1429."
+    },
+    {
+      "rdj_song_id": 1683,
+      "artist": "Stone Sour",
+      "title": "Through Glass",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1431."
+    },
+    {
+      "rdj_song_id": 1433,
+      "artist": "Seether",
+      "title": "Country Song",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 377 (G2010); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1694,
+      "artist": "Lenny Kravitz",
+      "title": "Fly Away",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1439."
+    },
+    {
+      "rdj_song_id": 1440,
+      "artist": "Stone Temple Pilots",
+      "title": "Plush",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 114 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1445,
+      "artist": "Collective Soul",
+      "title": "December",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 190 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1446,
+      "artist": "Audioslave",
+      "title": "Like A Stone",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 215 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1447,
+      "artist": "Journey",
+      "title": "Separate Ways (Worlds Apart)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 29 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1448,
+      "artist": "Dire Straits",
+      "title": "Money For Nothing (Remastered 1996)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 44 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1662,
+      "artist": "Godsmack",
+      "title": "I Stand Alone",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1451."
+    },
+    {
+      "rdj_song_id": 1452,
+      "artist": "Van Halen",
+      "title": "Jump (2015 Remaster)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 35 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1585,
+      "artist": "Live",
+      "title": "Lightning Crashes",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1461."
+    },
+    {
+      "rdj_song_id": 1667,
+      "artist": "Live",
+      "title": "Lightning Crashes",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1461."
+    },
+    {
+      "rdj_song_id": 1466,
+      "artist": "Don Henley",
+      "title": "The Boys Of Summer",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 67 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1470,
+      "artist": "Joan Jett And The Blackhearts",
+      "title": "I Love Rock 'N Roll",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 20 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1614,
+      "artist": "Joan Jett And The Blackhearts",
+      "title": "I Love Rock 'N Roll",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 20 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1476,
+      "artist": "Disturbed",
+      "title": "The Sound Of Silence",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 392 (G2010); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1591,
+      "artist": "Disturbed",
+      "title": "The Sound Of Silence",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 392 (G2010); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1584,
+      "artist": "Creed",
+      "title": "What's This Life For",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1481."
+    },
+    {
+      "rdj_song_id": 1483,
+      "artist": "Pearl Jam",
+      "title": "Daughter (Remastered)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 189 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1485,
+      "artist": "Lenny Kravitz",
+      "title": "Are You Gonna Go My Way",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 143 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1506,
+      "artist": "Lenny Kravitz, Craig Ross, Henry Hirsch, Tony Breit, Michael Hunter, Robert Lawrence, Liuh-Wen Ting",
+      "title": "Are You Gonna Go My Way",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 143 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1703,
+      "artist": "Lenny Kravitz",
+      "title": "Are You Gonna Go My Way",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 143 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1672,
+      "artist": "Godsmack",
+      "title": "When Legends Rise",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1487."
+    },
+    {
+      "rdj_song_id": 1489,
+      "artist": "Collective Soul",
+      "title": "Shine",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 152 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1590,
+      "artist": "Collective Soul",
+      "title": "Shine",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 152 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1491,
+      "artist": "Nirvana",
+      "title": "Smells Like Teen Spirit",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 102 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1634,
+      "artist": "Nirvana",
+      "title": "Smells Like Teen Spirit",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 102 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1492,
+      "artist": "Rage Against The Machine",
+      "title": "Killing In The Name",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 199 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1615,
+      "artist": "Rage Against The Machine",
+      "title": "Killing In The Name",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 199 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1493,
+      "artist": "Green Day",
+      "title": "Basket Case",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 105 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1652,
+      "artist": "Green Day",
+      "title": "Basket Case",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 105 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1494,
+      "artist": "Red Hot Chili Peppers",
+      "title": "Under The Bridge",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 108 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1605,
+      "artist": "Red Hot Chili Peppers",
+      "title": "Under The Bridge",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 108 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1495,
+      "artist": "Radiohead",
+      "title": "Creep",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 113 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1496,
+      "artist": "Blur",
+      "title": "Song 2",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 127 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1497,
+      "artist": "Pearl Jam",
+      "title": "Alive",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 163 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1661,
+      "artist": "Pearl Jam",
+      "title": "Alive",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 163 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1498,
+      "artist": "Foo Fighters",
+      "title": "Everlong",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 122 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1657,
+      "artist": "Foo Fighters",
+      "title": "Everlong",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 122 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1499,
+      "artist": "Metallica, James Hetfield, Lars Ulrich, Kirk Hammett, Jason Newsted",
+      "title": "Enter Sandman",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 103 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1622,
+      "artist": "Metallica",
+      "title": "Enter Sandman",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 103 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1500,
+      "artist": "AC; DC",
+      "title": "Thunderstruck",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 101 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1599,
+      "artist": "AC; DC",
+      "title": "Thunderstruck",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 101 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1501,
+      "artist": "Guns N' Roses",
+      "title": "November Rain",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 200 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1663,
+      "artist": "Guns N' Roses",
+      "title": "November Rain",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 200 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1503,
+      "artist": "The Cranberries",
+      "title": "Zombie",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 119 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1504,
+      "artist": "Alanis Morissette",
+      "title": "You Oughta Know (2015 Remaster)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 110 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1507,
+      "artist": "Beastie Boys",
+      "title": "Sabotage (Edited / 2005 Remaster)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 144 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1508,
+      "artist": "Blink-182",
+      "title": "All The Small Things",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 104 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1654,
+      "artist": "Blink-182",
+      "title": "All The Small Things",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 104 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1695,
+      "artist": "Blink-182",
+      "title": "All The Small Things",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 104 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1510,
+      "artist": "Sheryl Crow",
+      "title": "If It Makes You Happy",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 172 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1511,
+      "artist": "Beck",
+      "title": "Loser",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 111 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1513,
+      "artist": "Spin Doctors",
+      "title": "Two Princes",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 126 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1515,
+      "artist": "Counting Crows",
+      "title": "Mr. Jones",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 169 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1520,
+      "artist": "The Goo Goo Dolls",
+      "title": "Iris",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 116 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1521,
+      "artist": "Soundgarden",
+      "title": "Black Hole Sun",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 106 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1598,
+      "artist": "Soundgarden",
+      "title": "Black Hole Sun",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 106 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1522,
+      "artist": "Weezer, Brian Bell, Rivers Cuomo, Matt Sharp, Patrick Wilson",
+      "title": "Buddy Holly",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 147 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1523,
+      "artist": "Barenaked Ladies",
+      "title": "One Week",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 146 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1525,
+      "artist": "Hole, Eric Erlandson, Courtney Love, Melissa Auf Der Maur, Deen Castronovo",
+      "title": "Celebrity Skin",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 123 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1527,
+      "artist": "Jane's Addiction",
+      "title": "Been Caught Stealing",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 164 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1530,
+      "artist": "Garbage",
+      "title": "Stupid Girl",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 131 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1532,
+      "artist": "INXS, Michael Hutchence, Garry Beers, Andrew Farriss, Jon Farriss, Tim Farriss, Kirk Pengilly",
+      "title": "Suicide Blonde",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 157 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1546,
+      "artist": "The Breeders",
+      "title": "Cannonball",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 192 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1552,
+      "artist": "The Smashing Pumpkins",
+      "title": "Bullet With Butterfly Wings",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 165 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1633,
+      "artist": "Marilyn Manson",
+      "title": "The Beautiful People",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the new import of id 1561."
+    },
+    {
+      "rdj_song_id": 1562,
+      "artist": "Nine Inch Nails",
+      "title": "Closer",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 120 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1623,
+      "artist": "Nine Inch Nails",
+      "title": "Closer",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 120 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1571,
+      "artist": "Third Eye Blind",
+      "title": "Semi-Charmed Life",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 135 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1592,
+      "artist": "Cage The Elephant",
+      "title": "Ain't No Rest For The Wicked",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 236 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1596,
+      "artist": "Guns N' Roses",
+      "title": "Paradise City",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 60 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1597,
+      "artist": "Breaking Benjamin",
+      "title": "The Diary Of Jane (Single Version)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 275 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1600,
+      "artist": "System Of A Down",
+      "title": "Chop Suey!",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 208 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1608,
+      "artist": "Nirvana",
+      "title": "Lithium",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 129 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1611,
+      "artist": "Mötley Crüe",
+      "title": "Kickstart My Heart",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 17 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1612,
+      "artist": "Bush",
+      "title": "Glycerine",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 167 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1613,
+      "artist": "Three Days Grace",
+      "title": "I Hate Everything About You",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 248 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1616,
+      "artist": "AWOLNATION",
+      "title": "Sail",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 318 (G2010); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1618,
+      "artist": "Guns N' Roses",
+      "title": "Welcome To The Jungle",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 24 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1621,
+      "artist": "Imagine Dragons",
+      "title": "Believer",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 384 (G2010); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1625,
+      "artist": "AC; DC",
+      "title": "Back In Black",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 4 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1626,
+      "artist": "Guns N' Roses",
+      "title": "Sweet Child O' Mine",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 2 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1627,
+      "artist": "Linkin Park",
+      "title": "In The End",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 207 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1628,
+      "artist": "Metallica",
+      "title": "Nothing Else Matters",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 162 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1629,
+      "artist": "Evanescence",
+      "title": "Bring Me To Life",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 216 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1631,
+      "artist": "TOOL",
+      "title": "Sober",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 134 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1632,
+      "artist": "Linkin Park",
+      "title": "Numb",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 258 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1639,
+      "artist": "Ozzy Osbourne",
+      "title": "Crazy Train (2002 Version)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 12 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1641,
+      "artist": "Green Day",
+      "title": "When I Come Around",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 181 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1642,
+      "artist": "Pink Floyd",
+      "title": "Another Brick In The Wall, Pt. 2",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 25 (H1); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1648,
+      "artist": "Red Hot Chili Peppers",
+      "title": "Californication",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 205 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1650,
+      "artist": "The Smashing Pumpkins",
+      "title": "1979 (Remastered 2012)",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 139 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1664,
+      "artist": "Fall Out Boy",
+      "title": "Sugar, We're Goin Down",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 235 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1665,
+      "artist": "Kid Rock",
+      "title": "All Summer Long",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 241 (G2000); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1677,
+      "artist": "Pearl Jam",
+      "title": "Even Flow",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 109 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1713,
+      "artist": "Sheryl Crow",
+      "title": "All I Wanna Do",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 125 (G1990); the existing placement stands."
+    },
+    {
+      "rdj_song_id": 1755,
+      "artist": "Blind Melon",
+      "title": "No Rain",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate of placed id 171 (G1990); the existing placement stands."
+    }
+  ]
+}

@@ -1,0 +1,852 @@
+rdj_song_id	subcat	artist_live	artist_fix	title_live	title_fix	class
+1	2	Queen	Queen	Another One Bites The Dust (2011 Remaster)	Another One Bites The Dust	version-tag
+4	2	AC; DC	AC/DC	Back In Black	Back In Black	artist-fix
+10	2	Def Leppard	Def Leppard	Pour Some Sugar On Me (Remastered 2017)	Pour Some Sugar On Me	version-tag
+14	2	The Rolling Stones	The Rolling Stones	Start Me Up (Remastered)	Start Me Up	version-tag
+15	2	U2	U2	With Or Without You (Remastered)	With Or Without You	version-tag
+21	2	Queen, David Bowie	Queen, David Bowie	Under Pressure (Remastered 2011 / New Master)	Under Pressure	version-tag
+22	2	AC; DC	AC/DC	You Shook Me All Night Long	You Shook Me All Night Long	artist-fix
+36	2	The Police	The Police	Every Breath You Take (Remastered 2003)	Every Breath You Take	version-tag
+38	2	Genesis	Genesis	That's All (2007 Remaster)	That's All	version-tag
+43	2	The Pretenders	The Pretenders	Brass In Pocket (2006 Remaster)	Brass In Pocket	version-tag
+47	2	Poison	Poison	Every Rose Has Its Thorn (Remastered 2003)	Every Rose Has Its Thorn	version-tag
+51	2	Pat Benatar	Pat Benatar	Hit Me With Your Best Shot (Remastered)	Hit Me With Your Best Shot	version-tag
+53	2	U2	U2	Pride (In The Name Of Love) (Remastered 2009)	Pride (In The Name Of Love)	version-tag
+58	2	Queen	Queen	Crazy Little Thing Called Love (2011 Remaster)	Crazy Little Thing Called Love	version-tag
+59	2	Def Leppard	Def Leppard	Hysteria (Remastered 2017)	Hysteria	version-tag
+72	2	The Police	The Police	Every Little Thing She Does Is Magic (Remastered 2003)	Every Little Thing She Does Is Magic	version-tag
+74	2	Genesis	Genesis	Invisible Touch (2007 Remaster)	Invisible Touch	version-tag
+81	2	Pretenders	The Pretenders	Back On The Chain Gang (2007 Remaster)	Back On The Chain Gang	artist-fix,version-tag
+82	2	Foreigner	Foreigner	I Want To Know What Love Is (1999 Remaster)	I Want To Know What Love Is	version-tag
+84	2	Peter Gabriel	Peter Gabriel	Sledgehammer (2012 Remaster)	Sledgehammer	version-tag
+86	2	Poison	Poison	Nothin' But A Good Time (Remastered 2006)	Nothin' But A Good Time	version-tag
+89	2	R.E.M.	R.E.M.	The One I Love (Remastered 2012)	The One I Love	version-tag
+91	2	The Clash	The Clash	Should I Stay Or Should I Go (Remastered)	Should I Stay Or Should I Go	version-tag
+92	2	U2	U2	Where The Streets Have No Name (Remastered)	Where The Streets Have No Name	version-tag
+99	2	The Police	The Police	Wrapped Around Your Finger (Remastered 2003)	Wrapped Around Your Finger	version-tag
+101	1	AC; DC	AC/DC	Thunderstruck	Thunderstruck	artist-fix
+107	1	Oasis	Oasis	Wonderwall (Remastered)	Wonderwall	version-tag
+114	1	Stone Temple Pilots	Stone Temple Pilots	Plush (Remastered)	Plush	version-tag
+115	1	Tom Petty	Tom Petty	You Don't Know How It Feels (2014 Remaster)	You Don't Know How It Feels	version-tag
+116	1	The Goo Goo Dolls	Goo Goo Dolls	Iris	Iris	artist-fix
+139	1	The Smashing Pumpkins	The Smashing Pumpkins	1979 (Remastered 2012)	1979	version-tag
+142	1	Stone Temple Pilots	Stone Temple Pilots	Interstate Love Song (2019 Remaster)	Interstate Love Song	version-tag
+144	1	Beastie Boys	Beastie Boys	Sabotage (Remastered 2009)	Sabotage	version-tag
+156	1	Depeche Mode	Depeche Mode	Personal Jesus (2006 Remaster)	Personal Jesus	version-tag
+165	1	The Smashing Pumpkins	The Smashing Pumpkins	Bullet With Butterfly Wings (Remastered 2012)	Bullet With Butterfly Wings	version-tag
+173	1	Garbage	Garbage	Only Happy When It Rains (2015 - Remaster)	Only Happy When It Rains	version-tag
+189	1	Pearl Jam	Pearl Jam	Daughter (Remastered)	Daughter	version-tag
+191	1	Oasis	Oasis	Don't Look Back In Anger (Remastered)	Don't Look Back In Anger	version-tag
+272	4	P.O.D	P.O.D.	Youth Of The Nation	Youth Of The Nation	artist-fix
+280	4	Black Crowes, The	The Black Crowes	Lickin'	Lickin'	artist-fix
+285	4	Nickelback	Nickelback	Photograph (Acoustic) (2020 Remaster)	Photograph (Acoustic)	version-tag
+403	23	Electric Callboy Feat. The Offspring	Electric Callboy Feat. The Offspring	Let The Good Times Roll (Clean)	Let The Good Times Roll	version-tag
+413	26	U2	U2	Street Of Dreams (Radio Edit)	Street Of Dreams	version-tag
+415	27	Three Days Grace	Three Days Grace	Kill Me Fast 154	Kill Me Fast	bpm/key-suffix
+416	35	Edgehill	Edgehill	Doubletake 146	Doubletake	bpm/key-suffix
+427	23	Beabadoobee	Beabadoobee	Write Me A Letter (Clean)	Write Me A Letter	version-tag
+430	6	Dead Poet Society	Dead Poet Society	Cold (Clean)	Cold	version-tag
+431	6	Death Cab For Cutie	Death Cab For Cutie	Stone Over Water (Clean)	Stone Over Water	version-tag
+432	3	Evanescence	Evanescence	Tell Me When You've Had Enough (Clean)	Tell Me When You've Had Enough	version-tag
+433	3	Five Finger Death Punch	Five Finger Death Punch	Nails In The Coffin (Clean)	Nails In The Coffin	version-tag
+434	23	Fozzy	Fozzy	I Know Evil (Original Mix)	I Know Evil	version-tag
+435	23	In Color	In Color	High (Clean)	High	version-tag
+436	3	Letdown	Letdown.	Do It For The Love (Clean)	Do It For The Love	artist-fix,version-tag
+437	23	Muse	Muse	Cryogen (Clean)	Cryogen	version-tag
+438	23	Spiritbox	Spiritbox	Perfect Soul (Radio Edit)	Perfect Soul	version-tag
+439	23	Sublime	Sublime	F.T.R (Dirty)	F.T.R	version-tag
+440	5	Tame Impala	Tame Impala	Loser (Clean)	Loser	version-tag
+441	3	The Paradox	The Paradox	I Kinda Like That (Dirty)	I Kinda Like That	version-tag
+442	24	The Warning	The Warning	Bite My Tongue (Clean)	Bite My Tongue	version-tag
+443	23	Theory Of A Deadman	Theory Of A Deadman	Winnebago (Lay Low) (Original Mix)	Winnebago (Lay Low)	version-tag
+444	24	U2	U2	Silencio (Clean)	Silencio	version-tag
+445	6	Wage War	Wage War	Blindfold (Clean)	Blindfold	version-tag
+446	23	Des Rocs	Des Rocs	When The Love Is Gone (Clean)	When The Love Is Gone	version-tag
+447	3	Fontaines D.C.	Fontaines D.C.	Marianne (Clean)	Marianne	version-tag
+448	23	Royal Blood	Royal Blood	Ten Over Ten (Clean)	Ten Over Ten	version-tag
+449	6	Steve Lacy	Steve Lacy	Oh Yeah (Dirty)	Oh Yeah	version-tag
+450	23	The Beaches	The Beaches	Edge Of The Earth (Clean)	Edge Of The Earth	version-tag
+451	6	The Revivalists	The Revivalists	Heart Stop (Radio Edit)	Heart Stop	version-tag
+452	23	Adult Leisure	Adult Leisure	Kiss Me Like You Miss Her (Clean)	Kiss Me Like You Miss Her	version-tag
+453	24	Bad Wolves	Bad Wolves	Jolene (Clean)	Jolene	version-tag
+454	24	Chvrches	Chvrches	Roses (Clean)	Roses	version-tag
+456	33	K.Flay	K.Flay	Ants (Clean)	Ants	version-tag
+457	33	Sylvan Esso	Sylvan Esso	Sledge (Original Mix)	Sledge	version-tag
+458	6	Three Days Grace	Three Days Grace	Don't Wanna Go Home Tonight (Dirty)	Don't Wanna Go Home Tonight	version-tag
+459	33	Blossoms	Blossoms	Meet Me In Love (Clean)	Meet Me In Love	version-tag
+460	6	In This Moment, Dayseeker	In This Moment, Dayseeker	I Want To Believe (Clean)	I Want To Believe	version-tag
+461	24	Kings Of Leon	Kings Of Leon	My Whole World (Clean)	My Whole World	version-tag
+462	24	Mastodon	Mastodon	Snakes For Dinner (Clean)	Snakes For Dinner	version-tag
+463	33	PRESIDENT	PRESIDENT	Sleepwalker (Clean)	Sleepwalker	version-tag
+464	33	Slipknot	Slipknot	Arsenal (Dirty)	Arsenal	version-tag
+465	24	Judah & The Lion	Judah & The Lion	Maybe The Best Is Now (Radio Edit 1)	Maybe The Best Is Now	version-tag
+466	23	Slightly Stoopid, Wiz Khalifa, G. Love	Slightly Stoopid, Wiz Khalifa, G. Love	Backseat Drivin (Clean)	Backseat Drivin	version-tag
+469	25	Caroline  Lachek	Caroline Polachek	So Hot You're Hurting My Feelings	So Hot You're Hurting My Feelings	artist-fix
+470	35	Falling In Reverse	Falling In Reverse	Zombified (Clean)	Zombified	version-tag
+473	35	Jack Kays With Travis Barker	Jack Kays With Travis Barker	Sideways (Clean Edit)	Sideways	version-tag
+480	35	Slothrust	Slothrust	Waiting (Clean Radio Edit)	Waiting	version-tag
+481	35	Slotide	Slotide	Neck High (Clean Edit)	Neck High	version-tag
+482	35	SMITH	SMITH	Scab (PO Clean Edit)	Scab	version-tag
+483	30	Surfbort	Surfbort	Lot Lizard 93	Lot Lizard	bpm/key-suffix
+487	35	Avril Lavigne	Avril Lavigne	Bite Me (Clean Edit)	Bite Me	version-tag
+488	35	Big Time Nate F.; Ofi	Big Time Nate feat. Ofi	Twenty Seconds	Twenty Seconds	artist-fix
+492	35	Matisyahu F.; Salt Cathedral	Matisyahu feat. Salt Cathedral	Chameleon (Clean Edit)	Chameleon	artist-fix,version-tag
+493	35	Nick Brodeur F.; Kymani Marley	Nick Brodeur feat. Kymani Marley	She's So Crazy	She's So Crazy	artist-fix
+494	35	Our Lady Peace F.; Pussy Riot	Our Lady Peace feat. Pussy Riot	Stop Making Stupid People Famous	Stop Making Stupid People Famous	artist-fix
+496	35	Willow F.; Travis Barker	Willow feat. Travis Barker	Gaslight	Gaslight	artist-fix
+497	25	100 Gecs	100 Gecs	Hollywood Baby (Clean.)	Hollywood Baby	version-tag
+500	25	Del Water Gap	Del Water Gap	Ode To A Conversation Stuck In Your Throat (Clean)	Ode To A Conversation Stuck In Your Throat	version-tag
+502	25	Letdown.	Letdown.	Crying In The Shower (Clean)	Crying In The Shower	version-tag
+505	28	Milky Chance	Milky Chance	Living In A Haze (PO Clean Edit)	Living In A Haze	version-tag
+508	35	Weathers F.; John The Ghost	Weathers feat. John The Ghost	ALL CAPS	ALL CAPS	artist-fix
+513	28	Daughtry	Daughtry	Artificial (Radio Edit)	Artificial	version-tag
+517	35	I Don't Know How But They Found Me	I Don't Know How But They Found Me	What Love (Radio Edit)	What Love	version-tag
+525	35	Smith	SMITH	Lemon	Lemon	artist-fix
+531	30	Hannah Cutt	Hannah Cutt	Messy (Radio Edit)	Messy	version-tag
+534	25	Koe Wetzel	Koe Wetzel	Creeps (Clean)	Creeps	version-tag
+537	35	Autopilot	Autopilot	Say Something 130	Say Something	bpm/key-suffix
+538	35	Beach Weather F. Pale Waves	Beach Weather F. Pale Waves	Unlovable 80	Unlovable	bpm/key-suffix
+539	35	Bishop Briggs	Bishop Briggs	Baggage (Clean) 95	Baggage	bpm/key-suffix,version-tag
+540	28	Blur	Blur	The Narcissist 128	The Narcissist	bpm/key-suffix
+541	35	Bring Me The Horizon	Bring Me The Horizon	Lost (Clean) 92	Lost	bpm/key-suffix,version-tag
+542	35	Codefendants	Codefendants	Def Cons 106	Def Cons	bpm/key-suffix
+543	35	D4vd	D4vd	The Bridge 147	The Bridge	bpm/key-suffix
+544	28	David Kushner	David Kushner	Daylight 130	Daylight	bpm/key-suffix
+545	30	Don T Believe In Ghosts	Don't Believe In Ghosts	Makes No Difference 120	Makes No Difference	artist-fix,bpm/key-suffix
+546	30	Durry	Durry	Who S Laughing Now 91	Who S Laughing Now	bpm/key-suffix
+547	35	Fall Out Boy	Fall Out Boy	Hold Me Like A Grudge 114	Hold Me Like A Grudge	bpm/key-suffix
+548	35	Great Northern	Great Northern	Animl 118	Animl	bpm/key-suffix
+549	35	Kennyhoopla	Kennyhoopla	You Needed A Hit 103	You Needed A Hit	bpm/key-suffix
+550	28	Lana Del Rey	Lana Del Rey	Say Yes To Heaven 101	Say Yes To Heaven	bpm/key-suffix
+551	30	Little Hurt	Little Hurt	I Can Do Better Than You 82	I Can Do Better Than You	bpm/key-suffix
+552	35	Misterwives	Misterwives	Nosebleeds 115	Nosebleeds	bpm/key-suffix
+553	35	Nothing But Thieves	Nothing But Thieves	Overcome 82	Overcome	bpm/key-suffix
+554	35	Rezz   Grabbitz	Rezz & Grabbitz	Signal 85	Signal	artist-fix,bpm/key-suffix
+555	35	The Hives	The Hives	Bogus Operandi 145	Bogus Operandi	bpm/key-suffix
+556	35	The Used	The Used	Giving Up 81	Giving Up	bpm/key-suffix
+557	35	Ajr	Ajr	Yes I'm A Mess (Clean) 92	Yes I'm A Mess	bpm/key-suffix,version-tag
+558	35	Autopilot	Autopilot	Unwound 83	Unwound	bpm/key-suffix
+559	28	Bad Omens	Bad Omens	The Death Of Peace Of Mind (Clean Edit) 77	The Death Of Peace Of Mind	bpm/key-suffix,version-tag
+560	28	Barns Courtney	Barns Courtney	Young In America (Explicit) 140	Young In America	bpm/key-suffix,version-tag
+561	28	Bleachers	Bleachers	Modern Girl 150	Modern Girl	bpm/key-suffix
+562	28	Blink-182	Blink-182	One More Time 114	One More Time	bpm/key-suffix
+563	30	Gxtp	Gxtp	Accusation 80	Accusation	bpm/key-suffix
+564	30	Hello Lucky	Hello Lucky	Honey 136	Honey	bpm/key-suffix
+565	35	Marvelous 3	Marvelous 3	If We're On Fire (Let It Burn) 127	If We're On Fire (Let It Burn)	bpm/key-suffix
+566	30	Pat Mac	Pat Mac	The Indigo 144	The Indigo	bpm/key-suffix
+567	28	Shinedown	Shinedown	A Symptom Of Being Human 134	A Symptom Of Being Human	bpm/key-suffix
+568	35	Slothrust	Slothrust	Pony 140	Pony	bpm/key-suffix
+569	35	Staind	Staind	Here And Now 125	Here And Now	bpm/key-suffix
+570	28	Sum 41	Sum 41	Landmines (Clean) 86	Landmines	bpm/key-suffix,version-tag
+571	35	Taking Back Sunday	Taking Back Sunday	S'old 83	S'old	bpm/key-suffix
+572	28	The 1975	The 1975	About You 96	About You	bpm/key-suffix
+573	35	The Moss	The Moss	The Place That Makes Me Happy (Po Clean Edit) 78	The Place That Makes Me Happy	bpm/key-suffix,version-tag
+574	35	The Ramona Flowers F. Nile Rodgers	The Ramona Flowers F. Nile Rodgers	Up All Night 122	Up All Night	bpm/key-suffix
+575	35	The Revivalists	The Revivalists	Good Old Days 109	Good Old Days	bpm/key-suffix
+576	35	U2	U2	Atomic City 140	Atomic City	bpm/key-suffix
+577	35	Alexsucks	Alexsucks	6 Pack And Cigarettes 83	6 Pack And Cigarettes	bpm/key-suffix
+578	30	Blindlove	Blindlove	Juggernaut 100	Juggernaut	bpm/key-suffix
+579	35	Blue October	Blue October	Down Here Waiting 150	Down Here Waiting	bpm/key-suffix
+580	35	Cannons	Cannons	Loving You 111	Loving You	bpm/key-suffix
+581	35	Declan Mckenna	Declan Mckenna	Sympathy 114	Sympathy	bpm/key-suffix
+582	27	Destroy Boys	Destroy Boys	Shadow (I'm Breaking Down) (Po Intro Edit - Clean) 78	Shadow (I'm Breaking Down)	bpm/key-suffix,version-tag
+583	35	Dogstar	Dogstar	Everything Turns Around 102	Everything Turns Around	bpm/key-suffix
+584	30	Don't Believe In Ghosts	Don't Believe In Ghosts	Summer High 110	Summer High	bpm/key-suffix
+585	28	Foo Fighters	Foo Fighters	Under You 150	Under You	bpm/key-suffix
+586	35	Kennyhoopla & Travis Barker	Kennyhoopla & Travis Barker	Marry Kill Fck 98	Marry Kill Fck	bpm/key-suffix
+587	35	Matt Maeson	Matt Maeson	Get Happy 84	Get Happy	bpm/key-suffix
+588	35	Metric	Metric	Just The Once 119	Just The Once	bpm/key-suffix
+589	35	Noah Kahan W;  Post Malone	Noah Kahan feat. Post Malone	Dial Drunk (Clean) 112	Dial Drunk	artist-fix,bpm/key-suffix,version-tag
+590	35	Portugal. The Man F. Unknown Mortal Orchestra	Portugal. The Man F. Unknown Mortal Orchestra	Summer Of Luv 76	Summer Of Luv	bpm/key-suffix
+591	28	Royal Blood	Royal Blood	Pull Me Through 132	Pull Me Through	bpm/key-suffix
+592	35	Slow Pulp	Slow Pulp	Cramps 140	Cramps	bpm/key-suffix
+593	35	The Hives	The Hives	Rigor Mortis Radio (Clean) 130	Rigor Mortis Radio	bpm/key-suffix,version-tag
+594	28	The Last Dinner Party	The Last Dinner Party	Nothing Matters (Clean) 101	Nothing Matters	bpm/key-suffix,version-tag
+595	35	Yellowcard	Yellowcard	Childhood Eyes 79	Childhood Eyes	bpm/key-suffix
+596	35	Bad Wolves	Bad Wolves	Legends Never Die 106	Legends Never Die	bpm/key-suffix
+597	35	Blame My Youth	Blame My Youth	The Break 82	The Break	bpm/key-suffix
+598	35	Bleachers	Bleachers	Tiny Moves 78	Tiny Moves	bpm/key-suffix
+599	28	Catfish And The Bottlemen	Catfish And The Bottlemen	Showtime 108	Showtime	bpm/key-suffix
+600	35	Del Water Gap & Holly Humberstone	Del Water Gap & Holly Humberstone	Cigarettes & Wine 83	Cigarettes & Wine	bpm/key-suffix
+601	35	Girl In Red	Girl In Red	Too Much (Po Clean Edit) 81	Too Much	bpm/key-suffix,version-tag
+602	28	Godsmack	Godsmack	Truth (Clean) 117	Truth	bpm/key-suffix,version-tag
+603	35	Grouplove	Grouplove	Chances 145	Chances	bpm/key-suffix
+604	35	Hardy	Hardy	Rockstar (Po Clean Edit) 150	Rockstar	bpm/key-suffix,version-tag
+605	35	Judah & The Lion	Judah & The Lion	Long Dark Night (Radio Edit) 83	Long Dark Night	bpm/key-suffix,version-tag
+606	28	Kings Of Leon	Kings Of Leon	Mustang 140	Mustang	bpm/key-suffix
+607	30	Late Night Drive Home	Late Night Drive Home	Stress Relief 140	Stress Relief	bpm/key-suffix
+608	28	Linkin Park	Linkin Park	Friendly Fire 124	Friendly Fire	bpm/key-suffix
+609	35	Lo Moon	Lo Moon	Water 104	Water	bpm/key-suffix
+610	35	Noah Kahan & Hozier	Noah Kahan & Hozier	Northern Attitude 121	Northern Attitude	bpm/key-suffix
+611	28	Pearl Jam	Pearl Jam	Dark Matter 100	Dark Matter	bpm/key-suffix
+612	35	Royel Otis	Royel Otis	Murder On The Dancefloor (Triple J Like A Version) 123	Murder On The Dancefloor (Triple J Like A Version)	bpm/key-suffix
+613	35	The Decemberists	The Decemberists	Burial Ground 123	Burial Ground	bpm/key-suffix
+614	28	The Maine & Beach Weather	The Maine & Beach Weather	Thoughts I Have While Lying In Bed 144	Thoughts I Have While Lying In Bed	bpm/key-suffix
+615	28	Twenty One Pilots	Twenty One Pilots	Overcompensate 95	Overcompensate	bpm/key-suffix
+616	28	Vampire Weekend	Vampire Weekend	Capricorn 140	Capricorn	bpm/key-suffix
+617	35	10 Years	10 Years	The Optimist 99	The Optimist	bpm/key-suffix
+618	28	Bastille	Bastille	Blue Sky & The Painter 95	Blue Sky & The Painter	bpm/key-suffix
+619	28	Bishop Briggs	Bishop Briggs	My Serotonin (Clean) 164	My Serotonin	bpm/key-suffix,version-tag
+620	35	Breaking Benjamin	Breaking Benjamin	Awaken 97	Awaken	bpm/key-suffix
+621	35	Culture Wars	Culture Wars	It Hurts 105	It Hurts	bpm/key-suffix
+622	35	Damiano David	Damiano David	Born With A Broken Heart 172	Born With A Broken Heart	bpm/key-suffix
+623	35	Daughtry	Daughtry	The Dam 150	The Dam	bpm/key-suffix
+624	35	Fame On Fire F. Sim	Fame On Fire F. Sim	Chains (The Tower) 135	Chains (The Tower)	bpm/key-suffix
+625	27	Gigi Perez	Gigi Perez	Sailor Song 95	Sailor Song	bpm/key-suffix
+626	28	Half.Alive	Half.Alive	Sophie's House 119	Sophie's House	bpm/key-suffix
+627	35	Judah & The Lion	Judah & The Lion	Floating In The Night (Radio Edit) 124	Floating In The Night	bpm/key-suffix,version-tag
+628	35	Robbietheused	Robbietheused	Just A Little Bit 115	Just A Little Bit	bpm/key-suffix
+629	35	St. Vincent	St. Vincent	Flea (Radio Edit) 140	Flea	bpm/key-suffix,version-tag
+630	35	The All-American Rejects	The All-American Rejects	Flagpole Sitta (Po Clean Edit) 142	Flagpole Sitta	bpm/key-suffix,version-tag
+631	35	The Cure	The Cure	A Fragile Thing 90	A Fragile Thing	bpm/key-suffix
+632	35	The Dare	The Dare	Girls (Super Clean) 122	Girls	bpm/key-suffix,version-tag
+633	35	The Head And The Heart	The Head And The Heart	Arrow 111	Arrow	bpm/key-suffix
+634	35	The Offspring	The Offspring	Ok, But This Is The Last Time 147	Ok, But This Is The Last Time	bpm/key-suffix
+635	30	Vienna Vienna	Vienna Vienna	Vienna (Everything's Fine) (Clean) 86	Vienna (Everything's Fine)	bpm/key-suffix,version-tag
+636	35	Wilderado	Wilderado	Higher Than Most 132	Higher Than Most	bpm/key-suffix
+637	35	Alexsucks	Alexsucks	What're We Doing Here 136	What're We Doing Here	bpm/key-suffix
+638	35	Alvvays	Alvvays	Belinda Says 119	Belinda Says	bpm/key-suffix
+639	35	Bad Nerves	Bad Nerves	Usa 92	Usa	bpm/key-suffix
+640	35	Brigitte Calls Me Baby	Brigitte Calls Me Baby	Impressively Average 85	Impressively Average	bpm/key-suffix
+641	35	Finnoguns Wake	Finnoguns Wake	Blue Skies 76	Blue Skies	bpm/key-suffix
+642	35	Foo Fighters	Foo Fighters	The Glass 146	The Glass	bpm/key-suffix
+643	27	Fozzy	Fozzy	Spotlight 100	Spotlight	bpm/key-suffix
+644	35	Ida Kudo	Ida Kudo	The Power That Is Woman 119	The Power That Is Woman	bpm/key-suffix
+645	30	Jagwar Twin	Jagwar Twin	Bad Feeling Oompa Loompa  Clean 95	Bad Feeling Oompa Loompa	bpm/key-suffix,version-tag
+646	35	Jay Putty	Jay Putty	The Best Days Are Yet To Come 112	The Best Days Are Yet To Come	bpm/key-suffix
+647	35	Jonah Kagen	Jonah Kagen	Save My Soul 116	Save My Soul	bpm/key-suffix
+648	35	Jungle	Jungle	Back On 74 Edit 146	Back On 74	bpm/key-suffix,version-tag
+649	28	Knox	Knox	Not The 1975 134	Not The 1975	bpm/key-suffix
+650	30	Love Fame Tragedy	Love Fame Tragedy	Don't You Want To Sleep With Someone Normal Clean 136	Don't You Want To Sleep With Someone Normal	bpm/key-suffix,version-tag
+651	35	Point North F. Set It Off	Point North F. Set It Off	Below The Belt 119	Below The Belt	bpm/key-suffix
+652	35	Porno For Pyros	Porno For Pyros	Agua 96	Agua	bpm/key-suffix
+653	35	Slightly Stoopid F. Stick Figure & Pepper	Slightly Stoopid F. Stick Figure & Pepper	Got Me On The Run 77	Got Me On The Run	bpm/key-suffix
+654	35	Tarric	Tarric	I Had It Wrong Edit 77	I Had It Wrong	bpm/key-suffix,version-tag
+655	35	The Lemon Twigs	The Lemon Twigs	My Golden Years 76	My Golden Years	bpm/key-suffix
+656	35	The Rockyts	The Rockyts	Falling Again 75	Falling Again	bpm/key-suffix
+657	35	Awaken I Am	Awaken I Am	Roses 138	Roses	bpm/key-suffix
+658	35	Bakar	Bakar	All Night 80	All Night	bpm/key-suffix
+659	35	Beartooth	Beartooth	Might Love Myself 150	Might Love Myself	bpm/key-suffix
+660	35	Boygenius	Boygenius	Cool About It 94	Cool About It	bpm/key-suffix
+661	35	Boywithuke	Boywithuke	Migraine 97	Migraine	bpm/key-suffix
+662	35	Idles & Lcd Soundsystem	Idles & Lcd Soundsystem	Dancer Radio Edit 141	Dancer	bpm/key-suffix,version-tag
+663	35	Lovelytheband	Lovelytheband	Nice To Know You 86	Nice To Know You	bpm/key-suffix
+664	35	Mac Saturn	Mac Saturn	Mint Julep 112	Mint Julep	bpm/key-suffix
+665	35	Mgmt	Mgmt	Mother Nature 81	Mother Nature	bpm/key-suffix
+666	35	Milky Chance	Milky Chance	Feeling For You 118	Feeling For You	bpm/key-suffix
+667	35	Nickelback	Nickelback	Skinny Little Missy 84	Skinny Little Missy	bpm/key-suffix
+668	35	Oxymorrons F. Netic	Oxymorrons F. Netic	Look Alive Clean Edit 84	Look Alive	bpm/key-suffix,version-tag
+669	35	Phoenix F. Leon Larregui	Phoenix F. Leon Larregui	Artefact 112	Artefact	bpm/key-suffix
+670	30	Ripe	Ripe	Settling Live From Mgm Music Hall At Fenway 112	Settling Live From Mgm Music Hall At Fenway	bpm/key-suffix
+671	28	Sleep Token	Sleep Token	Granite 120	Granite	bpm/key-suffix
+672	28	The Gaslight Anthem	The Gaslight Anthem	Spider Bites 110	Spider Bites	bpm/key-suffix
+673	35	Thirty Seconds To Mars	Thirty Seconds To Mars	Seasons 85	Seasons	bpm/key-suffix
+674	35	Willow	Willow	Alone 80	Alone	bpm/key-suffix
+675	35	Yonaka	Yonaka	By The Time You're Reading This Clean 139	By The Time You're Reading This	bpm/key-suffix,version-tag
+676	35	Alice Merton	Alice Merton	Run Away Girl 140	Run Away Girl	bpm/key-suffix
+677	35	Asking Alexandria	Asking Alexandria	Dark Void 77	Dark Void	bpm/key-suffix
+678	35	Beartooth	Beartooth	I Was Alive 76	I Was Alive	bpm/key-suffix
+679	35	Blue October	Blue October	Everything We Lost In The Fire 130	Everything We Lost In The Fire	bpm/key-suffix
+680	30	Brittany Howard	Brittany Howard	Prove It To You 130	Prove It To You	bpm/key-suffix
+681	28	Cigarettes After Sex	Cigarettes After Sex	Tejano Blue 82	Tejano Blue	bpm/key-suffix
+682	35	Dead Poet Society	Dead Poet Society	My Condition (Clean) 82	My Condition	bpm/key-suffix,version-tag
+683	35	Dead Poet Society	Dead Poet Society	Running In Circles (Clean) 142	Running In Circles	bpm/key-suffix,version-tag
+684	35	Des Rocs	Des Rocs	I Am The Lightning 143	I Am The Lightning	bpm/key-suffix
+685	28	Djo	Djo	End Of Beginning 80	End Of Beginning	bpm/key-suffix
+686	28	Good Neighbours	Good Neighbours	Home 77	Home	bpm/key-suffix
+687	35	Krooked Kings	Krooked Kings	Sick Of Being Young (Clean) 150	Sick Of Being Young	bpm/key-suffix,version-tag
+688	35	Nothing More	Nothing More	If It Doesn't Hurt 95	If It Doesn't Hurt	bpm/key-suffix
+689	28	Portugal. The Man	Portugal. The Man	Grim Generation 124	Grim Generation	bpm/key-suffix
+690	35	Rainbow Kitten Surprise	Rainbow Kitten Surprise	Superstar 98	Superstar	bpm/key-suffix
+691	35	St. Vincent	St. Vincent	Broken Man 112	Broken Man	bpm/key-suffix
+692	35	The Avett Brothers	The Avett Brothers	Love Of A Girl 99	Love Of A Girl	bpm/key-suffix
+693	35	The Driver Era	The Driver Era	Get Off My Phone 140	Get Off My Phone	bpm/key-suffix
+694	35	The Marias	The Marias	Run Your Mouth (Clean) 111	Run Your Mouth	bpm/key-suffix,version-tag
+695	35	Two Door Cinema Club	Two Door Cinema Club	Happy Customers 131	Happy Customers	bpm/key-suffix
+696	35	Winnetka Bowling League	Winnetka Bowling League	Sha La La 145	Sha La La	bpm/key-suffix
+697	25	Balu Brigada	Balu Brigada	So Cold 3A 111	So Cold	bpm/key-suffix
+698	35	Blink-182	Blink-182	All In My Head (Clean) 10B 93	All In My Head	bpm/key-suffix,version-tag
+699	35	Blink-182	Blink-182	Take Me In (Clean) 3B 80	Take Me In	bpm/key-suffix,version-tag
+700	28	Dashboard Confessional, Boys Like Girls	Dashboard Confessional, Boys Like Girls	Watch The Fire 12B 83	Watch The Fire	bpm/key-suffix
+701	35	David Kushner	David Kushner	Darkerside 3A 82	Darkerside	bpm/key-suffix
+702	35	Flat Black	Flat Black	A Bit Of Lightning 7A 76	A Bit Of Lightning	bpm/key-suffix
+703	25	Franz Ferdinand	Franz Ferdinand	Audacious 8A 79	Audacious	bpm/key-suffix
+704	27	Green Day	Green Day	Bobby Sox 1A 106	Bobby Sox	bpm/key-suffix
+705	35	Hozier	Hozier	Nobody's Soldier 7A 134	Nobody's Soldier	bpm/key-suffix
+706	35	Jonah Kagen	Jonah Kagen	God Needs The Devil (Clean) 8A 81	God Needs The Devil	bpm/key-suffix,version-tag
+707	27	Linkin Park	Linkin Park	The Emptiness Machine (Clean) 6A 91	The Emptiness Machine	bpm/key-suffix,version-tag
+708	35	Pearl Jam	Pearl Jam	Waiting For Stevie 10B 87	Waiting For Stevie	bpm/key-suffix
+709	35	Poppy	Poppy	New Way Out 6A 109	New Way Out	bpm/key-suffix
+710	35	Royel Otis	Royel Otis	Linger 10B 99	Linger	bpm/key-suffix
+711	35	Sleep Theory	Sleep Theory	Stuck In My Head 5A 94	Stuck In My Head	bpm/key-suffix
+712	35	Starset	Starset	Toksik (Edit) 4A 85	Toksik	bpm/key-suffix,version-tag
+713	28	Suki Waterhouse	Suki Waterhouse	Supersad 10B 77	Supersad	bpm/key-suffix
+714	35	The Cure	The Cure	Alone 8A 100	Alone	bpm/key-suffix
+715	28	The Ramona Flowers	The Ramona Flowers	Dangerous 3A 123	Dangerous	bpm/key-suffix
+716	35	U2	U2	Picture Of You (X+W) 9A 135	Picture Of You (X+W)	bpm/key-suffix
+717	35	Weathers	Weathers	Wasn't Gonna Go Out (Clean) 6B 83	Wasn't Gonna Go Out	bpm/key-suffix,version-tag
+718	28	All Time Low	All Time Low	Dear Maria, Count Me In (Atl's Version) 10B 180	Dear Maria, Count Me In (Atl's Version)	bpm/key-suffix
+719	26	Badflower	Badflower	Detroit 8B 133	Detroit	bpm/key-suffix
+720	35	Beabadoobee	Beabadoobee	Beaches 6B 82	Beaches	bpm/key-suffix
+721	25	Black Veil Brides	Black Veil Brides	Bleeders 3A 87	Bleeders	bpm/key-suffix
+722	25	Dorothy	Dorothy	Mud 6A 70	Mud	bpm/key-suffix
+723	30	Fame On Fire	Fame On Fire	Nightmare (The Devil) 2A 74	Nightmare (The Devil)	bpm/key-suffix
+724	28	Finger Eleven	Finger Eleven	Adrenaline 12A 130	Adrenaline	bpm/key-suffix
+725	35	Foster The People	Foster The People	See You In The Afterlife 2A 122	See You In The Afterlife	bpm/key-suffix
+726	25	Glass Animals	Glass Animals	A Tear In Space (Airlock) 8A 94	A Tear In Space (Airlock)	bpm/key-suffix
+727	25	Jack White	Jack White	That's How I'm Feeling 9A 129	That's How I'm Feeling	bpm/key-suffix
+728	35	James Bay, The Lumineers, Noah Kahan	James Bay, The Lumineers, Noah Kahan	Up All Night 10B 91	Up All Night	bpm/key-suffix
+729	25	Jane's Addiction	Jane's Addiction	Imminent Redemption 9A 78	Imminent Redemption	bpm/key-suffix
+730	25	Jutes	Jutes	Sleepyhead 6A 70	Sleepyhead	bpm/key-suffix
+731	35	Nothing More, David Draiman	Nothing More, David Draiman	Angel Song (PO Clean Edit) 11A 100	Angel Song	bpm/key-suffix,version-tag
+732	35	Palaye Royale	Palaye Royale	Showbiz (Radio Edit) 7A 116	Showbiz	bpm/key-suffix,version-tag
+733	35	Something Corporate, Andrew Mcmahon In The Wilderness	Something Corporate, Andrew Mcmahon In The Wilderness	Happy (Radio Edit) 10A 82	Happy	bpm/key-suffix,version-tag
+734	35	Sports Team	Sports Team	I'm In Love (Subaru) 9B 111	I'm In Love (Subaru)	bpm/key-suffix
+735	35	Staind, Dorothy	Staind, Dorothy	Better Days 1A 68	Better Days	bpm/key-suffix
+736	35	The Funeral Portrait, Spencer Charnas	The Funeral Portrait, Spencer Charnas	Suffocate City 7A 113	Suffocate City	bpm/key-suffix
+737	35	The Killers	The Killers	Bright Lights 5B 84	Bright Lights	bpm/key-suffix
+738	35	The Linda Lindas	The Linda Lindas	All In My Head 8B 146	All In My Head	bpm/key-suffix
+739	35	311	311	You're Gonna Get It 9A 79	You're Gonna Get It	bpm/key-suffix
+740	35	Bby	Bby	Kinky 2B 85	Kinky	bpm/key-suffix
+741	28	Beabadoobee	Beabadoobee	Take A Bite 9A 91	Take A Bite	bpm/key-suffix
+742	35	Beach Bunny	Beach Bunny	Vertigo 11A 101	Vertigo	bpm/key-suffix
+743	27	Benson Boone	Benson Boone	Beautiful Things 6A 53	Beautiful Things	bpm/key-suffix
+744	28	Bright Eyes	Bright Eyes	Bells & Whistles (Radio Edit) 11B 128	Bells & Whistles	bpm/key-suffix,version-tag
+745	28	Coldplay	Coldplay	Feelslikeimfallinginlove 8B 121	Feelslikeimfallinginlove	bpm/key-suffix
+746	35	Dead Poet Society	Dead Poet Society	Hurt (PO Clean Edit) 9A 80	Hurt	bpm/key-suffix,version-tag
+747	28	Eddie Vedder	Eddie Vedder	Save It For Later (Clean) 11B 116	Save It For Later	bpm/key-suffix,version-tag
+748	28	Hardy	Hardy	Psycho (Clean) 12B 123	Psycho	bpm/key-suffix,version-tag
+749	25	Highly Suspect	Highly Suspect	Plastic Boxes 9A 112	Plastic Boxes	bpm/key-suffix
+750	35	Imagine Dragons	Imagine Dragons	Wake Up 12A 109	Wake Up	bpm/key-suffix
+751	28	Little Image	Little Image	Strange Friends 5A 120	Strange Friends	bpm/key-suffix
+752	35	Neon Trees	Neon Trees	Bad Dreams (Clean) 3B 101	Bad Dreams	bpm/key-suffix,version-tag
+753	35	Orville Peck, Beck	Orville Peck, Beck	Death Valley High 9A 108	Death Valley High	bpm/key-suffix
+754	35	Seether	Seether	Judas Mind 6A 65	Judas Mind	bpm/key-suffix
+755	35	The Band Camino	The Band Camino	Nostalgia 12B 119	Nostalgia	bpm/key-suffix
+756	35	The Smashing Pumpkins	The Smashing Pumpkins	Sighommi 10B 102	Sighommi	bpm/key-suffix
+757	35	Tim Montana	Tim Montana	Savage 12A 76	Savage	bpm/key-suffix
+758	35	Uncured	Uncured	Mask Of Sanity 4A 95	Mask Of Sanity	bpm/key-suffix
+759	35	Vampire Weekend	Vampire Weekend	Classical 9B 112	Classical	bpm/key-suffix
+760	27	Architects	Architects	Everything Ends 9A 100	Everything Ends	bpm/key-suffix
+761	35	Beartooth	Beartooth	Attn. 11B 85	Attn.	bpm/key-suffix
+762	35	Bon Iver	Bon Iver	Everything Is Peaceful Love 9A 80	Everything Is Peaceful Love	bpm/key-suffix
+763	28	Circa Waves	Circa Waves	Let's Leave Together 9A 134	Let's Leave Together	bpm/key-suffix
+764	25	Dexter, The Moonrocks	Dexter and the Moonrocks	Ritalin (Rado Edit) 12B 114	Ritalin	artist-fix,bpm/key-suffix,version-tag
+765	27	Disturbed	Disturbed	I Will Not Break (Radio Edit) 10A 103	I Will Not Break	bpm/key-suffix,version-tag
+766	30	Giovannie, The Hired Guns	Giovannie and the Hired Guns	Quitter (Clean) 11B 105	Quitter	artist-fix,bpm/key-suffix,version-tag
+767	35	Glass Animals	Glass Animals	Show Pony 1A 81	Show Pony	bpm/key-suffix
+768	25	Green Day	Green Day	One Eyed Bastard (Album Version) 11A 130	One Eyed Bastard	bpm/key-suffix,version-tag
+769	35	Hardy	Hardy	Jim Bob 5A 124	Jim Bob	bpm/key-suffix
+770	25	Momma	Momma	I Want You (Fever) 6B 134	I Want You (Fever)	bpm/key-suffix
+771	35	Myles Smith	Myles Smith	Nice To Meet You 4B 115	Nice To Meet You	bpm/key-suffix
+772	35	Nothing More, Eric V.	Nothing More, Eric V.	House On Sand (PO Clean Edit) 4A 110	House On Sand	bpm/key-suffix,version-tag
+773	35	P.O.D.	P.O.D.	I Won't Bow Down 7A 140	I Won't Bow Down	bpm/key-suffix
+774	35	Return To Dust	Return To Dust	Belly Up 4A 94	Belly Up	bpm/key-suffix
+775	35	Sunday (1994)	Sunday (1994)	Tired Boy (Clean) 9A 87	Tired Boy	bpm/key-suffix,version-tag
+776	35	The Black Keys	The Black Keys	The Night Before (Album Version) 4B 122	The Night Before	bpm/key-suffix,version-tag
+777	35	The Blue Stones	The Blue Stones	Come Apart (Radio Edit) 3A 92	Come Apart	bpm/key-suffix,version-tag
+778	35	The Cure	The Cure	All I Ever Am 9A 135	All I Ever Am	bpm/key-suffix
+779	35	The Nocturnal Affair	The Nocturnal Affair	Cross Me Out 3A 78	Cross Me Out	bpm/key-suffix
+780	28	Yeah Yeah Yeahs, Perfume Genius	Yeah Yeah Yeahs, Perfume Genius	Spitting Off The Edge Of The World 11B 110	Spitting Off The Edge Of The World	bpm/key-suffix
+781	35	Arrows In Action	Arrows In Action	Cheekbones 8A 135	Cheekbones	bpm/key-suffix
+782	30	Avatar	Avatar	Captain Goat (Radio Edit) 7A 133	Captain Goat	bpm/key-suffix,version-tag
+783	35	Balu Brigada	Balu Brigada	Backseat 3A 126	Backseat	bpm/key-suffix
+784	26	Foo Fighters	Foo Fighters	Today's Song 9B 70	Today's Song	bpm/key-suffix
+785	25	Ghost	Ghost	Lachryma 10B 111	Lachryma	bpm/key-suffix
+786	25	Girl Tones	Girl Tones	Blame 12A 106	Blame	bpm/key-suffix
+787	35	Good Charlotte	Good Charlotte	Rejects 7B 112	Rejects	bpm/key-suffix
+788	25	I Prevail	I Prevail	Into Hell 12A 105	Into Hell	bpm/key-suffix
+789	25	Kaleo	Kaleo	Bloodline 8A 77	Bloodline	bpm/key-suffix
+790	30	Kevin Abstract, Dominic Fike	Kevin Abstract, Dominic Fike	Geezer (PO Clean Edit) 12A 82	Geezer	bpm/key-suffix,version-tag
+791	25	Mumford, Sons	Mumford & Sons	Caroline 9B 81	Caroline	artist-fix,bpm/key-suffix
+792	28	Muse	Muse	Unravelling (Album Version) 10A 88	Unravelling	bpm/key-suffix,version-tag
+793	25	Nation Of Language	Nation Of Language	Inept Apollo 5B 125	Inept Apollo	bpm/key-suffix
+794	25	Nevertel	Nevertel	Criminal 2A 77	Criminal	bpm/key-suffix
+795	35	Papa Roach, Toby Morse	Papa Roach, Toby Morse	Braindead 10A 87	Braindead	bpm/key-suffix
+796	27	Rise Against	Rise Against	I Want It All 6A 134	I Want It All	bpm/key-suffix
+797	35	Sleep Theory	Sleep Theory	Gravity 12A 93	Gravity	bpm/key-suffix
+798	35	Sports Team	Sports Team	Moving Together 6A 82	Moving Together	bpm/key-suffix
+799	35	The Offspring	The Offspring	Looking Out For #1 (Radio Edit) 7A 142	Looking Out For #1	bpm/key-suffix,version-tag
+800	30	The Pretty Wild	The Pretty Wild	Button Eyes (Whisper Rock Mix) 7A 83	Button Eyes (Whisper Rock Mix)	bpm/key-suffix
+801	28	Twenty One Pilots	Twenty One Pilots	The Contract 6A 135	The Contract	bpm/key-suffix
+802	27	Ajr	Ajr	The Big Goodbye 92	The Big Goodbye	bpm/key-suffix
+803	35	Almost Monday	Almost Monday	Lost 109	Lost	bpm/key-suffix
+804	35	Bby	Bby	Fuggit 146	Fuggit	bpm/key-suffix
+805	35	Braison Cyrus F. Miley Cyrus	Braison Cyrus F. Miley Cyrus	Know This Clean 110	Know This	bpm/key-suffix,version-tag
+806	28	Cannons	Cannons	All I Need 111	All I Need	bpm/key-suffix
+807	35	Evanescence F. K.Flay	Evanescence F. K.Flay	Fight Like A Girl Po Clean Edit 91	Fight Like A Girl	bpm/key-suffix,version-tag
+808	35	Five Finger Death Punch F. Babymetal	Five Finger Death Punch F. Babymetal	The End 2025 Version 160	The End 2025 Version	bpm/key-suffix
+809	26	Foo Fighters	Foo Fighters	Asking For A Friend 102	Asking For A Friend	bpm/key-suffix
+810	35	Hifi	Hifi	She's My Girl 127	She's My Girl	bpm/key-suffix
+811	35	Mammoth	Mammoth	The Spell 100	The Spell	bpm/key-suffix
+812	35	Milky Chance	Milky Chance	Camouflage 122	Camouflage	bpm/key-suffix
+813	35	Mumford & Sons With Hozier	Mumford & Sons With Hozier	Rubber Band Man 104	Rubber Band Man	bpm/key-suffix
+814	27	Portugal. The Man	Portugal. The Man	Tanana 160	Tanana	bpm/key-suffix
+815	35	Royel Otis	Royel Otis	Who's Your Boyfriend 145	Who's Your Boyfriend	bpm/key-suffix
+816	35	Stephen Wilson Jr.	Stephen Wilson Jr.	Tonight, Tonight 145	Tonight, Tonight	bpm/key-suffix
+817	35	The Format	The Format	Holy Roller 110	Holy Roller	bpm/key-suffix
+818	35	The Wombats	The Wombats	Holy Sugar 93	Holy Sugar	bpm/key-suffix
+819	35	Turnstile	Turnstile	Seein' Stars 124	Seein' Stars	bpm/key-suffix
+820	30	Ufos, Braxe + Falcon, Phoenix & Alan Braxe	Ufos, Braxe + Falcon, Phoenix & Alan Braxe	Ufo 86	Ufo	bpm/key-suffix
+821	26	Vance Joy	Vance Joy	Fascination In The Dark 120	Fascination In The Dark	bpm/key-suffix
+822	35	Autumn Kings	Autumn Kings	Sleep When I'm Dead 4A 67	Sleep When I'm Dead	bpm/key-suffix
+823	25	Black Stone Cherry, Jesse Leach	Black Stone Cherry, Jesse Leach	Out Of Pocket (Clean) 12A 155	Out Of Pocket	bpm/key-suffix,version-tag
+824	26	Cage The Elephant	Cage The Elephant	Metaverse 1A 144	Metaverse	bpm/key-suffix
+825	25	Hollywood Undead	Hollywood Undead	Hollywood Forever (PO Clean Edit) 2A 87	Hollywood Forever	bpm/key-suffix,version-tag
+826	25	Idles	Idles	Gift Horse (Clean) 6A 143	Gift Horse	bpm/key-suffix,version-tag
+827	25	Inhaler	Inhaler	Your House 11A 122	Your House	bpm/key-suffix
+828	35	Jack Kays, Travis Barker	Jack Kays, Travis Barker	My Promise (90 Days) 11B 120	My Promise (90 Days)	bpm/key-suffix
+829	35	Jack White	Jack White	Archbishop Harold Holmes 9A 106	Archbishop Harold Holmes	bpm/key-suffix
+830	27	Lola Young	Lola Young	Messy (Clean) 12B 111	Messy	bpm/key-suffix,version-tag
+831	35	Memphis May Fire	Memphis May Fire	Hell Is Empty 7A 142	Hell Is Empty	bpm/key-suffix
+832	35	Milky Chance	Milky Chance	Naked & Alive 6A 127	Naked & Alive	bpm/key-suffix
+833	25	Mk.Gee	Mk.Gee	Rockman 6B 134	Rockman	bpm/key-suffix
+834	35	Pistols At Dawn	Pistols At Dawn	Not Sorry (PO Clean Edit) 5A 95	Not Sorry	bpm/key-suffix,version-tag
+835	35	Point North	Point North	World Vs. Peace 2A 61	World Vs. Peace	bpm/key-suffix
+836	35	Saliva, Peyton Parrish	Saliva, Peyton Parrish	Time Bomb (Clean) 8A 96	Time Bomb	bpm/key-suffix,version-tag
+837	27	Seven Hours After Violet	Seven Hours After Violet	Radiance 10A 87	Radiance	bpm/key-suffix
+838	28	Soccer Mommy	Soccer Mommy	Driver 8B 100	Driver	bpm/key-suffix
+839	30	Tetrarch	Tetrarch	Live Not Fantasize 8A 127	Live Not Fantasize	bpm/key-suffix
+840	35	Three Days Grace	Three Days Grace	Mayday 12A 122	Mayday	bpm/key-suffix
+841	35	Tunde Adebimpe	Tunde Adebimpe	Magnetic 9A 84	Magnetic	bpm/key-suffix
+842	35	311	311	Full Bloom 11B 91	Full Bloom	bpm/key-suffix
+843	35	Coldplay	Coldplay	All My Love 11B 138	All My Love	bpm/key-suffix
+844	35	Cory Marks, Travis Tritt, Mick Mars, Sully Erna	Cory Marks, Travis Tritt, Mick Mars, Sully Erna	(Make My) Country Rock (Active Rock Mix) (PO Clean Edit) 10A 83	(Make My) Country Rock (Active Rock Mix)	bpm/key-suffix,version-tag
+845	35	Declan Mckenna	Declan Mckenna	Champagne 1B 122	Champagne	bpm/key-suffix
+846	25	Ekoh, Lo Spirit	Ekoh, Lo Spirit	Good Things (PO Clean Edit) 2A 120	Good Things	bpm/key-suffix,version-tag
+847	35	Falling In Reverse, Saraya	Falling In Reverse, Saraya	Bad Guy (PO Clean Edit) 5A 93	Bad Guy	bpm/key-suffix,version-tag
+848	35	Father John Misty	Father John Misty	She Cleans Up (Clean) 8A 120	She Cleans Up	bpm/key-suffix,version-tag
+849	25	Honestav, Mod Sun	Honestav, Mod Sun	I'd Rather Overdose (Mod Sun Remix) 1A 114	I'd Rather Overdose (Mod Sun Remix)	bpm/key-suffix
+850	28	Jelly Roll	Jelly Roll	Liar 3A 114	Liar	bpm/key-suffix
+851	27	Linkin Park	Linkin Park	Heavy Is The Crown (Album Version) 10A 128	Heavy Is The Crown	bpm/key-suffix,version-tag
+852	35	Mod Sun	MOD SUN	Hotel Lights 8B 126	Hotel Lights	artist-fix,bpm/key-suffix
+853	35	Phantogram	Phantogram	Come Alive 6A 82	Come Alive	bpm/key-suffix
+854	35	Sam Fender	Sam Fender	People Watching (Radio Edit) 3B 80	People Watching	bpm/key-suffix,version-tag
+855	35	Seether	Seether	Walls Come Down 5A 120	Walls Come Down	bpm/key-suffix
+856	27	The Kooks, Lovelytheband	The Kooks, Lovelytheband	Jeanie 1A 99	Jeanie	bpm/key-suffix
+857	35	The Smashing Pumpkins	The Smashing Pumpkins	Who Goes There 8B 85	Who Goes There	bpm/key-suffix
+858	35	The Struts	The Struts	Can't Stop Talking 2B 81	Can't Stop Talking	bpm/key-suffix
+859	35	The Wombats	The Wombats	Sorry I'm Late, I Didn't Want To Come (Clean) 10A 127	Sorry I'm Late, I Didn't Want To Come	bpm/key-suffix,version-tag
+860	35	Twenty One Pilots	Twenty One Pilots	Routines In The Night (Radio Edit) 12A 113	Routines In The Night	bpm/key-suffix,version-tag
+861	35	Twenty One Pilots	Twenty One Pilots	The Line 8A 71	The Line	bpm/key-suffix
+862	35	Wage War	Wage War	Blur 7A 110	Blur	bpm/key-suffix
+863	35	311	311	Need Somebody 1B 106	Need Somebody	bpm/key-suffix
+864	35	Cameron Whitcomb	Cameron Whitcomb	Bad Apple 1B 73	Bad Apple	bpm/key-suffix
+865	28	Dropkick Murphys	Dropkick Murphys	Who'll Stand With Us! 6B 190	Who'll Stand With Us!	bpm/key-suffix
+866	35	Evanescence	Evanescence	Afterlife 5A 130	Afterlife	bpm/key-suffix
+867	27	Falling In Reverse, Marilyn Mansion	Falling In Reverse, Marilyn Manson	God Is A Weapon [Clean] 9A 67	God Is A Weapon	artist-fix,bpm/key-suffix,version-tag
+868	35	Five Finger Death Punch, Maria Brink	Five Finger Death Punch, Maria Brink	I Refuse [2025 Version] [PO Clean Edit] 1B 77	I Refuse [2025 Version]	bpm/key-suffix,version-tag
+869	25	Lola Young	Lola Young	One Thing [Clean] 4A 97	One Thing	bpm/key-suffix,version-tag
+870	25	Lord Huron	Lord Huron	Nothing I Need [PO Clean Edit] 10B 112	Nothing I Need	bpm/key-suffix,version-tag
+871	35	Nothing More, Chris Daughtry	Nothing More, Chris Daughtry	Freefall 5B 100	Freefall	bpm/key-suffix
+872	27	Ok Go	Ok Go	Love 12B 78	Love	bpm/key-suffix
+873	35	Royel Otis	Royel Otis	Moody 9B 85	Moody	bpm/key-suffix
+874	26	Sombr	Sombr	Undressed 8A 116	Undressed	bpm/key-suffix
+875	27	The All-American Rejects	The All-American Rejects	Easy Come, Easy Go 9A 122	Easy Come, Easy Go	bpm/key-suffix
+876	35	The All-American Rejects	The All-American Rejects	Sandbox 11A 120	Sandbox	bpm/key-suffix
+877	35	The Black Keys	The Black Keys	No Rain, No Flowers 8A 110	No Rain, No Flowers	bpm/key-suffix
+878	35	The Haunt, Escape The Fate	The Haunt, Escape The Fate	Masochistic Lovers [Clean] 2A 73	Masochistic Lovers	bpm/key-suffix,version-tag
+879	35	The Lumineers	The Lumineers	A--Hole [First We Ever Met] 3A 69	A--Hole [First We Ever Met]	bpm/key-suffix
+880	35	Three Days Grace	Three Days Grace	Apologies 3A 119	Apologies	bpm/key-suffix
+881	27	Wolf Alice	Wolf Alice	Bloom Baby Bloom 7A 96	Bloom Baby Bloom	bpm/key-suffix
+882	27	Yellowcard	Yellowcard	Better Days 10B 87	Better Days	bpm/key-suffix
+883	27	Yungblud	Yungblud	Lovesick Lullaby [Clean] 1B 130	Lovesick Lullaby	bpm/key-suffix,version-tag
+884	25	Ax, The Hatchetmen With Albert Hammond Jr.	Ax and the Hatchetmen feat. Albert Hammond Jr.	Blurry Lights 8A 120	Blurry Lights	artist-fix,bpm/key-suffix
+885	35	Badflower	Badflower	Paws 5B 106	Paws	bpm/key-suffix
+886	35	Blue October	Blue October	Hot Stuff 8A 121	Hot Stuff	bpm/key-suffix
+887	35	Bob Moses	Bob Moses	Time Of Your Life 7A 95	Time Of Your Life	bpm/key-suffix
+888	27	Chevelle	Chevelle	Rabbit Hole (Cowards, Pt. 1) 1B 88	Rabbit Hole (Cowards, Pt. 1)	bpm/key-suffix
+889	25	Gigi Perez	Gigi Perez	Chemistry (Clean) 6A 87	Chemistry	bpm/key-suffix,version-tag
+890	25	Halestorm	Halestorm	Darkness Always Wins 12A 151	Darkness Always Wins	bpm/key-suffix
+891	27	Lorde	Lorde	What Was That 8B 127	What Was That	bpm/key-suffix
+892	35	Mammoth	Mammoth	The End 9A 144	The End	bpm/key-suffix
+893	35	Role Model	Role Model	Sally, When The Wine Runs Out 4B 120	Sally, When The Wine Runs Out	bpm/key-suffix
+894	35	Sleep Theory	Sleep Theory	Static 3A 135	Static	bpm/key-suffix
+895	35	Sombr	Sombr	Back To Friends 3A 92	Back To Friends	bpm/key-suffix
+896	35	The Beaches	The Beaches	Last Girls At The Party 10A 86	Last Girls At The Party	bpm/key-suffix
+897	35	The Funeral Portrait	The Funeral Portrait	Holy Water 7A 87	Holy Water	bpm/key-suffix
+898	35	The Hives	The Hives	Enough Is Enough (Clean) 10A 135	Enough Is Enough	bpm/key-suffix,version-tag
+899	35	The Ramona Flowers	The Ramona Flowers	Human (Clean) 6B 94	Human	bpm/key-suffix,version-tag
+900	27	Turnstile	Turnstile	Never Enough 10A 154	Never Enough	bpm/key-suffix
+901	27	Twenty One Pilots	Twenty One Pilots	Doubt 7A 123	Doubt	bpm/key-suffix
+902	27	Wet Leg	Wet Leg	Catch These Fists (Clean) 10A 128	Catch These Fists	bpm/key-suffix,version-tag
+903	35	Winona Fighter	Winona Fighter	You Look Like A Drunk Phoebe Bridgers (PO Clean Edit) 9A 88	You Look Like A Drunk Phoebe Bridgers	bpm/key-suffix,version-tag
+904	25	Amyl, The Sniffers	Amyl and the Sniffers	U Should Not Be Doing That (PO Clean Edit) 1A 125	U Should Not Be Doing That	artist-fix,bpm/key-suffix,version-tag
+905	25	Awolnation	AWOLNATION	Barbarian 6B 74	Barbarian	artist-fix,bpm/key-suffix
+906	25	Bad Suns	Bad Suns	Communicating 10B 120	Communicating	bpm/key-suffix
+907	25	Coheed, Cambria	Coheed and Cambria	Someone Who Can 12B 168	Someone Who Can	artist-fix,bpm/key-suffix
+908	35	Djo	Djo	Basic Being Basic 3B 122	Basic Being Basic	bpm/key-suffix
+909	30	Good Neighbours	Good Neighbours	Ripple 1B 85	Ripple	bpm/key-suffix
+910	25	Half.Alive	Half.Alive	Automatic 11B 81	Automatic	bpm/key-suffix
+911	35	Honestav	Honestav	Hurts To Fall In Love (PO Clean Edit) 5A 70	Hurts To Fall In Love	bpm/key-suffix,version-tag
+912	35	Little Image	Little Image	The Pressure 8A 140	The Pressure	bpm/key-suffix
+913	27	Mumford, Sons	Mumford & Sons	Rushmere 6B 138	Rushmere	artist-fix,bpm/key-suffix
+914	35	Papa Roach	Papa Roach	Even If It Kills Me 7A 79	Even If It Kills Me	bpm/key-suffix
+915	35	Rise Against	Rise Against	Nod 12A 116	Nod	bpm/key-suffix
+916	26	Shinedown	Shinedown	Dance, Kid, Dance 10A 85	Dance, Kid, Dance	bpm/key-suffix
+917	26	Shinedown	Shinedown	Three Six Five 10B 107	Three Six Five	bpm/key-suffix
+919	35	The Backfires	The Backfires	Replace It All 10B 150	Replace It All	bpm/key-suffix
+920	27	The Lumineers	The Lumineers	Same Old Song 12B 86	Same Old Song	bpm/key-suffix
+921	30	The Rockyts	The Rockyts	A Girl Like You 9A 138	A Girl Like You	bpm/key-suffix
+922	35	Tremonti	Tremonti	Just Too Much 10A 77	Just Too Much	bpm/key-suffix
+923	35	Velvet Chains	Velvet Chains	Dead Inside (PO Clean Edit) 8A 97	Dead Inside	bpm/key-suffix,version-tag
+924	27	Yeah Yeah Yeahs	Yeah Yeah Yeahs	Maps 9B 120	Maps	bpm/key-suffix
+925	35	Zero 9-36, Brandon Saller	Zero 9-36, Brandon Saller	Chasing Shadows (Clean) 12A 68	Chasing Shadows	bpm/key-suffix,version-tag
+926	27	A Day To Remember	A Day To Remember	All My Friends (Clean) 2A 85	All My Friends	bpm/key-suffix,version-tag
+927	35	Almost Monday	Almost Monday	Jupiter 1A 104	Jupiter	bpm/key-suffix
+928	25	Durry	Durry	This Movie Sucks 11B 82	This Movie Sucks	bpm/key-suffix
+929	25	Flipturn	Flipturn	Rodeo Clown 8A 56	Rodeo Clown	bpm/key-suffix
+930	35	Franz Ferdinand	Franz Ferdinand	Hooked 6A 128	Hooked	bpm/key-suffix
+931	35	Ghost	Ghost	Satanized (Radio Edit) 9A 58	Satanized	bpm/key-suffix,version-tag
+932	35	Haim	Haim	Relationships (Clean) 10B 101	Relationships	bpm/key-suffix,version-tag
+933	26	Julia Wolf	Julia Wolf	In My Room 12B 80	In My Room	bpm/key-suffix
+934	25	Killswitch Engage	Killswitch Engage	I Believe 7A 130	I Believe	bpm/key-suffix
+935	35	Linkin Park	Linkin Park	Up From The Bottom 4A 107	Up From The Bottom	bpm/key-suffix
+936	25	Malcolm Todd, Omar Apollo	Malcolm Todd, Omar Apollo	Bleed 8A 124	Bleed	bpm/key-suffix
+937	25	Neiked, Portugal. The Man	Neiked, Portugal. The Man	Glide 6A 122	Glide	bpm/key-suffix
+938	35	Palaye Royale	Palaye Royale	Addicted To The Wicked & Twisted (Clean) 2A 91	Addicted To The Wicked & Twisted	bpm/key-suffix,version-tag
+939	35	Poppy	Poppy	The Cost Of Giving Up 6A 102	The Cost Of Giving Up	bpm/key-suffix
+940	35	Sleep Token	Sleep Token	Emergence (Rock Version) 9A 126	Emergence (Rock Version)	bpm/key-suffix
+941	35	Slow Joy	Slow Joy	Gruesome 3B 87	Gruesome	bpm/key-suffix
+942	28	Sports Team	Sports Team	Bang Bang Bang 9A 117	Bang Bang Bang	bpm/key-suffix
+943	27	The Marias	The Marias	No One Noticed 9B 98	No One Noticed	bpm/key-suffix
+944	28	Third Eye Blind	Third Eye Blind	Like A Lullaby 11B 93	Like A Lullaby	bpm/key-suffix
+945	35	Volbeat	Volbeat	By A Monster's Hand 7A 122	By A Monster's Hand	bpm/key-suffix
+946	27	Aerosmith & Yungblud	Aerosmith & Yungblud	My Only Angel 110	My Only Angel	bpm/key-suffix
+947	35	Alkaline Trio	Alkaline Trio	Oblivion 153	Oblivion	bpm/key-suffix
+948	35	Avatar	Avatar	Tonight We Must Be Warriors 84	Tonight We Must Be Warriors	bpm/key-suffix
+949	35	Djo	Djo	Delete Ya 118	Delete Ya	bpm/key-suffix
+950	35	Gorillaz F. Sparks	Gorillaz F. Sparks	The Happy Dictator 136	The Happy Dictator	bpm/key-suffix
+951	35	Hollywood Undead	Hollywood Undead	Savior 114	Savior	bpm/key-suffix
+952	35	Joyce Manor	Joyce Manor	All My Friends Are So Depressed (Clean) 106	All My Friends Are So Depressed	bpm/key-suffix,version-tag
+953	35	Limp Bizkit	Limp Bizkit	Making Love To Morgan Wallen (Clean Version) 105	Making Love To Morgan Wallen	bpm/key-suffix,version-tag
+954	28	Mudvayne	Mudvayne	Sticks And Stones (Clean Edit) 112	Sticks And Stones	bpm/key-suffix,version-tag
+955	35	Poppy, Amy Lee & Courtney Laplante	Poppy, Amy Lee & Courtney Laplante	End Of You 95	End Of You	bpm/key-suffix
+956	28	Seether	Seether	Lost All Control (Radio Edit) 137	Lost All Control	bpm/key-suffix,version-tag
+957	27	Sleep Token	Sleep Token	Caramel (Radio Edit) 94	Caramel	bpm/key-suffix,version-tag
+958	35	Sombr	Sombr	12 To 12 124	12 To 12	bpm/key-suffix
+959	35	Tame Impala	Tame Impala	Dracula (Po Clean Edit) 115	Dracula	bpm/key-suffix,version-tag
+960	35	The Beaches	The Beaches	Can I Call You In The Morning (Po Clean Edit) 157	Can I Call You In The Morning	bpm/key-suffix,version-tag
+961	35	The Pretty Reckless	The Pretty Reckless	For I Am Death 138	For I Am Death	bpm/key-suffix
+962	35	Twenty One Pilots	Twenty One Pilots	City Walls 94	City Walls	bpm/key-suffix
+963	35	Wisp	Wisp	Save Me Now 93	Save Me Now	bpm/key-suffix
+964	35	Wolf Alice	Wolf Alice	White Horses 146	White Horses	bpm/key-suffix
+965	35	Ajr	Ajr	Betty (Clean) 92	Betty	bpm/key-suffix,version-tag
+966	35	All Time Low	All Time Low	The Weather (Clean) 94	The Weather	bpm/key-suffix,version-tag
+967	35	Bad Omens	Bad Omens	Specter (Radio Edit) 120	Specter	bpm/key-suffix,version-tag
+968	35	Bob Moses	Bob Moses	Last Forever 118	Last Forever	bpm/key-suffix
+969	26	Chevelle	Chevelle	Pale Horse 103	Pale Horse	bpm/key-suffix
+970	35	Daughtry	Daughtry	The Bottom 87	The Bottom	bpm/key-suffix
+971	27	Deftones	Deftones	Infinite Source 152	Infinite Source	bpm/key-suffix
+972	35	Fall Out Boy	Fall Out Boy	Start Today 106	Start Today	bpm/key-suffix
+973	35	Florence + The Machine	Florence + The Machine	Everybody Scream 120	Everybody Scream	bpm/key-suffix
+974	35	Glass Animals	Glass Animals	Vampire Bat (Clean) 90	Vampire Bat	bpm/key-suffix,version-tag
+975	35	Inhaler	Inhaler	Billy (Yeah Yeah Yeah) (Radio Edit) 107	Billy (Yeah Yeah Yeah)	bpm/key-suffix,version-tag
+976	35	Kenzo Cregan	Kenzo Cregan	Talk Tonight 160	Talk Tonight	bpm/key-suffix
+977	35	Lovejoy	Lovejoy	Pay & Display (Radio Edit) 148	Pay & Display	bpm/key-suffix,version-tag
+978	35	Of Monsters And Men	Of Monsters And Men	Ordinary Creature 157	Ordinary Creature	bpm/key-suffix
+979	26	Pierce The Veil	Pierce The Veil	So Far So Fake 126	So Far So Fake	bpm/key-suffix
+980	35	Rainbow Kitten Surprise	Rainbow Kitten Surprise	Dang (Clean) 148	Dang	bpm/key-suffix,version-tag
+981	35	The Funeral Portrait	The Funeral Portrait	Dark Thoughts 91	Dark Thoughts	bpm/key-suffix
+982	27	The Last Dinner Party	The Last Dinner Party	This Is The Killer Speaking (Clean) 117	This Is The Killer Speaking	bpm/key-suffix,version-tag
+983	35	Waterparks	Waterparks	Red Guitar (Clean) 90	Red Guitar	bpm/key-suffix,version-tag
+984	35	Wet Leg	Wet Leg	Mangetout (Clean) 128	Mangetout	bpm/key-suffix,version-tag
+986	25	Bike Routes	Bike Routes	World Apart 10A 155	World Apart	bpm/key-suffix
+987	30	Bilmuri	Bilmuri	More Than Hate 11B 124	More Than Hate	bpm/key-suffix
+988	35	Dead Sugar	Dead Sugar	Grudge 3A 128	Grudge	bpm/key-suffix
+989	26	Deftones	Deftones	My Mind Is A Mountain 5A 108	My Mind Is A Mountain	bpm/key-suffix
+990	25	Goo Goo Dolls	Goo Goo Dolls	Nothing Lasts Forever 8A 116	Nothing Lasts Forever	bpm/key-suffix
+991	35	Ice Nine Kills	Ice Nine Kills	The Great Unknown 8A 119	The Great Unknown	bpm/key-suffix
+992	35	Matt Maeson	Matt Maeson	Downstairs 2B 137	Downstairs	bpm/key-suffix
+993	35	Mt. Joy	Mt. Joy	Lucy (Pg Clean) 7B 125	Lucy	bpm/key-suffix,version-tag
+994	26	Nine Inch Nails	Nine Inch Nails	As Alive As You Need Me To Be 9A 107	As Alive As You Need Me To Be	bpm/key-suffix
+995	25	Ocean Alley	Ocean Alley	Love Balloon 5A 100	Love Balloon	bpm/key-suffix
+996	35	Of Mice, Men	Of Mice & Men	Wake Up 10A 128	Wake Up	artist-fix,bpm/key-suffix
+997	35	Return To Dust	Return To Dust	Bored 4A 86	Bored	bpm/key-suffix
+998	35	Rome, Dirty Heads	Rome, Dirty Heads	Slow & Easy 10A 92	Slow & Easy	bpm/key-suffix
+999	35	Saving Abel	Saving Abel	Dodged A Bullet 3A 160	Dodged A Bullet	bpm/key-suffix
+1000	35	Shinedown	Shinedown	Killing Fields 12A 134	Killing Fields	bpm/key-suffix
+1002	35	The Paradox	The Paradox	Get The Message (PO Clean Edit) 12B 95	Get The Message	bpm/key-suffix,version-tag
+1003	35	Volbeat	Volbeat	Time Will Heal 11B 127	Time Will Heal	bpm/key-suffix
+1004	35	Wednesday	Wednesday	Elderberry Wine 9B 112	Elderberry Wine	bpm/key-suffix
+1005	35	White Reaper	White Reaper	Honestly 3A 102	Honestly	bpm/key-suffix
+1006	25	Aranda	Aranda	You Don't Wanna Know 10B 100	You Don't Wanna Know	bpm/key-suffix
+1007	35	Awolnation, Makua	Awolnation, Makua	Catch A Wave (Clean) 9A 88	Catch A Wave	bpm/key-suffix,version-tag
+1008	35	Bleachers	Bleachers	You & Forever (Clean) 5B 123	You & Forever	bpm/key-suffix,version-tag
+1009	35	Brandi Carlile	Brandi Carlile	Human 2B 60	Human	bpm/key-suffix
+1010	35	Codefendants	Codefendants	Lonely Life (Po Clean Edit) 9A 55	Lonely Life	bpm/key-suffix,version-tag
+1011	35	Cold War Kidj Double S	Cold War Kidj Double S	Push My Luck 10B 152	Push My Luck	bpm/key-suffix
+1012	5	Dominic Fike	Dominic Fike	Babydoll 8A 84	Babydoll	bpm/key-suffix
+1013	35	Foo Fighters	Foo Fighters	Your Favorite Toy 11A 147	Your Favorite Toy	bpm/key-suffix
+1014	35	Goo Goo Dolls	Goo Goo Dolls	Misery 5B 77	Misery	bpm/key-suffix
+1015	35	Ice Nine Kills, Mckenna Grace	Ice Nine Kills, Mckenna Grace	Twisting The Knife 5B 91	Twisting The Knife	bpm/key-suffix
+1016	26	Metric	Metric	Victim Of Luck 6B 101	Victim Of Luck	bpm/key-suffix
+1017	35	Mitski	Mitski	Where's My Phone! 6A 133	Where's My Phone!	bpm/key-suffix
+1018	30	Post Sex Nachos	Post Sex Nachos	Sos 1B 112	Sos	bpm/key-suffix
+1019	35	Shinedown	Shinedown	Safe & Sound (Clean) 5A 96	Safe & Sound	bpm/key-suffix,version-tag
+1020	35	Sleep Theory	Sleep Theory	Wordj Double S Are Worthless 3A 50	Wordj Double S Are Worthless	bpm/key-suffix
+1021	35	Social Distortion	Social Distortion	Born To Kill 5A 83	Born To Kill	bpm/key-suffix
+1022	35	Sombr	Sombr	Homewrecker 3A 100	Homewrecker	bpm/key-suffix
+1023	35	Story Of The Year	Story Of The Year	Gasoline (All Rage Still Only Numb) (Po Clean Edit) 10A 155	Gasoline (All Rage Still Only Numb)	bpm/key-suffix,version-tag
+1024	35	The Hellp	The Hellp	Here I Am 12A 106	Here I Am	bpm/key-suffix
+1025	35	Towa Bird	Towa Bird	Gentleman 9A 82	Gentleman	bpm/key-suffix
+1026	35	Twenty One Pilots	Twenty One Pilots	Drag Path 12B 95	Drag Path	bpm/key-suffix
+1027	26	Weezer, Bethany Cosentino	Weezer, Bethany Cosentino	Go Away 3B 86	Go Away	bpm/key-suffix
+1028	35	5 Secondj Double S Of Summer	5 Secondj Double S Of Summer	Not Ok 4A 140	Not Ok	bpm/key-suffix
+1029	5	Buffalo Traffic Jam	Buffalo Traffic Jam	Fool's Gold 1A 70	Fool's Gold	bpm/key-suffix
+1030	25	Chet Faker	Chet Faker	This Time For Real 9B 82	This Time For Real	bpm/key-suffix
+1031	35	Des Rocs	Des Rocs	This Land (Theme From Borderlandj Double S 4) 9A 86	This Land (Theme From Borderlandj Double S 4)	bpm/key-suffix
+1032	35	Finger Eleven	Finger Eleven	The Mountain 12A 65	The Mountain	bpm/key-suffix
+1033	28	Florence + The Machine	Florence + The Machine	Sympathy Magic 9B 73	Sympathy Magic	bpm/key-suffix
+1034	30	Florence Road	Florence Road	Miss 9A 81	Miss	bpm/key-suffix
+1035	35	Guns N' Roses	Guns N' Roses	Nothin' 1B 130	Nothin'	bpm/key-suffix
+1036	25	Hatchie	Hatchie	Sage 10A 120	Sage	bpm/key-suffix
+1037	25	Inoha	Inoha	Seventh Heaven 10A 82	Seventh Heaven	bpm/key-suffix
+1038	35	Joji	Joji	Past Won't Leave My Bed 6A 70	Past Won't Leave My Bed	bpm/key-suffix
+1039	35	Jutes	Jutes	It Takes Two 4A 116	It Takes Two	bpm/key-suffix
+1040	25	Morrissey	Morrissey	Make-Up Is A Lie (Album Version) 6A 107	Make-Up Is A Lie	bpm/key-suffix,version-tag
+1041	35	Reverse Pathogen	Reverse Pathogen	Sunday Afternoon 1B 78	Sunday Afternoon	bpm/key-suffix
+1042	35	Soap	Soap	Awkward Now (PO Clean Edit) 10A 133	Awkward Now	bpm/key-suffix,version-tag
+1043	26	The Lumineers	The Lumineers	So Long 2B 74	So Long	bpm/key-suffix
+1044	27	The Neighbourhood	The Neighbourhood	Hula Girl 7A 83	Hula Girl	bpm/key-suffix
+1045	35	The Ramona Flowers	The Ramona Flowers	That Summer 12A 85	That Summer	bpm/key-suffix
+1046	27	The Strumbellas	The Strumbellas	Skin Of My Teeth 12A 123	Skin Of My Teeth	bpm/key-suffix
+1047	35	Twenty One Pilots	Twenty One Pilots	Drum Show 3A 82	Drum Show	bpm/key-suffix
+1048	26	Yungblud, The Smashing Pumpkins	Yungblud, The Smashing Pumpkins	Zombie 1B 80	Zombie	bpm/key-suffix
+1049	35	2Hollis	2Hollis	Cope 4B 73	Cope	bpm/key-suffix
+1050	28	Alter Bridge	Alter Bridge	Silent Divide 12A 72	Silent Divide	bpm/key-suffix
+1051	35	Autumn Kings	Autumn Kings	Hellbound (Clean) 4A 102	Hellbound	bpm/key-suffix,version-tag
+1052	35	Bad Omens	Bad Omens	Dying To Love 4A 73	Dying To Love	bpm/key-suffix
+1053	25	Cruz Beckham	Cruz Beckham	Optics 10B 126	Optics	bpm/key-suffix
+1054	35	Daughtry	Daughtry	Antidote 10A 75	Antidote	bpm/key-suffix
+1055	25	Geese	Geese	Cobra 9B 121	Cobra	bpm/key-suffix
+1056	28	Goo Goo Dolls	Goo Goo Dolls	Not Goodbye (Close My Eyes) 9B 135	Not Goodbye (Close My Eyes)	bpm/key-suffix
+1057	26	Halestorm	Halestorm	Like A Woman Can 11A 57	Like A Woman Can	bpm/key-suffix
+1058	35	Jonah Kagen	Jonah Kagen	The Roads 12B 110	The Roads	bpm/key-suffix
+1059	25	Kings Of Leon	Kings Of Leon	To Space (Radio Edit) 11A 116	To Space	bpm/key-suffix,version-tag
+1060	35	Little Image	Little Image	Kill The Ghost 5A 78	Kill The Ghost	bpm/key-suffix
+1061	35	Magnolia Park	Magnolia Park	Shallow (PO Clean Edit) 9A 135	Shallow	bpm/key-suffix,version-tag
+1062	35	Nevertel, Sleep Theory	Nevertel, Sleep Theory	Break The Silence (Radio Edit) 12A 105	Break The Silence	bpm/key-suffix,version-tag
+1063	35	Sabaton, Nothing More	Sabaton, Nothing More	Crossing The Rubicon 9A 95	Crossing The Rubicon	bpm/key-suffix
+1064	35	Shinedown	Shinedown	Searchlight 8A 72	Searchlight	bpm/key-suffix
+1065	27	Silversun Pickups	Silversun Pickups	The Wreckage (Radio Edit) 10A 113	The Wreckage	bpm/key-suffix,version-tag
+1066	35	The Haunt	The Haunt	Bad Omen (Radio Edit) (Clean) 9A 140	Bad Omen	bpm/key-suffix,version-tag
+1067	27	Turnstile	Turnstile	Look Out For Me 1A 132	Look Out For Me	bpm/key-suffix
+1068	35	Velvet Chains	Velvet Chains	How The Story Ends 7A 75	How The Story Ends	bpm/key-suffix
+1069	35	Witch Post	Witch Post	The Wolf 9B 140	The Wolf	bpm/key-suffix
+1070	6	A Perfect Circle	A Perfect Circle	Starless 12A 135	Starless	bpm/key-suffix
+1071	5	Almost Monday	Almost Monday	No More Regrets 3A 109	No More Regrets	bpm/key-suffix
+1072	30	Ax, The Hatchetmen	Ax and the Hatchetmen	Hotel Room 11A 82	Hotel Room	artist-fix,bpm/key-suffix
+1073	24	Bleachers	Bleachers	We Should Talk 12B 129	We Should Talk	bpm/key-suffix
+1074	23	Breaking Benjamin	Breaking Benjamin	Something Wicked 4A 85	Something Wicked	bpm/key-suffix
+1075	35	Brian Fallon, The Painkillers	Brian Fallon & The Painkillers	Better Before 8B 125	Better Before	artist-fix,bpm/key-suffix
+1076	35	Cameron Whitcomb	Cameron Whitcomb	Kingdom Of Fear 10A 133	Kingdom Of Fear	bpm/key-suffix
+1077	3	Edgehill	Edgehill	Love To Go 10A 103	Love To Go	bpm/key-suffix
+1078	35	Everlast	Everlast	Stones 9B 88	Stones	bpm/key-suffix
+1079	23	Greta Van Fleet	Greta Van Fleet	Play Your Games 1B 94	Play Your Games	bpm/key-suffix
+1080	35	M.O.T.H.E.R.	M.O.T.H.E.R.	My Love 12B 78	My Love	bpm/key-suffix
+1081	35	Meek	Meek	Fabulous (Clean) 11B 121	Fabulous	bpm/key-suffix,version-tag
+1082	26	Mgk, Fred Durst	Mgk, Fred Durst	Fix Ur Face (Po Clean Edit) 4A 102	Fix Ur Face	bpm/key-suffix,version-tag
+1083	35	Michigander	Michigander	Freaking Out 1B 119	Freaking Out	bpm/key-suffix
+1084	28	Mt. Joy, Gigi Perez	Mt. Joy, Gigi Perez	In The Middle 10B 87	In The Middle	bpm/key-suffix
+1085	35	Myles Smith	Myles Smith	Hold Me In The Dark 7B 132	Hold Me In The Dark	bpm/key-suffix
+1086	25	Noah Kahan	Noah Kahan	Doors (Clean) 10A 164	Doors	bpm/key-suffix,version-tag
+1087	35	Nothing But Thieves	Nothing But Thieves	Evolution 8B 87	Evolution	bpm/key-suffix
+1088	35	Switchfoot	Switchfoot	Absolution 11A 91	Absolution	bpm/key-suffix
+1090	35	Atreyu	Atreyu	All For You (Po Clean Edit) 3A 90	All For You	bpm/key-suffix,version-tag
+1091	5	Autumn Kings	Autumn Kings	Gone, Gone, Gone 8A 93	Gone, Gone, Gone	bpm/key-suffix
+1092	35	Beartooth	Beartooth	Free (Clean) 10A 80	Free	bpm/key-suffix,version-tag
+1093	35	Beck	Beck	Ride Lonesome 12B 63	Ride Lonesome	bpm/key-suffix
+1094	24	Black Veil Brides	Black Veil Brides	Vindicate 1A 120	Vindicate	bpm/key-suffix
+1095	35	Eva Under Fire, Maria Brink	Eva Under Fire, Maria Brink	Villainous 12A 100	Villainous	bpm/key-suffix
+1096	23	Evanescence	Evanescence	Who Will You Follow 8A 96	Who Will You Follow	bpm/key-suffix
+1097	35	Holly Humberstone	Holly Humberstone	To Love Somebody (Po Clean Edit) 11B 104	To Love Somebody	bpm/key-suffix,version-tag
+1098	35	Iration	Iration	Shoyu 8A 104	Shoyu	bpm/key-suffix
+1099	3	Joyce Manor	Joyce Manor	I Used To Go To This Bar 12B 100	I Used To Go To This Bar	bpm/key-suffix
+1100	35	Modest Mouse	Modest Mouse	Picking Dragons' Pockets (Radio Edit) 1B 90	Picking Dragons' Pockets	bpm/key-suffix,version-tag
+1102	35	Noah Kahan	Noah Kahan	Porch Light (Clean) 9B 119	Porch Light	bpm/key-suffix,version-tag
+1103	35	Poppy	Poppy	Time Will Tell 3A 101	Time Will Tell	bpm/key-suffix
+1104	6	Sam Fender, Olivia Dean	Sam Fender, Olivia Dean	Rein Me In (Radio Edit) (Clean) 1B 124	Rein Me In	bpm/key-suffix,version-tag
+1105	35	The Beaches	The Beaches	Should've Known Better (Clean) 12B 80	Should've Known Better	bpm/key-suffix,version-tag
+1106	6	The Neighbourhood	The Neighbourhood	Private 7A 124	Private	bpm/key-suffix
+1108	35	The Strokes	The Strokes	Going Shopping 12B 76	Going Shopping	bpm/key-suffix
+1109	28	The Temper Trap	The Temper Trap	Giving Up Air 5A 126	Giving Up Air	bpm/key-suffix
+1110	35	Tim Montana	Tim Montana	Break Me Down 1A 99	Break Me Down	bpm/key-suffix
+1111	28	A$Ap Rocky	A$Ap Rocky	Punk Rocky (PO Clean Edit) 9A 140	Punk Rocky	bpm/key-suffix,version-tag
+1112	23	Architects	Architects	Broken Mirror 8A 82	Broken Mirror	bpm/key-suffix
+1113	24	Arctic Monkeys	Arctic Monkeys	Opening Night 9A 123	Opening Night	bpm/key-suffix
+1114	35	Balu Brigada	Balu Brigada	Sideways 10B 137	Sideways	bpm/key-suffix
+1115	35	Brigitte Calls Me Baby	Brigitte Calls Me Baby	Slumber Party (Radio Edit) 8A 81	Slumber Party	bpm/key-suffix,version-tag
+1116	35	Cannons	Cannons	Starlight 9B 125	Starlight	bpm/key-suffix
+1117	27	From Ashes To New	From Ashes To New	Drag Me (PO Clean Edit) 2A 99	Drag Me	bpm/key-suffix,version-tag
+1118	27	Hayley Williams	Hayley Williams	Parachute 10A 110	Parachute	bpm/key-suffix
+1119	35	In Color	In Color	Headlights 3B 94	Headlights	bpm/key-suffix
+1120	30	Ivri	Ivri	Tower Of Memories 10A 80	Tower Of Memories	bpm/key-suffix
+1121	35	Noah Kahan	Noah Kahan	The Great Divide (Clean) 1B 80	The Great Divide	bpm/key-suffix,version-tag
+1122	35	Out In Front	Out In Front	Float 5B 143	Float	bpm/key-suffix
+1124	35	Spiritual Cramp	Spiritual Cramp	Young Offenders 11B 113	Young Offenders	bpm/key-suffix
+1125	35	The All-American Rejects	The All-American Rejects	Get This 12A 120	Get This	bpm/key-suffix
+1126	26	The Black Keys	The Black Keys	You Got To Lose 9A 93	You Got To Lose	bpm/key-suffix
+1127	35	The Last Dinner Party	The Last Dinner Party	Count The Ways 9A 142	Count The Ways	bpm/key-suffix
+1128	35	Twenty One Pilots	Twenty One Pilots	Rawfear 10A 110	Rawfear	bpm/key-suffix
+1129	35	Violet Grohl	Violet Grohl	Thum 11A 147	Thum	bpm/key-suffix
+1131	35	Yellowcard, Good Charlotte	Yellowcard, Good Charlotte	Bedroom Posters 9B 140	Bedroom Posters	bpm/key-suffix
+1132	27	Young The Giant	Young The Giant	Different Kind Of Love 8A 105	Different Kind Of Love	bpm/key-suffix
+1133	35	Beabadoobee, The Marias	Beabadoobee, The Marias	All I Did Was Dream Of You 11A 83	All I Did Was Dream Of You	bpm/key-suffix
+1134	35	Bike Routes, Jake Clemons	Bike Routes, Jake Clemons	Delicate (Po Clean Edit) 10B 138	Delicate	bpm/key-suffix,version-tag
+1135	3	Bilmuri, A Day To Remember	Bilmuri, A Day To Remember	Always Let You Down 3A 89	Always Let You Down	bpm/key-suffix
+1136	35	Clarion	Clarion	Hello Juliet 6A 139	Hello Juliet	bpm/key-suffix
+1137	35	Death Cab For Cutie	Death Cab For Cutie	Riptides 8B 125	Riptides	bpm/key-suffix
+1138	35	Dexter, The Moonrocks	Dexter and the Moonrocks	Freakin' Out 9A 124	Freakin' Out	artist-fix,bpm/key-suffix
+1139	35	Dirty Headj Double S	Dirty Headj Double S	One Of Those Days 9B 86	One Of Those Days	bpm/key-suffix
+1140	35	Dogstar	Dogstar	All In Now 12A 146	All In Now	bpm/key-suffix
+1141	35	Gorillaz, Bizarrap, Kara Jackson, Anoushka Shankar	Gorillaz, Bizarrap, Kara Jackson, Anoushka Shankar	Orange County 5B 130	Orange County	bpm/key-suffix
+1142	35	Jonah Kagen	Jonah Kagen	Talkin' About Jesus (Po Clean Edit) 4B 99	Talkin' About Jesus	bpm/key-suffix,version-tag
+1143	35	Muse	Muse	Be With You 4B 132	Be With You	bpm/key-suffix
+1144	35	PRESIDENT	PRESIDENT	Destroy Me (Clean) 8A 74	Destroy Me	bpm/key-suffix,version-tag
+1145	35	Ryan Perdz	Ryan Perdz	Sour 6A 146	Sour	bpm/key-suffix
+1146	35	Sevendust	Sevendust	Unbreakable 10A 105	Unbreakable	bpm/key-suffix
+1147	28	Spacey Jane	Spacey Jane	Do You Really Love Her 10B 120	Do You Really Love Her	bpm/key-suffix
+1148	35	Sublime	Sublime	Until The Sun Explodes 2A 81	Until The Sun Explodes	bpm/key-suffix
+1150	35	The Black Crowes	The Black Crowes	Profane Prophecy 8A 136	Profane Prophecy	bpm/key-suffix
+1151	35	The Pretty Reckless	The Pretty Reckless	When I Wake Up (Clean) 1A 81	When I Wake Up	bpm/key-suffix,version-tag
+1152	35	The Runaroundj Double S	The Runaroundj Double S	Chasing The Good Times 11A 91	Chasing The Good Times	bpm/key-suffix
+1153	35	The Warning	The Warning	Kerosene 11A 160	Kerosene	bpm/key-suffix
+1155	35	Broken Social Scene	Broken Social Scene	Only The Good I Keep (Clean)	Only The Good I Keep	version-tag
+1156	35	Bryan Adams	Bryan Adams	51St State (Clean)	51St State	version-tag
+1159	35	Jack White	Jack White	Dollar Bill (Clean)	Dollar Bill	version-tag
+1160	35	Joyce Manor	Joyce Manor	I Used To Go To This (Clean)	I Used To Go To This	version-tag
+1161	3	Motionless In White, Skylar Grey	Motionless In White, Skylar Grey	R.I.P. (Clean)	R.I.P.	version-tag
+1162	3	Papa Roach, Hanumankind	Papa Roach, Hanumankind	See U In Hell (Original Mix)	See U In Hell	version-tag
+1164	24	Saving Abel, Scotty Austin	Saving Abel, Scotty Austin	Hive Skidco (Clean)	Hive Skidco	version-tag
+1168	35	Ark Identity	Ark Identity	Closer (Clean)	Closer	version-tag
+1169	35	Big Wreck	Big Wreck	Around (Clean)	Around	version-tag
+1170	35	Good Kid	Good Kid	Cicada (Clean)	Cicada	version-tag
+1171	35	Hollerado	Hollerado	Keep On Moving (Clean)	Keep On Moving	version-tag
+1172	35	LØLØ	LØLØ	The Punisher (Clean)	The Punisher	version-tag
+1176	35	Valley	Valley	Vending Machine (Clean)	Vending Machine	version-tag
+1177	5	Weezer, Wednesday	Weezer, Wednesday	We Might As Well Be Strangers (Clean)	We Might As Well Be Strangers	version-tag
+1178	6	Young The Giant	Young The Giant	Evergreen (Clean)	Evergreen	version-tag
+1180	35	Begonia	Begonia	Hotter Than The Sun (Clean)	Hotter Than The Sun	version-tag
+1181	35	Billy Morrison, Sully Erna, Nuno Bettencourt	Billy Morrison, Sully Erna, Nuno Bettencourt	Becoming (Original Mix)	Becoming	version-tag
+1183	35	Broken Social Scene	Broken Social Scene	Hey Amanda (Original Mix)	Hey Amanda	version-tag
+1185	24	Crown Lands	Crown Lands	Blackstar (Clean)	Blackstar	version-tag
+1187	35	Ilovemakonnen, Yellow Trash Can	Ilovemakonnen, Yellow Trash Can	Stuntin On Em (Clean)	Stuntin On Em	version-tag
+1188	35	Royal & The Serpent	Royal & The Serpent	Favorite Person (Clean)	Favorite Person	version-tag
+1189	35	Softcult	Softcult	Not Sorry (Clean)	Not Sorry	version-tag
+1191	35	Field Guide	Field Guide	To Be Lost (Original Mix)	To Be Lost	version-tag
+1193	35	Jimi	Jimi	Leather Jacket (Clean)	Leather Jacket	version-tag
+1194	35	Muse	Muse	Hexagons (Original Mix)	Hexagons	version-tag
+1196	35	Talk	Talk	Time Machine (Original Mix)	Time Machine	version-tag
+1198	35	The Tragically Hip, City And Colour, Ruby Waters, BOI-1DA, Canada Soccer	The Tragically Hip, City And Colour, Ruby Waters, BOI-1DA, Canada Soccer	Ahead By A Century (Original Mix)	Ahead By A Century	version-tag
+1199	35	The Warning	The Warning	Ego (Clean)	Ego	version-tag
+1200	35	Uncle Strut	Uncle Strut	Call My Name (Original Mix)	Call My Name	version-tag
+1202	35	Bleeker	Bleeker	Great Unknown (Original Mix)	Great Unknown	version-tag
+1205	24	Jack White	Jack White	GOD And The Broken Ribs (Clean)	GOD And The Broken Ribs	version-tag
+1206	35	LOLO	LOLO	007 (Clean)	007	version-tag
+1208	24	Royel Otis	Royel Otis	Sweet Hallelujah (Original Mix)	Sweet Hallelujah	version-tag
+1210	35	The Rolling Stones	The Rolling Stones	In The Stars (Clean)	In The Stars	version-tag
+1211	27	Theory Of A Deadman	Theory Of A Deadman	Barricade (Original Mix)	Barricade	version-tag
+1213	35	Bleachers	Bleachers	You And Forever (Original Mix)	You And Forever	version-tag
+1216	35	Nickelback	Nickelback	Bones For The Crows (Original Mix)	Bones For The Crows	version-tag
+1217	35	Royal Tusk	Royal Tusk	Armistice (Original Mix)	Armistice	version-tag
+1220	35	The Darcys	The Darcys	Goodtime (Original Mix)	Goodtime	version-tag
+1222	35	The Lazys	The Lazys	Too Tough To Die (Original Mix)	Too Tough To Die	version-tag
+1224	35	Arkells, Grouplove	Arkells, Grouplove	Ride (Clean)	Ride	version-tag
+1228	35	Boy Golden, Cat Clyde	Boy Golden, Cat Clyde	Cowboy Dreams (Clean)	Cowboy Dreams	version-tag
+1229	35	Cold War Kids	Cold War Kids	Push My Luck  (Clean)	Push My Luck	version-tag
+1231	26	Dexter And The Moonrocks	Dexter And The Moonrocks	Freakin' Out (Clean)	Freakin' Out	version-tag
+1232	35	Dirty Heads	Dirty Heads	One Of Those Days (Clean)	One Of Those Days	version-tag
+1237	26	Sevendust	Sevendust	Unbreakable Motor (Clean)	Unbreakable Motor	version-tag
+1238	26	Sleep Theory	Sleep Theory	Words Are Worthless (Clean)	Words Are Worthless	version-tag
+1242	35	Violet Grohl	Violet Grohl	595 (Clean)	595	version-tag
+1245	35	54-40	54-40	Running For The Fence (Original Mix)	Running For The Fence	version-tag
+1246	35	Alice Merton	Alice Merton	Ignorance Is Bliss (Original Mix)	Ignorance Is Bliss	version-tag
+1250	24	Rob Zombie	Rob Zombie	(I'm A) Rock 'N' Roller (Original Mix)	(I'm A) Rock 'N' Roller	version-tag
+1251	26	Shinedown	Shinedown	Safe And Sound (Clean)	Safe And Sound	version-tag
+1252	35	Stuck On Planet Earth	Stuck On Planet Earth	High Vibration (Original Mix)	High Vibration	version-tag
+1254	35	The Beaches	The Beaches	I Ran (So Far Away) (Clean)	I Ran (So Far Away)	version-tag
+1255	35	The Sheepdogs	The Sheepdogs	Keep Out The Storm (Original Mix)	Keep Out The Storm	version-tag
+1256	35	The Trews	The Trews	Carolina  (Original Mix)	Carolina	version-tag
+1257	35	Black Tea	Black Tea	Living Easy (Original Mix)	Living Easy	version-tag
+1259	35	Lights	Lights	Come Get Your Girl (Clean)	Come Get Your Girl	version-tag
+1264	35	Thirty Seconds To Mars	Thirty Seconds To Mars	God's Eye (Clean)	God's Eye	version-tag
+1266	27	U2	U2	American Obituary (Clean)	American Obituary	version-tag
+1267	35	Allie X	Allie X	7Th Floor (Clean)	7Th Floor	version-tag
+1269	35	Ruby Waters	Ruby Waters	Blinders (Clean)	Blinders	version-tag
+1270	35	Suffer	Suffer	Boy Golden (Original Mix)	Boy Golden	version-tag
+1278	35	Gus	Gus	I Think We're Worth Saving (Clean)	I Think We're Worth Saving	version-tag
+1279	35	Joji	Joji	Last Of A Dying Breed (Clean)	Last Of A Dying Breed	version-tag
+1281	27	Mumford & Sons	Mumford & Sons	The Banjo Song (Clean)	The Banjo Song	version-tag
+1282	27	Story Of The Year	Story Of The Year	Gasoline (Clean)	Gasoline	version-tag
+1285	35	Tom Morello, Beartooth	Tom Morello, Beartooth	Everything Burns (Radio Edit)	Everything Burns	version-tag
+1286	35	Zach Bryan	Zach Bryan	With Heaven On Top (Clean)	With Heaven On Top	version-tag
+1288	35	Arkells, Portugal. The Man	Arkells, Portugal. The Man	Money (Clean)	Money	version-tag
+1289	26	Big Wreck	Big Wreck	Dog With A Gun (Clean)	Dog With A Gun	version-tag
+1291	35	Fionn	Fionn	I Put My Makeup On (Clean)	I Put My Makeup On	version-tag
+1292	35	Headstones	Headstones	An Effort To Forget (Clean)	An Effort To Forget	version-tag
+1293	35	Joyce Manor	Joyce Manor	All My Friends Are So (Clean)	All My Friends Are So	version-tag
+1297	35	The Devil Wears Prada	The Devil Wears Prada	Everybody Knows (Radio Edit)	Everybody Knows	version-tag
+1298	35	Wintersleep	Wintersleep	I Got A Feeling (Clean)	I Got A Feeling	version-tag
+1299	35	Aerosmith, Yungblud	Aerosmith, Yungblud	Wild Woman (Clean)	Wild Woman	version-tag
+1300	35	Bad Child	Bad Child	High Ground (Original Mix)	High Ground	version-tag
+1301	24	Black Pistol Fire	Black Pistol Fire	High Horse (Original Mix)	High Horse	version-tag
+1302	35	Des Rocs	Des Rocs	This Land (Theme Borderlands 4) (Original Mix)	This Land (Theme Borderlands 4)	version-tag
+1305	35	Stuck On Planet Earth	Stuck On Planet Earth	Roll (Original Mix)	Roll	version-tag
+1306	35	The Strumbellas	The Strumbellas	Come Back Around (Radio Edit)	Come Back Around	version-tag
+1308	35	Yukon Blonde	Yukon Blonde	Adore You (Original Mix)	Adore You	version-tag
+1310	27	Avenged Sevenfold	Avenged Sevenfold	Magic (Radio Edit)	Magic	version-tag
+1311	35	Aysanabee	Aysanabee	Gone Baby Gone (Clean)	Gone Baby Gone	version-tag
+1312	26	Danko Jones	Danko Jones	Diamond In The Rough (Clean)	Diamond In The Rough	version-tag
+1314	35	Good Kid	Good Kid	Wall (Clean)	Wall	version-tag
+1316	35	Hollerado	Hollerado	What Killed Elvis Presley? (Clean)	What Killed Elvis Presley?	version-tag
+1317	35	NOBRO	NOBRO	Doomtown (Clean)	Doomtown	version-tag
+1319	35	The Beaches	The Beaches	Did I Say Too Much? (Clean)	Did I Say Too Much?	version-tag
+1320	35	The Strumbellas	The Strumbellas	Hard Lines (Radio Edit)	Hard Lines	version-tag
+1321	35	Wunderhorse	Wunderhorse	The Rope (Radio Edit)	The Rope	version-tag
+1323	35	Black Stone Cherry	Black Stone Cherry	Celebrate (Radio Edit)	Celebrate	version-tag
+1328	35	Ruby Waters	Ruby Waters	Wet T-Shirt (Radio Edit)	Wet T-Shirt	version-tag
+1330	35	The Marias	The Marias	Sienna (Radio Edit)	Sienna	version-tag
+1333	35	Valley	Valley	Water The Flowers, Pray For A Garden (Original Mix)	Water The Flowers, Pray For A Garden	version-tag
+1337	35	Colony House	Colony House	OK OK OK OK (Clean)	OK OK OK OK	version-tag
+1338	35	Dinosaur Pile-Up	Dinosaur Pile-Up	Bout To Lose It (Radio Edit)	Bout To Lose It	version-tag
+1342	35	The Rural Alberta Advantage	The Rural Alberta Advantage	Falling Apart (Clean)	Falling Apart	version-tag
+1347	35	Dorothy	Dorothy	Bones (Radio Edit)	Bones	version-tag
+1349	35	Finger Eleven, Filter	Finger Eleven, Filter	Blue Sky Mystery (Clean)	Blue Sky Mystery	version-tag
+1362	35	The Glorious Sons	The Glorious Sons	New Plan (Original Mix)	New Plan	version-tag
+1364	35	The Sheepdogs	The Sheepdogs	Nobody But You (Clean)	Nobody But You	version-tag
+1365	35	The Trews	The Trews	Manifest\t (Original Mix)	Manifest	version-tag
+1367	26	Marilyn Manson	Marilyn Manson	Exit Wound (Clean)	Exit Wound	version-tag
+1368	3	Nickelback, John 5	Nickelback, John 5	Rattle The Cage (Clean)	Rattle The Cage	version-tag
+1372	36	Alice Cooper	Alice Cooper	School's Out  (2023 Remaster)	School's Out	version-tag
+1398	29	Three Days Grace, Three Days Grace	Three Days Grace	Chalk Outline	Chalk Outline	artist-fix
+1465	1	Rush	Rush	Dreamline (2004 Remaster)	Dreamline	version-tag
+1469	4	Robert Plant	Robert Plant	Heaven Knows (2006 Remaster)	Heaven Knows	version-tag
+1512	1	4 Non Blondes, Shaunna Hall, Christa Hillhouse, Linda Perry	4 Non Blondes	What's Up?	What's Up?	member-list
+1517	1	U2, Bono, The Edge, Adam Clayton, Larry Mullen, Jr.	U2	Even Better Than The Real Thing	Even Better Than The Real Thing	member-list
+1518	1	Queen, John Deacon, Brian May, Freddie Mercury, Roger Taylor, David Richards	Queen	The Show Must Go On	The Show Must Go On	member-list
+1524	1	No Doubt, Gwen Stefani, Tony Kanal, Tom Dumont, Adrian Young, Eric Stefani, Melissa Hasin	No Doubt	Don't Speak	Don't Speak	member-list
+1531	1	Ocean Colour Scene, Simon Fowler, Damon Minchella, Oscar Harrison, Steve Cradock, Paul Weller	Ocean Colour Scene	The Riverboat Song	The Riverboat Song	member-list
+1534	1	Def Leppard, Joe Elliott, Phil Collen, Rick Savage, Rick Allen	Def Leppard	Let's Get Rocked	Let's Get Rocked	member-list
+1536	1	Koяn, Korn	Korn	Falling Away From Me	Falling Away From Me	artist-fix
+1538	1	Stereophonics, Kelly Jones, Richard Jones, Stuart Cable, Marshall Bird	Stereophonics	The Bartender And The Thief	The Bartender And The Thief	member-list
+1544	1	The Lemonheads	The Lemonheads	It's A Shame About Ray (Remastered)	It's A Shame About Ray	version-tag
+1545	1	Lit, Jeremy Popoff	Lit	My Own Worst Enemy	My Own Worst Enemy	member-list
+1547	1	Longpigs, Crispin Hunt, Richard Hawley, Simon Stafford, Dee Boyle	Longpigs	She Said	She Said	member-list
+1553	1	Scorpions, Klaus Meine, Matthias Jabs, Rudolf Schenker, Francis Buchholz, Herman Rarebell	Scorpions	Wind Of Change	Wind Of Change	member-list
+1563	1	Smashing Pumpkins, Billy Corgan, James Iha, D'arcy Wretzky, Jimmy Chamberlin	The Smashing Pumpkins	Today	Today	artist-fix
+1567	1	Silverchair	Silverchair	Tomorrow (Remastered)	Tomorrow	version-tag
+1574	1	E, Tommy Walter	Eels	Novocaine For The Soul	Novocaine For The Soul	artist-fix
+1578	1	Buckcherry, Scott Olsen, Steve Durkey, Ulrich Wild, Joshua Todd, Keith Nelson, Jonathan Brightman, Devon Glenn, Kim Bullard, Steve Jones	Buckcherry	Lit Up	Lit Up	member-list
+1579	1	Megadeth	Megadeth	A Tout Le Monde (Remastered 2004)	A Tout Le Monde	version-tag
+1587	1	Primus	Primus	John The Fisherman (Album Version)	John The Fisherman	version-tag
+1588	1	Powerman 5000	Powerman 5000	When Worlds Collide (Album Version)	When Worlds Collide	version-tag
+1647	29	AC; DC	AC/DC	Hells Bells	Hells Bells	artist-fix
+1659	29	AC; DC	AC/DC	Dirty Deeds Done Dirt Cheap	Dirty Deeds Done Dirt Cheap	artist-fix
+1673	29	AC; DC	AC/DC	T.N.T.	T.N.T.	artist-fix
+1688	4	Koяn	Korn	Coming Undone	Coming Undone	artist-fix
+1707	1	Tom Petty & The Heartbreakers	Tom Petty And The Heartbreakers	Learning To Fly	Learning To Fly	artist-fix
+1739	35	Amy Grant	Amy Grant	Baby, Baby (Remastered 2007)	Baby, Baby	version-tag
+1750	35	Amy Grant	Amy Grant	Every Heartbeat (Remastered 2007)	Every Heartbeat	version-tag
+1751	35	Arrested Development	Arrested Development	Mr Wendal (Remastered 2002)	Mr Wendal	version-tag
+1753	1	Travis	Travis	Sing (Remastered 2021)	Sing	version-tag

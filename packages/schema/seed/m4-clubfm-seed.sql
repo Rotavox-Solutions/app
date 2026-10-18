@@ -10,11 +10,12 @@
 
 BEGIN;
 
--- Teardown. Logs are dropped because their log_items reference clock_positions;
--- a seed that left them would orphan every approved log against clocks that no
--- longer exist.
-DELETE FROM log_items WHERE log_id IN (SELECT id FROM logs WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3');
-DELETE FROM logs WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3';
+-- Teardown. log_items reference clock_positions, which are rebuilt below. Approved
+-- logs are the as-scheduled record of what aired, so they are kept and detached from
+-- the old positions (clock_position_id is nullable); drafts are dropped.
+DELETE FROM log_items WHERE log_id IN (SELECT id FROM logs WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND status <> 'approved');
+DELETE FROM logs WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND status <> 'approved';
+UPDATE log_items SET clock_position_id = NULL WHERE log_id IN (SELECT id FROM logs WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3');
 DELETE FROM format_grid WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3';
 DELETE FROM clock_positions WHERE clock_id IN (SELECT id FROM clocks WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3');
 DELETE FROM clocks WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3';
@@ -84,38 +85,27 @@ INSERT INTO categories (station_id, name, kind, default_target_turnover_hours) V
 INSERT INTO song_categories (song_id, category_id)
 SELECT s.id, c.id FROM songs s JOIN categories c ON c.station_id = s.station_id
 WHERE s.station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND (
-  (c.name = 'A1' AND s.rdj_subcategory_id = 4) OR
-  (c.name = 'A2' AND s.rdj_subcategory_id = 2) OR
-  (c.name = 'B' AND s.rdj_subcategory_id = 1) OR
-  (c.name = 'C' AND s.rdj_subcategory_id = 3) OR
-  (c.name = 'N' AND s.rdj_subcategory_id = 23) OR
-  (c.name = 'R1' AND s.rdj_subcategory_id = 24) OR
-  (c.name = 'R2' AND s.rdj_subcategory_id = 25) OR
-  (c.name = 'R3' AND s.rdj_subcategory_id = 26) OR
+  (c.name = 'A1' AND s.rdj_subcategory_id = 5) OR
+  (c.name = 'A2' AND s.rdj_subcategory_id = 3) OR
+  (c.name = 'B' AND s.rdj_subcategory_id = 6) OR
+  (c.name = 'C' AND s.rdj_subcategory_id = 23) OR
+  (c.name = 'N' AND s.rdj_subcategory_id = 24) OR
+  (c.name = 'R1' AND s.rdj_subcategory_id = 26) OR
+  (c.name = 'R2' AND s.rdj_subcategory_id = 27) OR
+  (c.name = 'R3' AND s.rdj_subcategory_id = 28) OR
   (c.name = 'G2010' AND s.rdj_subcategory_id = 29) OR
-  (c.name = 'G2000' AND s.rdj_subcategory_id = 28) OR
-  (c.name = 'G1990' AND s.rdj_subcategory_id = 27) OR
-  (c.name = 'H1' AND s.rdj_subcategory_id = 30) OR
-  (c.name = 'H2' AND s.rdj_subcategory_id = 49) OR
-  (c.name = 'Discovery' AND s.rdj_subcategory_id = 6) OR
-  (c.name = 'F' AND s.rdj_subcategory_id = 31) OR
-  (c.name = 'GDEEP' AND s.rdj_subcategory_id = 37) OR
-  (c.name = 'TOH IDs' AND s.rdj_subcategory_id = 10) OR
-  (c.name = 'TOH ES' AND s.rdj_subcategory_id = 40) OR
-  (c.name = 'TOH FF' AND s.rdj_subcategory_id = 41) OR
-  (c.name = 'TOH HD' AND s.rdj_subcategory_id = 42) OR
-  (c.name = 'TOH CO' AND s.rdj_subcategory_id = 43) OR
-  (c.name = 'TOH WW' AND s.rdj_subcategory_id = 44) OR
-  (c.name = 'TOH WD' AND s.rdj_subcategory_id = 45) OR
-  (c.name = 'TOH GH' AND s.rdj_subcategory_id = 46) OR
-  (c.name = 'TOH EM' AND s.rdj_subcategory_id = 47) OR
-  (c.name = 'TOH DN' AND s.rdj_subcategory_id = 48) OR
-  (c.name = 'Liners' AND s.rdj_subcategory_id = 9) OR
-  (c.name = 'New-Music Sweepers' AND s.rdj_subcategory_id = 33) OR
-  (c.name = 'Gold Backsells' AND s.rdj_subcategory_id = 34) OR
-  (c.name = 'Relaunch Sweepers' AND s.rdj_subcategory_id = 8) OR
-  (c.name = 'Station Promos' AND s.rdj_subcategory_id = 12) OR
-  (c.name = 'Heritage Backsells' AND s.rdj_subcategory_id = 35)
+  (c.name = 'G2000' AND s.rdj_subcategory_id = 4) OR
+  (c.name = 'G1990' AND s.rdj_subcategory_id = 1) OR
+  (c.name = 'H1' AND s.rdj_subcategory_id = 2) OR
+  (c.name = 'H2' AND s.rdj_subcategory_id = 36) OR
+  (c.name = 'Discovery' AND s.rdj_subcategory_id = 30) OR
+  (c.name = 'F' AND s.rdj_subcategory_id = 25) OR
+  (c.name = 'TOH IDs' AND s.rdj_subcategory_id = 42) OR
+  (c.name = 'Liners' AND s.rdj_subcategory_id = 37) OR
+  (c.name = 'New-Music Sweepers' AND s.rdj_subcategory_id = 38) OR
+  (c.name = 'Gold Backsells' AND s.rdj_subcategory_id = 41) OR
+  (c.name = 'Relaunch Sweepers' AND s.rdj_subcategory_id = 40) OR
+  (c.name = 'Station Promos' AND s.rdj_subcategory_id = 43)
 )
 ON CONFLICT ON CONSTRAINT song_categories_song_category_unique DO NOTHING;
 

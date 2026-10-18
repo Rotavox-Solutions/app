@@ -1,0 +1,788 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-04-ladder-reset-v2",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-09-30",
+  "intent": "Replaces 2026-10-04-ladder-reset, which was invalidated when all 16 N records were swept to ZN outside the changeset process (15 from_subcat mismatches). Places the 40 newly imported records staged in subcat 51 (Y), disables 9 superseded duplicate files, rebuilds N, and returns A1/A2/B/C to target depth. Authored purely on chart evidence from the 2026-09-28 baseline pull against the Config 11.2 rescaled floors (A1 top-8, A2 top-15, B top-25-or-Spincrease). PD input remains disregarded this week by PD/MD instruction.",
+  "basis": {
+    "sheet_id": "charts/2026-09-28",
+    "sheet_captured_at": "2026-09-28T14:05:00-06:00",
+    "census_captured_at": "2026-09-30",
+    "census_source": "live RadioDJ via read-only tunnel",
+    "supersedes": "changesets/2026-10-04-ladder-reset.json (15 from_subcat mismatches after the N sweep)"
+  },
+  "notes": [
+    "ENTRY RULE for this reset, applied to the 31 unique new imports: 7-Day chart presence = established airplay = enter at the evidence rung, bypassing N. Absent from 7-Day (Spincrease and/or Taking Off only) = still breaking = enter at N. This is a principled line rather than a judgement call, and it is what fills N: 13 of its 18 seats come from imports that are gaining but have not yet charted.",
+    "N lands at 13 of 18. The five short are genuinely absent from the library - see sheets/2026-10-04-sourcing.md D. Still breaches the 11.2 hard +/-1 band.",
+    "DUPLICATE HANDLING. Five imports are higher-quality replacements of songs already in the library (ids 1687, 1670, 463, 634, 2); the old file is DISABLED in place rather than moved, so it can never be selected while the replacement airs, and disabling removes it from enabled depth. Four more are untagged/Clean pairs within the import itself; the Clean version is placed and the untagged one disabled. THE CLEAN-OVER-UNTAGGED CHOICE IS A PD DECISION - the station has no stated policy and the import mixes Clean, Dirty, Radio Edit and Original Mix. Inverting it is a one-line change.",
+    "ARTIST SEPARATION drove three placements. FFDP 'Eye Of The Storm' (AR #16) goes to C rather than B because 'Nails In The Coffin' (AR #12) takes the FFDP seat in B; Evanescence 'Afterlife' and Sublime 'Ensenada' are benched for the same reason. FORMAT-WORKFLOW 1a.6: duplicate artists in a thin pool produce fill failures, not merely tighter rotation.",
+    "FOUR RECALLS FROM ZN. Nickelback (AR #2), Buffalo Traffic Jam (ALT #3), Edgehill (ALT #12) and Sam Fender (ALT #17) were swept N->ZN outside the changeset process, not retired by rule. They are restored to their evidence rungs rather than treated as ZN residents. Nothing But Thieves 'Evolution' (632) is left in ZN this week - it is Taking Off-only and N is already being filled from stronger imports.",
+    "DROPS STILL DEFERRED. 11.3's fell_off and trajectory triggers need a prior archive week; 2026-09-28 remains the only one. Every bench here rests on present-tense evidence - absent from all panel sources, or superseded by an imported record - which needs no history.",
+    "DATA QUALITY: Dominic Fike 'Babydoll' (id 557) is 97 seconds in A2, against a ~2:40 record. It is left in place on evidence (ALT #8) but the file looks truncated and it sits in a power tier at ~23 plays/week. Recommend checking before the next log generation.",
+    "NOT ADDRESSED: Young The Giant 'Evergreen' (id 1673, ALT #16) sits in W and was not imported because it is already owned. It is a recall candidate, not a sourcing need, and is left for the 2026-10-04 pass."
+  ],
+  "moves": [
+    {
+      "rdj_song_id": 1652,
+      "artist": "Cage The Elephant",
+      "title": "Beaches In Tennessee",
+      "from_subcat": 2,
+      "to_subcat": 4,
+      "reason": "PROMOTE A2->A1. ALT 7-Day #1, Triple A #1, AR #9, Spincrease on both AR (+231) and ALT. Cross-format x1.25 - highest evidence score on the panel."
+    },
+    {
+      "rdj_song_id": 1660,
+      "artist": "Shinedown",
+      "title": "Young Again",
+      "from_subcat": 1,
+      "to_subcat": 4,
+      "reason": "PROMOTE B->A1. Cross-format AR #5 + ALT #21 (x1.25). NOTE -290 on AR; re-read next week."
+    },
+    {
+      "rdj_song_id": 1909,
+      "artist": "Nickelback, John 5",
+      "title": "Rattle The Cage",
+      "from_subcat": 39,
+      "to_subcat": 4,
+      "reason": "RECALL ZN->A1. AR 7-Day #2, 3055 spins. This record was swept N->ZN outside the changeset process on 2026-09-29/30, not retired by rule; its evidence is the second-highest-spinning record on Active Rock, so it is restored to its evidence rung rather than treated as a ZN resident."
+    },
+    {
+      "rdj_song_id": 574,
+      "artist": "Buffalo Traffic Jam",
+      "title": "Fool's Gold",
+      "from_subcat": 39,
+      "to_subcat": 4,
+      "reason": "RECALL ZN->A1. ALT 7-Day #3, 2408 spins, +107. Swept to ZN outside the changeset process; the 2026-08-02 postmortem had already recorded this record as 'missed entirely'."
+    },
+    {
+      "rdj_song_id": 1946,
+      "artist": "From Ashes To New",
+      "title": "Die For You (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 4,
+      "reason": "PLACE Y->A1. From Ashes To New 'Die For You' (Clean) - AR 7-Day #3, 2516 spins, +137, clears the top-8 floor. This is the newly imported higher-quality file; the older id 2 is disabled below."
+    },
+    {
+      "rdj_song_id": 1696,
+      "artist": "Autumn Kings",
+      "title": "Gone, Gone, Gone",
+      "from_subcat": 3,
+      "to_subcat": 4,
+      "reason": "PROMOTE C->A1. AR 7-Day #4, 2462 spins - clears top-8."
+    },
+    {
+      "rdj_song_id": 1672,
+      "artist": "Weezer, Wednesday",
+      "title": "We Might As Well Be Strangers",
+      "from_subcat": 3,
+      "to_subcat": 4,
+      "reason": "PROMOTE C->A1. ALT 7-Day #4, 2139 spins - clears top-8."
+    },
+    {
+      "rdj_song_id": 478,
+      "artist": "Julia Wolf",
+      "title": "In My Room",
+      "from_subcat": 4,
+      "to_subcat": 2,
+      "reason": "DEMOTE A1->A2. ALT 7-Day #5 at -88. Clears the A2 top-15 floor; displaced from A1 by ten higher-scoring records, two of them cross-format."
+    },
+    {
+      "rdj_song_id": 1726,
+      "artist": "Dexter And The Moonrocks",
+      "title": "Freakin' Out",
+      "from_subcat": 4,
+      "to_subcat": 2,
+      "reason": "DEMOTE A1->A2. ALT 7-Day #10 - clears A2's floor, not A1's top-8."
+    },
+    {
+      "rdj_song_id": 1677,
+      "artist": "Breaking Benjamin",
+      "title": "Something Wicked",
+      "from_subcat": 4,
+      "to_subcat": 1,
+      "reason": "DEMOTE A1->B. AR 7-Day #17 at -365, the largest decline on the Active Rock chart."
+    },
+    {
+      "rdj_song_id": 1742,
+      "artist": "Architects",
+      "title": "Broken Mirror",
+      "from_subcat": 4,
+      "to_subcat": 3,
+      "reason": "DEMOTE A1->C. Config 7b: library holds 'Broken Mirror', which charts nowhere; the artist's airplay record is 'Machine' (AR Spincrease +193) and was NOT in the import. Held in C pending sourcing - the artist is active."
+    },
+    {
+      "rdj_song_id": 1753,
+      "artist": "In Color",
+      "title": "Headlights",
+      "from_subcat": 4,
+      "to_subcat": 36,
+      "reason": "BENCH A1->W. Config 7b superseded: 'Headlights' charts nowhere and the artist's current record 'High' WAS imported (id 1926, placed in N). Benched rather than held to avoid two In Color records in rotation."
+    },
+    {
+      "rdj_song_id": 1736,
+      "artist": "The Warning",
+      "title": "Kerosene",
+      "from_subcat": 4,
+      "to_subcat": 36,
+      "reason": "BENCH A1->W. Config 7b superseded: 'Kerosene' charts nowhere and 'Bite My Tongue' WAS imported (id 1933, placed in N)."
+    },
+    {
+      "rdj_song_id": 1931,
+      "artist": "Tame Impala",
+      "title": "Loser (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 2,
+      "reason": "PLACE Y->A2. Tame Impala 'Loser' (Clean) - ALT 7-Day #6, Triple A #10, clears top-15."
+    },
+    {
+      "rdj_song_id": 1657,
+      "artist": "Papa Roach, Hanumankind",
+      "title": "See U In Hell",
+      "from_subcat": 1,
+      "to_subcat": 2,
+      "reason": "PROMOTE B->A2. AR 7-Day #6, 2361 spins - clears top-15."
+    },
+    {
+      "rdj_song_id": 1662,
+      "artist": "Almost Monday",
+      "title": "no more regrets",
+      "from_subcat": 3,
+      "to_subcat": 2,
+      "reason": "PROMOTE C->A2. ALT 7-Day #7, 1980 spins - clears top-15."
+    },
+    {
+      "rdj_song_id": 680,
+      "artist": "Bilmuri, A Day To Remember",
+      "title": "Always Let You Down",
+      "from_subcat": 1,
+      "to_subcat": 2,
+      "reason": "PROMOTE B->A2. AR 7-Day #8, 2105 spins - clears top-15."
+    },
+    {
+      "rdj_song_id": 1656,
+      "artist": "Motionless In White, Skylar Grey",
+      "title": "R.I.P.",
+      "from_subcat": 3,
+      "to_subcat": 2,
+      "reason": "PROMOTE C->A2. AR 7-Day #10, +92 - clears top-15."
+    },
+    {
+      "rdj_song_id": 1655,
+      "artist": "Joyce Manor",
+      "title": "I Used To Go To This Bar",
+      "from_subcat": 1,
+      "to_subcat": 2,
+      "reason": "PROMOTE B->A2. ALT 7-Day #11, +100, also ALT Spincrease - clears top-15."
+    },
+    {
+      "rdj_song_id": 622,
+      "artist": "Edgehill",
+      "title": "Love To Go",
+      "from_subcat": 39,
+      "to_subcat": 2,
+      "reason": "RECALL ZN->A2. ALT 7-Day #12, 1484 spins - clears top-15. Swept to ZN outside the changeset process. Resolves the 2026-08-02 Edgehill error toward airplay."
+    },
+    {
+      "rdj_song_id": 1721,
+      "artist": "Beartooth",
+      "title": "Free",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. 7b superseded: 'Free' charts nowhere and 'Beautiful Again' WAS imported (id 1919, placed in N)."
+    },
+    {
+      "rdj_song_id": 1725,
+      "artist": "Death Cab For Cutie",
+      "title": "Riptides",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. 7b superseded: 'Riptides' charts nowhere and 'Stone Over Water' WAS imported (id 1922, placed in N)."
+    },
+    {
+      "rdj_song_id": 1713,
+      "artist": "Sublime",
+      "title": "Until The Sun Explodes",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. 7b superseded: 'Until The Sun Explodes' charts nowhere and 'F.T.R' WAS imported (id 1930, placed in N)."
+    },
+    {
+      "rdj_song_id": 438,
+      "artist": "Role Model",
+      "title": "Sally, When The Wine Runs Out",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. 7b: 'Sally, When The Wine Runs Out' charts nowhere; the artist charts only on Triple A ('High Hopes 3000', AAA #7) at a x0.5 format multiplier, and that record was not imported. No evidence supports a currents seat."
+    },
+    {
+      "rdj_song_id": 1772,
+      "artist": "Dayseeker",
+      "title": "Crawl Back To My Coffin",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 1727,
+      "artist": "Dirty Heads",
+      "title": "One Of Those Days",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 1699,
+      "artist": "Eva Under Fire, Maria Brink, In This Moment",
+      "title": "Villainous",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 1702,
+      "artist": "Modest Mouse",
+      "title": "Picking Dragons' Pockets",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 440,
+      "artist": "sombr",
+      "title": "Back To Friends",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 1718,
+      "artist": "The Strokes",
+      "title": "Going Shopping",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 1924,
+      "artist": "Five Finger Death Punch",
+      "title": "Nails In The Coffin (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 1,
+      "reason": "PLACE Y->B. FFDP 'Nails In The Coffin' (Clean) - AR 7-Day #12, +153. Clears A2's floor but A2's eleven seats went to higher-scoring records; FLOOR-EXCEEDS placement downward is not a floor miss."
+    },
+    {
+      "rdj_song_id": 1927,
+      "artist": "Letdown",
+      "title": "Do It For The Love (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 1,
+      "reason": "PLACE Y->B. Letdown 'Do It For The Love' (Clean) - AR 7-Day #13, 1340 spins."
+    },
+    {
+      "rdj_song_id": 651,
+      "artist": "The Neighbourhood",
+      "title": "Private",
+      "from_subcat": 39,
+      "to_subcat": 1,
+      "reason": "RECALL ZN->B. ALT 7-Day #14, 1251 spins. Swept to ZN outside the changeset process."
+    },
+    {
+      "rdj_song_id": 1917,
+      "artist": "Avatar",
+      "title": "Crying Fire (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 1,
+      "reason": "PLACE Y->B. Avatar 'Crying Fire' (Clean) - AR 7-Day #14, +103, also AR Taking Off. Clean version selected over the untagged id 1910, which is disabled below."
+    },
+    {
+      "rdj_song_id": 1936,
+      "artist": "Wage War",
+      "title": "Blindfold (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 1,
+      "reason": "PLACE Y->B. Wage War 'Blindfold' (Clean) - AR 7-Day #15. Resolves the PD-list 'Sweet Dreams' conflict toward the airplay record."
+    },
+    {
+      "rdj_song_id": 1932,
+      "artist": "The Paradox",
+      "title": "I Kinda Like That (Dirty)",
+      "from_subcat": 51,
+      "to_subcat": 1,
+      "reason": "PLACE Y->B. The Paradox 'I Kinda Like That' (Dirty) - ALT 7-Day #15, +119."
+    },
+    {
+      "rdj_song_id": 1669,
+      "artist": "Sam Fender, Olivia Dean",
+      "title": "Rein Me In",
+      "from_subcat": 39,
+      "to_subcat": 1,
+      "reason": "RECALL ZN->B. ALT 7-Day #17. Swept to ZN outside the changeset process."
+    },
+    {
+      "rdj_song_id": 1380,
+      "artist": "Phoebe Bridgers",
+      "title": "Lost Boys",
+      "from_subcat": 3,
+      "to_subcat": 1,
+      "reason": "DEMOTE C->B. ALT 7-Day #18 and Triple A #2 - clears the B floor."
+    },
+    {
+      "rdj_song_id": 1925,
+      "artist": "Fozzy",
+      "title": "I Know Evil (Original Mix)",
+      "from_subcat": 51,
+      "to_subcat": 1,
+      "reason": "PLACE Y->B. Fozzy 'I Know Evil' (Original Mix) - AR 7-Day #18."
+    },
+    {
+      "rdj_song_id": 1923,
+      "artist": "Evanescence",
+      "title": "Tell Me When You've Had Enough (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 1,
+      "reason": "PLACE Y->B. Evanescence 'Tell Me When You've Had Enough' (Clean) - AR 7-Day #19, +157. Supersedes 'Who Will You Follow' (7b), benched below."
+    },
+    {
+      "rdj_song_id": 1949,
+      "artist": "Three Days Grace",
+      "title": "Don't Wanna Go Home Tonight (Dirty)",
+      "from_subcat": 51,
+      "to_subcat": 1,
+      "reason": "PLACE Y->B. Three Days Grace 'Don't Wanna Go Home Tonight' (Dirty) - ALT 7-Day #19. Newly imported higher-quality file; the older id 634 is disabled below."
+    },
+    {
+      "rdj_song_id": 1940,
+      "artist": "Steve Lacy",
+      "title": "Oh Yeah (Dirty)",
+      "from_subcat": 51,
+      "to_subcat": 1,
+      "reason": "PLACE Y->B. Steve Lacy 'Oh Yeah' (Dirty) - ALT 7-Day #20, +179."
+    },
+    {
+      "rdj_song_id": 1920,
+      "artist": "Black Stone Cherry",
+      "title": "Deep (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 1,
+      "reason": "PLACE Y->B. Black Stone Cherry 'Deep' (Clean) - AR 7-Day #20. Clean version selected over untagged id 1913, disabled below."
+    },
+    {
+      "rdj_song_id": 1921,
+      "artist": "Dead Poet Society",
+      "title": "Cold (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 3,
+      "reason": "PLACE Y->C. Dead Poet Society 'Cold' (Clean) - AR 7-Day #21, +60. Clears the B floor, but B's fourteen seats went to higher-scoring records; placed at the next rung down rather than displacing one."
+    },
+    {
+      "rdj_song_id": 1720,
+      "artist": "Atreyu",
+      "title": "All For You",
+      "from_subcat": 1,
+      "to_subcat": 36,
+      "reason": "BENCH B->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 1841,
+      "artist": "Bad Omens",
+      "title": "Dying To Love",
+      "from_subcat": 1,
+      "to_subcat": 36,
+      "reason": "BENCH B->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 1722,
+      "artist": "Black Label Society",
+      "title": "Name In Blood",
+      "from_subcat": 1,
+      "to_subcat": 36,
+      "reason": "BENCH B->W. 7b superseded: 'Name In Blood' charts nowhere and 'Ozzy's Song' WAS imported (id 1912, placed in N)."
+    },
+    {
+      "rdj_song_id": 1709,
+      "artist": "Evanescence",
+      "title": "Who Will You Follow",
+      "from_subcat": 1,
+      "to_subcat": 36,
+      "reason": "BENCH B->W. 7b superseded: 'Who Will You Follow' charts nowhere and 'Tell Me When You've Had Enough' WAS imported (id 1923, placed in B)."
+    },
+    {
+      "rdj_song_id": 1729,
+      "artist": "Muse",
+      "title": "Be With You",
+      "from_subcat": 1,
+      "to_subcat": 36,
+      "reason": "BENCH B->W. 7b superseded: 'Be With You' charts nowhere and 'Cryogen' WAS imported (id 1928, placed in C)."
+    },
+    {
+      "rdj_song_id": 485,
+      "artist": "Sleep Token",
+      "title": "Emergence (Rock Version)",
+      "from_subcat": 1,
+      "to_subcat": 36,
+      "reason": "BENCH B->W. Appears on no panel source - not AR, ALT, Triple A, Spincrease or Taking Off. Flagged 2026-09-28 as a possible servicing gap; still absent a week later, so benched on evidence."
+    },
+    {
+      "rdj_song_id": 1758,
+      "artist": "sombr",
+      "title": "Homewrecker",
+      "from_subcat": 1,
+      "to_subcat": 36,
+      "reason": "BENCH B->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 1735,
+      "artist": "The Pretty Reckless",
+      "title": "When I Wake Up",
+      "from_subcat": 1,
+      "to_subcat": 36,
+      "reason": "BENCH B->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 1681,
+      "artist": "Greta Van Fleet",
+      "title": "Play Your Games",
+      "from_subcat": 1,
+      "to_subcat": 3,
+      "reason": "DEMOTE B->C. 7b: 'Play Your Games' charts nowhere; the artist's airplay record is 'Tear It Down' (AR Spincrease #1, +442) and was NOT imported. Held in C pending sourcing - this is the single biggest spin gainer on Active Rock."
+    },
+    {
+      "rdj_song_id": 1378,
+      "artist": "Electric Callboy, The Offspring",
+      "title": "Let The Good Times Roll",
+      "from_subcat": 1,
+      "to_subcat": 3,
+      "reason": "DEMOTE B->C. AR 7-Day #24 - clears the B floor but B's fourteen seats went to higher-scoring records."
+    },
+    {
+      "rdj_song_id": 1934,
+      "artist": "Theory Of A Deadman",
+      "title": "Winnebago (Lay Low) (Original Mix)",
+      "from_subcat": 51,
+      "to_subcat": 3,
+      "reason": "PLACE Y->C. Theory Of A Deadman 'Winnebago (Lay Low)' (Original Mix) - AR 7-Day #22."
+    },
+    {
+      "rdj_song_id": 1939,
+      "artist": "Royal Blood",
+      "title": "Ten Over Ten (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 3,
+      "reason": "PLACE Y->C. Royal Blood 'Ten Over Ten' (Clean) - AR 7-Day #23, +66."
+    },
+    {
+      "rdj_song_id": 1942,
+      "artist": "The Revivalists",
+      "title": "Heart Stop (Radio Edit)",
+      "from_subcat": 51,
+      "to_subcat": 3,
+      "reason": "PLACE Y->C. The Revivalists 'Heart Stop' (Radio Edit) - ALT 7-Day #23, Triple A #6."
+    },
+    {
+      "rdj_song_id": 1938,
+      "artist": "Fontaines D.C.",
+      "title": "Marianne (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 3,
+      "reason": "PLACE Y->C. Fontaines D.C. 'Marianne' (Clean) - ALT 7-Day #22, +143, Triple A #8."
+    },
+    {
+      "rdj_song_id": 1941,
+      "artist": "The Beaches",
+      "title": "Edge Of The Earth (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 3,
+      "reason": "PLACE Y->C. The Beaches 'Edge Of The Earth' (Clean) - ALT 7-Day #24."
+    },
+    {
+      "rdj_song_id": 1937,
+      "artist": "Des Rocs",
+      "title": "When The Love Is Gone (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 3,
+      "reason": "PLACE Y->C. Des Rocs 'When The Love Is Gone' (Clean) - AR 7-Day #25."
+    },
+    {
+      "rdj_song_id": 1928,
+      "artist": "Muse",
+      "title": "Cryogen (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 3,
+      "reason": "PLACE Y->C. Muse 'Cryogen' (Clean) - ALT 7-Day #25. Supersedes 'Be With You' (7b), benched above."
+    },
+    {
+      "rdj_song_id": 1914,
+      "artist": "Five Finger Death Punch",
+      "title": "Eye Of The Storm",
+      "from_subcat": 51,
+      "to_subcat": 3,
+      "reason": "PLACE Y->C. FFDP 'Eye Of The Storm' - AR 7-Day #16 at -88, falling. Placed in C rather than B because 'Nails In The Coffin' (AR #12) takes the Five Finger Death Punch seat in B; two records by one artist in the same tier is the artist-separation risk FORMAT-WORKFLOW 1a.6 warns about. This is the newly imported file; older id 1687 is disabled below."
+    },
+    {
+      "rdj_song_id": 1916,
+      "artist": "The HU f./ Jonny Hawkins",
+      "title": "Lost Soul",
+      "from_subcat": 51,
+      "to_subcat": 3,
+      "reason": "PLACE Y->C. The HU 'Lost Soul' - newly imported higher-quality file replacing id 1670, which is disabled below. The song charts on no panel source, so C is a depth-holding seat, not an evidence placement."
+    },
+    {
+      "rdj_song_id": 1929,
+      "artist": "Spiritbox",
+      "title": "Perfect Soul (Radio Edit)",
+      "from_subcat": 51,
+      "to_subcat": 3,
+      "reason": "PLACE Y->C. Spiritbox 'Perfect Soul' (Radio Edit) - newly imported higher-quality file replacing id 463, disabled below. NOTE the artist's CURRENT airplay record is 'Mourning' (AR Spincrease +154), which was not imported; this is a better file of the older single."
+    },
+    {
+      "rdj_song_id": 1728,
+      "artist": "Ice Nine Kills, Mckenna Grace",
+      "title": "Twisting The Knife",
+      "from_subcat": 3,
+      "to_subcat": 36,
+      "reason": "BENCH C->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 1668,
+      "artist": "M.O.T.H.E.R.",
+      "title": "My Love",
+      "from_subcat": 3,
+      "to_subcat": 36,
+      "reason": "BENCH C->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 418,
+      "artist": "Royel Otis",
+      "title": "Moody",
+      "from_subcat": 3,
+      "to_subcat": 36,
+      "reason": "BENCH C->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 690,
+      "artist": "Ryan Perdz",
+      "title": "Sour",
+      "from_subcat": 3,
+      "to_subcat": 36,
+      "reason": "BENCH C->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 1707,
+      "artist": "Tim Montana",
+      "title": "Break Me Down",
+      "from_subcat": 3,
+      "to_subcat": 36,
+      "reason": "BENCH C->W. Neither this record nor the artist appears on any panel source."
+    },
+    {
+      "rdj_song_id": 411,
+      "artist": "Evanescence",
+      "title": "Afterlife",
+      "from_subcat": 3,
+      "to_subcat": 36,
+      "reason": "BENCH C->W. Evanescence 'Afterlife' charts nowhere, and 'Tell Me When You've Had Enough' takes the Evanescence seat in B. Avoids two records by one artist in currents."
+    },
+    {
+      "rdj_song_id": 1,
+      "artist": "Sublime",
+      "title": "Ensenada",
+      "from_subcat": 3,
+      "to_subcat": 36,
+      "reason": "BENCH C->W. Sublime 'Ensenada' charts nowhere, and 'F.T.R' (id 1930) takes the Sublime seat in N."
+    },
+    {
+      "rdj_song_id": 1685,
+      "artist": "Beabadoobee, The Marias",
+      "title": "All I Did Was Dream Of You",
+      "from_subcat": 3,
+      "to_subcat": 36,
+      "reason": "BENCH C->W. 7b superseded: 'All I Did Was Dream Of You' charts nowhere and 'Write Me A Letter' WAS imported (id 1918, placed in N)."
+    },
+    {
+      "rdj_song_id": 504,
+      "artist": "Tame Impala",
+      "title": "Dracula",
+      "from_subcat": 3,
+      "to_subcat": 36,
+      "reason": "BENCH C->W. Tame Impala 'Dracula' charts on NO rock or alternative source - it is a Top 40 record (Top 40 #1 as 'Dracula - JENNIE Remix'). 'Loser' (id 1931) takes the Tame Impala seat in A2. Benched rather than held: keeping a CHR crossover in currents is a 2.1 texture decision with no supporting rock/alt evidence, and PD flagged it on 2026-09-28 without resolving it."
+    },
+    {
+      "rdj_song_id": 1919,
+      "artist": "Beartooth",
+      "title": "Beautiful Again (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. Beartooth 'Beautiful Again' (Clean) - AR Spincrease +92 and AR Taking Off, but NOT on the 7-Day chart. Entry rule for this reset: 7-Day presence = established = bypass to evidence rung; absent from 7-Day = still breaking = enters at N. Clean version selected over untagged id 1911, disabled below."
+    },
+    {
+      "rdj_song_id": 1922,
+      "artist": "Death Cab For Cutie",
+      "title": "Stone Over Water (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. Death Cab For Cutie 'Stone Over Water' (Clean) - Triple A #5 and ALT Spincrease +118, not on the ALT 7-Day. Triple A alone is a x0.5 source."
+    },
+    {
+      "rdj_song_id": 1930,
+      "artist": "Sublime",
+      "title": "F.T.R (Dirty)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. Sublime 'F.T.R' (Dirty) - ALT Spincrease #2 (+214) and ALT Taking Off #1, the strongest breaking record in the import, but not yet on the 7-Day chart."
+    },
+    {
+      "rdj_song_id": 1926,
+      "artist": "In Color",
+      "title": "High (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. In Color 'High' (Clean) - ALT Spincrease +114 and ALT Taking Off, not on 7-Day."
+    },
+    {
+      "rdj_song_id": 1944,
+      "artist": "Bad Wolves",
+      "title": "Jolene (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. Bad Wolves 'Jolene' (Clean) - AR Spincrease +107 and AR Taking Off. Double-confirmed momentum."
+    },
+    {
+      "rdj_song_id": 1945,
+      "artist": "Chvrches",
+      "title": "Roses (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. Chvrches 'Roses' (Clean) - ALT Spincrease +51 and ALT Taking Off (3 new stations, 35 new spins). Double-confirmed."
+    },
+    {
+      "rdj_song_id": 1912,
+      "artist": "Black Label Society",
+      "title": "Ozzy's Song",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. Black Label Society 'Ozzy's Song' - AR Taking Off. Supersedes 'Name In Blood' (7b), benched above."
+    },
+    {
+      "rdj_song_id": 1918,
+      "artist": "Beabadoobee",
+      "title": "Write Me A Letter (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. Beabadoobee 'Write Me A Letter' (Clean) - ALT Taking Off. Supersedes 'All I Did Was Dream Of You' (7b), benched above."
+    },
+    {
+      "rdj_song_id": 1933,
+      "artist": "The Warning",
+      "title": "Bite My Tongue (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. The Warning 'Bite My Tongue' (Clean) - AR Taking Off. Supersedes 'Kerosene' (7b), benched above."
+    },
+    {
+      "rdj_song_id": 1935,
+      "artist": "U2",
+      "title": "Silencio (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. U2 'Silencio' (Clean) - ALT Taking Off. The artist's 'Street Of Dreams' (id 1661) remains in ZN; Triple A #23 only."
+    },
+    {
+      "rdj_song_id": 1943,
+      "artist": "Adult Leisure",
+      "title": "Kiss Me Like You Miss Her (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. Adult Leisure 'Kiss Me Like You Miss Her' (Clean) - ALT Taking Off, 10 new spins."
+    },
+    {
+      "rdj_song_id": 1947,
+      "artist": "K.Flay",
+      "title": "Ants (Clean)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. K.Flay 'Ants' (Clean) - ALT Taking Off, 9 new spins."
+    },
+    {
+      "rdj_song_id": 1948,
+      "artist": "Sylvan Esso",
+      "title": "Sledge (Original Mix)",
+      "from_subcat": 51,
+      "to_subcat": 23,
+      "reason": "PLACE Y->N. Sylvan Esso 'Sledge' (Original Mix) - ALT Taking Off, 7 new spins."
+    }
+  ],
+  "set_enabled": [
+    {
+      "rdj_song_id": 1687,
+      "artist": "Five Finger Death Punch",
+      "title": "Eye Of The Storm",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Superseded by newly imported higher-quality file id 1914 (FFDP 'Eye Of The Storm'). Same song; the old file is disabled rather than moved so it can never be selected while the replacement airs."
+    },
+    {
+      "rdj_song_id": 1670,
+      "artist": "The HU, Jonny Hawkins",
+      "title": "Lost Soul",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Superseded by newly imported higher-quality file id 1916 (The HU 'Lost Soul')."
+    },
+    {
+      "rdj_song_id": 463,
+      "artist": "Spiritbox",
+      "title": "Perfect Soul",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Superseded by newly imported higher-quality file id 1929 (Spiritbox 'Perfect Soul (Radio Edit)')."
+    },
+    {
+      "rdj_song_id": 634,
+      "artist": "Three Days Grace",
+      "title": "Don't Wanna Go Home Tonight",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Superseded by newly imported higher-quality file id 1949 (Three Days Grace 'Don't Wanna Go Home Tonight (Dirty)')."
+    },
+    {
+      "rdj_song_id": 2,
+      "artist": "From Ashes To New",
+      "title": "Die For You",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Superseded by newly imported higher-quality file id 1946 (From Ashes To New 'Die For You (Clean)'). The old file sits in ZN; disabling prevents it being recalled in place of the better copy."
+    },
+    {
+      "rdj_song_id": 1910,
+      "artist": "Avatar",
+      "title": "Crying Fire",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the import: untagged version of Avatar 'Crying Fire'. The Clean version (id 1917) is placed in B. PD decision required if the untagged version is preferred - see notes."
+    },
+    {
+      "rdj_song_id": 1911,
+      "artist": "Beartooth",
+      "title": "Beautiful Again",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the import: untagged version of Beartooth 'Beautiful Again'. Clean (id 1919) placed in N."
+    },
+    {
+      "rdj_song_id": 1913,
+      "artist": "Black Stone Cherry",
+      "title": "Deep",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the import: untagged version of Black Stone Cherry 'Deep'. Clean (id 1920) placed in B."
+    },
+    {
+      "rdj_song_id": 1915,
+      "artist": "From Ashes To New",
+      "title": "Die For You",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Duplicate within the import: untagged version of From Ashes To New 'Die For You'. Clean (id 1946) placed in A1."
+    }
+  ]
+}

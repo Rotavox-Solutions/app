@@ -31,19 +31,23 @@ const EPOCH = process.env.FORMAT_EPOCH ?? "2026-08-03";
  * B is subcat 1 alone: B1/B2 were consolidated 2026-08-02 because the clock model has a
  * single B (CUR below). Subcat 5 is retired, not deleted.
  */
+// IDs are the 2026-10-15 rebuild (clubfm-broadcast-1). The previous install's map is in
+// LIBRARY-CONTRACT.md. An empty list is a declared category with no subcategory on this
+// rig yet: it is still created, but maps no songs.
 const SUBCAT = {
-  A1: [4], A2: [2], B: [1], C: [3], N: [23],
-  R1: [24], R2: [25], R3: [26],
-  G2010: [29], G2000: [28], G1990: [27], H1: [30], H2: [49],
-  Discovery: [6], F: [31], GDEEP: [37],
+  A1: [5], A2: [3], B: [6], C: [23], N: [24],
+  R1: [26], R2: [27], R3: [28],
+  // H is the single 80s pool the PD built; H2 (pre-1980) is subcat 36.
+  G2010: [29], G2000: [4], G1990: [1], H1: [2], H2: [36],
+  Discovery: [30], F: [25], GDEEP: [],
   // Generic station IDs. Not called by any clock position -- it exists as the
   // FALLBACK for every per-block TOH pool, so an hour opens with a real station ID
   // rather than a liner while the 46 per-block scripts are still unproduced.
-  "TOH IDs": [10],
-  "TOH ES": [40], "TOH FF": [41], "TOH HD": [42], "TOH CO": [43], "TOH WW": [44],
-  "TOH WD": [45], "TOH GH": [46], "TOH EM": [47], "TOH DN": [48],
-  Liners: [9], "New-Music Sweepers": [33], "Gold Backsells": [34],
-  "Relaunch Sweepers": [8], "Station Promos": [12], "Heritage Backsells": [35],
+  "TOH IDs": [42],
+  "TOH ES": [], "TOH FF": [], "TOH HD": [], "TOH CO": [], "TOH WW": [],
+  "TOH WD": [], "TOH GH": [], "TOH EM": [], "TOH DN": [],
+  Liners: [37], "New-Music Sweepers": [38], "Gold Backsells": [41],
+  "Relaunch Sweepers": [40], "Station Promos": [43], "Heritage Backsells": [],
 };
 
 /**
@@ -95,11 +99,12 @@ w(`BEGIN;`);
 w(``);
 
 // ---------------------------------------------------------------------------- teardown
-w(`-- Teardown. Logs are dropped because their log_items reference clock_positions;`);
-w(`-- a seed that left them would orphan every approved log against clocks that no`);
-w(`-- longer exist.`);
-w(`DELETE FROM log_items WHERE log_id IN (SELECT id FROM logs WHERE station_id = ${q(STATION)});`);
-w(`DELETE FROM logs WHERE station_id = ${q(STATION)};`);
+w(`-- Teardown. log_items reference clock_positions, which are rebuilt below. Approved`);
+w(`-- logs are the as-scheduled record of what aired, so they are kept and detached from`);
+w(`-- the old positions (clock_position_id is nullable); drafts are dropped.`);
+w(`DELETE FROM log_items WHERE log_id IN (SELECT id FROM logs WHERE station_id = ${q(STATION)} AND status <> 'approved');`);
+w(`DELETE FROM logs WHERE station_id = ${q(STATION)} AND status <> 'approved';`);
+w(`UPDATE log_items SET clock_position_id = NULL WHERE log_id IN (SELECT id FROM logs WHERE station_id = ${q(STATION)});`);
 w(`DELETE FROM format_grid WHERE station_id = ${q(STATION)};`);
 w(`DELETE FROM clock_positions WHERE clock_id IN (SELECT id FROM clocks WHERE station_id = ${q(STATION)});`);
 w(`DELETE FROM clocks WHERE station_id = ${q(STATION)};`);
@@ -163,7 +168,7 @@ w(`-- consolidation retired subcat 5.`);
 w(`INSERT INTO song_categories (song_id, category_id)`);
 w(`SELECT s.id, c.id FROM songs s JOIN categories c ON c.station_id = s.station_id`);
 w(`WHERE s.station_id = ${q(STATION)} AND (`);
-w(Object.entries(SUBCAT).map(([name, ids]) =>
+w(Object.entries(SUBCAT).filter(([, ids]) => ids.length > 0).map(([name, ids]) =>
   `  (c.name = ${q(name)} AND s.rdj_subcategory_id ${ids.length > 1 ? `IN (${ids.join(",")})` : `= ${ids[0]}`})`
 ).join(" OR\n"));
 w(`)`);

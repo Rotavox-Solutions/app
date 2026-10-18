@@ -1,0 +1,5735 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-18-rebuild-sort-inverse",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-15",
+  "intent": "Inverse of \"2026-10-18-rebuild-sort\". Restores the state that changeset replaced.",
+  "basis": {
+    "sheet_id": "charts/2026-10-15",
+    "sheet_captured_at": "2026-10-15"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 1071,
+      "artist": "Almost Monday",
+      "title": "No More Regrets 3A 109",
+      "from_subcat": 5,
+      "to_subcat": 26,
+      "reason": "Rollback of: A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 1091,
+      "artist": "Autumn Kings",
+      "title": "Gone, Gone, Gone 8A 93",
+      "from_subcat": 5,
+      "to_subcat": 26,
+      "reason": "Rollback of: A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 1029,
+      "artist": "Buffalo Traffic Jam",
+      "title": "Fool's Gold 1A 70",
+      "from_subcat": 5,
+      "to_subcat": 26,
+      "reason": "Rollback of: A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 408,
+      "artist": "Cage The Elephant",
+      "title": "Beaches In Tennessee (Radio)",
+      "from_subcat": 5,
+      "to_subcat": 35,
+      "reason": "Rollback of: A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 1012,
+      "artist": "Dominic Fike",
+      "title": "Babydoll 8A 84",
+      "from_subcat": 5,
+      "to_subcat": 26,
+      "reason": "Rollback of: A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 1077,
+      "artist": "Edgehill",
+      "title": "Love To Go 10A 103",
+      "from_subcat": 5,
+      "to_subcat": 26,
+      "reason": "Rollback of: A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 417,
+      "artist": "Foo Fighters",
+      "title": "Window",
+      "from_subcat": 5,
+      "to_subcat": 35,
+      "reason": "Rollback of: A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 455,
+      "artist": "From Ashes To New",
+      "title": "Die For You (Clean)",
+      "from_subcat": 5,
+      "to_subcat": 24,
+      "reason": "Rollback of: A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 440,
+      "artist": "Tame Impala",
+      "title": "Loser (Clean)",
+      "from_subcat": 5,
+      "to_subcat": 24,
+      "reason": "Rollback of: A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 1149,
+      "artist": "Temper City",
+      "title": "Self Aware 8A 81",
+      "from_subcat": 5,
+      "to_subcat": 26,
+      "reason": "Rollback of: A1: 7-Day top-8"
+    },
+    {
+      "rdj_song_id": 426,
+      "artist": "Avatar",
+      "title": "Crying Fire (Clean)",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "Rollback of: A2: 7-Day top-15"
+    },
+    {
+      "rdj_song_id": 1135,
+      "artist": "Bilmuri, A Day To Remember",
+      "title": "Always Let You Down 3A 89",
+      "from_subcat": 3,
+      "to_subcat": 26,
+      "reason": "Rollback of: A2: 7-Day top-15"
+    },
+    {
+      "rdj_song_id": 432,
+      "artist": "Evanescence",
+      "title": "Tell Me When You've Had Enough (Clean)",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "Rollback of: A2: 7-Day top-15"
+    },
+    {
+      "rdj_song_id": 433,
+      "artist": "Five Finger Death Punch",
+      "title": "Nails In The Coffin (Clean)",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "Rollback of: A2: 7-Day top-15"
+    },
+    {
+      "rdj_song_id": 447,
+      "artist": "Fontaines D.C.",
+      "title": "Marianne (Clean)",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "Rollback of: A2: 7-Day top-15"
+    },
+    {
+      "rdj_song_id": 1099,
+      "artist": "Joyce Manor",
+      "title": "I Used To Go To This Bar 12B 100",
+      "from_subcat": 3,
+      "to_subcat": 26,
+      "reason": "Rollback of: A2: 7-Day top-15"
+    },
+    {
+      "rdj_song_id": 436,
+      "artist": "Letdown",
+      "title": "Do It For The Love (Clean)",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "Rollback of: A2: 7-Day top-15"
+    },
+    {
+      "rdj_song_id": 418,
+      "artist": "Shinedown",
+      "title": "Young Again",
+      "from_subcat": 3,
+      "to_subcat": 35,
+      "reason": "Rollback of: A2: 7-Day top-15"
+    },
+    {
+      "rdj_song_id": 449,
+      "artist": "Steve Lacy",
+      "title": "Oh Yeah (Dirty)",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "Rollback of: A2: 7-Day top-15"
+    },
+    {
+      "rdj_song_id": 1106,
+      "artist": "The Neighbourhood",
+      "title": "Private 7A 124",
+      "from_subcat": 3,
+      "to_subcat": 26,
+      "reason": "Rollback of: A2: 7-Day top-15"
+    },
+    {
+      "rdj_song_id": 441,
+      "artist": "The Paradox",
+      "title": "I Kinda Like That (Dirty)",
+      "from_subcat": 3,
+      "to_subcat": 24,
+      "reason": "Rollback of: A2: 7-Day top-15"
+    },
+    {
+      "rdj_song_id": 1070,
+      "artist": "A Perfect Circle",
+      "title": "Starless 12A 135",
+      "from_subcat": 6,
+      "to_subcat": 26,
+      "reason": "Rollback of: B: 7-Day top-15; A2 full, cascades to B"
+    },
+    {
+      "rdj_song_id": 427,
+      "artist": "Beabadoobee",
+      "title": "Write Me A Letter (Clean)",
+      "from_subcat": 6,
+      "to_subcat": 24,
+      "reason": "Rollback of: B: on Spincrease, already on the ladder (B floor: top-25 or Spincrease)"
+    },
+    {
+      "rdj_song_id": 429,
+      "artist": "Black Stone Cherry",
+      "title": "Deep (Clean)",
+      "from_subcat": 6,
+      "to_subcat": 24,
+      "reason": "Rollback of: B: 7-Day top-25"
+    },
+    {
+      "rdj_song_id": 430,
+      "artist": "Dead Poet Society",
+      "title": "Cold (Clean)",
+      "from_subcat": 6,
+      "to_subcat": 24,
+      "reason": "Rollback of: B: 7-Day top-25"
+    },
+    {
+      "rdj_song_id": 431,
+      "artist": "Death Cab For Cutie",
+      "title": "Stone Over Water (Clean)",
+      "from_subcat": 6,
+      "to_subcat": 24,
+      "reason": "Rollback of: B: top-3 on an add board (entry rule v2: bypasses N)"
+    },
+    {
+      "rdj_song_id": 460,
+      "artist": "In This Moment, Dayseeker",
+      "title": "I Want To Believe (Clean)",
+      "from_subcat": 6,
+      "to_subcat": 24,
+      "reason": "Rollback of: B: 7-Day top-25"
+    },
+    {
+      "rdj_song_id": 411,
+      "artist": "Phoebe Bridgers",
+      "title": "Lost Boys (Main)",
+      "from_subcat": 6,
+      "to_subcat": 35,
+      "reason": "Rollback of: B: 7-Day top-25"
+    },
+    {
+      "rdj_song_id": 448,
+      "artist": "Royal Blood",
+      "title": "Ten Over Ten (Clean)",
+      "from_subcat": 6,
+      "to_subcat": 24,
+      "reason": "Rollback of: B: 7-Day top-25"
+    },
+    {
+      "rdj_song_id": 1104,
+      "artist": "Sam Fender, Olivia Dean",
+      "title": "Rein Me In (Radio Edit) (Clean) 1B 124",
+      "from_subcat": 6,
+      "to_subcat": 26,
+      "reason": "Rollback of: B: 7-Day top-25"
+    },
+    {
+      "rdj_song_id": 466,
+      "artist": "Slightly Stoopid, Wiz Khalifa, G. Love",
+      "title": "Backseat Drivin (Clean)",
+      "from_subcat": 6,
+      "to_subcat": 24,
+      "reason": "Rollback of: B: 7-Day top-25"
+    },
+    {
+      "rdj_song_id": 439,
+      "artist": "Sublime",
+      "title": "F.T.R (Dirty)",
+      "from_subcat": 6,
+      "to_subcat": 24,
+      "reason": "Rollback of: B: on Spincrease, already on the ladder (B floor: top-25 or Spincrease)"
+    },
+    {
+      "rdj_song_id": 451,
+      "artist": "The Revivalists",
+      "title": "Heart Stop (Radio Edit)",
+      "from_subcat": 6,
+      "to_subcat": 24,
+      "reason": "Rollback of: B: 7-Day top-25"
+    },
+    {
+      "rdj_song_id": 1089,
+      "artist": "Three Days Grace",
+      "title": "Don't Wanna Go Home Tonight (Po Clean Edit) 11B 135",
+      "from_subcat": 6,
+      "to_subcat": 26,
+      "reason": "Rollback of: B: 7-Day top-25"
+    },
+    {
+      "rdj_song_id": 445,
+      "artist": "Wage War",
+      "title": "Blindfold (Clean)",
+      "from_subcat": 6,
+      "to_subcat": 24,
+      "reason": "Rollback of: B: 7-Day top-25"
+    },
+    {
+      "rdj_song_id": 452,
+      "artist": "Adult Leisure",
+      "title": "Kiss Me Like You Miss Her (Clean)",
+      "from_subcat": 23,
+      "to_subcat": 24,
+      "reason": "Rollback of: C: top-3 on an add board (entry rule v2: bypasses N); B full, cascades to C"
+    },
+    {
+      "rdj_song_id": 1112,
+      "artist": "Architects",
+      "title": "Broken Mirror 8A 82",
+      "from_subcat": 23,
+      "to_subcat": 26,
+      "reason": "Rollback of: C: off all panel charts this week (first week off; fell_off needs 2); was C in the 2026-10-04 reset, held in C"
+    },
+    {
+      "rdj_song_id": 1074,
+      "artist": "Breaking Benjamin",
+      "title": "Something Wicked 4A 85",
+      "from_subcat": 23,
+      "to_subcat": 26,
+      "reason": "Rollback of: C: off all panel charts this week (first week off; fell_off needs 2); was B in the 2026-10-04 reset, held in C"
+    },
+    {
+      "rdj_song_id": 446,
+      "artist": "Des Rocs",
+      "title": "When The Love Is Gone (Clean)",
+      "from_subcat": 23,
+      "to_subcat": 24,
+      "reason": "Rollback of: C: 7-Day top-25; B full, cascades to C"
+    },
+    {
+      "rdj_song_id": 403,
+      "artist": "Electric Callboy Feat. The Offspring",
+      "title": "Let The Good Times Roll (Clean)",
+      "from_subcat": 23,
+      "to_subcat": 35,
+      "reason": "Rollback of: C: off all panel charts this week (first week off; fell_off needs 2); was C in the 2026-10-04 reset, held in C"
+    },
+    {
+      "rdj_song_id": 1096,
+      "artist": "Evanescence",
+      "title": "Who Will You Follow 8A 96",
+      "from_subcat": 23,
+      "to_subcat": 26,
+      "reason": "Rollback of: C: 7-Day top-25; artist already seated (A2) so placed in C (one ladder seat per artist; FFDP precedent)"
+    },
+    {
+      "rdj_song_id": 406,
+      "artist": "Five Finger Death Punch",
+      "title": "Eye Of The Storm",
+      "from_subcat": 23,
+      "to_subcat": 35,
+      "reason": "Rollback of: C: off all panel charts this week (first week off; fell_off needs 2); was C in the 2026-10-04 reset, held in C"
+    },
+    {
+      "rdj_song_id": 434,
+      "artist": "Fozzy",
+      "title": "I Know Evil (Original Mix)",
+      "from_subcat": 23,
+      "to_subcat": 24,
+      "reason": "Rollback of: C: off all panel charts this week (first week off; fell_off needs 2); was C in the 2026-10-04 reset, held in C"
+    },
+    {
+      "rdj_song_id": 1079,
+      "artist": "Greta Van Fleet",
+      "title": "Play Your Games 1B 94",
+      "from_subcat": 23,
+      "to_subcat": 26,
+      "reason": "Rollback of: C: off all panel charts this week (first week off; fell_off needs 2); was C in the 2026-10-04 reset, held in C"
+    },
+    {
+      "rdj_song_id": 435,
+      "artist": "In Color",
+      "title": "High (Clean)",
+      "from_subcat": 23,
+      "to_subcat": 24,
+      "reason": "Rollback of: C: 7-Day top-25; B full, cascades to C"
+    },
+    {
+      "rdj_song_id": 437,
+      "artist": "Muse",
+      "title": "Cryogen (Clean)",
+      "from_subcat": 23,
+      "to_subcat": 24,
+      "reason": "Rollback of: C: 7-Day top-25; B full, cascades to C"
+    },
+    {
+      "rdj_song_id": 438,
+      "artist": "Spiritbox",
+      "title": "Perfect Soul (Radio Edit)",
+      "from_subcat": 23,
+      "to_subcat": 24,
+      "reason": "Rollback of: C: off all panel charts this week (first week off; fell_off needs 2); was C in the 2026-10-04 reset, held in C"
+    },
+    {
+      "rdj_song_id": 450,
+      "artist": "The Beaches",
+      "title": "Edge Of The Earth (Clean)",
+      "from_subcat": 23,
+      "to_subcat": 24,
+      "reason": "Rollback of: C: still showing panel signal but below the B floor; descends to C"
+    },
+    {
+      "rdj_song_id": 443,
+      "artist": "Theory Of A Deadman",
+      "title": "Winnebago (Lay Low) (Original Mix)",
+      "from_subcat": 23,
+      "to_subcat": 24,
+      "reason": "Rollback of: C: 7-Day top-25; B full, cascades to C"
+    },
+    {
+      "rdj_song_id": 407,
+      "artist": "The HU Feat. Jonny Hawkins",
+      "title": "Lost Soul",
+      "from_subcat": 26,
+      "to_subcat": 35,
+      "reason": "Rollback of: R1: aired in the M4 rotation (103 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202606 -> R1 by age"
+    },
+    {
+      "rdj_song_id": 413,
+      "artist": "U2",
+      "title": "Street Of Dreams (Radio Edit)",
+      "from_subcat": 26,
+      "to_subcat": 35,
+      "reason": "Rollback of: R1: aired in the M4 rotation (122 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202607 -> R1 by age"
+    },
+    {
+      "rdj_song_id": 926,
+      "artist": "A Day To Remember",
+      "title": "All My Friends (Clean) 2A 85",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (65 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202505 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 802,
+      "artist": "Ajr",
+      "title": "The Big Goodbye 92",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 760,
+      "artist": "Architects",
+      "title": "Everything Ends 9A 100",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 741,
+      "artist": "Beabadoobee",
+      "title": "Take A Bite 9A 91",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202409 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 743,
+      "artist": "Benson Boone",
+      "title": "Beautiful Things 6A 53",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (11 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202409 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 888,
+      "artist": "Chevelle",
+      "title": "Rabbit Hole (Cowards, Pt. 1) 1B 88",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (72 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202506 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 745,
+      "artist": "Coldplay",
+      "title": "Feelslikeimfallinginlove 8B 121",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202409 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 582,
+      "artist": "Destroy Boys",
+      "title": "Shadow (I'm Breaking Down) (Po Intro Edit - Clean) 78",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 765,
+      "artist": "Disturbed",
+      "title": "I Will Not Break (Radio Edit) 10A 103",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (72 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202504 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 867,
+      "artist": "Falling In Reverse, Marilyn Mansion",
+      "title": "God Is A Weapon [Clean] 9A 67",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (70 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202507 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 725,
+      "artist": "Foster The People",
+      "title": "See You In The Afterlife 2A 122",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (7 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202410 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 643,
+      "artist": "Fozzy",
+      "title": "Spotlight 100",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 625,
+      "artist": "Gigi Perez",
+      "title": "Sailor Song 95",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (12 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202412 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 704,
+      "artist": "Green Day",
+      "title": "Bobby Sox 1A 106",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (10 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202411 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 728,
+      "artist": "James Bay, The Lumineers, Noah Kahan",
+      "title": "Up All Night 10B 91",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (8 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202410 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 850,
+      "artist": "Jelly Roll",
+      "title": "Liar 3A 114",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202501 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 707,
+      "artist": "Linkin Park",
+      "title": "The Emptiness Machine (Clean) 6A 91",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (13 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202411 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 851,
+      "artist": "Linkin Park",
+      "title": "Heavy Is The Crown (Album Version) 10A 128",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (11 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202501 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 830,
+      "artist": "Lola Young",
+      "title": "Messy (Clean) 12B 111",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (14 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202502 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 891,
+      "artist": "Lorde",
+      "title": "What Was That 8B 127",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (13 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202506 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 519,
+      "artist": "Lovejoy",
+      "title": "Normal People Things",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 913,
+      "artist": "Mumford, Sons",
+      "title": "Rushmere 6B 138",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (11 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202503 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 792,
+      "artist": "Muse",
+      "title": "Unravelling (Album Version) 10A 88",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202508 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 771,
+      "artist": "Myles Smith",
+      "title": "Nice To Meet You 4B 115",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (7 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202504 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 752,
+      "artist": "Neon Trees",
+      "title": "Bad Dreams (Clean) 3B 101",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (7 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202409 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 872,
+      "artist": "Ok Go",
+      "title": "Love 12B 78",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 814,
+      "artist": "Portugal. The Man",
+      "title": "Tanana 160",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 796,
+      "artist": "Rise Against",
+      "title": "I Want It All 6A 134",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (13 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202508 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 837,
+      "artist": "Seven Hours After Violet",
+      "title": "Radiance 10A 87",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (15 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202502 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 1065,
+      "artist": "Silversun Pickups",
+      "title": "The Wreckage (Radio Edit) 10A 113",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 875,
+      "artist": "The All-American Rejects",
+      "title": "Easy Come, Easy Go 9A 122",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (10 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202507 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 737,
+      "artist": "The Killers",
+      "title": "Bright Lights 5B 84",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (7 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202410 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 856,
+      "artist": "The Kooks, Lovelytheband",
+      "title": "Jeanie 1A 99",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 982,
+      "artist": "The Last Dinner Party",
+      "title": "This Is The Killer Speaking (Clean) 117",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 920,
+      "artist": "The Lumineers",
+      "title": "Same Old Song 12B 86",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (11 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202503 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 943,
+      "artist": "The Marias",
+      "title": "No One Noticed 9B 98",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (11 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202505 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 1044,
+      "artist": "The Neighbourhood",
+      "title": "Hula Girl 7A 83",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1046,
+      "artist": "The Strumbellas",
+      "title": "Skin Of My Teeth 12A 123",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 415,
+      "artist": "Three Days Grace",
+      "title": "Kill Me Fast 154",
+      "from_subcat": 27,
+      "to_subcat": 35,
+      "reason": "Rollback of: R2: aired in the M4 rotation (10 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202508 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 900,
+      "artist": "Turnstile",
+      "title": "Never Enough 10A 154",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (13 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202506 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 1067,
+      "artist": "Turnstile",
+      "title": "Look Out For Me 1A 132",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 901,
+      "artist": "Twenty One Pilots",
+      "title": "Doubt 7A 123",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (19 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202506 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 902,
+      "artist": "Wet Leg",
+      "title": "Catch These Fists (Clean) 10A 128",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (11 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202506 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 881,
+      "artist": "Wolf Alice",
+      "title": "Bloom Baby Bloom 7A 96",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (14 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202507 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 924,
+      "artist": "Yeah Yeah Yeahs",
+      "title": "Maps 9B 120",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (14 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202503 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 780,
+      "artist": "Yeah Yeah Yeahs, Perfume Genius",
+      "title": "Spitting Off The Edge Of The World 11B 110",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202504 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 882,
+      "artist": "Yellowcard",
+      "title": "Better Days 10B 87",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (14 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202507 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 1132,
+      "artist": "Young The Giant",
+      "title": "Different Kind Of Love 8A 105",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: last BOLT pool R2 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 883,
+      "artist": "Yungblud",
+      "title": "Lovesick Lullaby [Clean] 1B 130",
+      "from_subcat": 27,
+      "to_subcat": 26,
+      "reason": "Rollback of: R2: aired in the M4 rotation (12 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202507 -> R2 by age"
+    },
+    {
+      "rdj_song_id": 1111,
+      "artist": "A$Ap Rocky",
+      "title": "Punk Rocky (PO Clean Edit) 9A 140",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 718,
+      "artist": "All Time Low",
+      "title": "Dear Maria, Count Me In (Atl's Version) 10B 180",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1050,
+      "artist": "Alter Bridge",
+      "title": "Silent Divide 12A 72",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 559,
+      "artist": "Bad Omens",
+      "title": "The Death Of Peace Of Mind (Clean Edit) 77",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (11 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202311 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 560,
+      "artist": "Barns Courtney",
+      "title": "Young In America (Explicit) 140",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 618,
+      "artist": "Bastille",
+      "title": "Blue Sky & The Painter 95",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 619,
+      "artist": "Bishop Briggs",
+      "title": "My Serotonin (Clean) 164",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 561,
+      "artist": "Bleachers",
+      "title": "Modern Girl 150",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (12 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202311 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 562,
+      "artist": "Blink-182",
+      "title": "One More Time 114",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (14 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202311 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 540,
+      "artist": "Blur",
+      "title": "The Narcissist 128",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202307 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 744,
+      "artist": "Bright Eyes",
+      "title": "Bells & Whistles (Radio Edit) 11B 128",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 806,
+      "artist": "Cannons",
+      "title": "All I Need 111",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 599,
+      "artist": "Catfish And The Bottlemen",
+      "title": "Showtime 108",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 681,
+      "artist": "Cigarettes After Sex",
+      "title": "Tejano Blue 82",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202405 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 763,
+      "artist": "Circa Waves",
+      "title": "Let's Leave Together 9A 134",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 700,
+      "artist": "Dashboard Confessional, Boys Like Girls",
+      "title": "Watch The Fire 12B 83",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 513,
+      "artist": "Daughtry",
+      "title": "Artificial (Radio Edit)",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202312 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 544,
+      "artist": "David Kushner",
+      "title": "Daylight 130",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (13 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202307 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 685,
+      "artist": "Djo",
+      "title": "End Of Beginning 80",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (11 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202405 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 865,
+      "artist": "Dropkick Murphys",
+      "title": "Who'll Stand With Us! 6B 190",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 747,
+      "artist": "Eddie Vedder",
+      "title": "Save It For Later (Clean) 11B 116",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 547,
+      "artist": "Fall Out Boy",
+      "title": "Hold Me Like A Grudge 114",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (8 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202307 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 724,
+      "artist": "Finger Eleven",
+      "title": "Adrenaline 12A 130",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1033,
+      "artist": "Florence + The Machine",
+      "title": "Sympathy Magic 9B 73",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 585,
+      "artist": "Foo Fighters",
+      "title": "Under You 150",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (12 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202309 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 601,
+      "artist": "Girl In Red",
+      "title": "Too Much (Po Clean Edit) 81",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (8 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202404 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 602,
+      "artist": "Godsmack",
+      "title": "Truth (Clean) 117",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1056,
+      "artist": "Goo Goo Dolls",
+      "title": "Not Goodbye (Close My Eyes) 9B 135",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 686,
+      "artist": "Good Neighbours",
+      "title": "Home 77",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (11 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202405 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 515,
+      "artist": "Green Day",
+      "title": "The American Dream Is Killing Me",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (12 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202312 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 516,
+      "artist": "Grouplove",
+      "title": "Cheese",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 626,
+      "artist": "Half.Alive",
+      "title": "Sophie's House 119",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 748,
+      "artist": "Hardy",
+      "title": "Psycho (Clean) 12B 123",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 474,
+      "artist": "Jelly Roll",
+      "title": "Dead Man Walking",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 606,
+      "artist": "Kings Of Leon",
+      "title": "Mustang 140",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202404 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 649,
+      "artist": "Knox",
+      "title": "Not The 1975 134",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202402 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 550,
+      "artist": "Lana Del Rey",
+      "title": "Say Yes To Heaven 101",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202307 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 608,
+      "artist": "Linkin Park",
+      "title": "Friendly Fire 124",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (12 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202404 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 751,
+      "artist": "Little Image",
+      "title": "Strange Friends 5A 120",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 503,
+      "artist": "M83",
+      "title": "Amnesia",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 505,
+      "artist": "Milky Chance",
+      "title": "Living In A Haze (PO Clean Edit)",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202304 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 1084,
+      "artist": "Mt. Joy, Gigi Perez",
+      "title": "In The Middle 10B 87",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 954,
+      "artist": "Mudvayne",
+      "title": "Sticks And Stones (Clean Edit) 112",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 475,
+      "artist": "Neon Trees",
+      "title": "Animal (Acoustic)",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (12 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202202 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 535,
+      "artist": "Noah Kahan",
+      "title": "Stick Season",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (14 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202301 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 688,
+      "artist": "Nothing More",
+      "title": "If It Doesn't Hurt 95",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (8 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202405 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 522,
+      "artist": "Papa Roach",
+      "title": "Leave A Light On (Talk Away The Dark)",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202312 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 611,
+      "artist": "Pearl Jam",
+      "title": "Dark Matter 100",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (10 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202404 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 689,
+      "artist": "Portugal. The Man",
+      "title": "Grim Generation 124",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 591,
+      "artist": "Royal Blood",
+      "title": "Pull Me Through 132",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 477,
+      "artist": "Rufus Du Sol",
+      "title": "On My Knees",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202202 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 478,
+      "artist": "Sam Fender",
+      "title": "Seventeen Going Under",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202202 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 956,
+      "artist": "Seether",
+      "title": "Lost All Control (Radio Edit) 137",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 567,
+      "artist": "Shinedown",
+      "title": "A Symptom Of Being Human 134",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (10 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202311 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 671,
+      "artist": "Sleep Token",
+      "title": "Granite 120",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (10 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202401 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 838,
+      "artist": "Soccer Mommy",
+      "title": "Driver 8B 100",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1147,
+      "artist": "Spacey Jane",
+      "title": "Do You Really Love Her 10B 120",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 942,
+      "artist": "Sports Team",
+      "title": "Bang Bang Bang 9A 117",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 569,
+      "artist": "Staind",
+      "title": "Here And Now 125",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (8 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202311 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 713,
+      "artist": "Suki Waterhouse",
+      "title": "Supersad 10B 77",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 570,
+      "artist": "Sum 41",
+      "title": "Landmines (Clean) 86",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (14 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202311 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 572,
+      "artist": "The 1975",
+      "title": "About You 96",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (13 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202311 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 672,
+      "artist": "The Gaslight Anthem",
+      "title": "Spider Bites 110",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 594,
+      "artist": "The Last Dinner Party",
+      "title": "Nothing Matters (Clean) 101",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202309 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 614,
+      "artist": "The Maine & Beach Weather",
+      "title": "Thoughts I Have While Lying In Bed 144",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 715,
+      "artist": "The Ramona Flowers",
+      "title": "Dangerous 3A 123",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1109,
+      "artist": "The Temper Trap",
+      "title": "Giving Up Air 5A 126",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 495,
+      "artist": "The Walters",
+      "title": "I Love You So",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (13 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202201 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 944,
+      "artist": "Third Eye Blind",
+      "title": "Like A Lullaby 11B 93",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 485,
+      "artist": "Turnstile",
+      "title": "Mystery",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (10 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202202 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 615,
+      "artist": "Twenty One Pilots",
+      "title": "Overcompensate 95",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (10 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202404 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 801,
+      "artist": "Twenty One Pilots",
+      "title": "The Contract 6A 135",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: last BOLT pool R3 (committed changesets)"
+    },
+    {
+      "rdj_song_id": 616,
+      "artist": "Vampire Weekend",
+      "title": "Capricorn 140",
+      "from_subcat": 28,
+      "to_subcat": 26,
+      "reason": "Rollback of: R3: aired in the M4 rotation (9 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202404 -> R3 by age"
+    },
+    {
+      "rdj_song_id": 782,
+      "artist": "Avatar",
+      "title": "Captain Goat (Radio Edit) 7A 133",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1072,
+      "artist": "Ax, The Hatchetmen",
+      "title": "Hotel Room 11A 82",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 987,
+      "artist": "Bilmuri",
+      "title": "More Than Hate 11B 124",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 578,
+      "artist": "Blindlove",
+      "title": "Juggernaut 100",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 680,
+      "artist": "Brittany Howard",
+      "title": "Prove It To You 130",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 545,
+      "artist": "Don T Believe In Ghosts",
+      "title": "Makes No Difference 120",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 584,
+      "artist": "Don't Believe In Ghosts",
+      "title": "Summer High 110",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 546,
+      "artist": "Durry",
+      "title": "Who S Laughing Now 91",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 723,
+      "artist": "Fame On Fire",
+      "title": "Nightmare (The Devil) 2A 74",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 471,
+      "artist": "Flora Cash",
+      "title": "A Good Childhood",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1034,
+      "artist": "Florence Road",
+      "title": "Miss 9A 81",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 766,
+      "artist": "Giovannie, The Hired Guns",
+      "title": "Quitter (Clean) 11B 105",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 909,
+      "artist": "Good Neighbours",
+      "title": "Ripple 1B 85",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 563,
+      "artist": "Gxtp",
+      "title": "Accusation 80",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 531,
+      "artist": "Hannah Cutt",
+      "title": "Messy (Radio Edit)",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 564,
+      "artist": "Hello Lucky",
+      "title": "Honey 136",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1120,
+      "artist": "Ivri",
+      "title": "Tower Of Memories 10A 80",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 645,
+      "artist": "Jagwar Twin",
+      "title": "Bad Feeling Oompa Loompa  Clean 95",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 490,
+      "artist": "Joy Again",
+      "title": "Looking Out For You",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 790,
+      "artist": "Kevin Abstract, Dominic Fike",
+      "title": "Geezer (PO Clean Edit) 12A 82",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 607,
+      "artist": "Late Night Drive Home",
+      "title": "Stress Relief 140",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 551,
+      "artist": "Little Hurt",
+      "title": "I Can Do Better Than You 82",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 650,
+      "artist": "Love Fame Tragedy",
+      "title": "Don't You Want To Sleep With Someone Normal Clean 136",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 566,
+      "artist": "Pat Mac",
+      "title": "The Indigo 144",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1018,
+      "artist": "Post Sex Nachos",
+      "title": "Sos 1B 112",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 670,
+      "artist": "Ripe",
+      "title": "Settling Live From Mgm Music Hall At Fenway 112",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 483,
+      "artist": "Surfbort",
+      "title": "Lot Lizard 93",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 839,
+      "artist": "Tetrarch",
+      "title": "Live Not Fantasize 8A 127",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 800,
+      "artist": "The Pretty Wild",
+      "title": "Button Eyes (Whisper Rock Mix) 7A 83",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 921,
+      "artist": "The Rockyts",
+      "title": "A Girl Like You 9A 138",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 820,
+      "artist": "Ufos, Braxe + Falcon, Phoenix & Alan Braxe",
+      "title": "Ufo 86",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 635,
+      "artist": "Vienna Vienna",
+      "title": "Vienna (Everything's Fine) (Clean) 86",
+      "from_subcat": 30,
+      "to_subcat": 26,
+      "reason": "Rollback of: X: last BOLT pool X (committed changesets)"
+    },
+    {
+      "rdj_song_id": 497,
+      "artist": "100 Gecs",
+      "title": "Hollywood Baby (Clean.)",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 904,
+      "artist": "Amyl, The Sniffers",
+      "title": "U Should Not Be Doing That (PO Clean Edit) 1A 125",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1006,
+      "artist": "Aranda",
+      "title": "You Don't Wanna Know 10B 100",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 905,
+      "artist": "Awolnation",
+      "title": "Barbarian 6B 74",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 884,
+      "artist": "Ax, The Hatchetmen With Albert Hammond Jr.",
+      "title": "Blurry Lights 8A 120",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 906,
+      "artist": "Bad Suns",
+      "title": "Communicating 10B 120",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 498,
+      "artist": "Bakar",
+      "title": "Good News",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 697,
+      "artist": "Balu Brigada",
+      "title": "So Cold 3A 111",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 986,
+      "artist": "Bike Routes",
+      "title": "World Apart 10A 155",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 823,
+      "artist": "Black Stone Cherry, Jesse Leach",
+      "title": "Out Of Pocket (Clean) 12A 155",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 721,
+      "artist": "Black Veil Brides",
+      "title": "Bleeders 3A 87",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 469,
+      "artist": "Caroline  Lachek",
+      "title": "So Hot You're Hurting My Feelings",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1030,
+      "artist": "Chet Faker",
+      "title": "This Time For Real 9B 82",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 499,
+      "artist": "Cigarettes After Sex",
+      "title": "Pistol",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 907,
+      "artist": "Coheed, Cambria",
+      "title": "Someone Who Can 12B 168",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1053,
+      "artist": "Cruz Beckham",
+      "title": "Optics 10B 126",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 500,
+      "artist": "Del Water Gap",
+      "title": "Ode To A Conversation Stuck In Your Throat (Clean)",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 501,
+      "artist": "Devon Thompson",
+      "title": "Soft Like Water",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 764,
+      "artist": "Dexter, The Moonrocks",
+      "title": "Ritalin (Rado Edit) 12B 114",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 722,
+      "artist": "Dorothy",
+      "title": "Mud 6A 70",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 928,
+      "artist": "Durry",
+      "title": "This Movie Sucks 11B 82",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 846,
+      "artist": "Ekoh, Lo Spirit",
+      "title": "Good Things (PO Clean Edit) 2A 120",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 929,
+      "artist": "Flipturn",
+      "title": "Rodeo Clown 8A 56",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 703,
+      "artist": "Franz Ferdinand",
+      "title": "Audacious 8A 79",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 472,
+      "artist": "Gang Of Youths",
+      "title": "In The Wake Of Your Leave",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1055,
+      "artist": "Geese",
+      "title": "Cobra 9B 121",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 785,
+      "artist": "Ghost",
+      "title": "Lachryma 10B 111",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 889,
+      "artist": "Gigi Perez",
+      "title": "Chemistry (Clean) 6A 87",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 786,
+      "artist": "Girl Tones",
+      "title": "Blame 12A 106",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 726,
+      "artist": "Glass Animals",
+      "title": "A Tear In Space (Airlock) 8A 94",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 990,
+      "artist": "Goo Goo Dolls",
+      "title": "Nothing Lasts Forever 8A 116",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 768,
+      "artist": "Green Day",
+      "title": "One Eyed Bastard (Album Version) 11A 130",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 890,
+      "artist": "Halestorm",
+      "title": "Darkness Always Wins 12A 151",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 910,
+      "artist": "Half.Alive",
+      "title": "Automatic 11B 81",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1036,
+      "artist": "Hatchie",
+      "title": "Sage 10A 120",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 749,
+      "artist": "Highly Suspect",
+      "title": "Plastic Boxes 9A 112",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 825,
+      "artist": "Hollywood Undead",
+      "title": "Hollywood Forever (PO Clean Edit) 2A 87",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 849,
+      "artist": "Honestav, Mod Sun",
+      "title": "I'd Rather Overdose (Mod Sun Remix) 1A 114",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 788,
+      "artist": "I Prevail",
+      "title": "Into Hell 12A 105",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 826,
+      "artist": "Idles",
+      "title": "Gift Horse (Clean) 6A 143",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 827,
+      "artist": "Inhaler",
+      "title": "Your House 11A 122",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1037,
+      "artist": "Inoha",
+      "title": "Seventh Heaven 10A 82",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 727,
+      "artist": "Jack White",
+      "title": "That's How I'm Feeling 9A 129",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 729,
+      "artist": "Jane's Addiction",
+      "title": "Imminent Redemption 9A 78",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 489,
+      "artist": "Joe Killington",
+      "title": "Cemetery",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 730,
+      "artist": "Jutes",
+      "title": "Sleepyhead 6A 70",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 789,
+      "artist": "Kaleo",
+      "title": "Bloodline 8A 77",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 533,
+      "artist": "Karly C",
+      "title": "In Love With Amazon Prime",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 934,
+      "artist": "Killswitch Engage",
+      "title": "I Believe 7A 130",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1059,
+      "artist": "Kings Of Leon",
+      "title": "To Space (Radio Edit) 11A 116",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 534,
+      "artist": "Koe Wetzel",
+      "title": "Creeps (Clean)",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 502,
+      "artist": "Letdown.",
+      "title": "Crying In The Shower (Clean)",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 491,
+      "artist": "Lo Moon",
+      "title": "Dream Never Dies",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 869,
+      "artist": "Lola Young",
+      "title": "One Thing [Clean] 4A 97",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 870,
+      "artist": "Lord Huron",
+      "title": "Nothing I Need [PO Clean Edit] 10B 112",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 936,
+      "artist": "Malcolm Todd, Omar Apollo",
+      "title": "Bleed 8A 124",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 833,
+      "artist": "Mk.Gee",
+      "title": "Rockman 6B 134",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 506,
+      "artist": "MOD SUN",
+      "title": "Iris",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 770,
+      "artist": "Momma",
+      "title": "I Want You (Fever) 6B 134",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1040,
+      "artist": "Morrissey",
+      "title": "Make-Up Is A Lie (Album Version) 6A 107",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 791,
+      "artist": "Mumford, Sons",
+      "title": "Caroline 9B 81",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 793,
+      "artist": "Nation Of Language",
+      "title": "Inept Apollo 5B 125",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 937,
+      "artist": "Neiked, Portugal. The Man",
+      "title": "Glide 6A 122",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 794,
+      "artist": "Nevertel",
+      "title": "Criminal 2A 77",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1086,
+      "artist": "Noah Kahan",
+      "title": "Doors (Clean) 10A 164",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 995,
+      "artist": "Ocean Alley",
+      "title": "Love Balloon 5A 100",
+      "from_subcat": 25,
+      "to_subcat": 26,
+      "reason": "Rollback of: F: last BOLT pool F (committed changesets)"
+    },
+    {
+      "rdj_song_id": 459,
+      "artist": "Blossoms",
+      "title": "Meet Me In Love (Clean)",
+      "from_subcat": 33,
+      "to_subcat": 24,
+      "reason": "Rollback of: ZN: was N in the 2026-10-04 reset and shows no panel signal this week; never charted out of N -> ZN"
+    },
+    {
+      "rdj_song_id": 456,
+      "artist": "K.Flay",
+      "title": "Ants (Clean)",
+      "from_subcat": 33,
+      "to_subcat": 24,
+      "reason": "Rollback of: ZN: was N in the 2026-10-04 reset and shows no panel signal this week; never charted out of N -> ZN"
+    },
+    {
+      "rdj_song_id": 463,
+      "artist": "President",
+      "title": "Sleepwalker (Clean)",
+      "from_subcat": 33,
+      "to_subcat": 24,
+      "reason": "Rollback of: ZN: was N in the 2026-10-04 reset and shows no panel signal this week; never charted out of N -> ZN"
+    },
+    {
+      "rdj_song_id": 464,
+      "artist": "Slipknot",
+      "title": "Arsenal (Dirty)",
+      "from_subcat": 33,
+      "to_subcat": 24,
+      "reason": "Rollback of: ZN: was N in the 2026-10-04 reset and shows no panel signal this week; never charted out of N -> ZN"
+    },
+    {
+      "rdj_song_id": 457,
+      "artist": "Sylvan Esso",
+      "title": "Sledge (Original Mix)",
+      "from_subcat": 33,
+      "to_subcat": 24,
+      "reason": "Rollback of: ZN: was N in the 2026-10-04 reset and shows no panel signal this week; never charted out of N -> ZN"
+    },
+    {
+      "rdj_song_id": 617,
+      "artist": "10 Years",
+      "title": "The Optimist 99",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 1049,
+      "artist": "2Hollis",
+      "title": "Cope 4B 73",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 739,
+      "artist": "311",
+      "title": "You're Gonna Get It 9A 79",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202409)"
+    },
+    {
+      "rdj_song_id": 842,
+      "artist": "311",
+      "title": "Full Bloom 11B 91",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 863,
+      "artist": "311",
+      "title": "Need Somebody 1B 106",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202507)"
+    },
+    {
+      "rdj_song_id": 1028,
+      "artist": "5 Secondj Double S Of Summer",
+      "title": "Not Ok 4A 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202602)"
+    },
+    {
+      "rdj_song_id": 467,
+      "artist": "A Day To Remember Ft Mark Hoppus",
+      "title": "Reentry",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202202)"
+    },
+    {
+      "rdj_song_id": 557,
+      "artist": "Ajr",
+      "title": "Yes I'm A Mess (Clean) 92",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202311)"
+    },
+    {
+      "rdj_song_id": 965,
+      "artist": "Ajr",
+      "title": "Betty (Clean) 92",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 577,
+      "artist": "Alexsucks",
+      "title": "6 Pack And Cigarettes 83",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 637,
+      "artist": "Alexsucks",
+      "title": "What're We Doing Here 136",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 676,
+      "artist": "Alice Merton",
+      "title": "Run Away Girl 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 947,
+      "artist": "Alkaline Trio",
+      "title": "Oblivion 153",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 966,
+      "artist": "All Time Low",
+      "title": "The Weather (Clean) 94",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 803,
+      "artist": "Almost Monday",
+      "title": "Lost 109",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 927,
+      "artist": "Almost Monday",
+      "title": "Jupiter 1A 104",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202505)"
+    },
+    {
+      "rdj_song_id": 638,
+      "artist": "Alvvays",
+      "title": "Belinda Says 119",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 1113,
+      "artist": "Arctic Monkeys",
+      "title": "Opening Night 9A 123",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202603)"
+    },
+    {
+      "rdj_song_id": 781,
+      "artist": "Arrows In Action",
+      "title": "Cheekbones 8A 135",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202508)"
+    },
+    {
+      "rdj_song_id": 677,
+      "artist": "Asking Alexandria",
+      "title": "Dark Void 77",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 509,
+      "artist": "Atreyu",
+      "title": "Gone",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 1090,
+      "artist": "Atreyu",
+      "title": "All For You (Po Clean Edit) 3A 90",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 537,
+      "artist": "Autopilot",
+      "title": "Say Something 130",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202307)"
+    },
+    {
+      "rdj_song_id": 558,
+      "artist": "Autopilot",
+      "title": "Unwound 83",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202311)"
+    },
+    {
+      "rdj_song_id": 822,
+      "artist": "Autumn Kings",
+      "title": "Sleep When I'm Dead 4A 67",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202502)"
+    },
+    {
+      "rdj_song_id": 1051,
+      "artist": "Autumn Kings",
+      "title": "Hellbound (Clean) 4A 102",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 948,
+      "artist": "Avatar",
+      "title": "Tonight We Must Be Warriors 84",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 487,
+      "artist": "Avril Lavigne",
+      "title": "Bite Me (Clean Edit)",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (8 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202201 -> R3 by age; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 657,
+      "artist": "Awaken I Am",
+      "title": "Roses 138",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 1007,
+      "artist": "Awolnation, Makua",
+      "title": "Catch A Wave (Clean) 9A 88",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 639,
+      "artist": "Bad Nerves",
+      "title": "Usa 92",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 967,
+      "artist": "Bad Omens",
+      "title": "Specter (Radio Edit) 120",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 1052,
+      "artist": "Bad Omens",
+      "title": "Dying To Love 4A 73",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 596,
+      "artist": "Bad Wolves",
+      "title": "Legends Never Die 106",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202404)"
+    },
+    {
+      "rdj_song_id": 885,
+      "artist": "Badflower",
+      "title": "Paws 5B 106",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202506)"
+    },
+    {
+      "rdj_song_id": 510,
+      "artist": "Bakar",
+      "title": "Alive!",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 658,
+      "artist": "Bakar",
+      "title": "All Night 80",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 783,
+      "artist": "Balu Brigada",
+      "title": "Backseat 3A 126",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202508)"
+    },
+    {
+      "rdj_song_id": 1114,
+      "artist": "Balu Brigada",
+      "title": "Sideways 10B 137",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202603)"
+    },
+    {
+      "rdj_song_id": 740,
+      "artist": "Bby",
+      "title": "Kinky 2B 85",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202409)"
+    },
+    {
+      "rdj_song_id": 804,
+      "artist": "Bby",
+      "title": "Fuggit 146",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 720,
+      "artist": "Beabadoobee",
+      "title": "Beaches 6B 82",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202410)"
+    },
+    {
+      "rdj_song_id": 1133,
+      "artist": "Beabadoobee, The Marias",
+      "title": "All I Did Was Dream Of You 11A 83",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 742,
+      "artist": "Beach Bunny",
+      "title": "Vertigo 11A 101",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202409)"
+    },
+    {
+      "rdj_song_id": 538,
+      "artist": "Beach Weather F. Pale Waves",
+      "title": "Unlovable 80",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202307)"
+    },
+    {
+      "rdj_song_id": 659,
+      "artist": "Beartooth",
+      "title": "Might Love Myself 150",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 678,
+      "artist": "Beartooth",
+      "title": "I Was Alive 76",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 761,
+      "artist": "Beartooth",
+      "title": "Attn. 11B 85",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202504)"
+    },
+    {
+      "rdj_song_id": 1092,
+      "artist": "Beartooth",
+      "title": "Free (Clean) 10A 80",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1093,
+      "artist": "Beck",
+      "title": "Ride Lonesome 12B 63",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202606)"
+    },
+    {
+      "rdj_song_id": 488,
+      "artist": "Big Time Nate F.; Ofi",
+      "title": "Twenty Seconds",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202201)"
+    },
+    {
+      "rdj_song_id": 1134,
+      "artist": "Bike Routes, Jake Clemons",
+      "title": "Delicate (Po Clean Edit) 10B 138",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202605)"
+    },
+    {
+      "rdj_song_id": 539,
+      "artist": "Bishop Briggs",
+      "title": "Baggage (Clean) 95",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202307)"
+    },
+    {
+      "rdj_song_id": 1094,
+      "artist": "Black Veil Brides",
+      "title": "Vindicate 1A 120",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202606)"
+    },
+    {
+      "rdj_song_id": 511,
+      "artist": "Blame My Youth",
+      "title": "Prizefighter",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 597,
+      "artist": "Blame My Youth",
+      "title": "The Break 82",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202404)"
+    },
+    {
+      "rdj_song_id": 468,
+      "artist": "Bleachers",
+      "title": "How Dare You Want More",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (8 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202202 -> R3 by age; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 598,
+      "artist": "Bleachers",
+      "title": "Tiny Moves 78",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1008,
+      "artist": "Bleachers",
+      "title": "You & Forever (Clean) 5B 123",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 1073,
+      "artist": "Bleachers",
+      "title": "We Should Talk 12B 129",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202607)"
+    },
+    {
+      "rdj_song_id": 698,
+      "artist": "Blink-182",
+      "title": "All In My Head (Clean) 10B 93",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 699,
+      "artist": "Blink-182",
+      "title": "Take Me In (Clean) 3B 80",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 579,
+      "artist": "Blue October",
+      "title": "Down Here Waiting 150",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 679,
+      "artist": "Blue October",
+      "title": "Everything We Lost In The Fire 130",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 886,
+      "artist": "Blue October",
+      "title": "Hot Stuff 8A 121",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202506)"
+    },
+    {
+      "rdj_song_id": 512,
+      "artist": "Bob Moses",
+      "title": "Round & Round",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 887,
+      "artist": "Bob Moses",
+      "title": "Time Of Your Life 7A 95",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202506)"
+    },
+    {
+      "rdj_song_id": 968,
+      "artist": "Bob Moses",
+      "title": "Last Forever 118",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 762,
+      "artist": "Bon Iver",
+      "title": "Everything Is Peaceful Love 9A 80",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 660,
+      "artist": "Boygenius",
+      "title": "Cool About It 94",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 661,
+      "artist": "Boywithuke",
+      "title": "Migraine 97",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 805,
+      "artist": "Braison Cyrus F. Miley Cyrus",
+      "title": "Know This Clean 110",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 1009,
+      "artist": "Brandi Carlile",
+      "title": "Human 2B 60",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 620,
+      "artist": "Breaking Benjamin",
+      "title": "Awaken 97",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 1075,
+      "artist": "Brian Fallon, The Painkillers",
+      "title": "Better Before 8B 125",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202607)"
+    },
+    {
+      "rdj_song_id": 640,
+      "artist": "Brigitte Calls Me Baby",
+      "title": "Impressively Average 85",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 1115,
+      "artist": "Brigitte Calls Me Baby",
+      "title": "Slumber Party (Radio Edit) 8A 81",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202603)"
+    },
+    {
+      "rdj_song_id": 541,
+      "artist": "Bring Me The Horizon",
+      "title": "Lost (Clean) 92",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (7 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202307 -> R3 by age; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 864,
+      "artist": "Cameron Whitcomb",
+      "title": "Bad Apple 1B 73",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202507)"
+    },
+    {
+      "rdj_song_id": 1076,
+      "artist": "Cameron Whitcomb",
+      "title": "Kingdom Of Fear 10A 133",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202607)"
+    },
+    {
+      "rdj_song_id": 580,
+      "artist": "Cannons",
+      "title": "Loving You 111",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (7 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202309 -> R3 by age; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 1116,
+      "artist": "Cannons",
+      "title": "Starlight 9B 125",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: was N in an earlier changeset, now off every chart"
+    },
+    {
+      "rdj_song_id": 1136,
+      "artist": "Clarion",
+      "title": "Hello Juliet 6A 139",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: was N in an earlier changeset, now off every chart"
+    },
+    {
+      "rdj_song_id": 542,
+      "artist": "Codefendants",
+      "title": "Def Cons 106",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202307)"
+    },
+    {
+      "rdj_song_id": 1010,
+      "artist": "Codefendants",
+      "title": "Lonely Life (Po Clean Edit) 9A 55",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 1011,
+      "artist": "Cold War Kidj Double S",
+      "title": "Push My Luck 10B 152",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 843,
+      "artist": "Coldplay",
+      "title": "All My Love 11B 138",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 844,
+      "artist": "Cory Marks, Travis Tritt, Mick Mars, Sully Erna",
+      "title": "(Make My) Country Rock (Active Rock Mix) (PO Clean Edit) 10A 83",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 621,
+      "artist": "Culture Wars",
+      "title": "It Hurts 105",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 543,
+      "artist": "D4vd",
+      "title": "The Bridge 147",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202307)"
+    },
+    {
+      "rdj_song_id": 622,
+      "artist": "Damiano David",
+      "title": "Born With A Broken Heart 172",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (7 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202412 -> R2 by age; R2 over target, lowest-airplay unrecorded record cascades to R3; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 623,
+      "artist": "Daughtry",
+      "title": "The Dam 150",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 970,
+      "artist": "Daughtry",
+      "title": "The Bottom 87",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 1054,
+      "artist": "Daughtry",
+      "title": "Antidote 10A 75",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 701,
+      "artist": "David Kushner",
+      "title": "Darkerside 3A 82",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 682,
+      "artist": "Dead Poet Society",
+      "title": "My Condition (Clean) 82",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 683,
+      "artist": "Dead Poet Society",
+      "title": "Running In Circles (Clean) 142",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 746,
+      "artist": "Dead Poet Society",
+      "title": "Hurt (PO Clean Edit) 9A 80",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202409)"
+    },
+    {
+      "rdj_song_id": 988,
+      "artist": "Dead Sugar",
+      "title": "Grudge 3A 128",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 1137,
+      "artist": "Death Cab For Cutie",
+      "title": "Riptides 8B 125",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 581,
+      "artist": "Declan Mckenna",
+      "title": "Sympathy 114",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 845,
+      "artist": "Declan Mckenna",
+      "title": "Champagne 1B 122",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 600,
+      "artist": "Del Water Gap & Holly Humberstone",
+      "title": "Cigarettes & Wine 83",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202404)"
+    },
+    {
+      "rdj_song_id": 684,
+      "artist": "Des Rocs",
+      "title": "I Am The Lightning 143",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 1031,
+      "artist": "Des Rocs",
+      "title": "This Land (Theme From Borderlandj Double S 4) 9A 86",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202602)"
+    },
+    {
+      "rdj_song_id": 1138,
+      "artist": "Dexter, The Moonrocks",
+      "title": "Freakin' Out 9A 124",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202605)"
+    },
+    {
+      "rdj_song_id": 1139,
+      "artist": "Dirty Headj Double S",
+      "title": "One Of Those Days 9B 86",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202605)"
+    },
+    {
+      "rdj_song_id": 908,
+      "artist": "Djo",
+      "title": "Basic Being Basic 3B 122",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 949,
+      "artist": "Djo",
+      "title": "Delete Ya 118",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 583,
+      "artist": "Dogstar",
+      "title": "Everything Turns Around 102",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 1140,
+      "artist": "Dogstar",
+      "title": "All In Now 12A 146",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202605)"
+    },
+    {
+      "rdj_song_id": 514,
+      "artist": "Duran Duran",
+      "title": "Black Moonlight",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 1095,
+      "artist": "Eva Under Fire, Maria Brink",
+      "title": "Villainous 12A 100",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 866,
+      "artist": "Evanescence",
+      "title": "Afterlife 5A 130",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 807,
+      "artist": "Evanescence F. K.Flay",
+      "title": "Fight Like A Girl Po Clean Edit 91",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 1078,
+      "artist": "Everlast",
+      "title": "Stones 9B 88",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202607)"
+    },
+    {
+      "rdj_song_id": 972,
+      "artist": "Fall Out Boy",
+      "title": "Start Today 106",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 470,
+      "artist": "Falling In Reverse",
+      "title": "Zombified (Clean)",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (7 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202202 -> R3 by age; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 847,
+      "artist": "Falling In Reverse, Saraya",
+      "title": "Bad Guy (PO Clean Edit) 5A 93",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 624,
+      "artist": "Fame On Fire F. Sim",
+      "title": "Chains (The Tower) 135",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 848,
+      "artist": "Father John Misty",
+      "title": "She Cleans Up (Clean) 8A 120",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 1032,
+      "artist": "Finger Eleven",
+      "title": "The Mountain 12A 65",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202602)"
+    },
+    {
+      "rdj_song_id": 641,
+      "artist": "Finnoguns Wake",
+      "title": "Blue Skies 76",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 808,
+      "artist": "Five Finger Death Punch F. Babymetal",
+      "title": "The End 2025 Version 160",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 868,
+      "artist": "Five Finger Death Punch, Maria Brink",
+      "title": "I Refuse [2025 Version] [PO Clean Edit] 1B 77",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202507)"
+    },
+    {
+      "rdj_song_id": 702,
+      "artist": "Flat Black",
+      "title": "A Bit Of Lightning 7A 76",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 973,
+      "artist": "Florence + The Machine",
+      "title": "Everybody Scream 120",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 642,
+      "artist": "Foo Fighters",
+      "title": "The Glass 146",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1013,
+      "artist": "Foo Fighters",
+      "title": "Your Favorite Toy 11A 147",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 930,
+      "artist": "Franz Ferdinand",
+      "title": "Hooked 6A 128",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202505)"
+    },
+    {
+      "rdj_song_id": 931,
+      "artist": "Ghost",
+      "title": "Satanized (Radio Edit) 9A 58",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202505)"
+    },
+    {
+      "rdj_song_id": 767,
+      "artist": "Glass Animals",
+      "title": "Show Pony 1A 81",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202504)"
+    },
+    {
+      "rdj_song_id": 974,
+      "artist": "Glass Animals",
+      "title": "Vampire Bat (Clean) 90",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 1014,
+      "artist": "Goo Goo Dolls",
+      "title": "Misery 5B 77",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 787,
+      "artist": "Good Charlotte",
+      "title": "Rejects 7B 112",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202508)"
+    },
+    {
+      "rdj_song_id": 530,
+      "artist": "Good Kid",
+      "title": "No Time To Explain",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202301)"
+    },
+    {
+      "rdj_song_id": 950,
+      "artist": "Gorillaz F. Sparks",
+      "title": "The Happy Dictator 136",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 1141,
+      "artist": "Gorillaz, Bizarrap, Kara Jackson, Anoushka Shankar",
+      "title": "Orange County 5B 130",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202605)"
+    },
+    {
+      "rdj_song_id": 548,
+      "artist": "Great Northern",
+      "title": "Animl 118",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202307)"
+    },
+    {
+      "rdj_song_id": 603,
+      "artist": "Grouplove",
+      "title": "Chances 145",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202404)"
+    },
+    {
+      "rdj_song_id": 1035,
+      "artist": "Guns N' Roses",
+      "title": "Nothin' 1B 130",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202602)"
+    },
+    {
+      "rdj_song_id": 932,
+      "artist": "Haim",
+      "title": "Relationships (Clean) 10B 101",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202505)"
+    },
+    {
+      "rdj_song_id": 604,
+      "artist": "Hardy",
+      "title": "Rockstar (Po Clean Edit) 150",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202404)"
+    },
+    {
+      "rdj_song_id": 769,
+      "artist": "Hardy",
+      "title": "Jim Bob 5A 124",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202504)"
+    },
+    {
+      "rdj_song_id": 810,
+      "artist": "Hifi",
+      "title": "She's My Girl 127",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 1097,
+      "artist": "Holly Humberstone",
+      "title": "To Love Somebody (Po Clean Edit) 11B 104",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202606)"
+    },
+    {
+      "rdj_song_id": 951,
+      "artist": "Hollywood Undead",
+      "title": "Savior 114",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 911,
+      "artist": "Honestav",
+      "title": "Hurts To Fall In Love (PO Clean Edit) 5A 70",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202503)"
+    },
+    {
+      "rdj_song_id": 532,
+      "artist": "Housewife",
+      "title": "I'm Spent",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202301)"
+    },
+    {
+      "rdj_song_id": 705,
+      "artist": "Hozier",
+      "title": "Nobody's Soldier 7A 134",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (7 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202411 -> R2 by age; R2 over target, lowest-airplay unrecorded record cascades to R3; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 517,
+      "artist": "I Don't Know How But They Found Me",
+      "title": "What Love (Radio Edit)",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 991,
+      "artist": "Ice Nine Kills",
+      "title": "The Great Unknown 8A 119",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 1015,
+      "artist": "Ice Nine Kills, Mckenna Grace",
+      "title": "Twisting The Knife 5B 91",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 644,
+      "artist": "Ida Kudo",
+      "title": "The Power That Is Woman 119",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 662,
+      "artist": "Idles & Lcd Soundsystem",
+      "title": "Dancer Radio Edit 141",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 750,
+      "artist": "Imagine Dragons",
+      "title": "Wake Up 12A 109",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202409)"
+    },
+    {
+      "rdj_song_id": 1119,
+      "artist": "In Color",
+      "title": "Headlights 3B 94",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 975,
+      "artist": "Inhaler",
+      "title": "Billy (Yeah Yeah Yeah) (Radio Edit) 107",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 1098,
+      "artist": "Iration",
+      "title": "Shoyu 8A 104",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202606)"
+    },
+    {
+      "rdj_song_id": 473,
+      "artist": "Jack Kays With Travis Barker",
+      "title": "Sideways (Clean Edit)",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202202)"
+    },
+    {
+      "rdj_song_id": 828,
+      "artist": "Jack Kays, Travis Barker",
+      "title": "My Promise (90 Days) 11B 120",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202502)"
+    },
+    {
+      "rdj_song_id": 829,
+      "artist": "Jack White",
+      "title": "Archbishop Harold Holmes 9A 106",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202502)"
+    },
+    {
+      "rdj_song_id": 646,
+      "artist": "Jay Putty",
+      "title": "The Best Days Are Yet To Come 112",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 1038,
+      "artist": "Joji",
+      "title": "Past Won't Leave My Bed 6A 70",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202602)"
+    },
+    {
+      "rdj_song_id": 647,
+      "artist": "Jonah Kagen",
+      "title": "Save My Soul 116",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 706,
+      "artist": "Jonah Kagen",
+      "title": "God Needs The Devil (Clean) 8A 81",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 1058,
+      "artist": "Jonah Kagen",
+      "title": "The Roads 12B 110",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 1142,
+      "artist": "Jonah Kagen",
+      "title": "Talkin' About Jesus (Po Clean Edit) 4B 99",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202605)"
+    },
+    {
+      "rdj_song_id": 952,
+      "artist": "Joyce Manor",
+      "title": "All My Friends Are So Depressed (Clean) 106",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 605,
+      "artist": "Judah & The Lion",
+      "title": "Long Dark Night (Radio Edit) 83",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202404)"
+    },
+    {
+      "rdj_song_id": 627,
+      "artist": "Judah & The Lion",
+      "title": "Floating In The Night (Radio Edit) 124",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 648,
+      "artist": "Jungle",
+      "title": "Back On 74 Edit 146",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 1039,
+      "artist": "Jutes",
+      "title": "It Takes Two 4A 116",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202602)"
+    },
+    {
+      "rdj_song_id": 549,
+      "artist": "Kennyhoopla",
+      "title": "You Needed A Hit 103",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202307)"
+    },
+    {
+      "rdj_song_id": 586,
+      "artist": "Kennyhoopla & Travis Barker",
+      "title": "Marry Kill Fck 98",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 976,
+      "artist": "Kenzo Cregan",
+      "title": "Talk Tonight 160",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 518,
+      "artist": "Kind Villain",
+      "title": "One More Night",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 687,
+      "artist": "Krooked Kings",
+      "title": "Sick Of Being Young (Clean) 150",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 953,
+      "artist": "Limp Bizkit",
+      "title": "Making Love To Morgan Wallen (Clean Version) 105",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 935,
+      "artist": "Linkin Park",
+      "title": "Up From The Bottom 4A 107",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 912,
+      "artist": "Little Image",
+      "title": "The Pressure 8A 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202503)"
+    },
+    {
+      "rdj_song_id": 1060,
+      "artist": "Little Image",
+      "title": "Kill The Ghost 5A 78",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 609,
+      "artist": "Lo Moon",
+      "title": "Water 104",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202404)"
+    },
+    {
+      "rdj_song_id": 977,
+      "artist": "Lovejoy",
+      "title": "Pay & Display (Radio Edit) 148",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 663,
+      "artist": "Lovelytheband",
+      "title": "Nice To Know You 86",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 1080,
+      "artist": "M.O.T.H.E.R.",
+      "title": "My Love 12B 78",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 664,
+      "artist": "Mac Saturn",
+      "title": "Mint Julep 112",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 1061,
+      "artist": "Magnolia Park",
+      "title": "Shallow (PO Clean Edit) 9A 135",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 811,
+      "artist": "Mammoth",
+      "title": "The Spell 100",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 892,
+      "artist": "Mammoth",
+      "title": "The End 9A 144",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202506)"
+    },
+    {
+      "rdj_song_id": 565,
+      "artist": "Marvelous 3",
+      "title": "If We're On Fire (Let It Burn) 127",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202311)"
+    },
+    {
+      "rdj_song_id": 492,
+      "artist": "Matisyahu F.; Salt Cathedral",
+      "title": "Chameleon (Clean Edit)",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202201)"
+    },
+    {
+      "rdj_song_id": 587,
+      "artist": "Matt Maeson",
+      "title": "Get Happy 84",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 992,
+      "artist": "Matt Maeson",
+      "title": "Downstairs 2B 137",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 1081,
+      "artist": "Meek",
+      "title": "Fabulous (Clean) 11B 121",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202607)"
+    },
+    {
+      "rdj_song_id": 831,
+      "artist": "Memphis May Fire",
+      "title": "Hell Is Empty 7A 142",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202502)"
+    },
+    {
+      "rdj_song_id": 588,
+      "artist": "Metric",
+      "title": "Just The Once 119",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 665,
+      "artist": "Mgmt",
+      "title": "Mother Nature 81",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 504,
+      "artist": "Michigander",
+      "title": "Superglue",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202304)"
+    },
+    {
+      "rdj_song_id": 1083,
+      "artist": "Michigander",
+      "title": "Freaking Out 1B 119",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202607)"
+    },
+    {
+      "rdj_song_id": 520,
+      "artist": "Mike Shinoda",
+      "title": "Already Over",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 666,
+      "artist": "Milky Chance",
+      "title": "Feeling For You 118",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 812,
+      "artist": "Milky Chance",
+      "title": "Camouflage 122",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 832,
+      "artist": "Milky Chance",
+      "title": "Naked & Alive 6A 127",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202502)"
+    },
+    {
+      "rdj_song_id": 552,
+      "artist": "Misterwives",
+      "title": "Nosebleeds 115",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202307)"
+    },
+    {
+      "rdj_song_id": 521,
+      "artist": "Mitski",
+      "title": "My Love Mine All Mine",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (5 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202312 -> R3 by age; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 1017,
+      "artist": "Mitski",
+      "title": "Where's My Phone! 6A 133",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 852,
+      "artist": "Mod Sun",
+      "title": "Hotel Lights 8B 126",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 1100,
+      "artist": "Modest Mouse",
+      "title": "Picking Dragons' Pockets (Radio Edit) 1B 90",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 993,
+      "artist": "Mt. Joy",
+      "title": "Lucy (Pg Clean) 7B 125",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 813,
+      "artist": "Mumford & Sons With Hozier",
+      "title": "Rubber Band Man 104",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 1143,
+      "artist": "Muse",
+      "title": "Be With You 4B 132",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1085,
+      "artist": "Myles Smith",
+      "title": "Hold Me In The Dark 7B 132",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: was N in an earlier changeset, now off every chart"
+    },
+    {
+      "rdj_song_id": 1062,
+      "artist": "Nevertel, Sleep Theory",
+      "title": "Break The Silence (Radio Edit) 12A 105",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 493,
+      "artist": "Nick Brodeur F.; Kymani Marley",
+      "title": "She's So Crazy",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202201)"
+    },
+    {
+      "rdj_song_id": 667,
+      "artist": "Nickelback",
+      "title": "Skinny Little Missy 84",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 1102,
+      "artist": "Noah Kahan",
+      "title": "Porch Light (Clean) 9B 119",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202606)"
+    },
+    {
+      "rdj_song_id": 1121,
+      "artist": "Noah Kahan",
+      "title": "The Great Divide (Clean) 1B 80",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202603)"
+    },
+    {
+      "rdj_song_id": 610,
+      "artist": "Noah Kahan & Hozier",
+      "title": "Northern Attitude 121",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 589,
+      "artist": "Noah Kahan W;  Post Malone",
+      "title": "Dial Drunk (Clean) 112",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 553,
+      "artist": "Nothing But Thieves",
+      "title": "Overcome 82",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202307)"
+    },
+    {
+      "rdj_song_id": 1087,
+      "artist": "Nothing But Thieves",
+      "title": "Evolution 8B 87",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: was N in an earlier changeset, now off every chart"
+    },
+    {
+      "rdj_song_id": 871,
+      "artist": "Nothing More, Chris Daughtry",
+      "title": "Freefall 5B 100",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202507)"
+    },
+    {
+      "rdj_song_id": 731,
+      "artist": "Nothing More, David Draiman",
+      "title": "Angel Song (PO Clean Edit) 11A 100",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 772,
+      "artist": "Nothing More, Eric V.",
+      "title": "House On Sand (PO Clean Edit) 4A 110",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202504)"
+    },
+    {
+      "rdj_song_id": 996,
+      "artist": "Of Mice, Men",
+      "title": "Wake Up 10A 128",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 978,
+      "artist": "Of Monsters And Men",
+      "title": "Ordinary Creature 157",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 753,
+      "artist": "Orville Peck, Beck",
+      "title": "Death Valley High 9A 108",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202409)"
+    },
+    {
+      "rdj_song_id": 494,
+      "artist": "Our Lady Peace F.; Pussy Riot",
+      "title": "Stop Making Stupid People Famous",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202201)"
+    },
+    {
+      "rdj_song_id": 1122,
+      "artist": "Out In Front",
+      "title": "Float 5B 143",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202603)"
+    },
+    {
+      "rdj_song_id": 668,
+      "artist": "Oxymorrons F. Netic",
+      "title": "Look Alive Clean Edit 84",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 773,
+      "artist": "P.O.D.",
+      "title": "I Won't Bow Down 7A 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202504)"
+    },
+    {
+      "rdj_song_id": 732,
+      "artist": "Palaye Royale",
+      "title": "Showbiz (Radio Edit) 7A 116",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202410)"
+    },
+    {
+      "rdj_song_id": 938,
+      "artist": "Palaye Royale",
+      "title": "Addicted To The Wicked & Twisted (Clean) 2A 91",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202505)"
+    },
+    {
+      "rdj_song_id": 1123,
+      "artist": "Papa Roach",
+      "title": "Wake Up Calling 1B 122",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202603)"
+    },
+    {
+      "rdj_song_id": 914,
+      "artist": "Papa Roach",
+      "title": "Even If It Kills Me 7A 79",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202503)"
+    },
+    {
+      "rdj_song_id": 795,
+      "artist": "Papa Roach, Toby Morse",
+      "title": "Braindead 10A 87",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202508)"
+    },
+    {
+      "rdj_song_id": 708,
+      "artist": "Pearl Jam",
+      "title": "Waiting For Stevie 10B 87",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 853,
+      "artist": "Phantogram",
+      "title": "Come Alive 6A 82",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 523,
+      "artist": "Phoenix F. Benee, Chad Hugo & Pusha T",
+      "title": "All Eyes On Me",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 669,
+      "artist": "Phoenix F. Leon Larregui",
+      "title": "Artefact 112",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 536,
+      "artist": "Pierce The Veil",
+      "title": "Emergency Contact",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202301)"
+    },
+    {
+      "rdj_song_id": 834,
+      "artist": "Pistols At Dawn",
+      "title": "Not Sorry (PO Clean Edit) 5A 95",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202502)"
+    },
+    {
+      "rdj_song_id": 835,
+      "artist": "Point North",
+      "title": "World Vs. Peace 2A 61",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202502)"
+    },
+    {
+      "rdj_song_id": 651,
+      "artist": "Point North F. Set It Off",
+      "title": "Below The Belt 119",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 476,
+      "artist": "Poolfire",
+      "title": "Radio Man",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202202)"
+    },
+    {
+      "rdj_song_id": 709,
+      "artist": "Poppy",
+      "title": "New Way Out 6A 109",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 939,
+      "artist": "Poppy",
+      "title": "The Cost Of Giving Up 6A 102",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202505)"
+    },
+    {
+      "rdj_song_id": 1103,
+      "artist": "Poppy",
+      "title": "Time Will Tell 3A 101",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: was N in an earlier changeset, now off every chart"
+    },
+    {
+      "rdj_song_id": 955,
+      "artist": "Poppy, Amy Lee & Courtney Laplante",
+      "title": "End Of You 95",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 652,
+      "artist": "Porno For Pyros",
+      "title": "Agua 96",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 590,
+      "artist": "Portugal. The Man F. Unknown Mortal Orchestra",
+      "title": "Summer Of Luv 76",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 1144,
+      "artist": "President",
+      "title": "Destroy Me (Clean) 8A 74",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202605)"
+    },
+    {
+      "rdj_song_id": 690,
+      "artist": "Rainbow Kitten Surprise",
+      "title": "Superstar 98",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 980,
+      "artist": "Rainbow Kitten Surprise",
+      "title": "Dang (Clean) 148",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 507,
+      "artist": "Rec Hall",
+      "title": "She Doesn't Get It",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202304)"
+    },
+    {
+      "rdj_song_id": 774,
+      "artist": "Return To Dust",
+      "title": "Belly Up 4A 94",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202504)"
+    },
+    {
+      "rdj_song_id": 997,
+      "artist": "Return To Dust",
+      "title": "Bored 4A 86",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 1041,
+      "artist": "Reverse Pathogen",
+      "title": "Sunday Afternoon 1B 78",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202602)"
+    },
+    {
+      "rdj_song_id": 554,
+      "artist": "Rezz   Grabbitz",
+      "title": "Signal 85",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202307)"
+    },
+    {
+      "rdj_song_id": 915,
+      "artist": "Rise Against",
+      "title": "Nod 12A 116",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 628,
+      "artist": "Robbietheused",
+      "title": "Just A Little Bit 115",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 893,
+      "artist": "Role Model",
+      "title": "Sally, When The Wine Runs Out 4B 120",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 998,
+      "artist": "Rome, Dirty Heads",
+      "title": "Slow & Easy 10A 92",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 612,
+      "artist": "Royel Otis",
+      "title": "Murder On The Dancefloor (Triple J Like A Version) 123",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202404)"
+    },
+    {
+      "rdj_song_id": 710,
+      "artist": "Royel Otis",
+      "title": "Linger 10B 99",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 815,
+      "artist": "Royel Otis",
+      "title": "Who's Your Boyfriend 145",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 873,
+      "artist": "Royel Otis",
+      "title": "Moody 9B 85",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1145,
+      "artist": "Ryan Perdz",
+      "title": "Sour 6A 146",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1063,
+      "artist": "Sabaton, Nothing More",
+      "title": "Crossing The Rubicon 9A 95",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 836,
+      "artist": "Saliva, Peyton Parrish",
+      "title": "Time Bomb (Clean) 8A 96",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202502)"
+    },
+    {
+      "rdj_song_id": 854,
+      "artist": "Sam Fender",
+      "title": "People Watching (Radio Edit) 3B 80",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 999,
+      "artist": "Saving Abel",
+      "title": "Dodged A Bullet 3A 160",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 479,
+      "artist": "Sebu & Jonah Walsh",
+      "title": "Mended Mind",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202202)"
+    },
+    {
+      "rdj_song_id": 754,
+      "artist": "Seether",
+      "title": "Judas Mind 6A 65",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (6 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202409 -> R2 by age; R2 over target, lowest-airplay unrecorded record cascades to R3; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 855,
+      "artist": "Seether",
+      "title": "Walls Come Down 5A 120",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 1146,
+      "artist": "Sevendust",
+      "title": "Unbreakable 10A 105",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202605)"
+    },
+    {
+      "rdj_song_id": 1000,
+      "artist": "Shinedown",
+      "title": "Killing Fields 12A 134",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 1019,
+      "artist": "Shinedown",
+      "title": "Safe & Sound (Clean) 5A 96",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 1064,
+      "artist": "Shinedown",
+      "title": "Searchlight 8A 72",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 524,
+      "artist": "Sleep Theory",
+      "title": "Numb",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (8 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202312 -> R3 by age; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 711,
+      "artist": "Sleep Theory",
+      "title": "Stuck In My Head 5A 94",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 797,
+      "artist": "Sleep Theory",
+      "title": "Gravity 12A 93",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202508)"
+    },
+    {
+      "rdj_song_id": 894,
+      "artist": "Sleep Theory",
+      "title": "Static 3A 135",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202506)"
+    },
+    {
+      "rdj_song_id": 1020,
+      "artist": "Sleep Theory",
+      "title": "Wordj Double S Are Worthless 3A 50",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 940,
+      "artist": "Sleep Token",
+      "title": "Emergence (Rock Version) 9A 126",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 653,
+      "artist": "Slightly Stoopid F. Stick Figure & Pepper",
+      "title": "Got Me On The Run 77",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 480,
+      "artist": "Slothrust",
+      "title": "Waiting (Clean Radio Edit)",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202202)"
+    },
+    {
+      "rdj_song_id": 568,
+      "artist": "Slothrust",
+      "title": "Pony 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202311)"
+    },
+    {
+      "rdj_song_id": 481,
+      "artist": "Slotide",
+      "title": "Neck High (Clean Edit)",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202202)"
+    },
+    {
+      "rdj_song_id": 941,
+      "artist": "Slow Joy",
+      "title": "Gruesome 3B 87",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202505)"
+    },
+    {
+      "rdj_song_id": 592,
+      "artist": "Slow Pulp",
+      "title": "Cramps 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 482,
+      "artist": "SMITH",
+      "title": "Scab (PO Clean Edit)",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202202)"
+    },
+    {
+      "rdj_song_id": 525,
+      "artist": "Smith",
+      "title": "Lemon",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 1042,
+      "artist": "Soap",
+      "title": "Awkward Now (PO Clean Edit) 10A 133",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202602)"
+    },
+    {
+      "rdj_song_id": 1021,
+      "artist": "Social Distortion",
+      "title": "Born To Kill 5A 83",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: was N in an earlier changeset, now off every chart"
+    },
+    {
+      "rdj_song_id": 895,
+      "artist": "Sombr",
+      "title": "Back To Friends 3A 92",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 958,
+      "artist": "Sombr",
+      "title": "12 To 12 124",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 1022,
+      "artist": "Sombr",
+      "title": "Homewrecker 3A 100",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 733,
+      "artist": "Something Corporate, Andrew Mcmahon In The Wilderness",
+      "title": "Happy (Radio Edit) 10A 82",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202410)"
+    },
+    {
+      "rdj_song_id": 1124,
+      "artist": "Spiritual Cramp",
+      "title": "Young Offenders 11B 113",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202603)"
+    },
+    {
+      "rdj_song_id": 734,
+      "artist": "Sports Team",
+      "title": "I'm In Love (Subaru) 9B 111",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202410)"
+    },
+    {
+      "rdj_song_id": 798,
+      "artist": "Sports Team",
+      "title": "Moving Together 6A 82",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202508)"
+    },
+    {
+      "rdj_song_id": 629,
+      "artist": "St. Vincent",
+      "title": "Flea (Radio Edit) 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 691,
+      "artist": "St. Vincent",
+      "title": "Broken Man 112",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 735,
+      "artist": "Staind, Dorothy",
+      "title": "Better Days 1A 68",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202410)"
+    },
+    {
+      "rdj_song_id": 712,
+      "artist": "Starset",
+      "title": "Toksik (Edit) 4A 85",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 816,
+      "artist": "Stephen Wilson Jr.",
+      "title": "Tonight, Tonight 145",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 1023,
+      "artist": "Story Of The Year",
+      "title": "Gasoline (All Rage Still Only Numb) (Po Clean Edit) 10A 155",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 1001,
+      "artist": "Sublime",
+      "title": "Ensenada 4A 95",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1148,
+      "artist": "Sublime",
+      "title": "Until The Sun Explodes 2A 81",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 775,
+      "artist": "Sunday (1994)",
+      "title": "Tired Boy (Clean) 9A 87",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202504)"
+    },
+    {
+      "rdj_song_id": 1088,
+      "artist": "Switchfoot",
+      "title": "Absolution 11A 91",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202607)"
+    },
+    {
+      "rdj_song_id": 571,
+      "artist": "Taking Back Sunday",
+      "title": "S'old 83",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202311)"
+    },
+    {
+      "rdj_song_id": 959,
+      "artist": "Tame Impala",
+      "title": "Dracula (Po Clean Edit) 115",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 654,
+      "artist": "Tarric",
+      "title": "I Had It Wrong Edit 77",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 630,
+      "artist": "The All-American Rejects",
+      "title": "Flagpole Sitta (Po Clean Edit) 142",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 876,
+      "artist": "The All-American Rejects",
+      "title": "Sandbox 11A 120",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202507)"
+    },
+    {
+      "rdj_song_id": 1125,
+      "artist": "The All-American Rejects",
+      "title": "Get This 12A 120",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202603)"
+    },
+    {
+      "rdj_song_id": 692,
+      "artist": "The Avett Brothers",
+      "title": "Love Of A Girl 99",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 919,
+      "artist": "The Backfires",
+      "title": "Replace It All 10B 150",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202503)"
+    },
+    {
+      "rdj_song_id": 755,
+      "artist": "The Band Camino",
+      "title": "Nostalgia 12B 119",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202409)"
+    },
+    {
+      "rdj_song_id": 896,
+      "artist": "The Beaches",
+      "title": "Last Girls At The Party 10A 86",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202506)"
+    },
+    {
+      "rdj_song_id": 960,
+      "artist": "The Beaches",
+      "title": "Can I Call You In The Morning (Po Clean Edit) 157",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 1105,
+      "artist": "The Beaches",
+      "title": "Should've Known Better (Clean) 12B 80",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202606)"
+    },
+    {
+      "rdj_song_id": 1150,
+      "artist": "The Black Crowes",
+      "title": "Profane Prophecy 8A 136",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202605)"
+    },
+    {
+      "rdj_song_id": 776,
+      "artist": "The Black Keys",
+      "title": "The Night Before (Album Version) 4B 122",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202504)"
+    },
+    {
+      "rdj_song_id": 877,
+      "artist": "The Black Keys",
+      "title": "No Rain, No Flowers 8A 110",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202507)"
+    },
+    {
+      "rdj_song_id": 777,
+      "artist": "The Blue Stones",
+      "title": "Come Apart (Radio Edit) 3A 92",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202504)"
+    },
+    {
+      "rdj_song_id": 631,
+      "artist": "The Cure",
+      "title": "A Fragile Thing 90",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (7 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202412 -> R2 by age; R2 over target, lowest-airplay unrecorded record cascades to R3; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 714,
+      "artist": "The Cure",
+      "title": "Alone 8A 100",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 778,
+      "artist": "The Cure",
+      "title": "All I Ever Am 9A 135",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202504)"
+    },
+    {
+      "rdj_song_id": 632,
+      "artist": "The Dare",
+      "title": "Girls (Super Clean) 122",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 613,
+      "artist": "The Decemberists",
+      "title": "Burial Ground 123",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202404)"
+    },
+    {
+      "rdj_song_id": 693,
+      "artist": "The Driver Era",
+      "title": "Get Off My Phone 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 817,
+      "artist": "The Format",
+      "title": "Holy Roller 110",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 897,
+      "artist": "The Funeral Portrait",
+      "title": "Holy Water 7A 87",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202506)"
+    },
+    {
+      "rdj_song_id": 981,
+      "artist": "The Funeral Portrait",
+      "title": "Dark Thoughts 91",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 736,
+      "artist": "The Funeral Portrait, Spencer Charnas",
+      "title": "Suffocate City 7A 113",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202410)"
+    },
+    {
+      "rdj_song_id": 1066,
+      "artist": "The Haunt",
+      "title": "Bad Omen (Radio Edit) (Clean) 9A 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 878,
+      "artist": "The Haunt, Escape The Fate",
+      "title": "Masochistic Lovers [Clean] 2A 73",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202507)"
+    },
+    {
+      "rdj_song_id": 633,
+      "artist": "The Head And The Heart",
+      "title": "Arrow 111",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 1024,
+      "artist": "The Hellp",
+      "title": "Here I Am 12A 106",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 555,
+      "artist": "The Hives",
+      "title": "Bogus Operandi 145",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: aired in the M4 rotation (7 plays Aug 4-Sep 29) with no recorded pool; Promo Only issue 202307 -> R3 by age; R3 over target, lowest-airplay unrecorded record cascades to W"
+    },
+    {
+      "rdj_song_id": 593,
+      "artist": "The Hives",
+      "title": "Rigor Mortis Radio (Clean) 130",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 898,
+      "artist": "The Hives",
+      "title": "Enough Is Enough (Clean) 10A 135",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202506)"
+    },
+    {
+      "rdj_song_id": 1127,
+      "artist": "The Last Dinner Party",
+      "title": "Count The Ways 9A 142",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: was N in an earlier changeset, now off every chart"
+    },
+    {
+      "rdj_song_id": 655,
+      "artist": "The Lemon Twigs",
+      "title": "My Golden Years 76",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 738,
+      "artist": "The Linda Lindas",
+      "title": "All In My Head 8B 146",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202410)"
+    },
+    {
+      "rdj_song_id": 879,
+      "artist": "The Lumineers",
+      "title": "A--Hole [First We Ever Met] 3A 69",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202507)"
+    },
+    {
+      "rdj_song_id": 694,
+      "artist": "The Marias",
+      "title": "Run Your Mouth (Clean) 111",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 573,
+      "artist": "The Moss",
+      "title": "The Place That Makes Me Happy (Po Clean Edit) 78",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202311)"
+    },
+    {
+      "rdj_song_id": 779,
+      "artist": "The Nocturnal Affair",
+      "title": "Cross Me Out 3A 78",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202504)"
+    },
+    {
+      "rdj_song_id": 634,
+      "artist": "The Offspring",
+      "title": "Ok, But This Is The Last Time 147",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 799,
+      "artist": "The Offspring",
+      "title": "Looking Out For #1 (Radio Edit) 7A 142",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202508)"
+    },
+    {
+      "rdj_song_id": 1002,
+      "artist": "The Paradox",
+      "title": "Get The Message (PO Clean Edit) 12B 95",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 961,
+      "artist": "The Pretty Reckless",
+      "title": "For I Am Death 138",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 1151,
+      "artist": "The Pretty Reckless",
+      "title": "When I Wake Up (Clean) 1A 81",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 899,
+      "artist": "The Ramona Flowers",
+      "title": "Human (Clean) 6B 94",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202506)"
+    },
+    {
+      "rdj_song_id": 1045,
+      "artist": "The Ramona Flowers",
+      "title": "That Summer 12A 85",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202602)"
+    },
+    {
+      "rdj_song_id": 574,
+      "artist": "The Ramona Flowers F. Nile Rodgers",
+      "title": "Up All Night 122",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202311)"
+    },
+    {
+      "rdj_song_id": 575,
+      "artist": "The Revivalists",
+      "title": "Good Old Days 109",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202311)"
+    },
+    {
+      "rdj_song_id": 656,
+      "artist": "The Rockyts",
+      "title": "Falling Again 75",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202402)"
+    },
+    {
+      "rdj_song_id": 1152,
+      "artist": "The Runaroundj Double S",
+      "title": "Chasing The Good Times 11A 91",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202605)"
+    },
+    {
+      "rdj_song_id": 756,
+      "artist": "The Smashing Pumpkins",
+      "title": "Sighommi 10B 102",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202409)"
+    },
+    {
+      "rdj_song_id": 857,
+      "artist": "The Smashing Pumpkins",
+      "title": "Who Goes There 8B 85",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 1108,
+      "artist": "The Strokes",
+      "title": "Going Shopping 12B 76",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 526,
+      "artist": "The Strumbellas",
+      "title": "Hold Me",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 527,
+      "artist": "The Struts",
+      "title": "Pretty Vicious",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 858,
+      "artist": "The Struts",
+      "title": "Can't Stop Talking 2B 81",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 556,
+      "artist": "The Used",
+      "title": "Giving Up 81",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202307)"
+    },
+    {
+      "rdj_song_id": 1153,
+      "artist": "The Warning",
+      "title": "Kerosene 11A 160",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: breaking: 1 adds without a format 7-Day position; artist already seated (N), one ladder seat per artist -> bench"
+    },
+    {
+      "rdj_song_id": 818,
+      "artist": "The Wombats",
+      "title": "Holy Sugar 93",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 859,
+      "artist": "The Wombats",
+      "title": "Sorry I'm Late, I Didn't Want To Come (Clean) 10A 127",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 673,
+      "artist": "Thirty Seconds To Mars",
+      "title": "Seasons 85",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 840,
+      "artist": "Three Days Grace",
+      "title": "Mayday 12A 122",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 880,
+      "artist": "Three Days Grace",
+      "title": "Apologies 3A 119",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202507)"
+    },
+    {
+      "rdj_song_id": 757,
+      "artist": "Tim Montana",
+      "title": "Savage 12A 76",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202409)"
+    },
+    {
+      "rdj_song_id": 1110,
+      "artist": "Tim Montana",
+      "title": "Break Me Down 1A 99",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 1025,
+      "artist": "Towa Bird",
+      "title": "Gentleman 9A 82",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202604)"
+    },
+    {
+      "rdj_song_id": 922,
+      "artist": "Tremonti",
+      "title": "Just Too Much 10A 77",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202503)"
+    },
+    {
+      "rdj_song_id": 841,
+      "artist": "Tunde Adebimpe",
+      "title": "Magnetic 9A 84",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202502)"
+    },
+    {
+      "rdj_song_id": 819,
+      "artist": "Turnstile",
+      "title": "Seein' Stars 124",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202512)"
+    },
+    {
+      "rdj_song_id": 860,
+      "artist": "Twenty One Pilots",
+      "title": "Routines In The Night (Radio Edit) 12A 113",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 861,
+      "artist": "Twenty One Pilots",
+      "title": "The Line 8A 71",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: last BOLT pool W (committed changesets)"
+    },
+    {
+      "rdj_song_id": 962,
+      "artist": "Twenty One Pilots",
+      "title": "City Walls 94",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 1026,
+      "artist": "Twenty One Pilots",
+      "title": "Drag Path 12B 95",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: was N in an earlier changeset, now off every chart"
+    },
+    {
+      "rdj_song_id": 1047,
+      "artist": "Twenty One Pilots",
+      "title": "Drum Show 3A 82",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202602)"
+    },
+    {
+      "rdj_song_id": 1128,
+      "artist": "Twenty One Pilots",
+      "title": "Rawfear 10A 110",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202603)"
+    },
+    {
+      "rdj_song_id": 528,
+      "artist": "Two Door Cinema Club",
+      "title": "Sure Enough",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 695,
+      "artist": "Two Door Cinema Club",
+      "title": "Happy Customers 131",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 576,
+      "artist": "U2",
+      "title": "Atomic City 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202311)"
+    },
+    {
+      "rdj_song_id": 716,
+      "artist": "U2",
+      "title": "Picture Of You (X+W) 9A 135",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 758,
+      "artist": "Uncured",
+      "title": "Mask Of Sanity 4A 95",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202409)"
+    },
+    {
+      "rdj_song_id": 759,
+      "artist": "Vampire Weekend",
+      "title": "Classical 9B 112",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202409)"
+    },
+    {
+      "rdj_song_id": 923,
+      "artist": "Velvet Chains",
+      "title": "Dead Inside (PO Clean Edit) 8A 97",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202503)"
+    },
+    {
+      "rdj_song_id": 1068,
+      "artist": "Velvet Chains",
+      "title": "How The Story Ends 7A 75",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 1129,
+      "artist": "Violet Grohl",
+      "title": "Thum 11A 147",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: was N in an earlier changeset, now off every chart"
+    },
+    {
+      "rdj_song_id": 1130,
+      "artist": "Volbeat",
+      "title": "Demonic Depression (PO Clean Edit) 7A 135",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202603)"
+    },
+    {
+      "rdj_song_id": 945,
+      "artist": "Volbeat",
+      "title": "By A Monster's Hand 7A 122",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202505)"
+    },
+    {
+      "rdj_song_id": 1003,
+      "artist": "Volbeat",
+      "title": "Time Will Heal 11B 127",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 862,
+      "artist": "Wage War",
+      "title": "Blur 7A 110",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202501)"
+    },
+    {
+      "rdj_song_id": 983,
+      "artist": "Waterparks",
+      "title": "Red Guitar (Clean) 90",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 717,
+      "artist": "Weathers",
+      "title": "Wasn't Gonna Go Out (Clean) 6B 83",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202411)"
+    },
+    {
+      "rdj_song_id": 508,
+      "artist": "Weathers F.; John The Ghost",
+      "title": "ALL CAPS",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202304)"
+    },
+    {
+      "rdj_song_id": 1004,
+      "artist": "Wednesday",
+      "title": "Elderberry Wine 9B 112",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 984,
+      "artist": "Wet Leg",
+      "title": "Mangetout (Clean) 128",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202510)"
+    },
+    {
+      "rdj_song_id": 1005,
+      "artist": "White Reaper",
+      "title": "Honestly 3A 102",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202509)"
+    },
+    {
+      "rdj_song_id": 486,
+      "artist": "Whole Damn Mess",
+      "title": "Some Big Something",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202202)"
+    },
+    {
+      "rdj_song_id": 636,
+      "artist": "Wilderado",
+      "title": "Higher Than Most 132",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202412)"
+    },
+    {
+      "rdj_song_id": 674,
+      "artist": "Willow",
+      "title": "Alone 80",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 496,
+      "artist": "Willow F.; Travis Barker",
+      "title": "Gaslight",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202201)"
+    },
+    {
+      "rdj_song_id": 696,
+      "artist": "Winnetka Bowling League",
+      "title": "Sha La La 145",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202405)"
+    },
+    {
+      "rdj_song_id": 903,
+      "artist": "Winona Fighter",
+      "title": "You Look Like A Drunk Phoebe Bridgers (PO Clean Edit) 9A 88",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202506)"
+    },
+    {
+      "rdj_song_id": 963,
+      "artist": "Wisp",
+      "title": "Save Me Now 93",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 1069,
+      "artist": "Witch Post",
+      "title": "The Wolf 9B 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202601)"
+    },
+    {
+      "rdj_song_id": 964,
+      "artist": "Wolf Alice",
+      "title": "White Horses 146",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202511)"
+    },
+    {
+      "rdj_song_id": 529,
+      "artist": "Yam Haus",
+      "title": "So Long",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202312)"
+    },
+    {
+      "rdj_song_id": 595,
+      "artist": "Yellowcard",
+      "title": "Childhood Eyes 79",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202309)"
+    },
+    {
+      "rdj_song_id": 1131,
+      "artist": "Yellowcard, Good Charlotte",
+      "title": "Bedroom Posters 9B 140",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: was N in an earlier changeset, now off every chart"
+    },
+    {
+      "rdj_song_id": 675,
+      "artist": "Yonaka",
+      "title": "By The Time You're Reading This Clean 139",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202401)"
+    },
+    {
+      "rdj_song_id": 925,
+      "artist": "Zero 9-36, Brandon Saller",
+      "title": "Chasing Shadows (Clean) 12A 68",
+      "from_subcat": 35,
+      "to_subcat": 26,
+      "reason": "Rollback of: W: no recorded pool and not in rotation Aug 4-Sep 29 (0 plays): bench (issue 202503)"
+    }
+  ],
+  "set_enabled": [
+    {
+      "rdj_song_id": 401,
+      "artist": "Sublime",
+      "title": "Ensenada",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 1001 (Ensenada 4A 95), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 402,
+      "artist": "From Ashes To New",
+      "title": "Die For You",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 455 (Die For You (Clean)), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 424,
+      "artist": "From Ashes To New",
+      "title": "Die For You",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 455 (Die For You (Clean)), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 404,
+      "artist": "Autumn Kings",
+      "title": "Gone, Gone, Gone",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 1091 (Gone, Gone, Gone 8A 93), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 423,
+      "artist": "Five Finger Death Punch",
+      "title": "Eye Of The Storm",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 406 (Eye Of The Storm), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 425,
+      "artist": "The HU, Jonny Hawkins",
+      "title": "Lost Soul",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 407 (Lost Soul), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 409,
+      "artist": "Papa Roach",
+      "title": "Wake Up Calling",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 1123 (Wake Up Calling 1B 122), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 410,
+      "artist": "Volbeat",
+      "title": "Demonic Depression",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 1130 (Demonic Depression (PO Clean Edit) 7A 135), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 412,
+      "artist": "U2",
+      "title": "Street Of Dreams (Main)",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 413 (Street Of Dreams (Radio Edit)), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 414,
+      "artist": "Temper City",
+      "title": "Self Aware",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 1149 (Self Aware 8A 81), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 419,
+      "artist": "Avatar",
+      "title": "Crying Fire",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 426 (Crying Fire (Clean)), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 420,
+      "artist": "Beartooth",
+      "title": "Beautiful Again",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 428 (Beautiful Again (Clean)), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 422,
+      "artist": "Black Stone Cherry",
+      "title": "Deep",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 429 (Deep (Clean)), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 918,
+      "artist": "Spiritbox",
+      "title": "Perfect Soul 4A 103",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 438 (Perfect Soul (Radio Edit)), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 1107,
+      "artist": "The Revivalists",
+      "title": "Heart Stop (Album Version) 10B 72",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 451 (Heart Stop (Radio Edit)), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 458,
+      "artist": "Three Days Grace",
+      "title": "Don't Wanna Go Home Tonight (Dirty)",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 1089 (Don't Wanna Go Home Tonight (Po Clean Edit) 11B 135), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    },
+    {
+      "rdj_song_id": 1048,
+      "artist": "Yungblud, The Smashing Pumpkins",
+      "title": "Zombie 1B 80",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Duplicate of id 985 (Zombie 160), which is placed instead. Clean/radio edit preferred over untagged or dirty (2026-10-04 precedent); disabled in place, not moved."
+    }
+  ]
+}

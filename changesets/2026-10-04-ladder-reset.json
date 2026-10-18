@@ -1,0 +1,361 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-04-ladder-reset",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-09-28",
+  "intent": "Full currents ladder reset after a ~10-week freeze, authored PURELY ON CHART EVIDENCE. PD input is disregarded for this week at PD/MD's instruction (2026-09-28) and will be reinstated as the base template from the following week per Config 6. Every currents record is past max dwell and the whole N category is past its 2-week dwell, so this executes the standing rules rather than making a discretionary sweep. Placement is set by the 2026-09-28 baseline pull against the 11.2 rescaled floors (A1 top-8, A2 top-15, B top-25-or-Spincrease). Adds bypass N for this reset only: a record that charted nationally while the ladder was frozen has already been auditioned.",
+  "basis": {
+    "sheet_id": "charts/2026-09-28",
+    "sheet_captured_at": "2026-09-28T14:05:00-06:00",
+    "census_captured_at": "2026-09-28",
+    "census_source": "live RadioDJ via read-only tunnel",
+    "pd_input": "DISREGARDED this week by PD/MD instruction; to be supplied separately for following weeks"
+  },
+  "notes": [
+    "AUTHORED WITHOUT PD INPUT. No row cites a PD call, for or against. Every placement rests on a chart position, a Spincrease/Taking Off appearance, or documented absence from every panel source.",
+    "MINIMAL-CHANGE PRINCIPLE. Records are moved only where evidence justifies a move. Anything neither promoted nor demoted stays where it is - no arbitrary reshuffling was needed to hit depth.",
+    "N lands at 1, not 0. Nothing But Thieves 'Evolution' (id 632) is deliberately HELD in N by PD/MD decision 2026-09-30: it is on ALT Taking Off! now (1 new station, 8 new spins), which is 11.5's recall trigger, so retiring it to ZN and recalling it next week would be a no-op round trip. N has no hold state, which is what would otherwise have forced the retirement - see note 7. The remaining 17 N seats cannot be filled from the library and require sourcing; see sheets/2026-10-04-sourcing.md D. This still breaches the 11.2 hard +/-1 band.",
+    "DROPS DEFERRED. 11.3's triggers need archive history ('fell_off' for 2 consecutive weeks, negative trajectory) and 2026-09-28 is the FIRST archived week (7a rule 4). Nothing is dropped on that basis. The seven benchings rest on present-tense evidence - absent from every panel source plus expired max dwell - which needs no history.",
+    "BENCH vs HOLD is decided by ARTIST activity, not record activity. A non-charting record whose artist charts with a different single (Config 7b) is held in the ladder pending sourcing; a record whose artist appears nowhere is benched. 13 such 7b conflicts were found.",
+    "Three Days Grace 'Don't Wanna Go Home Tonight' (634) is NOT moved: it charts at ALT #19 and holds its A2 seat. Floors gate promotions, not holds, so no floor-miss applies.",
+    "RULE ARTIFACT, raised for a Config 6 amendment: N has no hold state, so a record whose N dwell expires must be promoted or retired even when it is actively gaining on Taking Off!. That mechanically retires records 11.5 would immediately recall. Either N needs an explicit hold-on-momentum exception, or the recall path needs to be able to fire in the same week as the retirement."
+  ],
+  "moves": [
+    {
+      "rdj_song_id": 1652,
+      "artist": "Cage The Elephant",
+      "title": "Beaches In Tennessee",
+      "from_subcat": 2,
+      "to_subcat": 4,
+      "reason": "PROMOTE A2->A1. Cross-format: ALT 7-Day #1, Triple A #1, AR #9, plus Spincrease on both AR (+231) and ALT. Charting on three formats simultaneously - the hybrid signal at maximum (11.1 cross-format x1.25). Highest evidence score on the panel."
+    },
+    {
+      "rdj_song_id": 1660,
+      "artist": "Shinedown",
+      "title": "Young Again",
+      "from_subcat": 1,
+      "to_subcat": 4,
+      "reason": "PROMOTE B->A1. Cross-format: AR 7-Day #5 and ALT #21 (x1.25). Clears the top-8 A1 floor on Active Rock. NOTE -290 on AR; re-read next week."
+    },
+    {
+      "rdj_song_id": 2,
+      "artist": "From Ashes To New",
+      "title": "Die For You",
+      "from_subcat": 23,
+      "to_subcat": 4,
+      "reason": "PROMOTE N->A1, bypassing the ladder. AR 7-Day #3, 2516 spins, +137 - clears top-8 outright. Bypass justified per Config 6 'overlooked hot record': it charted top-3 nationally while the ladder was frozen, so the audition N exists to run has already happened."
+    },
+    {
+      "rdj_song_id": 574,
+      "artist": "Buffalo Traffic Jam",
+      "title": "Fool's Gold",
+      "from_subcat": 23,
+      "to_subcat": 4,
+      "reason": "PROMOTE N->A1, bypassing. ALT 7-Day #3, 2408 spins, +107 - clears top-8. The 2026-08-02 postmortem recorded this record as 'missed entirely' by the composite; now confirmed at ALT #3."
+    },
+    {
+      "rdj_song_id": 1909,
+      "artist": "Nickelback, John 5",
+      "title": "Rattle The Cage",
+      "from_subcat": 23,
+      "to_subcat": 4,
+      "reason": "PROMOTE N->A1, bypassing. AR 7-Day #2, 3055 spins - the second-highest-spinning record on Active Rock."
+    },
+    {
+      "rdj_song_id": 1696,
+      "artist": "Autumn Kings",
+      "title": "Gone, Gone, Gone",
+      "from_subcat": 3,
+      "to_subcat": 4,
+      "reason": "PROMOTE C->A1. AR 7-Day #4, 2462 spins, +40 - clears top-8."
+    },
+    {
+      "rdj_song_id": 1672,
+      "artist": "Weezer, Wednesday",
+      "title": "We Might As Well Be Strangers",
+      "from_subcat": 3,
+      "to_subcat": 4,
+      "reason": "PROMOTE C->A1. ALT 7-Day #4, 2139 spins, +61 - clears top-8."
+    },
+    {
+      "rdj_song_id": 1677,
+      "artist": "Breaking Benjamin",
+      "title": "Something Wicked",
+      "from_subcat": 4,
+      "to_subcat": 1,
+      "reason": "DEMOTE A1->B. AR 7-Day #17 at -365, the largest single decline on the Active Rock chart. Clears the B floor only. Past max dwell (Config 11.2) at ~10 weeks frozen."
+    },
+    {
+      "rdj_song_id": 1687,
+      "artist": "Five Finger Death Punch",
+      "title": "Eye Of The Storm",
+      "from_subcat": 4,
+      "to_subcat": 1,
+      "reason": "DEMOTE A1->B. AR 7-Day #16 at -88, falling. Clears the B floor only. Past max dwell (Config 11.2) at ~10 weeks frozen."
+    },
+    {
+      "rdj_song_id": 1726,
+      "artist": "Dexter And The Moonrocks",
+      "title": "Freakin' Out",
+      "from_subcat": 4,
+      "to_subcat": 2,
+      "reason": "DEMOTE A1->A2. ALT 7-Day #10 - clears the A2 top-15 floor but not A1's top-8."
+    },
+    {
+      "rdj_song_id": 1742,
+      "artist": "Architects",
+      "title": "Broken Mirror",
+      "from_subcat": 4,
+      "to_subcat": 1,
+      "reason": "DEMOTE A1->B. Config 7b: the library holds a record that charts on no panel source, while the artist's current airplay record does chart. Resolved toward airplay. Held in the ladder rather than benched because the artist is demonstrably active; correct single is on the sourcing list. Library holds 'Broken Mirror'; the airplay record is 'Machine' (AR Spincrease +193, AR and ALT Taking Off)."
+    },
+    {
+      "rdj_song_id": 1753,
+      "artist": "In Color",
+      "title": "Headlights",
+      "from_subcat": 4,
+      "to_subcat": 1,
+      "reason": "DEMOTE A1->B. Config 7b: the library holds a record that charts on no panel source, while the artist's current airplay record does chart. Resolved toward airplay. Held in the ladder rather than benched because the artist is demonstrably active; correct single is on the sourcing list. Library holds 'Headlights'; the airplay record is 'High' (ALT Spincrease +114, ALT Taking Off)."
+    },
+    {
+      "rdj_song_id": 1736,
+      "artist": "The Warning",
+      "title": "Kerosene",
+      "from_subcat": 4,
+      "to_subcat": 1,
+      "reason": "DEMOTE A1->B. Config 7b: the library holds a record that charts on no panel source, while the artist's current airplay record does chart. Resolved toward airplay. Held in the ladder rather than benched because the artist is demonstrably active; correct single is on the sourcing list. Library holds 'Kerosene'; the airplay record is 'Bite My Tongue' (AR Taking Off)."
+    },
+    {
+      "rdj_song_id": 1657,
+      "artist": "Papa Roach, Hanumankind",
+      "title": "See U In Hell",
+      "from_subcat": 1,
+      "to_subcat": 2,
+      "reason": "PROMOTE B->A2. AR 7-Day #6, 2361 spins - clears top-15. Below A1 only because the ten A1 seats went to higher-scoring records."
+    },
+    {
+      "rdj_song_id": 680,
+      "artist": "Bilmuri, A Day To Remember",
+      "title": "Always Let You Down",
+      "from_subcat": 1,
+      "to_subcat": 2,
+      "reason": "PROMOTE B->A2. AR 7-Day #8, 2105 spins - clears top-15."
+    },
+    {
+      "rdj_song_id": 1655,
+      "artist": "Joyce Manor",
+      "title": "I Used To Go To This Bar",
+      "from_subcat": 1,
+      "to_subcat": 2,
+      "reason": "PROMOTE B->A2. ALT 7-Day #11, +100, also ALT Spincrease - clears top-15."
+    },
+    {
+      "rdj_song_id": 1662,
+      "artist": "Almost Monday",
+      "title": "no more regrets",
+      "from_subcat": 3,
+      "to_subcat": 2,
+      "reason": "PROMOTE C->A2. ALT 7-Day #7, 1980 spins - clears top-15."
+    },
+    {
+      "rdj_song_id": 1656,
+      "artist": "Motionless In White, Skylar Grey",
+      "title": "R.I.P.",
+      "from_subcat": 3,
+      "to_subcat": 2,
+      "reason": "PROMOTE C->A2. AR 7-Day #10, +92, also AR Taking Off - clears top-15."
+    },
+    {
+      "rdj_song_id": 1380,
+      "artist": "Phoebe Bridgers",
+      "title": "Lost Boys",
+      "from_subcat": 3,
+      "to_subcat": 2,
+      "reason": "PROMOTE C->A2. ALT 7-Day #18 and Triple A #2. FLOOR MISS disclosed per 11.2: ALT #18 clears B, not A2's top-15; promoted to hold A2 at target depth, with Triple A #2 as corroboration."
+    },
+    {
+      "rdj_song_id": 622,
+      "artist": "Edgehill",
+      "title": "Love To Go",
+      "from_subcat": 23,
+      "to_subcat": 2,
+      "reason": "PROMOTE N->A2, bypassing. ALT 7-Day #12, 1484 spins - clears top-15. Resolves the 2026-08-02 Edgehill error toward airplay: 'Love To Go' is the airplay record and is what the library already holds."
+    },
+    {
+      "rdj_song_id": 651,
+      "artist": "The Neighbourhood",
+      "title": "Private",
+      "from_subcat": 23,
+      "to_subcat": 2,
+      "reason": "PROMOTE N->A2, bypassing. ALT 7-Day #14, 1251 spins - clears top-15."
+    },
+    {
+      "rdj_song_id": 1669,
+      "artist": "Sam Fender, Olivia Dean",
+      "title": "Rein Me In",
+      "from_subcat": 23,
+      "to_subcat": 2,
+      "reason": "PROMOTE N->A2, bypassing. ALT 7-Day #17. FLOOR MISS disclosed per 11.2: #17 clears B, not A2; promoted to hold A2 at target depth."
+    },
+    {
+      "rdj_song_id": 1721,
+      "artist": "Beartooth",
+      "title": "Free",
+      "from_subcat": 2,
+      "to_subcat": 3,
+      "reason": "DEMOTE A2->C. Config 7b: the library holds a record that charts on no panel source, while the artist's current airplay record does chart. Resolved toward airplay. Held in the ladder rather than benched because the artist is demonstrably active; correct single is on the sourcing list. Library holds 'Free'; the airplay record is 'Beautiful Again' (AR Spincrease +92, AR Taking Off)."
+    },
+    {
+      "rdj_song_id": 1725,
+      "artist": "Death Cab For Cutie",
+      "title": "Riptides",
+      "from_subcat": 2,
+      "to_subcat": 3,
+      "reason": "DEMOTE A2->C. Config 7b: the library holds a record that charts on no panel source, while the artist's current airplay record does chart. Resolved toward airplay. Held in the ladder rather than benched because the artist is demonstrably active; correct single is on the sourcing list. Library holds 'Riptides'; the airplay record is 'Stone Over Water' (Triple A #5, ALT Spincrease +118, ALT Taking Off)."
+    },
+    {
+      "rdj_song_id": 1713,
+      "artist": "Sublime",
+      "title": "Until The Sun Explodes",
+      "from_subcat": 2,
+      "to_subcat": 3,
+      "reason": "DEMOTE A2->C. Config 7b: the library holds a record that charts on no panel source, while the artist's current airplay record does chart. Resolved toward airplay. Held in the ladder rather than benched because the artist is demonstrably active; correct single is on the sourcing list. Library holds 'Until The Sun Explodes'; the airplay record is 'F.T.R.' (ALT Spincrease #2 at +214, ALT Taking Off #1)."
+    },
+    {
+      "rdj_song_id": 438,
+      "artist": "Role Model",
+      "title": "Sally, When The Wine Runs Out",
+      "from_subcat": 2,
+      "to_subcat": 3,
+      "reason": "DEMOTE A2->C. Config 7b: the library holds a record that charts on no panel source, while the artist's current airplay record does chart. Resolved toward airplay. Held in the ladder rather than benched because the artist is demonstrably active; correct single is on the sourcing list. Library holds 'Sally, When The Wine Runs Out'; the artist charts as 'High Hopes 3000' (Triple A #7). Triple A only, x0.5 format multiplier, so C rather than higher."
+    },
+    {
+      "rdj_song_id": 1772,
+      "artist": "Dayseeker",
+      "title": "Crawl Back To My Coffin",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source. Past max dwell (Config 11.2) at ~10 weeks frozen."
+    },
+    {
+      "rdj_song_id": 1727,
+      "artist": "Dirty Heads",
+      "title": "One Of Those Days",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source. Past max dwell (Config 11.2) at ~10 weeks frozen."
+    },
+    {
+      "rdj_song_id": 1699,
+      "artist": "Eva Under Fire, Maria Brink, In This Moment",
+      "title": "Villainous",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source. Past max dwell (Config 11.2) at ~10 weeks frozen."
+    },
+    {
+      "rdj_song_id": 1702,
+      "artist": "Modest Mouse",
+      "title": "Picking Dragons' Pockets",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source. Past max dwell (Config 11.2) at ~10 weeks frozen."
+    },
+    {
+      "rdj_song_id": 440,
+      "artist": "sombr",
+      "title": "Back To Friends",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source. Past max dwell (Config 11.2) at ~10 weeks frozen."
+    },
+    {
+      "rdj_song_id": 1718,
+      "artist": "The Strokes",
+      "title": "Going Shopping",
+      "from_subcat": 2,
+      "to_subcat": 36,
+      "reason": "BENCH A2->W. Neither this record nor the artist appears on any panel source. Past max dwell (Config 11.2) at ~10 weeks frozen."
+    },
+    {
+      "rdj_song_id": 1720,
+      "artist": "Atreyu",
+      "title": "All For You",
+      "from_subcat": 1,
+      "to_subcat": 36,
+      "reason": "BENCH B->W. Neither this record nor the artist appears on any panel source. Past max dwell (Config 11.2) at ~10 weeks frozen."
+    },
+    {
+      "rdj_song_id": 661,
+      "artist": "Cannons",
+      "title": "Starlight",
+      "from_subcat": 23,
+      "to_subcat": 39,
+      "reason": "RETIRE N->ZN. N max dwell (2wk) expired many times over and the record never charted on any panel source (Config 11.3 'never charted')."
+    },
+    {
+      "rdj_song_id": 681,
+      "artist": "Clarion",
+      "title": "Hello Juliet",
+      "from_subcat": 23,
+      "to_subcat": 39,
+      "reason": "RETIRE N->ZN. N max dwell expired; never charted on any panel source."
+    },
+    {
+      "rdj_song_id": 1908,
+      "artist": "Marilyn Manson",
+      "title": "Exit Wound",
+      "from_subcat": 23,
+      "to_subcat": 39,
+      "reason": "RETIRE N->ZN. N max dwell expired; neither this record nor the artist charts on any panel source."
+    },
+    {
+      "rdj_song_id": 648,
+      "artist": "Poppy",
+      "title": "Time Will Tell",
+      "from_subcat": 23,
+      "to_subcat": 39,
+      "reason": "RETIRE N->ZN. N max dwell expired; never charted on any panel source."
+    },
+    {
+      "rdj_song_id": 1716,
+      "artist": "The Last Dinner Party",
+      "title": "Count The Ways",
+      "from_subcat": 23,
+      "to_subcat": 39,
+      "reason": "RETIRE N->ZN. N max dwell expired; never charted on any panel source."
+    },
+    {
+      "rdj_song_id": 1760,
+      "artist": "Twenty One Pilots",
+      "title": "Drag Path",
+      "from_subcat": 23,
+      "to_subcat": 39,
+      "reason": "RETIRE N->ZN. N max dwell expired; never charted on any panel source."
+    },
+    {
+      "rdj_song_id": 1661,
+      "artist": "U2",
+      "title": "Street Of Dreams",
+      "from_subcat": 23,
+      "to_subcat": 39,
+      "reason": "RETIRE N->ZN. Triple A #23 only, x0.5 multiplier, no AR or ALT presence - below the N-to-ladder floor. NOTE the artist's 'Silencio' is on ALT Taking Off; see sourcing list."
+    },
+    {
+      "rdj_song_id": 1739,
+      "artist": "Yellowcard, Good Charlotte",
+      "title": "Bedroom Posters",
+      "from_subcat": 23,
+      "to_subcat": 39,
+      "reason": "RETIRE N->ZN. N max dwell expired; never charted on any panel source."
+    },
+    {
+      "rdj_song_id": 1771,
+      "artist": "Young The Giant",
+      "title": "Different Kind Of Love",
+      "from_subcat": 23,
+      "to_subcat": 39,
+      "reason": "RETIRE N->ZN. Config 7b: the library holds a record that charts on no panel source, while the artist's current airplay record does chart. Resolved toward airplay. Held in the ladder rather than benched because the artist is demonstrably active; correct single is on the sourcing list. Library holds 'Different Kind Of Love'; the airplay record is 'Evergreen' (ALT #16, Spincrease +81). Retired rather than held because N dwell is expired and N has no hold state."
+    }
+  ]
+}

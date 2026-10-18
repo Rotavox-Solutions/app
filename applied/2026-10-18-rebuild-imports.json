@@ -1,0 +1,10 @@
+{
+  "changeset_id": "2026-10-18-rebuild-imports",
+  "sheet_id": "charts/2026-10-15",
+  "applied_at": "2026-10-15T21:52:37.000Z",
+  "database": "radiodj3",
+  "moves": 384,
+  "set_enabled": 228,
+  "tag_drift_allowed": false,
+  "inverse": "inverse/2026-10-18-rebuild-imports.json"
+}
