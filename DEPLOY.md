@@ -228,32 +228,43 @@ with `taskkill /F` and confirm AutoDJ comes back on within ~20 seconds.
 
 ### 11. Install as services
 
-`apps/runner/deploy/systemd/` covers Linux only and does **not** apply to a Windows
-box. There is no Windows service definition in the repo yet — see Gaps below. Until
-there is, NSSM by hand, as two independent services:
+`apps/runner/deploy/systemd/` covers Linux only. On the Windows box, the three services
+(RotavoxRunner, RotavoxWatchdog, RotavoxWeb) are defined by a committed script that points
+them at whatever checkout it lives in. The BOLT box runs from the git checkout
+`C:\Users\broadcast\Documents\a\rotavox-app`. From an elevated PowerShell there:
 
 ```
-nssm install RotavoxRunner   "C:\Program Files\nodejs\node.exe"
-nssm set     RotavoxRunner   AppDirectory C:\rotavox-app\apps\runner
-nssm set     RotavoxRunner   AppParameters "node_modules\tsx\dist\cli.mjs src\pace.ts"
-
-nssm install RotavoxWatchdog "C:\Program Files\nodejs\node.exe"
-nssm set     RotavoxWatchdog AppDirectory C:\rotavox-app\apps\runner
-nssm set     RotavoxWatchdog AppParameters "node_modules\tsx\dist\cli.mjs src\watchdog.ts"
+npm ci
+npm run build --workspace=apps/web
+powershell -ExecutionPolicy Bypass -File tools\install-services.ps1 -OperatorUser broadcast
+.\tools\rotavox.ps1 restart
 ```
 
-Keep them independent — no dependency between the two services. The watchdog's whole
-job is to keep working when the runner doesn't, and coupling their lifecycles defeats
-it. Note that NSSM stops services with a kill by default, which skips the pacer's
-graceful hand-back to AutoDJ; the watchdog covers that gap, but configure
-`AppStopMethodConsole` if you want the clean path.
+`install-services.ps1` is idempotent and safe to re-run after the checkout moves. It sets
+paths, `logs\` output with rotation, auto-start, and a 10s console stop so the pacer's
+graceful hand-back to AutoDJ completes. It also pins `RUNNER_HEARTBEAT_PATH` in
+`apps/runner/.env`. `-OperatorUser` lets that non-admin account start, stop and query the
+services.
+
+Day to day, as the operator (no elevation needed after `-OperatorUser`):
+
+```
+.\tools\rotavox.ps1 status       # services, heartbeat age, recent runner log
+.\tools\rotavox.ps1 restart      # watchdog down, runner restart, wait for heartbeat, watchdog up, web
+.\tools\rotavox.ps1 logs runner -Follow
+```
+
+**After a `git pull`**, run `npm ci` if `package-lock.json` changed, rebuild the web app if
+`apps/web` changed, then `.\tools\rotavox.ps1 restart`.
+
+Keep Runner and Watchdog independent, with no dependency between the two services. The
+watchdog's whole job is to keep working when the runner doesn't. Stopping the runner alone
+hands playout to AutoDJ within ~20s; that is the fail-safe, not a fault.
 
 ---
 
 ## Gaps
 
-- **No Windows service definition.** The committed systemd units target Linux; the
-  actual deployment is Windows. NSSM by hand works (step 11) but isn't reproducible.
 - **The M4.5 fail-safe has never run on a rig.** Unit-tested, not field-tested.
 - **The Runner talks to Postgres directly** rather than through the SaaS API that spec
   §7 describes. Fine co-located; blocks the SaaS story.

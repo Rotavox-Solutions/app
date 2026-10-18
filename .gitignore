@@ -17,3 +17,6 @@ __pycache__/
 .*.sw[nop]
 ..*.sw[nop]
 *.swp
+
+# Service output (tools/install-services.ps1)
+logs/
