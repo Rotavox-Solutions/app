@@ -1,0 +1,309 @@
+{
+  "source": "Mediabase via AllAccess (free tier)",
+  "chart": "Airplay Add Board",
+  "format": "Alternative",
+  "format_code": "R3",
+  "reporters": "Monitored",
+  "chart_week_start": "2026-09-23",
+  "chart_week_end": "2026-09-29",
+  "source_last_updated": "2026-09-29T17:45:00-05:00",
+  "captured_at": "2026-09-30T17:05:00-06:00",
+  "captured_by": "chrome-supervised",
+  "source_url": "https://www.allaccess.com/mediabase/q/report/formatAdds/reporters/monitored/format/R3",
+  "fields_present": [
+    "adds",
+    "artist",
+    "title",
+    "label"
+  ],
+  "fields_absent": [
+    "rank",
+    "spins",
+    "move",
+    "audience",
+    "weeks_on"
+  ],
+  "truncation": {
+    "rows_returned": 46,
+    "complete": true,
+    "note": "NOT TRUNCATED - 46 rows, past the 25-row cap that abbreviates the other reports."
+  },
+  "rows": [
+    {
+      "adds": 12,
+      "artist": "BEABADOOBEE",
+      "title": "Write Me A Letter",
+      "label": "Interscope/ICLG"
+    },
+    {
+      "adds": 11,
+      "artist": "SUBLIME",
+      "title": "F.T.R.",
+      "label": "SVNBVRNT/Regime/Atlantic"
+    },
+    {
+      "adds": 8,
+      "artist": "ECCA VANDAL",
+      "title": "Cruising To Self Soothe",
+      "label": "Loma Vista/Concord"
+    },
+    {
+      "adds": 6,
+      "artist": "CHVRCHES",
+      "title": "Roses",
+      "label": "---"
+    },
+    {
+      "adds": 5,
+      "artist": "LEAP",
+      "title": "Exit Signs",
+      "label": "Epitaph"
+    },
+    {
+      "adds": 5,
+      "artist": "U2",
+      "title": "Silencio",
+      "label": "Interscope/ICLG"
+    },
+    {
+      "adds": 4,
+      "artist": "CULTURE WARS",
+      "title": "Typical Ways",
+      "label": "AWAL"
+    },
+    {
+      "adds": 4,
+      "artist": "DEATH CAB FOR CUTIE",
+      "title": "Stone Over Water",
+      "label": "Anti-/Epitaph"
+    },
+    {
+      "adds": 4,
+      "artist": "LOVELYTHEBAND",
+      "title": "kiss me goodbye",
+      "label": "Happy Accident"
+    },
+    {
+      "adds": 3,
+      "artist": "FONTAINES D.C.",
+      "title": "Marianne",
+      "label": "XL"
+    },
+    {
+      "adds": 3,
+      "artist": "JUDAH & THE LION",
+      "title": "Maybe The Best Is Now",
+      "label": "Dualtone/MNRK"
+    },
+    {
+      "adds": 3,
+      "artist": "QUEENS OF THE STONE AGE",
+      "title": "Where The Goth Girls At?",
+      "label": "Matador"
+    },
+    {
+      "adds": 3,
+      "artist": "STEVE LACY",
+      "title": "oh yeah?",
+      "label": "RCA"
+    },
+    {
+      "adds": 3,
+      "artist": "THE LINDA LINDAS",
+      "title": "Burning Out",
+      "label": "Reprise/Warner"
+    },
+    {
+      "adds": 3,
+      "artist": "THE REVIVALISTS",
+      "title": "Heart Stop",
+      "label": "Concord"
+    },
+    {
+      "adds": 2,
+      "artist": "GIOVANNIE AND THE HIRED GUNS",
+      "title": "Cheap Date",
+      "label": "NashYork/Crush"
+    },
+    {
+      "adds": 2,
+      "artist": "IN COLOR",
+      "title": "High",
+      "label": "Big Loud Rock"
+    },
+    {
+      "adds": 2,
+      "artist": "THE PARADOX",
+      "title": "I Kinda Like That",
+      "label": "Hundred Days/Virgin"
+    },
+    {
+      "adds": 2,
+      "artist": "THE WARNING",
+      "title": "Kerosene",
+      "label": "Lava/Republic"
+    },
+    {
+      "adds": 1,
+      "artist": "ADULT LEISURE",
+      "title": "Kiss Me Like You Miss Her",
+      "label": "Big Loud Rock"
+    },
+    {
+      "adds": 1,
+      "artist": "ANBERLIN",
+      "title": "Gravity",
+      "label": "Equal Vision"
+    },
+    {
+      "adds": 1,
+      "artist": "ANKIT SHRESTHA",
+      "title": "Trains",
+      "label": "---"
+    },
+    {
+      "adds": 1,
+      "artist": "BIG DATA",
+      "title": "Rabbit Hole f/Miette Hope",
+      "label": "Wilcassettes"
+    },
+    {
+      "adds": 1,
+      "artist": "BUFFALO TRAFFIC JAM",
+      "title": "Fool's Gold",
+      "label": "Arista"
+    },
+    {
+      "adds": 1,
+      "artist": "DEAD POET SOCIETY",
+      "title": "Cold",
+      "label": "Spinefarm"
+    },
+    {
+      "adds": 1,
+      "artist": "DOMINIC FIKE",
+      "title": "Babydoll",
+      "label": "Columbia"
+    },
+    {
+      "adds": 1,
+      "artist": "FOO FIGHTERS",
+      "title": "Window",
+      "label": "Roswell/RCA"
+    },
+    {
+      "adds": 1,
+      "artist": "K.FLAY",
+      "title": "Ants",
+      "label": "Bummer Picninc/ONErpm"
+    },
+    {
+      "adds": 1,
+      "artist": "KINGS OF LEON",
+      "title": "My Whole World",
+      "label": "Love Tap/Virgin"
+    },
+    {
+      "adds": 1,
+      "artist": "LOW CUT CONNIE",
+      "title": "Can't Be Wrong",
+      "label": "Contender"
+    },
+    {
+      "adds": 1,
+      "artist": "MICHAEL MARCAGI",
+      "title": "Bite My Tongue",
+      "label": "Warner"
+    },
+    {
+      "adds": 1,
+      "artist": "MICHIGANDER",
+      "title": "Taxi",
+      "label": "Tot. Normal/Thirty Tigers"
+    },
+    {
+      "adds": 1,
+      "artist": "MONDO COZMO",
+      "title": "Sweet Forever",
+      "label": "Last Gang"
+    },
+    {
+      "adds": 1,
+      "artist": "MOTIONLESS IN WHITE",
+      "title": "RIP f/Skylar Grey",
+      "label": "Roadrunner/Atlantic"
+    },
+    {
+      "adds": 1,
+      "artist": "NOTHING BUT THIEVES",
+      "title": "Evolution",
+      "label": "The Orchard"
+    },
+    {
+      "adds": 1,
+      "artist": "PORCH LIGHT",
+      "title": "Paranoia",
+      "label": "Mom+Pop"
+    },
+    {
+      "adds": 1,
+      "artist": "SLIGHTLY STOOPID",
+      "title": "Backseat Drivin' f/Wiz/G Love",
+      "label": "Stoopid"
+    },
+    {
+      "adds": 1,
+      "artist": "SYLVAN ESSO",
+      "title": "Sledge",
+      "label": "Psychic Hotline"
+    },
+    {
+      "adds": 1,
+      "artist": "TAME IMPALA",
+      "title": "Loser",
+      "label": "Columbia"
+    },
+    {
+      "adds": 1,
+      "artist": "TEMPER CITY",
+      "title": "Reverse Psycology",
+      "label": "Thirty Knots/Intscp/ICLG"
+    },
+    {
+      "adds": 1,
+      "artist": "THIS IS LORELEI",
+      "title": "Billy Came Back",
+      "label": "Matador"
+    },
+    {
+      "adds": 1,
+      "artist": "THREE DAYS GRACE",
+      "title": "Don't Wanna Go Home Tonight",
+      "label": "RCA"
+    },
+    {
+      "adds": 1,
+      "artist": "VILLANELLE",
+      "title": "Some Chew Lip",
+      "label": "FAE"
+    },
+    {
+      "adds": 1,
+      "artist": "WEDNESDAY",
+      "title": "June 2",
+      "label": "Dead Oceans"
+    },
+    {
+      "adds": 1,
+      "artist": "WILT",
+      "title": "suffocate",
+      "label": "Independent"
+    },
+    {
+      "adds": 1,
+      "artist": "WISHY",
+      "title": "Sensational",
+      "label": "Winspear"
+    }
+  ]
+}

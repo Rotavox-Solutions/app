@@ -1,0 +1,296 @@
+{
+  "source": "Mediabase via AllAccess (free tier)",
+  "chart": "7-Day Report",
+  "format": "Triple A",
+  "format_code": "R1",
+  "panel": "All Stations (U.S.)",
+  "panel_code": "M",
+  "detail": "Currents Only",
+  "chart_type": "Rolling",
+  "chart_week_start": "2026-09-20",
+  "chart_week_end": "2026-09-26",
+  "captured_at": "2026-09-28T14:35:00-06:00",
+  "captured_by": "chrome-supervised",
+  "source_url": "https://www.allaccess.com/mediabase/q/report/sevenDay/format/R1/panel/M/detail/C/reportType/undefined",
+  "format_multiplier": 0.5,
+  "role": "alt-crossover lane detection; corroboration only (Config §11.1)",
+  "fields_present": [
+    "rank_tw",
+    "rank_lw",
+    "artist",
+    "title",
+    "spins_tw",
+    "spins_lw",
+    "move",
+    "audience_millions"
+  ],
+  "fields_absent": [
+    "stations",
+    "weeks_on",
+    "adds"
+  ],
+  "truncation": {
+    "rows_returned": 25,
+    "complete": false,
+    "note": "Free tier abbreviated report, capped at 25 positions."
+  },
+  "data_quality": [
+    {
+      "rank_tw": 20,
+      "issue": "title truncated by source with an ellipsis ('I Can Take The Sun Out Of...'). Breaks §7b chart_key normalization — must be reconciled by hand, never auto-linked."
+    }
+  ],
+  "rows": [
+    {
+      "rank_tw": 1,
+      "rank_lw": 1,
+      "artist": "CAGE THE ELEPHANT",
+      "title": "Beaches In Tennessee",
+      "spins_tw": 1153,
+      "spins_lw": 1194,
+      "move": -41,
+      "audience_millions": 1.758
+    },
+    {
+      "rank_tw": 2,
+      "rank_lw": 2,
+      "artist": "PHOEBE BRIDGERS",
+      "title": "Lost Boys",
+      "spins_tw": 1015,
+      "spins_lw": 1124,
+      "move": -109,
+      "audience_millions": 1.445
+    },
+    {
+      "rank_tw": 3,
+      "rank_lw": 3,
+      "artist": "JESSE WELLES",
+      "title": "Won't You Come Out Tonight",
+      "spins_tw": 938,
+      "spins_lw": 983,
+      "move": -45,
+      "audience_millions": 1.285
+    },
+    {
+      "rank_tw": 4,
+      "rank_lw": 5,
+      "artist": "ALABAMA SHAKES",
+      "title": "I Feel Hope Coming",
+      "spins_tw": 934,
+      "spins_lw": 885,
+      "move": 49,
+      "audience_millions": 0.947
+    },
+    {
+      "rank_tw": 5,
+      "rank_lw": 4,
+      "artist": "DEATH CAB FOR CUTIE",
+      "title": "Stone Over Water",
+      "spins_tw": 924,
+      "spins_lw": 905,
+      "move": 19,
+      "audience_millions": 0.935
+    },
+    {
+      "rank_tw": 6,
+      "rank_lw": 6,
+      "artist": "THE REVIVALISTS",
+      "title": "Heart Stop",
+      "spins_tw": 784,
+      "spins_lw": 865,
+      "move": -81,
+      "audience_millions": 1.083
+    },
+    {
+      "rank_tw": 7,
+      "rank_lw": 8,
+      "artist": "ROLE MODEL",
+      "title": "High Hopes 3000",
+      "spins_tw": 721,
+      "spins_lw": 703,
+      "move": 18,
+      "audience_millions": 0.813
+    },
+    {
+      "rank_tw": 8,
+      "rank_lw": 9,
+      "artist": "FONTAINES D.C.",
+      "title": "Marianne",
+      "spins_tw": 720,
+      "spins_lw": 697,
+      "move": 23,
+      "audience_millions": 1.007
+    },
+    {
+      "rank_tw": 9,
+      "rank_lw": 10,
+      "artist": "DEVON GILFILLIAN",
+      "title": "Black Dog Rabbit Hole",
+      "spins_tw": 698,
+      "spins_lw": 674,
+      "move": 24,
+      "audience_millions": 0.764
+    },
+    {
+      "rank_tw": 10,
+      "rank_lw": 14,
+      "artist": "TAME IMPALA",
+      "title": "Loser",
+      "spins_tw": 689,
+      "spins_lw": 594,
+      "move": 95,
+      "audience_millions": 1.264
+    },
+    {
+      "rank_tw": 11,
+      "rank_lw": 12,
+      "artist": "BILLY STRINGS",
+      "title": "Burn The Other End",
+      "spins_tw": 677,
+      "spins_lw": 626,
+      "move": 51,
+      "audience_millions": 0.514
+    },
+    {
+      "rank_tw": 12,
+      "rank_lw": 7,
+      "artist": "NOAH KAHAN",
+      "title": "Doors",
+      "spins_tw": 642,
+      "spins_lw": 713,
+      "move": -71,
+      "audience_millions": 1.079
+    },
+    {
+      "rank_tw": 13,
+      "rank_lw": 28,
+      "artist": "KINGS OF LEON",
+      "title": "My Whole World",
+      "spins_tw": 635,
+      "spins_lw": 347,
+      "move": 288,
+      "audience_millions": 0.534
+    },
+    {
+      "rank_tw": 14,
+      "rank_lw": 17,
+      "artist": "LEON BRIDGES",
+      "title": "Talk It Over",
+      "spins_tw": 552,
+      "spins_lw": 514,
+      "move": 38,
+      "audience_millions": 0.891
+    },
+    {
+      "rank_tw": 15,
+      "rank_lw": 20,
+      "artist": "MON ROVIA",
+      "title": "Field Song.",
+      "spins_tw": 530,
+      "spins_lw": 456,
+      "move": 74,
+      "audience_millions": 0.511
+    },
+    {
+      "rank_tw": 16,
+      "rank_lw": 11,
+      "artist": "MICHIGANDER",
+      "title": "Freaking Out",
+      "spins_tw": 523,
+      "spins_lw": 660,
+      "move": -137,
+      "audience_millions": 0.459
+    },
+    {
+      "rank_tw": 17,
+      "rank_lw": 21,
+      "artist": "GOOSE",
+      "title": "Good Times // End Times",
+      "spins_tw": 500,
+      "spins_lw": 456,
+      "move": 44,
+      "audience_millions": 0.363
+    },
+    {
+      "rank_tw": 18,
+      "rank_lw": 19,
+      "artist": "STEPHEN WILSON JR.",
+      "title": "Hardwired f/Miranda Lambert",
+      "spins_tw": 493,
+      "spins_lw": 457,
+      "move": 36,
+      "audience_millions": 0.591
+    },
+    {
+      "rank_tw": 19,
+      "rank_lw": 18,
+      "artist": "KACEY MUSGRAVES",
+      "title": "Mexico Honey",
+      "spins_tw": 486,
+      "spins_lw": 466,
+      "move": 20,
+      "audience_millions": 0.614
+    },
+    {
+      "rank_tw": 20,
+      "rank_lw": 15,
+      "artist": "BRIGITTE CALLS ME BABY",
+      "title": "I Can Take The Sun Out Of...",
+      "spins_tw": 485,
+      "spins_lw": 522,
+      "move": -37,
+      "audience_millions": 0.381,
+      "title_truncated_by_source": true
+    },
+    {
+      "rank_tw": 21,
+      "rank_lw": 22,
+      "artist": "THE WOMACK SISTERS",
+      "title": "If I Let You",
+      "spins_tw": 458,
+      "spins_lw": 437,
+      "move": 21,
+      "audience_millions": 0.634
+    },
+    {
+      "rank_tw": 22,
+      "rank_lw": 27,
+      "artist": "REMI WOLF",
+      "title": "Bottle",
+      "spins_tw": 455,
+      "spins_lw": 360,
+      "move": 95,
+      "audience_millions": 0.506
+    },
+    {
+      "rank_tw": 23,
+      "rank_lw": 13,
+      "artist": "U2",
+      "title": "Street Of Dreams",
+      "spins_tw": 445,
+      "spins_lw": 607,
+      "move": -162,
+      "audience_millions": 0.41
+    },
+    {
+      "rank_tw": 24,
+      "rank_lw": 25,
+      "artist": "EDDIE 9V",
+      "title": "Blowin' Up",
+      "spins_tw": 420,
+      "spins_lw": 394,
+      "move": 26,
+      "audience_millions": 0.585
+    },
+    {
+      "rank_tw": 25,
+      "rank_lw": 29,
+      "artist": "MEDIUM BUILD",
+      "title": "Home Depot",
+      "spins_tw": 390,
+      "spins_lw": 342,
+      "move": 48,
+      "audience_millions": 0.451
+    }
+  ]
+}

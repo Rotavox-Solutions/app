@@ -1,0 +1,30 @@
+{
+  "week_of_review": "2026-10-18",
+  "capture_label": "Rebuild pull, Thu 2026-10-15 (box rebuild; BOLT library re-sort)",
+  "captured_at": "2026-10-15",
+  "captured_by": "chrome-supervised (Claude in Chrome, in-page fetch of the same report URLs as 2026-09-28)",
+  "chart_types": {
+    "7day": "PUBLISHED, week Oct 4 - Oct 10 (lw Sep 27 - Oct 3). Rolling could not be selected: the Rolling/Published radios are hidden and setting reportType=R in URL or form still served Published - likely needs a signed-in AllAccess session. Deviation from the 2026-09-28 Rolling decision; Published is the latest complete week.",
+    "spincrease": "Rolling (page header: 'All Stations (U.S.) -- Rolling Chart -- Currents')",
+    "takingoff": "Rolling (page header)",
+    "adds": "Board published Tue 2026-10-13 (inferred: Adds publish Tuesdays; page carries no date). reporters=all. Labels captured only for the first rows."
+  },
+  "pulled": [
+    "mediabase-7day-activerock",
+    "mediabase-7day-alternative",
+    "mediabase-7day-triplea",
+    "mediabase-spincrease-activerock",
+    "mediabase-spincrease-alternative",
+    "mediabase-takingoff-activerock",
+    "mediabase-takingoff-alternative",
+    "mediabase-adds-activerock",
+    "mediabase-adds-alternative"
+  ],
+  "not_pulled": [
+    "mediabase-7day-mainstreamrock (R5 listed-but-empty at free tier, per 2026-09-28)"
+  ],
+  "notes": [
+    "Free tier caps at 25 rows.",
+    "Format codes R2 Active Rock, R3 Alternative, R1 Triple A; panel M = All Stations (U.S.)."
+  ]
+}

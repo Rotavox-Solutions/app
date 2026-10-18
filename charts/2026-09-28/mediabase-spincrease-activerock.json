@@ -1,0 +1,210 @@
+{
+  "source": "Mediabase via AllAccess (free tier)",
+  "chart": "Spincrease",
+  "format": "Active Rock",
+  "format_code": "R2",
+  "panel": "All Stations (U.S.)",
+  "panel_code": "M",
+  "detail": "Currents",
+  "chart_type": "Rolling",
+  "chart_week_start": "2026-09-20",
+  "chart_week_end": "2026-09-26",
+  "captured_at": "2026-09-28T15:10:00-06:00",
+  "captured_by": "chrome-supervised",
+  "source_url": "https://www.allaccess.com/mediabase/q/report/jump/format/R2/panel/M/detail/C/reportType/undefined",
+  "fields_present": [
+    "position",
+    "artist",
+    "title",
+    "move",
+    "stations"
+  ],
+  "fields_absent": [
+    "rank",
+    "spins_tw",
+    "spins_lw",
+    "audience"
+  ],
+  "truncation": {
+    "rows_returned": 25,
+    "complete": false,
+    "note": "Free tier abbreviated report capped at 25. Source states the full report runs to Top 50 currents; we see 25."
+  },
+  "rows": [
+    {
+      "position": 1,
+      "artist": "GRETA VAN FLEET",
+      "title": "Tear It Down",
+      "move": 442,
+      "stations": 55
+    },
+    {
+      "position": 2,
+      "artist": "A PERFECT CIRCLE",
+      "title": "Starless",
+      "move": 370,
+      "stations": 113
+    },
+    {
+      "position": 3,
+      "artist": "CAGE THE ELEPHANT",
+      "title": "Beaches In Tennessee",
+      "move": 231,
+      "stations": 101
+    },
+    {
+      "position": 4,
+      "artist": "DIRTY HONEY",
+      "title": "Lights Out",
+      "move": 200,
+      "stations": 44
+    },
+    {
+      "position": 5,
+      "artist": "ARCHITECTS",
+      "title": "Machine",
+      "move": 193,
+      "stations": 40
+    },
+    {
+      "position": 6,
+      "artist": "FOO FIGHTERS",
+      "title": "Window",
+      "move": 184,
+      "stations": 106
+    },
+    {
+      "position": 7,
+      "artist": "EVANESCENCE",
+      "title": "Tell Me When You've Had Enough",
+      "move": 157,
+      "stations": 70
+    },
+    {
+      "position": 8,
+      "artist": "SPIRITBOX",
+      "title": "Mourning",
+      "move": 154,
+      "stations": 50
+    },
+    {
+      "position": 9,
+      "artist": "FIVE FINGER DEATH PUNCH",
+      "title": "Nails In The Coffin",
+      "move": 153,
+      "stations": 91
+    },
+    {
+      "position": 10,
+      "artist": "FROM ASHES TO NEW",
+      "title": "Die For You",
+      "move": 137,
+      "stations": 107
+    },
+    {
+      "position": 11,
+      "artist": "NEVERTEL",
+      "title": "Last Breath",
+      "move": 116,
+      "stations": 42
+    },
+    {
+      "position": 12,
+      "artist": "NINTH KEY",
+      "title": "Happy Feels Like",
+      "move": 113,
+      "stations": 90
+    },
+    {
+      "position": 13,
+      "artist": "BAD WOLVES",
+      "title": "Jolene",
+      "move": 107,
+      "stations": 49
+    },
+    {
+      "position": 14,
+      "artist": "STARSET",
+      "title": "a n n 1 h 1 l a t 1 0 n",
+      "move": 106,
+      "stations": 41
+    },
+    {
+      "position": 15,
+      "artist": "TRIVIUM",
+      "title": "Dead Inside Of Me",
+      "move": 103,
+      "stations": 32
+    },
+    {
+      "position": 16,
+      "artist": "AVATAR",
+      "title": "Crying Fire",
+      "move": 103,
+      "stations": 91
+    },
+    {
+      "position": 17,
+      "artist": "BEARTOOTH",
+      "title": "Beautiful Again",
+      "move": 92,
+      "stations": 45
+    },
+    {
+      "position": 18,
+      "artist": "MOTIONLESS IN WHITE",
+      "title": "RIP f/Skylar Grey",
+      "move": 92,
+      "stations": 102
+    },
+    {
+      "position": 19,
+      "artist": "LETDOWN.",
+      "title": "Do It For The Love",
+      "move": 80,
+      "stations": 94
+    },
+    {
+      "position": 20,
+      "artist": "ROYAL BLOOD",
+      "title": "Ten Over Ten",
+      "move": 66,
+      "stations": 77
+    },
+    {
+      "position": 21,
+      "artist": "IN THIS MOMENT",
+      "title": "I Want To Believe f/Dayseeker",
+      "move": 62,
+      "stations": 63
+    },
+    {
+      "position": 22,
+      "artist": "DEAD POET SOCIETY",
+      "title": "Cold",
+      "move": 60,
+      "stations": 88
+    },
+    {
+      "position": 23,
+      "artist": "ELECTRIC CALLBOY F/OFFSPRING",
+      "title": "Let The Good Times Roll",
+      "move": 56,
+      "stations": 67
+    },
+    {
+      "position": 24,
+      "artist": "PRESIDENT",
+      "title": "Sleepwalker",
+      "move": 54,
+      "stations": 15
+    },
+    {
+      "position": 25,
+      "artist": "TOM MORELLO",
+      "title": "Date Night",
+      "move": 44,
+      "stations": 18
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "week_of_review": "2026-10-04",
+  "capture_label": "BASELINE (pulled Mon 2026-09-28, ahead of the scheduled Fri 2026-10-02 pull)",
+  "captured_at": "2026-09-28T14:05:00-06:00",
+  "captured_by": "chrome-supervised",
+  "url_scheme": "https://www.allaccess.com/mediabase/q/report/{report}/format/{FMT}/panel/{PANEL}/detail/{C|CR}/reportType/undefined",
+  "report_codes": {
+    "7-Day Report": "sevenDay",
+    "Spincrease": "jump",
+    "Taking Off": "takingOff",
+    "Year-To-Date": "yearToDate",
+    "Adds": "formatAdds (SEPARATE path: /mediabase/q/report/formatAdds/reporters/{monitored|non-monitored|all}/format/{FMT} - no panel or detail segment)"
+  },
+  "format_codes": {
+    "Active Rock": "R2",
+    "Alternative": "R3",
+    "Triple A": "R1",
+    "Mainstream Rock": "R5 (LISTED BUT EMPTY at free tier)",
+    "Top 40": "H1"
+  },
+  "panel_codes": {
+    "All Stations (U.S.)": "M",
+    "Published (U.S.)": "R"
+  },
+  "pulled": [
+    "mediabase-7day-activerock",
+    "mediabase-7day-alternative",
+    "mediabase-7day-triplea",
+    "mediabase-spincrease-activerock",
+    "mediabase-spincrease-alternative",
+    "mediabase-takingoff-activerock",
+    "mediabase-takingoff-alternative"
+  ],
+  "not_yet_pulled": [
+    "mediabase-adds-activerock",
+    "mediabase-adds-alternative",
+    "radioupdate-newmusicmondays"
+  ],
+  "failures": [
+    {
+      "chart": "Mediabase 7-Day — Mainstream Rock (R5)",
+      "panel": "M",
+      "detail": "tried both C and CR",
+      "result": "'No 7-Day Report data available'",
+      "interpretation": "R5 is listed in the format dropdown but serves NO 7-Day data at the free tier. Always renders as 'Published Chart' on an older week (Sep 6-19) regardless of session state, unlike R1/R2/R3 which return the Rolling Sep 20-26 week. Treated as listed-but-empty, not as a failed capture.",
+      "verified_against": "R1 pulled successfully in the same tab immediately before and after, isolating the format as the variable"
+    },
+    {
+      "chart": "Mediabase Adds - Active Rock (R2) and Alternative (R3)",
+      "result": "'These Adds are not currently available. The next report will be available on Tue after 12 PM.' (Active Rock; Top 40 says 3 PM)",
+      "interpretation": "NOT PUBLISHED YET, not a capture failure. Adds is a WEEKLY report published Tuesday, and the hour is FORMAT-SPECIFIC. Pulled on a Monday, so nothing exists to capture. Recorded per §7a rule 3 so a missing chart never looks like an empty one.",
+      "resolves": "Open decision #4 for Adds: publishes Tuesday, per-format hour (Active Rock after 12 PM). Consistent with the Friday pull under §3 option (b) - Adds will be 3 days old at capture."
+    }
+  ],
+  "notes": [
+    "Adds is NOT a Report dropdown option - it is a separate nav tab; path not yet established.",
+    "Free tier caps every report at 25 rows.",
+    "Spins, LW spins, Move and Audience ARE present - resolves the §1a open question.",
+    "Stations count absent from 7-Day (present on the public Taking Off widget) - fields_present varies per report.",
+    "Chart type (Rolling vs Published) is SESSION STATE, not in the URL — a fresh tab defaults to Published. Record chart_type per file at capture; do not assume it from the URL.",
+    "RadioWave ALT/ROCK 100 retired 2026-09-28; Mainstream Rock (R5) and Triple A (R1) added at 7-Day only, format multiplier x0.5.",
+    "Spincrease and Taking Off reach BELOW the 7-Day top 25 - Greta Van Fleet, Architects, Spiritbox, Trivium, Beartooth, Sublime, CHVRCHES and Leap appear on them and on no 7-Day chart. The four report types partly compensate for the 25-row cap by slicing differently.",
+    "Column sets differ per report: 7-Day has spins/LW/move/audience but NOT stations; Spincrease has move+stations but no rank or spins; Taking Off has new_stations+new_spins. fields_present is load-bearing."
+  ],
+  "chart_type_decision": "Rolling (PD, 2026-09-28). Not encoded in the URL - session state. Verify the header line of every capture."
+}

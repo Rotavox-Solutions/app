@@ -1,0 +1,287 @@
+{
+  "source": "Mediabase via AllAccess (free tier)",
+  "chart": "7-Day Report",
+  "format": "Alternative",
+  "format_code": "R3",
+  "panel": "All Stations (U.S.)",
+  "panel_code": "M",
+  "detail": "Currents Only",
+  "chart_type": "Rolling",
+  "chart_week_start": "2026-09-20",
+  "chart_week_end": "2026-09-26",
+  "captured_at": "2026-09-28T14:05:00-06:00",
+  "captured_by": "chrome-supervised",
+  "source_url": "https://www.allaccess.com/mediabase/q/report/sevenDay/format/R3/panel/M/detail/C/reportType/undefined",
+  "fields_present": [
+    "rank_tw",
+    "rank_lw",
+    "artist",
+    "title",
+    "spins_tw",
+    "spins_lw",
+    "move",
+    "audience_millions"
+  ],
+  "fields_absent": [
+    "stations",
+    "weeks_on",
+    "adds"
+  ],
+  "truncation": {
+    "rows_returned": 25,
+    "complete": false,
+    "note": "Free tier serves an ABBREVIATED report capped at 25 positions. Source states: 'This is an abbreviated Mediabase Report. Access to full report available at Mediabase.com'. Violates §7a rule 2 (capture the whole chart) as a source limitation, not a capture choice."
+  },
+  "rows": [
+    {
+      "rank_tw": 1,
+      "rank_lw": 1,
+      "artist": "CAGE THE ELEPHANT",
+      "title": "Beaches In Tennessee",
+      "spins_tw": 2932,
+      "spins_lw": 2939,
+      "move": -7,
+      "audience_millions": 3.472
+    },
+    {
+      "rank_tw": 2,
+      "rank_lw": 2,
+      "artist": "TEMPER CITY",
+      "title": "Self Aware",
+      "spins_tw": 2820,
+      "spins_lw": 2747,
+      "move": 73,
+      "audience_millions": 5.651
+    },
+    {
+      "rank_tw": 3,
+      "rank_lw": 3,
+      "artist": "BUFFALO TRAFFIC JAM",
+      "title": "Fool's Gold",
+      "spins_tw": 2408,
+      "spins_lw": 2301,
+      "move": 107,
+      "audience_millions": 1.953
+    },
+    {
+      "rank_tw": 4,
+      "rank_lw": 5,
+      "artist": "WEEZER",
+      "title": "We Might As Well Be Strangers",
+      "spins_tw": 2139,
+      "spins_lw": 2078,
+      "move": 61,
+      "audience_millions": 1.927
+    },
+    {
+      "rank_tw": 5,
+      "rank_lw": 4,
+      "artist": "JULIA WOLF",
+      "title": "In My Room",
+      "spins_tw": 2073,
+      "spins_lw": 2161,
+      "move": -88,
+      "audience_millions": 4.223
+    },
+    {
+      "rank_tw": 6,
+      "rank_lw": 8,
+      "artist": "TAME IMPALA",
+      "title": "Loser",
+      "spins_tw": 1981,
+      "spins_lw": 1877,
+      "move": 104,
+      "audience_millions": 2.588
+    },
+    {
+      "rank_tw": 7,
+      "rank_lw": 7,
+      "artist": "ALMOST MONDAY",
+      "title": "no more regrets",
+      "spins_tw": 1980,
+      "spins_lw": 1946,
+      "move": 34,
+      "audience_millions": 1.987
+    },
+    {
+      "rank_tw": 8,
+      "rank_lw": 9,
+      "artist": "DOMINIC FIKE",
+      "title": "Babydoll",
+      "spins_tw": 1977,
+      "spins_lw": 1729,
+      "move": 248,
+      "audience_millions": 3.59
+    },
+    {
+      "rank_tw": 9,
+      "rank_lw": 6,
+      "artist": "NOAH KAHAN",
+      "title": "Doors",
+      "spins_tw": 1916,
+      "spins_lw": 1978,
+      "move": -62,
+      "audience_millions": 1.82
+    },
+    {
+      "rank_tw": 10,
+      "rank_lw": 10,
+      "artist": "DEXTER AND THE MOONROCKS",
+      "title": "Freakin' Out",
+      "spins_tw": 1646,
+      "spins_lw": 1580,
+      "move": 66,
+      "audience_millions": 2.917
+    },
+    {
+      "rank_tw": 11,
+      "rank_lw": 11,
+      "artist": "JOYCE MANOR",
+      "title": "I Used To Go To This Bar",
+      "spins_tw": 1524,
+      "spins_lw": 1424,
+      "move": 100,
+      "audience_millions": 1.028
+    },
+    {
+      "rank_tw": 12,
+      "rank_lw": 12,
+      "artist": "EDGEHILL",
+      "title": "Love To Go",
+      "spins_tw": 1484,
+      "spins_lw": 1418,
+      "move": 66,
+      "audience_millions": 0.917
+    },
+    {
+      "rank_tw": 13,
+      "rank_lw": 13,
+      "artist": "FOO FIGHTERS",
+      "title": "Window",
+      "spins_tw": 1428,
+      "spins_lw": 1345,
+      "move": 83,
+      "audience_millions": 1.161
+    },
+    {
+      "rank_tw": 14,
+      "rank_lw": 14,
+      "artist": "THE NEIGHBOURHOOD",
+      "title": "Private",
+      "spins_tw": 1251,
+      "spins_lw": 1196,
+      "move": 55,
+      "audience_millions": 1.035
+    },
+    {
+      "rank_tw": 15,
+      "rank_lw": 16,
+      "artist": "THE PARADOX",
+      "title": "I Kinda Like That",
+      "spins_tw": 1240,
+      "spins_lw": 1121,
+      "move": 119,
+      "audience_millions": 1.364
+    },
+    {
+      "rank_tw": 16,
+      "rank_lw": 17,
+      "artist": "YOUNG THE GIANT",
+      "title": "Evergreen",
+      "spins_tw": 1176,
+      "spins_lw": 1095,
+      "move": 81,
+      "audience_millions": 0.881
+    },
+    {
+      "rank_tw": 17,
+      "rank_lw": 15,
+      "artist": "SAM FENDER",
+      "title": "Rein Me In",
+      "spins_tw": 1141,
+      "spins_lw": 1151,
+      "move": -10,
+      "audience_millions": 1.169
+    },
+    {
+      "rank_tw": 18,
+      "rank_lw": 18,
+      "artist": "PHOEBE BRIDGERS",
+      "title": "Lost Boys",
+      "spins_tw": 1041,
+      "spins_lw": 967,
+      "move": 74,
+      "audience_millions": 1.039
+    },
+    {
+      "rank_tw": 19,
+      "rank_lw": 19,
+      "artist": "THREE DAYS GRACE",
+      "title": "Don't Wanna Go Home Tonight",
+      "spins_tw": 1007,
+      "spins_lw": 956,
+      "move": 51,
+      "audience_millions": 0.898
+    },
+    {
+      "rank_tw": 20,
+      "rank_lw": 24,
+      "artist": "STEVE LACY",
+      "title": "oh yeah?",
+      "spins_tw": 961,
+      "spins_lw": 782,
+      "move": 179,
+      "audience_millions": 1.114
+    },
+    {
+      "rank_tw": 21,
+      "rank_lw": 20,
+      "artist": "SHINEDOWN",
+      "title": "Young Again",
+      "spins_tw": 939,
+      "spins_lw": 876,
+      "move": 63,
+      "audience_millions": 0.803
+    },
+    {
+      "rank_tw": 22,
+      "rank_lw": 27,
+      "artist": "FONTAINES D.C.",
+      "title": "Marianne",
+      "spins_tw": 884,
+      "spins_lw": 741,
+      "move": 143,
+      "audience_millions": 0.891
+    },
+    {
+      "rank_tw": 23,
+      "rank_lw": 23,
+      "artist": "THE REVIVALISTS",
+      "title": "Heart Stop",
+      "spins_tw": 876,
+      "spins_lw": 785,
+      "move": 91,
+      "audience_millions": 0.844
+    },
+    {
+      "rank_tw": 24,
+      "rank_lw": 21,
+      "artist": "THE BEACHES",
+      "title": "Edge Of The Earth",
+      "spins_tw": 810,
+      "spins_lw": 791,
+      "move": 19,
+      "audience_millions": 0.758
+    },
+    {
+      "rank_tw": 25,
+      "rank_lw": 26,
+      "artist": "MUSE",
+      "title": "Cryogen",
+      "spins_tw": 776,
+      "spins_lw": 757,
+      "move": 19,
+      "audience_millions": 0.554
+    }
+  ]
+}

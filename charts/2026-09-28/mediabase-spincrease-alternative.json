@@ -1,0 +1,210 @@
+{
+  "source": "Mediabase via AllAccess (free tier)",
+  "chart": "Spincrease",
+  "format": "Alternative",
+  "format_code": "R3",
+  "panel": "All Stations (U.S.)",
+  "panel_code": "M",
+  "detail": "Currents",
+  "chart_type": "Rolling",
+  "chart_week_start": "2026-09-20",
+  "chart_week_end": "2026-09-26",
+  "captured_at": "2026-09-28T15:10:00-06:00",
+  "captured_by": "chrome-supervised",
+  "source_url": "https://www.allaccess.com/mediabase/q/report/jump/format/R3/panel/M/detail/C/reportType/undefined",
+  "fields_present": [
+    "position",
+    "artist",
+    "title",
+    "move",
+    "stations"
+  ],
+  "fields_absent": [
+    "rank",
+    "spins_tw",
+    "spins_lw",
+    "audience"
+  ],
+  "truncation": {
+    "rows_returned": 25,
+    "complete": false,
+    "note": "Free tier abbreviated report capped at 25. Source states the full report runs to Top 50 currents; we see 25."
+  },
+  "rows": [
+    {
+      "position": 1,
+      "artist": "DOMINIC FIKE",
+      "title": "Babydoll",
+      "move": 248,
+      "stations": 72
+    },
+    {
+      "position": 2,
+      "artist": "SUBLIME",
+      "title": "F.T.R.",
+      "move": 214,
+      "stations": 36
+    },
+    {
+      "position": 3,
+      "artist": "LEAP",
+      "title": "Exit Signs",
+      "move": 182,
+      "stations": 56
+    },
+    {
+      "position": 4,
+      "artist": "STEVE LACY",
+      "title": "oh yeah?",
+      "move": 179,
+      "stations": 63
+    },
+    {
+      "position": 5,
+      "artist": "FONTAINES D.C.",
+      "title": "Marianne",
+      "move": 143,
+      "stations": 69
+    },
+    {
+      "position": 6,
+      "artist": "THE PARADOX",
+      "title": "I Kinda Like That",
+      "move": 119,
+      "stations": 76
+    },
+    {
+      "position": 7,
+      "artist": "DEATH CAB FOR CUTIE",
+      "title": "Stone Over Water",
+      "move": 118,
+      "stations": 30
+    },
+    {
+      "position": 8,
+      "artist": "IN COLOR",
+      "title": "High",
+      "move": 114,
+      "stations": 37
+    },
+    {
+      "position": 9,
+      "artist": "BUFFALO TRAFFIC JAM",
+      "title": "Fool's Gold",
+      "move": 107,
+      "stations": 73
+    },
+    {
+      "position": 10,
+      "artist": "TAME IMPALA",
+      "title": "Loser",
+      "move": 104,
+      "stations": 77
+    },
+    {
+      "position": 11,
+      "artist": "JOYCE MANOR",
+      "title": "I Used To Go To This Bar",
+      "move": 100,
+      "stations": 68
+    },
+    {
+      "position": 12,
+      "artist": "THE REVIVALISTS",
+      "title": "Heart Stop",
+      "move": 91,
+      "stations": 56
+    },
+    {
+      "position": 13,
+      "artist": "FOO FIGHTERS",
+      "title": "Window",
+      "move": 83,
+      "stations": 72
+    },
+    {
+      "position": 14,
+      "artist": "YOUNG THE GIANT",
+      "title": "Evergreen",
+      "move": 81,
+      "stations": 68
+    },
+    {
+      "position": 15,
+      "artist": "PHOEBE BRIDGERS",
+      "title": "Lost Boys",
+      "move": 74,
+      "stations": 66
+    },
+    {
+      "position": 16,
+      "artist": "TEMPER CITY",
+      "title": "Self Aware",
+      "move": 73,
+      "stations": 76
+    },
+    {
+      "position": 17,
+      "artist": "EDGEHILL",
+      "title": "Love To Go",
+      "move": 66,
+      "stations": 69
+    },
+    {
+      "position": 18,
+      "artist": "DEXTER AND THE MOONROCKS",
+      "title": "Freakin' Out",
+      "move": 66,
+      "stations": 74
+    },
+    {
+      "position": 19,
+      "artist": "SHINEDOWN",
+      "title": "Young Again",
+      "move": 63,
+      "stations": 60
+    },
+    {
+      "position": 20,
+      "artist": "WEEZER",
+      "title": "We Might As Well Be Strangers",
+      "move": 61,
+      "stations": 79
+    },
+    {
+      "position": 21,
+      "artist": "THE NEIGHBOURHOOD",
+      "title": "Private",
+      "move": 55,
+      "stations": 72
+    },
+    {
+      "position": 22,
+      "artist": "CHVRCHES",
+      "title": "Roses",
+      "move": 51,
+      "stations": 16
+    },
+    {
+      "position": 23,
+      "artist": "THREE DAYS GRACE",
+      "title": "Don't Wanna Go Home Tonight",
+      "move": 51,
+      "stations": 62
+    },
+    {
+      "position": 24,
+      "artist": "THE LINDA LINDAS",
+      "title": "Burning Out",
+      "move": 43,
+      "stations": 52
+    },
+    {
+      "position": 25,
+      "artist": "MICHIGANDER",
+      "title": "Taxi",
+      "move": 42,
+      "stations": 3
+    }
+  ]
+}

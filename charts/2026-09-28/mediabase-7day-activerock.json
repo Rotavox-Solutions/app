@@ -1,0 +1,287 @@
+{
+  "source": "Mediabase via AllAccess (free tier)",
+  "chart": "7-Day Report",
+  "format": "Active Rock",
+  "format_code": "R2",
+  "panel": "All Stations (U.S.)",
+  "panel_code": "M",
+  "detail": "Currents Only",
+  "chart_type": "Rolling",
+  "chart_week_start": "2026-09-20",
+  "chart_week_end": "2026-09-26",
+  "captured_at": "2026-09-28T14:05:00-06:00",
+  "captured_by": "chrome-supervised",
+  "source_url": "https://www.allaccess.com/mediabase/q/report/sevenDay/format/R2/panel/M/detail/C/reportType/undefined",
+  "fields_present": [
+    "rank_tw",
+    "rank_lw",
+    "artist",
+    "title",
+    "spins_tw",
+    "spins_lw",
+    "move",
+    "audience_millions"
+  ],
+  "fields_absent": [
+    "stations",
+    "weeks_on",
+    "adds"
+  ],
+  "truncation": {
+    "rows_returned": 25,
+    "complete": false,
+    "note": "Free tier serves an ABBREVIATED report capped at 25 positions. Source states: 'This is an abbreviated Mediabase Report. Access to full report available at Mediabase.com'. Violates §7a rule 2 (capture the whole chart) as a source limitation, not a capture choice."
+  },
+  "rows": [
+    {
+      "rank_tw": 1,
+      "rank_lw": 2,
+      "artist": "A PERFECT CIRCLE",
+      "title": "Starless",
+      "spins_tw": 3210,
+      "spins_lw": 2840,
+      "move": 370,
+      "audience_millions": 3.635
+    },
+    {
+      "rank_tw": 2,
+      "rank_lw": 1,
+      "artist": "NICKELBACK",
+      "title": "Rattle The Cage f/John 5",
+      "spins_tw": 3055,
+      "spins_lw": 3082,
+      "move": -27,
+      "audience_millions": 3.945
+    },
+    {
+      "rank_tw": 3,
+      "rank_lw": 5,
+      "artist": "FROM ASHES TO NEW",
+      "title": "Die For You",
+      "spins_tw": 2516,
+      "spins_lw": 2379,
+      "move": 137,
+      "audience_millions": 2.209
+    },
+    {
+      "rank_tw": 4,
+      "rank_lw": 4,
+      "artist": "AUTUMN KINGS",
+      "title": "Gone, Gone, Gone",
+      "spins_tw": 2462,
+      "spins_lw": 2422,
+      "move": 40,
+      "audience_millions": 2.319
+    },
+    {
+      "rank_tw": 5,
+      "rank_lw": 3,
+      "artist": "SHINEDOWN",
+      "title": "Young Again",
+      "spins_tw": 2426,
+      "spins_lw": 2716,
+      "move": -290,
+      "audience_millions": 3.613
+    },
+    {
+      "rank_tw": 6,
+      "rank_lw": 6,
+      "artist": "PAPA ROACH",
+      "title": "See U In Hell f/Hanumankind",
+      "spins_tw": 2361,
+      "spins_lw": 2346,
+      "move": 15,
+      "audience_millions": 1.923
+    },
+    {
+      "rank_tw": 7,
+      "rank_lw": 8,
+      "artist": "FOO FIGHTERS",
+      "title": "Window",
+      "spins_tw": 2194,
+      "spins_lw": 2010,
+      "move": 184,
+      "audience_millions": 2.663
+    },
+    {
+      "rank_tw": 8,
+      "rank_lw": 7,
+      "artist": "BILMURI & A DAY TO REMEMBER",
+      "title": "ALWAYS LET YOU DOWN",
+      "spins_tw": 2105,
+      "spins_lw": 2081,
+      "move": 24,
+      "audience_millions": 2.033
+    },
+    {
+      "rank_tw": 9,
+      "rank_lw": 10,
+      "artist": "CAGE THE ELEPHANT",
+      "title": "Beaches In Tennessee",
+      "spins_tw": 1801,
+      "spins_lw": 1570,
+      "move": 231,
+      "audience_millions": 2.397
+    },
+    {
+      "rank_tw": 10,
+      "rank_lw": 9,
+      "artist": "MOTIONLESS IN WHITE",
+      "title": "RIP f/Skylar Grey",
+      "spins_tw": 1733,
+      "spins_lw": 1641,
+      "move": 92,
+      "audience_millions": 1.792
+    },
+    {
+      "rank_tw": 11,
+      "rank_lw": 12,
+      "artist": "NINTH KEY",
+      "title": "Happy Feels Like",
+      "spins_tw": 1395,
+      "spins_lw": 1282,
+      "move": 113,
+      "audience_millions": 1.138
+    },
+    {
+      "rank_tw": 12,
+      "rank_lw": 16,
+      "artist": "FIVE FINGER DEATH PUNCH",
+      "title": "Nails In The Coffin",
+      "spins_tw": 1346,
+      "spins_lw": 1193,
+      "move": 153,
+      "audience_millions": 1.038
+    },
+    {
+      "rank_tw": 13,
+      "rank_lw": 13,
+      "artist": "LETDOWN.",
+      "title": "Do It For The Love",
+      "spins_tw": 1340,
+      "spins_lw": 1260,
+      "move": 80,
+      "audience_millions": 0.976
+    },
+    {
+      "rank_tw": 14,
+      "rank_lw": 15,
+      "artist": "AVATAR",
+      "title": "Crying Fire",
+      "spins_tw": 1318,
+      "spins_lw": 1215,
+      "move": 103,
+      "audience_millions": 0.957
+    },
+    {
+      "rank_tw": 15,
+      "rank_lw": 17,
+      "artist": "WAGE WAR",
+      "title": "Blindfold",
+      "spins_tw": 1175,
+      "spins_lw": 1160,
+      "move": 15,
+      "audience_millions": 0.751
+    },
+    {
+      "rank_tw": 16,
+      "rank_lw": 14,
+      "artist": "FIVE FINGER DEATH PUNCH",
+      "title": "Eye Of The Storm",
+      "spins_tw": 1160,
+      "spins_lw": 1248,
+      "move": -88,
+      "audience_millions": 2.155
+    },
+    {
+      "rank_tw": 17,
+      "rank_lw": 11,
+      "artist": "BREAKING BENJAMIN",
+      "title": "Something Wicked",
+      "spins_tw": 1041,
+      "spins_lw": 1406,
+      "move": -365,
+      "audience_millions": 1.58
+    },
+    {
+      "rank_tw": 18,
+      "rank_lw": 19,
+      "artist": "FOZZY",
+      "title": "I Know Evil",
+      "spins_tw": 1031,
+      "spins_lw": 1029,
+      "move": 2,
+      "audience_millions": 0.725
+    },
+    {
+      "rank_tw": 19,
+      "rank_lw": 22,
+      "artist": "EVANESCENCE",
+      "title": "Tell Me When You've Had Enough",
+      "spins_tw": 1025,
+      "spins_lw": 868,
+      "move": 157,
+      "audience_millions": 0.783
+    },
+    {
+      "rank_tw": 20,
+      "rank_lw": 20,
+      "artist": "BLACK STONE CHERRY",
+      "title": "Deep",
+      "spins_tw": 1025,
+      "spins_lw": 992,
+      "move": 33,
+      "audience_millions": 0.996
+    },
+    {
+      "rank_tw": 21,
+      "rank_lw": 21,
+      "artist": "DEAD POET SOCIETY",
+      "title": "Cold",
+      "spins_tw": 999,
+      "spins_lw": 939,
+      "move": 60,
+      "audience_millions": 0.556
+    },
+    {
+      "rank_tw": 22,
+      "rank_lw": 23,
+      "artist": "THEORY OF A DEADMAN",
+      "title": "Winnebago (Lay Low)",
+      "spins_tw": 840,
+      "spins_lw": 868,
+      "move": -28,
+      "audience_millions": 0.724
+    },
+    {
+      "rank_tw": 23,
+      "rank_lw": 25,
+      "artist": "ROYAL BLOOD",
+      "title": "Ten Over Ten",
+      "spins_tw": 803,
+      "spins_lw": 737,
+      "move": 66,
+      "audience_millions": 0.662
+    },
+    {
+      "rank_tw": 24,
+      "rank_lw": 24,
+      "artist": "ELECTRIC CALLBOY F/OFFSPRING",
+      "title": "Let The Good Times Roll",
+      "spins_tw": 802,
+      "spins_lw": 746,
+      "move": 56,
+      "audience_millions": 0.48
+    },
+    {
+      "rank_tw": 25,
+      "rank_lw": 26,
+      "artist": "DES ROCS",
+      "title": "When The Love Is Gone",
+      "spins_tw": 728,
+      "spins_lw": 687,
+      "move": 41,
+      "audience_millions": 0.468
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "source": "Mediabase via AllAccess (free tier)",
+  "chart": "Taking Off",
+  "format": "Active Rock",
+  "format_code": "R2",
+  "panel": "All Stations (U.S.)",
+  "panel_code": "M",
+  "detail": "Currents",
+  "chart_type": "Rolling",
+  "chart_week_start": "2026-09-20",
+  "chart_week_end": "2026-09-26",
+  "captured_at": "2026-09-28T15:10:00-06:00",
+  "captured_by": "chrome-supervised",
+  "source_url": "https://www.allaccess.com/mediabase/q/report/takingOff/format/R2/panel/M/detail/C/reportType/undefined",
+  "fields_present": [
+    "position",
+    "artist",
+    "title",
+    "new_stations",
+    "new_spins"
+  ],
+  "fields_absent": [
+    "rank",
+    "spins_tw",
+    "move",
+    "audience"
+  ],
+  "truncation": {
+    "rows_returned": 25,
+    "complete": false,
+    "note": "Free tier abbreviated report capped at 25. Minimum 6 detections required; sorted by most new spins showing detections for the first time."
+  },
+  "rows": [
+    {
+      "position": 1,
+      "artist": "GRETA VAN FLEET",
+      "title": "Tear It Down",
+      "new_stations": 8,
+      "new_spins": 92
+    },
+    {
+      "position": 2,
+      "artist": "DIRTY HONEY",
+      "title": "Lights Out",
+      "new_stations": 6,
+      "new_spins": 58
+    },
+    {
+      "position": 3,
+      "artist": "BULLET FOR MY VALENTINE",
+      "title": "Social Apocalypse",
+      "new_stations": 1,
+      "new_spins": 32
+    },
+    {
+      "position": 4,
+      "artist": "AVATAR",
+      "title": "Crying Fire",
+      "new_stations": 3,
+      "new_spins": 29
+    },
+    {
+      "position": 5,
+      "artist": "ARCHITECTS",
+      "title": "Machine",
+      "new_stations": 3,
+      "new_spins": 29
+    },
+    {
+      "position": 6,
+      "artist": "MOTIONLESS IN WHITE",
+      "title": "RIP f/Skylar Grey",
+      "new_stations": 2,
+      "new_spins": 22
+    },
+    {
+      "position": 7,
+      "artist": "CAGE THE ELEPHANT",
+      "title": "Beaches In Tennessee",
+      "new_stations": 2,
+      "new_spins": 21
+    },
+    {
+      "position": 8,
+      "artist": "BAD WOLVES",
+      "title": "Jolene",
+      "new_stations": 2,
+      "new_spins": 19
+    },
+    {
+      "position": 9,
+      "artist": "BEARTOOTH",
+      "title": "Beautiful Again",
+      "new_stations": 2,
+      "new_spins": 17
+    },
+    {
+      "position": 10,
+      "artist": "ANTHRAX",
+      "title": "T.O.M.B.",
+      "new_stations": 1,
+      "new_spins": 17
+    },
+    {
+      "position": 11,
+      "artist": "IMMINENCE",
+      "title": "Crestfallen",
+      "new_stations": 2,
+      "new_spins": 15
+    },
+    {
+      "position": 12,
+      "artist": "FROM ASHES TO NEW",
+      "title": "Love Me",
+      "new_stations": 1,
+      "new_spins": 14
+    },
+    {
+      "position": 13,
+      "artist": "ROYAL BLOOD",
+      "title": "Ten Over Ten",
+      "new_stations": 1,
+      "new_spins": 13
+    },
+    {
+      "position": 14,
+      "artist": "SPIRITBOX",
+      "title": "Mourning",
+      "new_stations": 1,
+      "new_spins": 12
+    },
+    {
+      "position": 15,
+      "artist": "SUBLIME",
+      "title": "F.T.R.",
+      "new_stations": 1,
+      "new_spins": 12
+    },
+    {
+      "position": 16,
+      "artist": "STARSET",
+      "title": "a n n 1 h 1 l a t 1 0 n",
+      "new_stations": 1,
+      "new_spins": 10
+    },
+    {
+      "position": 17,
+      "artist": "THE WARNING",
+      "title": "Bite My Tongue",
+      "new_stations": 1,
+      "new_spins": 10
+    },
+    {
+      "position": 18,
+      "artist": "NEVERTEL",
+      "title": "Last Breath",
+      "new_stations": 1,
+      "new_spins": 9
+    },
+    {
+      "position": 19,
+      "artist": "TRIVIUM",
+      "title": "Dead Inside Of Me",
+      "new_stations": 1,
+      "new_spins": 9
+    },
+    {
+      "position": 20,
+      "artist": "TONY IOMMI",
+      "title": "World Alone",
+      "new_stations": 1,
+      "new_spins": 9
+    },
+    {
+      "position": 21,
+      "artist": "BLACK LABEL SOCIETY",
+      "title": "Ozzy's Song",
+      "new_stations": 1,
+      "new_spins": 8
+    },
+    {
+      "position": 22,
+      "artist": "KALAMITY KILLS",
+      "title": "I Still Believe (2026)",
+      "new_stations": 1,
+      "new_spins": 8
+    },
+    {
+      "position": 23,
+      "artist": "THREE DAYS GRACE",
+      "title": "Dominate",
+      "new_stations": 1,
+      "new_spins": 8
+    },
+    {
+      "position": 24,
+      "artist": "SCATTERBRAIN",
+      "title": "Addicted To The Habit",
+      "new_stations": 1,
+      "new_spins": 7
+    },
+    {
+      "position": 25,
+      "artist": "PAPA ROACH",
+      "title": "See U In Hell f/Hanumankind",
+      "new_stations": 1,
+      "new_spins": 7
+    }
+  ]
+}

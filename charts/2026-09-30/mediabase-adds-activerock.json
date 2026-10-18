@@ -1,0 +1,328 @@
+{
+  "source": "Mediabase via AllAccess (free tier)",
+  "chart": "Airplay Add Board",
+  "format": "Active Rock",
+  "format_code": "R2",
+  "reporters": "Monitored",
+  "panel_note": "Adds uses a 'reporters' parameter, NOT the panel/detail parameters the other reports use",
+  "chart_week_start": "2026-09-23",
+  "chart_week_end": "2026-09-29",
+  "source_last_updated": "2026-09-29T17:45:00-05:00",
+  "captured_at": "2026-09-30T16:20:00-06:00",
+  "captured_by": "chrome-supervised",
+  "source_url": "https://www.allaccess.com/mediabase/q/report/formatAdds/reporters/monitored/format/R2",
+  "fields_present": [
+    "adds",
+    "artist",
+    "title",
+    "label"
+  ],
+  "fields_absent": [
+    "rank",
+    "spins",
+    "move",
+    "audience",
+    "weeks_on"
+  ],
+  "truncation": {
+    "rows_returned": 49,
+    "complete": true,
+    "note": "NOT TRUNCATED. The Adds board returned 49 rows, well past the 25-row cap that abbreviates 7-Day, Spincrease and Taking Off. The 25-row cap is per-report, NOT account-wide."
+  },
+  "rows": [
+    {
+      "adds": 14,
+      "artist": "DIRTY HONEY",
+      "title": "Lights Out",
+      "label": "DIRT"
+    },
+    {
+      "adds": 11,
+      "artist": "GRETA VAN FLEET",
+      "title": "Tear It Down",
+      "label": "Lava/Republic"
+    },
+    {
+      "adds": 9,
+      "artist": "ARCHITECTS",
+      "title": "Machine",
+      "label": "Epitaph"
+    },
+    {
+      "adds": 9,
+      "artist": "SUBLIME",
+      "title": "F.T.R.",
+      "label": "SVNBVRNT/Regime/Atlantic"
+    },
+    {
+      "adds": 8,
+      "artist": "SPIRITBOX",
+      "title": "Mourning",
+      "label": "Pale Cord/Rise/BMG"
+    },
+    {
+      "adds": 7,
+      "artist": "BEARTOOTH",
+      "title": "Beautiful Again",
+      "label": "Fearless/Concord"
+    },
+    {
+      "adds": 6,
+      "artist": "AVATAR",
+      "title": "Crying Fire",
+      "label": "Black Waltz/Thirty Tigers"
+    },
+    {
+      "adds": 6,
+      "artist": "BLACK LABEL SOCIETY",
+      "title": "Ozzy's Song",
+      "label": "MNRK Heavy"
+    },
+    {
+      "adds": 6,
+      "artist": "BULLET FOR MY VALENTINE",
+      "title": "Social Apocalypse",
+      "label": "Spinefarm"
+    },
+    {
+      "adds": 6,
+      "artist": "STARSET",
+      "title": "a n n 1 h 1 l a t 1 0 n",
+      "label": "Fearless/Concord"
+    },
+    {
+      "adds": 4,
+      "artist": "BAD WOLVES",
+      "title": "Jolene",
+      "label": "Better Noise"
+    },
+    {
+      "adds": 4,
+      "artist": "CAGE THE ELEPHANT",
+      "title": "Beaches In Tennessee",
+      "label": "Big Loud Rock"
+    },
+    {
+      "adds": 4,
+      "artist": "MOTIONLESS IN WHITE",
+      "title": "RIP f/Skylar Grey",
+      "label": "Roadrunner/Atlantic"
+    },
+    {
+      "adds": 4,
+      "artist": "PRESIDENT",
+      "title": "Sleepwalker",
+      "label": "King Of Terrors/Atlantic"
+    },
+    {
+      "adds": 4,
+      "artist": "THREE DAYS GRACE",
+      "title": "Dominate",
+      "label": "RCA"
+    },
+    {
+      "adds": 3,
+      "artist": "BUTCHER BABIES",
+      "title": "Blame It On The Wind",
+      "label": "Judge & Jury"
+    },
+    {
+      "adds": 3,
+      "artist": "FIVE FINGER DEATH PUNCH",
+      "title": "Nails In The Coffin",
+      "label": "Better Noise"
+    },
+    {
+      "adds": 3,
+      "artist": "THE HAUNT",
+      "title": "Alone On Your Planet",
+      "label": "Nettwerk"
+    },
+    {
+      "adds": 3,
+      "artist": "THE WARNING",
+      "title": "Bite My Tongue",
+      "label": "Republic"
+    },
+    {
+      "adds": 2,
+      "artist": "BLACK STONE CHERRY",
+      "title": "Deep",
+      "label": "Mascot"
+    },
+    {
+      "adds": 2,
+      "artist": "GIOVANNIE AND THE HIRED GUNS",
+      "title": "Cheap Date",
+      "label": "NashYork/Crush"
+    },
+    {
+      "adds": 2,
+      "artist": "IN THIS MOMENT",
+      "title": "I Want To Believe f/Dayseeker",
+      "label": "Better Noise"
+    },
+    {
+      "adds": 2,
+      "artist": "MASTODON",
+      "title": "Snakes For Dinner",
+      "label": "Loma Vista/Concord"
+    },
+    {
+      "adds": 2,
+      "artist": "MOON FEVER",
+      "title": "Bury Me",
+      "label": "Astro"
+    },
+    {
+      "adds": 2,
+      "artist": "MUSE",
+      "title": "Cryogen",
+      "label": "Warner"
+    },
+    {
+      "adds": 2,
+      "artist": "NEVERTEL",
+      "title": "Last Breath",
+      "label": "Epitaph"
+    },
+    {
+      "adds": 2,
+      "artist": "SALIVA",
+      "title": "Edge Of A Knife",
+      "label": "Judge & Jury"
+    },
+    {
+      "adds": 2,
+      "artist": "SLIPKNOT",
+      "title": "Arsenal",
+      "label": "(sic)est/Roadrunner/Atlan"
+    },
+    {
+      "adds": 2,
+      "artist": "THEORY OF A DEADMAN",
+      "title": "Winnebago (Lay Low)",
+      "label": "In De Goot/ONErpm"
+    },
+    {
+      "adds": 1,
+      "artist": "ANTHRAX",
+      "title": "T.O.M.B.",
+      "label": "Megaforce"
+    },
+    {
+      "adds": 1,
+      "artist": "BILLY MORRISON",
+      "title": "Take Me As I Am",
+      "label": "TLGZOID/Virgin"
+    },
+    {
+      "adds": 1,
+      "artist": "BILMURI & A DAY TO REMEMBER",
+      "title": "ALWAYS LET YOU DOWN",
+      "label": "Columbia"
+    },
+    {
+      "adds": 1,
+      "artist": "BLACK VEIL BRIDES",
+      "title": "Cut f/Lilith Czar",
+      "label": "Spinefarm"
+    },
+    {
+      "adds": 1,
+      "artist": "EVANESCENCE",
+      "title": "Tell Me When You've Had Enough",
+      "label": "BMG"
+    },
+    {
+      "adds": 1,
+      "artist": "FOO FIGHTERS",
+      "title": "Window",
+      "label": "Roswell/RCA"
+    },
+    {
+      "adds": 1,
+      "artist": "FOZZY",
+      "title": "I Know Evil",
+      "label": "Madison"
+    },
+    {
+      "adds": 1,
+      "artist": "FROM ASHES TO NEW",
+      "title": "Die For You",
+      "label": "Better Noise"
+    },
+    {
+      "adds": 1,
+      "artist": "FROM ASHES TO NEW",
+      "title": "Love Me",
+      "label": "Better Noise"
+    },
+    {
+      "adds": 1,
+      "artist": "FUEL",
+      "title": "Want It",
+      "label": "Moon Chair"
+    },
+    {
+      "adds": 1,
+      "artist": "KINGDOM COLLAPSE",
+      "title": "Survivor",
+      "label": "Mascot"
+    },
+    {
+      "adds": 1,
+      "artist": "LETDOWN.",
+      "title": "Do It For The Love",
+      "label": "Big Loud Rock"
+    },
+    {
+      "adds": 1,
+      "artist": "NICKELBACK",
+      "title": "Rattle The Cage f/John 5",
+      "label": "Virgin"
+    },
+    {
+      "adds": 1,
+      "artist": "NINTH KEY",
+      "title": "Happy Feels Like",
+      "label": "Just Us League"
+    },
+    {
+      "adds": 1,
+      "artist": "PAPA ROACH",
+      "title": "See U In Hell f/Hanumankind",
+      "label": "NETFLIX"
+    },
+    {
+      "adds": 1,
+      "artist": "ROYAL BLOOD",
+      "title": "Ten Over Ten",
+      "label": "Warner"
+    },
+    {
+      "adds": 1,
+      "artist": "SCATTERBRAIN",
+      "title": "Addicted To The Habit",
+      "label": "---"
+    },
+    {
+      "adds": 1,
+      "artist": "U2",
+      "title": "Silencio",
+      "label": "Interscope/ICLG"
+    },
+    {
+      "adds": 1,
+      "artist": "VANA",
+      "title": "Bleeding Heart",
+      "label": "Sumerian"
+    },
+    {
+      "adds": 1,
+      "artist": "WAGE WAR",
+      "title": "Blindfold",
+      "label": "Fearless/Concord"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "week_of_review": "2026-10-04",
+  "capture_label": "Adds board, published Tue 2026-09-29, captured Wed 2026-09-30",
+  "captured_by": "chrome-supervised",
+  "pulled": [
+    "mediabase-adds-activerock",
+    "mediabase-adds-alternative"
+  ],
+  "not_yet_pulled": [],
+  "failures": [
+    {
+      "chart": "Mediabase Adds - Alternative (R3)",
+      "result": "RESOLVED 2026-09-30 after the browser extension reconnected. Originally failed on a tooling disconnect, not a source problem.",
+      "status": "captured"
+    }
+  ],
+  "url_scheme_adds": "https://www.allaccess.com/mediabase/q/report/formatAdds/reporters/{monitored|non-monitored|all}/format/{FMT}",
+  "notes": [
+    "Adds is NOT capped at 25 rows - returned 49. The abbreviation cap is per-report.",
+    "Adds publishes weekly on Tuesday; the hour is format-specific (Active Rock after 12 PM, Top 40 after 3 PM). Source stamped 'Last updated Sep 29 2026 at 5:45 PM'.",
+    "Adds carries a LABEL column no other report provides - useful for servicing/sourcing enquiries.",
+    "The four most-added Active Rock records are ALL absent from the library: Dirty Honey 'Lights Out' (14), Greta Van Fleet 'Tear It Down' (11), Architects 'Machine' (9), Spiritbox 'Mourning' (8).",
+    "CROSS-FORMAT ON THE ADD BOARD: Sublime 'F.T.R.' took 11 Alternative adds AND 9 Active Rock adds = 20 combined, the widest commitment of any record in either board. Foo Fighters 'Window' also appears on both (1+1).",
+    "Beabadoobee 'Write Me A Letter' is the most-added Alternative record at 12 - and is currently placed in N by changeset v2."
+  ]
+}
