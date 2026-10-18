@@ -1,0 +1,11 @@
+{
+  "changeset_id": "2026-10-18-tags-bpm",
+  "sheet_id": "2026-10-17-bolt-metadata-cleanup",
+  "applied_at": "2026-10-18T20:15:48.000Z",
+  "database": "radiodj3",
+  "moves": 0,
+  "set_enabled": 0,
+  "set_tags": 456,
+  "tag_drift_allowed": false,
+  "inverse": "inverse/2026-10-18-tags-bpm.json"
+}

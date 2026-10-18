@@ -1,0 +1,406 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-18-tags-artists-inverse",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-18",
+  "intent": "Inverse of \"2026-10-18-tags-artists\". Restores the state that changeset replaced.",
+  "basis": {
+    "sheet_id": "2026-10-17-bolt-metadata-cleanup",
+    "sheet_captured_at": "2026-10-18T20:01:06Z"
+  },
+  "moves": [],
+  "set_enabled": [],
+  "set_tags": [
+    {
+      "rdj_song_id": 4,
+      "artist": "AC/DC",
+      "title": "Back In Black",
+      "to_artist": "AC; DC",
+      "reason": "Rollback of: artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 22,
+      "artist": "AC/DC",
+      "title": "You Shook Me All Night Long",
+      "to_artist": "AC; DC",
+      "reason": "Rollback of: artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 81,
+      "artist": "The Pretenders",
+      "title": "Back On The Chain Gang",
+      "to_artist": "Pretenders",
+      "to_title": "Back On The Chain Gang (2007 Remaster)",
+      "reason": "Rollback of: artist: 'Pretenders' -> 'The Pretenders'; strip version tag"
+    },
+    {
+      "rdj_song_id": 101,
+      "artist": "AC/DC",
+      "title": "Thunderstruck",
+      "to_artist": "AC; DC",
+      "reason": "Rollback of: artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 116,
+      "artist": "Goo Goo Dolls",
+      "title": "Iris",
+      "to_artist": "The Goo Goo Dolls",
+      "reason": "Rollback of: artist: 'The Goo Goo Dolls' -> 'Goo Goo Dolls'"
+    },
+    {
+      "rdj_song_id": 272,
+      "artist": "P.O.D.",
+      "title": "Youth Of The Nation",
+      "to_artist": "P.O.D",
+      "reason": "Rollback of: artist: 'P.O.D' -> 'P.O.D.'"
+    },
+    {
+      "rdj_song_id": 280,
+      "artist": "The Black Crowes",
+      "title": "Lickin'",
+      "to_artist": "Black Crowes, The",
+      "reason": "Rollback of: artist: 'Black Crowes, The' -> 'The Black Crowes'"
+    },
+    {
+      "rdj_song_id": 436,
+      "artist": "Letdown.",
+      "title": "Do It For The Love",
+      "to_artist": "Letdown",
+      "to_title": "Do It For The Love (Clean)",
+      "reason": "Rollback of: artist: 'Letdown' -> 'Letdown.'; strip version tag"
+    },
+    {
+      "rdj_song_id": 469,
+      "artist": "Caroline Polachek",
+      "title": "So Hot You're Hurting My Feelings",
+      "to_artist": "Caroline  Lachek",
+      "reason": "Rollback of: artist: 'Caroline  Lachek' -> 'Caroline Polachek'"
+    },
+    {
+      "rdj_song_id": 488,
+      "artist": "Big Time Nate feat. Ofi",
+      "title": "Twenty Seconds",
+      "to_artist": "Big Time Nate F.; Ofi",
+      "reason": "Rollback of: artist: 'Big Time Nate F.; Ofi' -> 'Big Time Nate feat. Ofi'"
+    },
+    {
+      "rdj_song_id": 492,
+      "artist": "Matisyahu feat. Salt Cathedral",
+      "title": "Chameleon",
+      "to_artist": "Matisyahu F.; Salt Cathedral",
+      "to_title": "Chameleon (Clean Edit)",
+      "reason": "Rollback of: artist: 'Matisyahu F.; Salt Cathedral' -> 'Matisyahu feat. Salt Cathedral'; strip version tag"
+    },
+    {
+      "rdj_song_id": 493,
+      "artist": "Nick Brodeur feat. Kymani Marley",
+      "title": "She's So Crazy",
+      "to_artist": "Nick Brodeur F.; Kymani Marley",
+      "reason": "Rollback of: artist: 'Nick Brodeur F.; Kymani Marley' -> 'Nick Brodeur feat. Kymani Marley'"
+    },
+    {
+      "rdj_song_id": 494,
+      "artist": "Our Lady Peace feat. Pussy Riot",
+      "title": "Stop Making Stupid People Famous",
+      "to_artist": "Our Lady Peace F.; Pussy Riot",
+      "reason": "Rollback of: artist: 'Our Lady Peace F.; Pussy Riot' -> 'Our Lady Peace feat. Pussy Riot'"
+    },
+    {
+      "rdj_song_id": 496,
+      "artist": "Willow feat. Travis Barker",
+      "title": "Gaslight",
+      "to_artist": "Willow F.; Travis Barker",
+      "reason": "Rollback of: artist: 'Willow F.; Travis Barker' -> 'Willow feat. Travis Barker'"
+    },
+    {
+      "rdj_song_id": 508,
+      "artist": "Weathers feat. John The Ghost",
+      "title": "ALL CAPS",
+      "to_artist": "Weathers F.; John The Ghost",
+      "reason": "Rollback of: artist: 'Weathers F.; John The Ghost' -> 'Weathers feat. John The Ghost'"
+    },
+    {
+      "rdj_song_id": 525,
+      "artist": "SMITH",
+      "title": "Lemon",
+      "to_artist": "Smith",
+      "reason": "Rollback of: artist: 'Smith' -> 'SMITH'"
+    },
+    {
+      "rdj_song_id": 545,
+      "artist": "Don't Believe In Ghosts",
+      "title": "Makes No Difference",
+      "to_artist": "Don T Believe In Ghosts",
+      "to_title": "Makes No Difference 120",
+      "reason": "Rollback of: artist: 'Don T Believe In Ghosts' -> \"Don't Believe In Ghosts\"; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 554,
+      "artist": "Rezz & Grabbitz",
+      "title": "Signal",
+      "to_artist": "Rezz   Grabbitz",
+      "to_title": "Signal 85",
+      "reason": "Rollback of: artist: 'Rezz   Grabbitz' -> 'Rezz & Grabbitz'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 589,
+      "artist": "Noah Kahan feat. Post Malone",
+      "title": "Dial Drunk",
+      "to_artist": "Noah Kahan W;  Post Malone",
+      "to_title": "Dial Drunk (Clean) 112",
+      "reason": "Rollback of: artist: 'Noah Kahan W;  Post Malone' -> 'Noah Kahan feat. Post Malone'; strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 764,
+      "artist": "Dexter and the Moonrocks",
+      "title": "Ritalin",
+      "to_artist": "Dexter, The Moonrocks",
+      "to_title": "Ritalin (Rado Edit) 12B 114",
+      "reason": "Rollback of: artist: 'Dexter, The Moonrocks' -> 'Dexter and the Moonrocks'; strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 766,
+      "artist": "Giovannie and the Hired Guns",
+      "title": "Quitter",
+      "to_artist": "Giovannie, The Hired Guns",
+      "to_title": "Quitter (Clean) 11B 105",
+      "reason": "Rollback of: artist: 'Giovannie, The Hired Guns' -> 'Giovannie and the Hired Guns'; strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 791,
+      "artist": "Mumford & Sons",
+      "title": "Caroline",
+      "to_artist": "Mumford, Sons",
+      "to_title": "Caroline 9B 81",
+      "reason": "Rollback of: artist: 'Mumford, Sons' -> 'Mumford & Sons'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 852,
+      "artist": "MOD SUN",
+      "title": "Hotel Lights",
+      "to_artist": "Mod Sun",
+      "to_title": "Hotel Lights 8B 126",
+      "reason": "Rollback of: artist: 'Mod Sun' -> 'MOD SUN'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 867,
+      "artist": "Falling In Reverse, Marilyn Manson",
+      "title": "God Is A Weapon",
+      "to_artist": "Falling In Reverse, Marilyn Mansion",
+      "to_title": "God Is A Weapon [Clean] 9A 67",
+      "reason": "Rollback of: artist: 'Falling In Reverse, Marilyn Mansion' -> 'Falling In Reverse, Marilyn Manson'; strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 884,
+      "artist": "Ax and the Hatchetmen feat. Albert Hammond Jr.",
+      "title": "Blurry Lights",
+      "to_artist": "Ax, The Hatchetmen With Albert Hammond Jr.",
+      "to_title": "Blurry Lights 8A 120",
+      "reason": "Rollback of: artist: 'Ax, The Hatchetmen With Albert Hammond Jr.' -> 'Ax and the Hatchetmen feat. Albert Hammond Jr.'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 904,
+      "artist": "Amyl and the Sniffers",
+      "title": "U Should Not Be Doing That",
+      "to_artist": "Amyl, The Sniffers",
+      "to_title": "U Should Not Be Doing That (PO Clean Edit) 1A 125",
+      "reason": "Rollback of: artist: 'Amyl, The Sniffers' -> 'Amyl and the Sniffers'; strip version tag and Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 905,
+      "artist": "AWOLNATION",
+      "title": "Barbarian",
+      "to_artist": "Awolnation",
+      "to_title": "Barbarian 6B 74",
+      "reason": "Rollback of: artist: 'Awolnation' -> 'AWOLNATION'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 907,
+      "artist": "Coheed and Cambria",
+      "title": "Someone Who Can",
+      "to_artist": "Coheed, Cambria",
+      "to_title": "Someone Who Can 12B 168",
+      "reason": "Rollback of: artist: 'Coheed, Cambria' -> 'Coheed and Cambria'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 913,
+      "artist": "Mumford & Sons",
+      "title": "Rushmere",
+      "to_artist": "Mumford, Sons",
+      "to_title": "Rushmere 6B 138",
+      "reason": "Rollback of: artist: 'Mumford, Sons' -> 'Mumford & Sons'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 996,
+      "artist": "Of Mice & Men",
+      "title": "Wake Up",
+      "to_artist": "Of Mice, Men",
+      "to_title": "Wake Up 10A 128",
+      "reason": "Rollback of: artist: 'Of Mice, Men' -> 'Of Mice & Men'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1072,
+      "artist": "Ax and the Hatchetmen",
+      "title": "Hotel Room",
+      "to_artist": "Ax, The Hatchetmen",
+      "to_title": "Hotel Room 11A 82",
+      "reason": "Rollback of: artist: 'Ax, The Hatchetmen' -> 'Ax and the Hatchetmen'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1075,
+      "artist": "Brian Fallon & The Painkillers",
+      "title": "Better Before",
+      "to_artist": "Brian Fallon, The Painkillers",
+      "to_title": "Better Before 8B 125",
+      "reason": "Rollback of: artist: 'Brian Fallon, The Painkillers' -> 'Brian Fallon & The Painkillers'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1138,
+      "artist": "Dexter and the Moonrocks",
+      "title": "Freakin' Out",
+      "to_artist": "Dexter, The Moonrocks",
+      "to_title": "Freakin' Out 9A 124",
+      "reason": "Rollback of: artist: 'Dexter, The Moonrocks' -> 'Dexter and the Moonrocks'; strip Promo Only key/BPM suffix"
+    },
+    {
+      "rdj_song_id": 1398,
+      "artist": "Three Days Grace",
+      "title": "Chalk Outline",
+      "to_artist": "Three Days Grace, Three Days Grace",
+      "reason": "Rollback of: artist: 'Three Days Grace, Three Days Grace' -> 'Three Days Grace'"
+    },
+    {
+      "rdj_song_id": 1512,
+      "artist": "4 Non Blondes",
+      "title": "What's Up?",
+      "to_artist": "4 Non Blondes, Shaunna Hall, Christa Hillhouse, Linda Perry",
+      "reason": "Rollback of: artist: '4 Non Blondes, Shaunna Hall, Christa Hillhouse, Linda Perry' -> '4 Non Blondes'"
+    },
+    {
+      "rdj_song_id": 1517,
+      "artist": "U2",
+      "title": "Even Better Than The Real Thing",
+      "to_artist": "U2, Bono, The Edge, Adam Clayton, Larry Mullen, Jr.",
+      "reason": "Rollback of: artist: 'U2, Bono, The Edge, Adam Clayton, Larry Mullen, Jr.' -> 'U2'"
+    },
+    {
+      "rdj_song_id": 1518,
+      "artist": "Queen",
+      "title": "The Show Must Go On",
+      "to_artist": "Queen, John Deacon, Brian May, Freddie Mercury, Roger Taylor, David Richards",
+      "reason": "Rollback of: artist: 'Queen, John Deacon, Brian May, Freddie Mercury, Roger Taylor, David Richards' -> 'Queen'"
+    },
+    {
+      "rdj_song_id": 1524,
+      "artist": "No Doubt",
+      "title": "Don't Speak",
+      "to_artist": "No Doubt, Gwen Stefani, Tony Kanal, Tom Dumont, Adrian Young, Eric Stefani, Melissa Hasin",
+      "reason": "Rollback of: artist: 'No Doubt, Gwen Stefani, Tony Kanal, Tom Dumont, Adrian Young, Eric Stefani, Melissa Hasin' -> 'No Doubt'"
+    },
+    {
+      "rdj_song_id": 1531,
+      "artist": "Ocean Colour Scene",
+      "title": "The Riverboat Song",
+      "to_artist": "Ocean Colour Scene, Simon Fowler, Damon Minchella, Oscar Harrison, Steve Cradock, Paul Weller",
+      "reason": "Rollback of: artist: 'Ocean Colour Scene, Simon Fowler, Damon Minchella, Oscar Harrison, Steve Cradock, Paul Weller' -> 'Ocean Colour Scene'"
+    },
+    {
+      "rdj_song_id": 1534,
+      "artist": "Def Leppard",
+      "title": "Let's Get Rocked",
+      "to_artist": "Def Leppard, Joe Elliott, Phil Collen, Rick Savage, Rick Allen",
+      "reason": "Rollback of: artist: 'Def Leppard, Joe Elliott, Phil Collen, Rick Savage, Rick Allen' -> 'Def Leppard'"
+    },
+    {
+      "rdj_song_id": 1536,
+      "artist": "Korn",
+      "title": "Falling Away From Me",
+      "to_artist": "Koяn, Korn",
+      "reason": "Rollback of: artist: 'Koяn, Korn' -> 'Korn'"
+    },
+    {
+      "rdj_song_id": 1538,
+      "artist": "Stereophonics",
+      "title": "The Bartender And The Thief",
+      "to_artist": "Stereophonics, Kelly Jones, Richard Jones, Stuart Cable, Marshall Bird",
+      "reason": "Rollback of: artist: 'Stereophonics, Kelly Jones, Richard Jones, Stuart Cable, Marshall Bird' -> 'Stereophonics'"
+    },
+    {
+      "rdj_song_id": 1545,
+      "artist": "Lit",
+      "title": "My Own Worst Enemy",
+      "to_artist": "Lit, Jeremy Popoff",
+      "reason": "Rollback of: artist: 'Lit, Jeremy Popoff' -> 'Lit'"
+    },
+    {
+      "rdj_song_id": 1547,
+      "artist": "Longpigs",
+      "title": "She Said",
+      "to_artist": "Longpigs, Crispin Hunt, Richard Hawley, Simon Stafford, Dee Boyle",
+      "reason": "Rollback of: artist: 'Longpigs, Crispin Hunt, Richard Hawley, Simon Stafford, Dee Boyle' -> 'Longpigs'"
+    },
+    {
+      "rdj_song_id": 1553,
+      "artist": "Scorpions",
+      "title": "Wind Of Change",
+      "to_artist": "Scorpions, Klaus Meine, Matthias Jabs, Rudolf Schenker, Francis Buchholz, Herman Rarebell",
+      "reason": "Rollback of: artist: 'Scorpions, Klaus Meine, Matthias Jabs, Rudolf Schenker, Francis Buchholz, Herman Rarebell' -> 'Scorpions'"
+    },
+    {
+      "rdj_song_id": 1563,
+      "artist": "The Smashing Pumpkins",
+      "title": "Today",
+      "to_artist": "Smashing Pumpkins, Billy Corgan, James Iha, D'arcy Wretzky, Jimmy Chamberlin",
+      "reason": "Rollback of: artist: \"Smashing Pumpkins, Billy Corgan, James Iha, D'arcy Wretzky, Jimmy Chamberlin\" -> 'The Smashing Pumpkins'"
+    },
+    {
+      "rdj_song_id": 1574,
+      "artist": "Eels",
+      "title": "Novocaine For The Soul",
+      "to_artist": "E, Tommy Walter",
+      "reason": "Rollback of: artist: 'E, Tommy Walter' -> 'Eels'"
+    },
+    {
+      "rdj_song_id": 1578,
+      "artist": "Buckcherry",
+      "title": "Lit Up",
+      "to_artist": "Buckcherry, Scott Olsen, Steve Durkey, Ulrich Wild, Joshua Todd, Keith Nelson, Jonathan Brightman, Devon Glenn, Kim Bullard, Steve Jones",
+      "reason": "Rollback of: artist: 'Buckcherry, Scott Olsen, Steve Durkey, Ulrich Wild, Joshua Todd, Keith Nelson, Jonathan Brightman, Devon Glenn, Kim Bullard, Steve Jones' -> 'Buckcherry'"
+    },
+    {
+      "rdj_song_id": 1647,
+      "artist": "AC/DC",
+      "title": "Hells Bells",
+      "to_artist": "AC; DC",
+      "reason": "Rollback of: artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 1659,
+      "artist": "AC/DC",
+      "title": "Dirty Deeds Done Dirt Cheap",
+      "to_artist": "AC; DC",
+      "reason": "Rollback of: artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 1673,
+      "artist": "AC/DC",
+      "title": "T.N.T.",
+      "to_artist": "AC; DC",
+      "reason": "Rollback of: artist: 'AC; DC' -> 'AC/DC'"
+    },
+    {
+      "rdj_song_id": 1688,
+      "artist": "Korn",
+      "title": "Coming Undone",
+      "to_artist": "Koяn",
+      "reason": "Rollback of: artist: 'Koяn' -> 'Korn'"
+    },
+    {
+      "rdj_song_id": 1707,
+      "artist": "Tom Petty And The Heartbreakers",
+      "title": "Learning To Fly",
+      "to_artist": "Tom Petty & The Heartbreakers",
+      "reason": "Rollback of: artist: 'Tom Petty & The Heartbreakers' -> 'Tom Petty And The Heartbreakers'"
+    }
+  ]
+}
