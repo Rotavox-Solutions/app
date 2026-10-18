@@ -1,0 +1,10 @@
+{
+  "changeset_id": "2026-10-18-n-alternatives",
+  "sheet_id": "charts/2026-10-15",
+  "applied_at": "2026-10-16T16:55:13.000Z",
+  "database": "radiodj3",
+  "moves": 9,
+  "set_enabled": 0,
+  "tag_drift_allowed": false,
+  "inverse": "inverse\\2026-10-18-n-alternatives.json"
+}
