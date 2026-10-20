@@ -10,6 +10,8 @@ non-trivial work here — this file only covers what changes how you build.
 Who owns which facts (Rotavox vs RadioDJ), and the sync policy for each:
 `ADR-0001-source-of-truth-and-ownership.md`. Read it before changing what the Runner
 syncs, before touching pool assignment, and before adding any write path to RadioDJ.
+`ADR-0002-pool-ownership-and-lifecycle.md` (proposed) extends it: the UI is the source of
+truth for format data, membership and lifecycle state.
 
 ## Architecture (only the adapter touches the station)
 

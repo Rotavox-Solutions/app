@@ -1,10 +1,23 @@
 // Read-only query functions — the single source of truth for both Server
 // Components (called directly, no HTTP round-trip) and GET route handlers.
 import { and, asc, desc, eq, gte, lte, sql } from "drizzle-orm";
-import { categories, clockPositions, logItems, logs, songCategories, songs } from "@rotavox/schema";
+import {
+  categories,
+  clockPositions,
+  clocks,
+  formatGrid,
+  logItems,
+  logs,
+  playHistory,
+  songCategories,
+  songs,
+  stations,
+  utcTimestamp,
+} from "@rotavox/schema";
 import { db } from "./db";
 import { canEditItem, deriveDisplayStatus, type DisplayStatus, type EditRejectReason, type LogRow } from "./log-edits";
 import { HOUR_MS } from "./constants";
+import { computeBalance, type CategoryBalance } from "./balance";
 
 export interface LogListRow {
   id: string;
@@ -201,4 +214,137 @@ export async function getAsRunReport(stationId: string, opts?: { from?: Date; to
     artist: r.artist,
     title: r.title,
   }));
+}
+
+/** Window for "recent" spins on the Music screens — one full week of every daypart. */
+export const RECENT_SPINS_DAYS = 7;
+
+async function recentSpinsBySong(stationId: string, since: Date): Promise<Map<string, number>> {
+  const rows = await db
+    .select({ songId: playHistory.songId, spins: sql<number>`count(*)` })
+    .from(playHistory)
+    .where(and(eq(playHistory.stationId, stationId), gte(playHistory.airedAt, since)))
+    .groupBy(playHistory.songId);
+  return new Map(rows.filter((r) => r.songId).map((r) => [r.songId!, Number(r.spins)]));
+}
+
+export async function getCategoryBalance(stationId: string): Promise<CategoryBalance[]> {
+  const [station] = await db.select().from(stations).where(eq(stations.id, stationId));
+  if (!station) return [];
+
+  const [catRows, memberRows, positionRows, gridRows, spins] = await Promise.all([
+    db.select().from(categories).where(eq(categories.stationId, stationId)).orderBy(asc(categories.name)),
+    db
+      .select({ songId: songCategories.songId, categoryId: songCategories.categoryId, enabled: songs.enabled })
+      .from(songCategories)
+      .innerJoin(songs, eq(songs.id, songCategories.songId))
+      .where(eq(songs.stationId, stationId)),
+    db
+      .select({
+        clockId: clockPositions.clockId,
+        categoryId: clockPositions.categoryId,
+        fallbackCategoryId: sql<string | null>`${clockPositions.constraints}->>'fallbackCategoryId'`,
+        fillerPriority: sql<number | null>`(${clockPositions.constraints}->>'fillerPriority')::int`,
+      })
+      .from(clockPositions)
+      .innerJoin(clocks, eq(clocks.id, clockPositions.clockId))
+      .where(eq(clocks.stationId, stationId)),
+    db.select({ clockId: formatGrid.clockId }).from(formatGrid).where(eq(formatGrid.stationId, stationId)),
+    recentSpinsBySong(stationId, new Date(Date.now() - RECENT_SPINS_DAYS * 24 * HOUR_MS)),
+  ]);
+
+  return computeBalance({
+    categories: catRows,
+    memberships: memberRows,
+    positions: positionRows,
+    grid: gridRows,
+    cycleWeeks: station.formatCycleWeeks ?? 1,
+    recentSpinsBySong: spins,
+  });
+}
+
+export interface PoolSongRow {
+  id: string;
+  rdjSongId: number;
+  artist: string | null;
+  title: string | null;
+  enabled: boolean | null;
+  durationMs: number | null;
+  lastAiredAt: Date | null;
+  recentSpins: number;
+}
+
+/** Songs that sit directly in a category (not its sub-pools — those have their own pages). */
+export async function getPoolSongs(stationId: string, categoryId: string): Promise<PoolSongRow[]> {
+  const since = new Date(Date.now() - RECENT_SPINS_DAYS * 24 * HOUR_MS);
+  const rows = await db
+    .select({
+      id: songs.id,
+      rdjSongId: songs.rdjSongId,
+      artist: songs.artist,
+      title: songs.title,
+      enabled: songs.enabled,
+      durationMs: sql<number | null>`coalesce(${songs.effectiveDurationMs}, ${songs.durationMs})`,
+      lastAiredAt: sql<string | null>`max(${playHistory.airedAt})`,
+      recentSpins: sql<number>`count(${playHistory.id}) filter (where ${playHistory.airedAt} >= ${since.toISOString()})`,
+    })
+    .from(songCategories)
+    .innerJoin(songs, eq(songs.id, songCategories.songId))
+    .leftJoin(playHistory, and(eq(playHistory.songId, songs.id), eq(playHistory.stationId, stationId)))
+    .where(and(eq(songCategories.categoryId, categoryId), eq(songs.stationId, stationId)))
+    .groupBy(songs.id)
+    .orderBy(asc(songs.artist), asc(songs.title));
+
+  return rows.map((r) => ({
+    ...r,
+    // Raw aggregates bypass drizzle's column mapping and come back naive — UTC by convention.
+    lastAiredAt: r.lastAiredAt ? utcTimestamp(r.lastAiredAt) : null,
+    recentSpins: Number(r.recentSpins),
+  }));
+}
+
+export interface TodaySummary {
+  stationName: string;
+  timezone: string;
+  airing: LogListRow | null;
+  /** End of the contiguous approved run starting from now; null if nothing is approved for now. */
+  approvedThrough: Date | null;
+  drafts: LogListRow[];
+  lastReconciledAt: Date | null;
+  assumeLogAired: boolean;
+}
+
+export async function getTodaySummary(stationId: string): Promise<TodaySummary | null> {
+  const [station] = await db.select().from(stations).where(eq(stations.id, stationId));
+  if (!station) return null;
+
+  const all = await listLogs(stationId);
+  const now = new Date();
+  const airing = all.find((l) => l.status === "airing") ?? null;
+
+  // Walk forward through approved logs while they abut — a gap is where air goes unscheduled.
+  const approved = all
+    .filter((l) => l.status === "approved" || l.status === "airing")
+    .sort((a, b) => a.startsAt.getTime() - b.startsAt.getTime());
+  let approvedThrough: Date | null = airing ? airing.endsAt : null;
+  if (approvedThrough) {
+    for (const l of approved) {
+      if (l.startsAt.getTime() <= approvedThrough.getTime() && l.endsAt > approvedThrough) approvedThrough = l.endsAt;
+    }
+  }
+
+  const [last] = await db
+    .select({ at: sql<string | null>`max(${playHistory.airedAt})` })
+    .from(playHistory)
+    .where(and(eq(playHistory.stationId, stationId), eq(playHistory.source, "reconciled")));
+
+  return {
+    stationName: station.name,
+    timezone: station.timezone,
+    airing,
+    approvedThrough,
+    drafts: all.filter((l) => l.status === "draft" && l.endsAt > now),
+    lastReconciledAt: last?.at ? utcTimestamp(last.at) : null,
+    assumeLogAired: station.assumeLogAired,
+  };
 }
