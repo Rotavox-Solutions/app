@@ -45,7 +45,10 @@ export function BalanceTable({ rows }: { rows: CategoryBalance[] }) {
         <thead>
           <tr className="border-b border-neutral-800 text-neutral-400">
             <th className="py-2 font-medium">Category</th>
-            <th className="py-2 text-right font-medium" title="Enabled songs / all songs, including sub-pools">
+            <th
+              className="py-2 text-right font-medium"
+              title="Schedulable songs (enabled and active) / all songs whose pool this is, including sub-pools"
+            >
               Songs
             </th>
             <th className="py-2 text-right font-medium" title="Clock slots calling this category per week">
@@ -79,6 +82,17 @@ export function BalanceTable({ rows }: { rows: CategoryBalance[] }) {
                     {row.enabledDepth}
                   </span>
                   {row.depth !== row.enabledDepth && <span className="text-neutral-500"> / {row.depth}</span>}
+                  {(row.restingDepth > 0 || row.alsoDepth > 0) && (
+                    <div className="text-xs text-neutral-500">
+                      {row.restingDepth > 0 && (
+                        <span className={row.restDue > 0 ? "text-amber-300" : ""}>
+                          {row.restingDepth} resting{row.restDue > 0 ? ` · ${row.restDue} due` : ""}
+                        </span>
+                      )}
+                      {row.restingDepth > 0 && row.alsoDepth > 0 && " · "}
+                      {row.alsoDepth > 0 && <span title="Also eligible here; primary pool is elsewhere">+{row.alsoDepth} also</span>}
+                    </div>
+                  )}
                 </td>
                 <td className="py-2 text-right tabular-nums text-neutral-300">
                   {row.weeklySlots ? (

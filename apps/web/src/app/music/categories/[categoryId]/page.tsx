@@ -8,6 +8,19 @@ import { fmtAgo, fmtDuration, fmtSlots, fmtTurnover } from "@/components/music/f
 // Live view over current DB state — never statically prerendered.
 export const dynamic = "force-dynamic";
 
+function LifecycleCell({ state, since, reviewDays }: { state: string; since: Date | null; reviewDays: number | null }) {
+  if (state === "active") return <span className="text-neutral-500">active</span>;
+  const days = since ? Math.floor((Date.now() - since.getTime()) / 86_400_000) : null;
+  const due = state === "resting" && reviewDays != null && days != null && days >= reviewDays;
+  return (
+    <span className={due ? "text-amber-300" : "text-sky-300"} title={due ? "Past this pool's standard rest — decide where it goes next" : undefined}>
+      {state}
+      {days != null && ` ${days}d`}
+      {due && " · review"}
+    </span>
+  );
+}
+
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div className="rounded border border-neutral-800 px-4 py-3">
@@ -46,14 +59,16 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         <Stat
-          label="Enabled songs"
+          label="Schedulable songs"
           value={String(category.enabledDepth)}
           sub={
-            needed != null
-              ? `${needed} needed for target`
-              : category.depth !== category.enabledDepth
-                ? `${category.depth} in total`
-                : undefined
+            [
+              needed != null ? `${needed} needed for target` : null,
+              category.restingDepth ? `${category.restingDepth} resting` : null,
+              category.alsoDepth ? `+${category.alsoDepth} also eligible` : null,
+            ]
+              .filter(Boolean)
+              .join(" · ") || undefined
           }
         />
         <Stat label="Slots per week" value={category.weeklySlots ? fmtSlots(category.weeklySlots) : "—"} />
@@ -101,6 +116,7 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
                 <tr className="border-b border-neutral-800 text-neutral-400">
                   <th className="py-2 font-medium">Artist</th>
                   <th className="py-2 font-medium">Title</th>
+                  <th className="py-2 font-medium">State</th>
                   <th className="py-2 text-right font-medium">Length</th>
                   <th className="py-2 pl-6 font-medium">Last aired</th>
                   <th className="py-2 text-right font-medium">Spins, {RECENT_SPINS_DAYS}d</th>
@@ -110,13 +126,27 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
                 {songs.map((s) => (
                   <tr
                     key={s.id}
-                    className={`border-b border-neutral-900 ${s.enabled ? "" : "text-neutral-600"}`}
+                    className={`border-b border-neutral-900 ${
+                      s.enabled && s.lifecycleState === "active" ? "" : "text-neutral-600"
+                    }`}
                     title={s.enabled ? undefined : "Disabled in the playout library — not schedulable"}
                   >
                     <td className="py-1.5">{s.artist ?? "—"}</td>
                     <td className="py-1.5">
                       {s.title ?? "—"}
                       {!s.enabled && <span className="ml-2 text-xs uppercase tracking-wide">disabled</span>}
+                      {s.role === "also" && (
+                        <span className="ml-2 text-xs uppercase tracking-wide text-neutral-500" title="Primary pool is elsewhere">
+                          also
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-1.5">
+                      <LifecycleCell
+                        state={s.lifecycleState}
+                        since={s.lifecycleSince}
+                        reviewDays={category.restReviewDays}
+                      />
                     </td>
                     <td className="py-1.5 text-right tabular-nums text-neutral-400">{fmtDuration(s.durationMs)}</td>
                     <td className="py-1.5 pl-6 text-neutral-400">{fmtAgo(s.lastAiredAt)}</td>

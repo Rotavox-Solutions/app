@@ -1,6 +1,6 @@
 # ADR-0002 — Rotavox Owns Pool Membership; Lifecycle Is Modelled
 
-- **Status:** Proposed — PD decisions marked **[PD]** in §6 are needed before the editing UI is built
+- **Status:** Accepted 2026-10-19. §6 decisions settled the same day by the PD, who took the recommendations on all four
 - **Date:** 2026-10-19
 - **Context:** M4 UI work. Decided with the PD on 2026-10-19: the UI becomes the source of
   truth for format and music-direction data, and lifecycle states are modelled.
@@ -69,27 +69,44 @@ FORMAT-WORKFLOW §1a: if the distinction is about direction or time, it is a sta
 | State | Schedulable | Meaning |
 |---|---|---|
 | `active` | yes | In rotation in its pool |
-| `resting` | no | Taken off air on purpose. Keeps `origin_category_id`, which replaces the `Z[x]` naming |
-| `benched` | no | Held in the library, no plan to return (today's W) |
-| `retired` | no | Permanently out of the format (today's K, "Killed") |
+| `resting` | no | Taken off air on purpose. **Keeps its pool membership**, and that pool is its origin. This replaces the `Z[x]` naming |
+| `benched` | no | Held in the library with no plan to return (today's W). No pool |
+| `retired` | no | Permanently out of the format (today's K, "Killed"). No pool |
+
+A resting song's pool *is* its origin, so no separate origin field is needed. "A1: 7
+active, 3 resting" is how a PD reads it anyway. A song rested with no known origin (the
+old generic Z) is resting with no pool. Its exit is decided when the rest ends, which
+is the default per §6.1.
 
 Direction within currents (rising vs falling) is **derived, not stored**. It is computed
 from the pool's position in the ladder and the time since the last transition. That
-way nobody has to maintain it by hand (FORMAT-WORKFLOW §1a, item 5).
+way nobody has to maintain it by hand (FORMAT-WORKFLOW §1a, item 5; settled in §6.3).
 
-Schema, additive (one migration):
+Schema, additive (migration 0005):
 
 - `songs.lifecycle_state` text, not null, default `'active'`
 - `songs.lifecycle_since` timestamp: when the state was entered, so rest duration can be measured
-- `songs.origin_category_id` uuid, nullable: the pool a resting song came from
+- `song_categories.role` text, not null, default `'primary'`: `'primary'` or `'also'`,
+  with a partial unique index allowing at most one primary per song (§6.4)
+- `categories.rest_review_days` integer, nullable: the standard rest for songs resting
+  from this pool (§6.2)
+- `categories.rdj_subcategory_ids` integer[]: the projection map, Rotavox category →
+  RadioDJ subcategories. Moves the LIBRARY-CONTRACT binding out of `tools/m4-seed.mjs`
+  and into the one place every reader can see it (ADR-0001 §3.3).
+- `stations.rdj_lifecycle_subcats` jsonb: which RadioDJ subcategories *encode a state*
+  rather than a pool, e.g. `{"33": {"state": "resting", "origin": "N"}, "35": {"state":
+  "benched"}}`. Station-scoped adapter config.
+- `stations.membership_imported_at` timestamp: set by the one-time import (§4). From
+  then on, Rotavox owns membership for the station.
 - `lifecycle_events` (`station_id`, `song_id`, `from_state`, `to_state`,
-  `from_category_id`, `to_category_id`, `changeset_id`, `reason`, `at`): the history of
-  transitions. It is what makes "why is this in R2" answerable, and what standing rules
-  will read.
-- `changesets` (`station_id`, `status` draft|applied|reverted, `body` jsonb in the
-  CHANGESET-CONTRACT format with the v2 `lifecycle` and `generated_by` fields,
-  `created_at`, `applied_at`, `projected_at`): replaces JSON files in `changesets/` as
-  the store. Exporting to a file is still possible for review in git.
+  `from_category_id`, `to_category_id`, `source`, `source_ref`, `reason`, `at`): the
+  history of transitions. It is what makes "why is this in R2" answerable, and what
+  standing rules will read.
+
+Deferred to the first editing screen: a `changesets` table holding UI-authored
+changesets in the CHANGESET-CONTRACT format (with the v2 `lifecycle` and `generated_by`
+fields). Until then, changesets stay files, applied by the Runner. The Runner mirrors
+each applied move into Rotavox membership (§4, step 3).
 
 Engine change: `basePool` additionally requires `lifecycle_state = 'active'`. It is
 one filter, next to `enabled`.
@@ -101,12 +118,18 @@ They never apply on their own. The model above is all they need.
 ## 4. Migration (one-time, per station)
 
 1. Re-sync the library, so `rdj_subcategory_id` is current.
-2. Import: derive `song_categories` from the subcategory map, as the seed does today.
-   Map `Z[x]` → `resting` with origin *x*, W → `benched`, K → `retired`. Write one
-   `lifecycle_events` row per song with reason "imported from RadioDJ subcategory".
-3. From then on, sync never touches membership or lifecycle. The subcategory map is
-   used only to *project* outward at tier 3, through `setPoolAssignment`
-   (ADR-0001 §3.3).
+2. Import (`tools/import-membership.mts`): derive each song's primary pool and state
+   from `categories.rdj_subcategory_ids` and `stations.rdj_lifecycle_subcats`:
+   ZN → `resting` in N, W/Y → `benched`, K → `retired`, unmapped → active with no pool.
+   Write one `lifecycle_events` row per song. Re-running it imports only songs that have
+   no lifecycle history yet, i.e. songs added to RadioDJ since. That makes it the
+   interim intake path until the Library screen has an "unassigned" inbox.
+3. From then on, sync never touches membership or lifecycle. Two paths write them: the
+   UI, and changesets applied by the Runner. After a successful RadioDJ commit, the
+   Runner mirrors each move into Rotavox using the same mapping, so the two never
+   diverge. `refresh-memberships.sql` refuses to run on an imported station. The M4
+   seed preserves authored membership across its rebuild, matched by category name,
+   and aborts if any would be lost.
 4. Drift check: at tier 1+, sync reports songs whose RadioDJ subcategory disagrees with
    their projected Rotavox pool. Someone changed it in RadioDJ directly. The report
    offers two actions: adopt the RadioDJ change as a changeset, or re-project. It
@@ -125,18 +148,16 @@ They never apply on their own. The model above is all they need.
   analysis tools. Their logic moves into the UI over time: the Balance view already
   covers the depth-solver turnover arithmetic.
 
-## 6. Open — needed before the Lifecycle screen
+## 6. Decisions (settled 2026-10-19)
 
-1. **[PD] Rest exit path** (ADR-0001 §3.7, still open). When a rest ends, does the song
-   return to its origin pool, promote to recurrent, or get decided case by case? The
-   recommendation is case by case, with the UI suggesting R1 by default. The model
-   supports all three.
-2. **[PD] Rest duration.** Is there a standard rest length, after which a song is
-   surfaced for a decision? The recommendation is yes, set per origin pool, and it
-   only prompts; it never moves songs.
-3. **[PD] Is B-falling a pool or a state?** Under §3 it is a state, unless the clocks
-   call it differently from B-rising.
-4. **Multi-pool membership.** The schema allows a song in several pools. Should the UI
-   allow it (gold/recurrent overlap) or enforce one pool per song? The recommendation is
-   one pool, plus explicit "also eligible in" for the rare exceptions, because one pool
-   keeps depth arithmetic honest.
+1. **Rest exit path: case by case.** When a song leaves rest, the PD chooses where it
+   goes. The UI suggests R1 as the default, with "return to its pool" one click away.
+   No automatic exit.
+2. **Rest duration: a standard per pool, prompt only.** `categories.rest_review_days`
+   sets how long songs resting from that pool rest. Once a song passes it, the song is
+   surfaced for a decision on Today and in Lifecycle. It never moves on its own.
+3. **B-falling is a state, not a pool.** Rising vs falling is derived (§3). The clocks
+   call a single B, so nothing in the data changes.
+4. **One primary pool per song,** enforced by the schema, plus explicit `also` eligibility
+   for the rare exceptions. Depth counts primaries. `also` rows are shown separately, so
+   one song never inflates two pools' depth without anyone seeing it.

@@ -153,6 +153,7 @@ export async function loadGenerationInputs(
     soundCodes: s.soundCodes,
     targetTurnoverHours: s.targetTurnoverHours,
     enabled: s.enabled,
+    lifecycleState: s.lifecycleState,
   }));
 
   const engineClocks: EngineClock[] = clockRows.map((c) => ({

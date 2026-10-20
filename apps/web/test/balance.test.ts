@@ -154,3 +154,26 @@ describe("fallback pools", () => {
     expect(rows.find((r) => r.id === "TOH IDs")).toMatchObject({ weeklyFallbackSlots: 1, status: "fallback" });
   });
 });
+
+describe("lifecycle and also-eligibility", () => {
+  it("counts resting songs in the pool but not in depth, and keeps 'also' out of turnover", () => {
+    const now = new Date("2026-10-19T12:00:00Z");
+    const daysAgo = (d: number) => new Date(now.getTime() - d * 86_400_000);
+    const [n] = computeBalance(
+      input({
+        now,
+        categories: [{ ...cat("N", null, 10), restReviewDays: 90 }],
+        memberships: [
+          { songId: "a", categoryId: "N", enabled: true },
+          { songId: "b", categoryId: "N", enabled: true, lifecycleState: "resting", lifecycleSince: daysAgo(120) },
+          { songId: "c", categoryId: "N", enabled: true, lifecycleState: "resting", lifecycleSince: daysAgo(10) },
+          { songId: "d", categoryId: "N", enabled: true, role: "also" },
+        ],
+        positions: [{ clockId: "k", categoryId: "N" }],
+        grid: [{ clockId: "k" }],
+      })
+    );
+    expect(n).toMatchObject({ depth: 3, enabledDepth: 1, restingDepth: 2, restDue: 1, alsoDepth: 1 });
+    expect(n.projectedTurnoverHours).toBe(168);
+  });
+});

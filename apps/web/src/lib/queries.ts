@@ -235,7 +235,14 @@ export async function getCategoryBalance(stationId: string): Promise<CategoryBal
   const [catRows, memberRows, positionRows, gridRows, spins] = await Promise.all([
     db.select().from(categories).where(eq(categories.stationId, stationId)).orderBy(asc(categories.name)),
     db
-      .select({ songId: songCategories.songId, categoryId: songCategories.categoryId, enabled: songs.enabled })
+      .select({
+        songId: songCategories.songId,
+        categoryId: songCategories.categoryId,
+        enabled: songs.enabled,
+        role: songCategories.role,
+        lifecycleState: songs.lifecycleState,
+        lifecycleSince: songs.lifecycleSince,
+      })
       .from(songCategories)
       .innerJoin(songs, eq(songs.id, songCategories.songId))
       .where(eq(songs.stationId, stationId)),
@@ -269,6 +276,9 @@ export interface PoolSongRow {
   artist: string | null;
   title: string | null;
   enabled: boolean | null;
+  lifecycleState: string;
+  lifecycleSince: Date | null;
+  role: string;
   durationMs: number | null;
   lastAiredAt: Date | null;
   recentSpins: number;
@@ -284,6 +294,9 @@ export async function getPoolSongs(stationId: string, categoryId: string): Promi
       artist: songs.artist,
       title: songs.title,
       enabled: songs.enabled,
+      lifecycleState: songs.lifecycleState,
+      lifecycleSince: songs.lifecycleSince,
+      role: songCategories.role,
       durationMs: sql<number | null>`coalesce(${songs.effectiveDurationMs}, ${songs.durationMs})`,
       lastAiredAt: sql<string | null>`max(${playHistory.airedAt})`,
       recentSpins: sql<number>`count(${playHistory.id}) filter (where ${playHistory.airedAt} >= ${since.toISOString()})`,
@@ -292,7 +305,7 @@ export async function getPoolSongs(stationId: string, categoryId: string): Promi
     .innerJoin(songs, eq(songs.id, songCategories.songId))
     .leftJoin(playHistory, and(eq(playHistory.songId, songs.id), eq(playHistory.stationId, stationId)))
     .where(and(eq(songCategories.categoryId, categoryId), eq(songs.stationId, stationId)))
-    .groupBy(songs.id)
+    .groupBy(songs.id, songCategories.role)
     .orderBy(asc(songs.artist), asc(songs.title));
 
   return rows.map((r) => ({

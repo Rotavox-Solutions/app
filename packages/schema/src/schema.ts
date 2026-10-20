@@ -8,7 +8,10 @@ import {
   jsonb,
   real,
   unique,
+  uniqueIndex,
+  index,
 } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 
 // station_id on every table, from day one (invariant #3) — even though this is a
 // single-station build for now.
@@ -36,6 +39,19 @@ export const stations = pgTable("stations", {
    * double-count against reconciled ones.
    */
   assumeLogAired: boolean("assume_log_aired").default(false).notNull(),
+  /**
+   * When the one-time membership import ran (ADR-0002 §4). Null = membership is still a
+   * derived snapshot of RadioDJ subcategories; set = Rotavox owns membership and
+   * lifecycle for this station, and nothing may re-derive them from RadioDJ.
+   */
+  membershipImportedAt: timestamp("membership_imported_at"),
+  /**
+   * RadioDJ subcategories that encode a lifecycle STATE rather than a pool, keyed by
+   * subcategory ID: `{"33": {"state": "resting", "origin": "N"}, "35": {"state": "benched"}}`.
+   * `origin` names the category a resting song belongs to. Adapter config, read by the
+   * import and by the Runner when it mirrors applied changesets.
+   */
+  rdjLifecycleSubcats: jsonb("rdj_lifecycle_subcats"),
 });
 
 // Mirror + Scheduler-owned extended metadata (spec §5). Core fields are written by
@@ -80,6 +96,11 @@ export const songs = pgTable(
     lastScheduledAt: timestamp("last_scheduled_at"),
     timesScheduled: integer("times_scheduled").default(0),
     targetTurnoverHours: integer("target_turnover_hours"),
+
+    // Lifecycle (ADR-0002 §3) — Scheduler-owned; sync never writes these.
+    // 'active' | 'resting' | 'benched' | 'retired'. Only 'active' is schedulable.
+    lifecycleState: text("lifecycle_state").default("active").notNull(),
+    lifecycleSince: timestamp("lifecycle_since"),
   },
   (t) => [unique("songs_station_rdj_song_unique").on(t.stationId, t.rdjSongId)]
 );
@@ -92,7 +113,19 @@ export const categories = pgTable("categories", {
   parentId: uuid("parent_id"),
   defaultTargetTurnoverHours: integer("default_target_turnover_hours"),
   defaultRuleOverrides: jsonb("default_rule_overrides"),
-});
+  /** Standard rest for songs resting from this pool; past it they are surfaced for a decision. */
+  restReviewDays: integer("rest_review_days"),
+  /**
+   * Projection map to the playout library (ADR-0002 §3): the RadioDJ subcategories this
+   * category corresponds to. Null or empty = not projected. Replaces the SUBCAT table
+   * that lived only in tools/m4-seed.mjs.
+   */
+  rdjSubcategoryIds: integer("rdj_subcategory_ids").array(),
+}, (t) => [
+  // Names are how seeds, imports and PDs address a category; two of one name would make
+  // every by-name lookup pick arbitrarily.
+  unique("categories_station_name_unique").on(t.stationId, t.name),
+]);
 
 export const songCategories = pgTable(
   "song_categories",
@@ -100,8 +133,35 @@ export const songCategories = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     songId: uuid("song_id").notNull().references(() => songs.id),
     categoryId: uuid("category_id").notNull().references(() => categories.id),
+    // 'primary' — the song's one pool, which depth counts; 'also' — explicit extra
+    // eligibility for the rare overlap (ADR-0002 §6.4).
+    role: text("role").default("primary").notNull(),
   },
-  (t) => [unique("song_categories_song_category_unique").on(t.songId, t.categoryId)]
+  (t) => [
+    unique("song_categories_song_category_unique").on(t.songId, t.categoryId),
+    uniqueIndex("song_categories_one_primary").on(t.songId).where(sql`role = 'primary'`),
+  ]
+);
+
+// Every lifecycle transition and pool move, with its provenance (ADR-0002 §3). What
+// makes "why is this in R2" answerable, and what standing lifecycle rules will read.
+export const lifecycleEvents = pgTable(
+  "lifecycle_events",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    stationId: uuid("station_id").notNull().references(() => stations.id),
+    songId: uuid("song_id").notNull().references(() => songs.id),
+    fromState: text("from_state"),
+    toState: text("to_state").notNull(),
+    fromCategoryId: uuid("from_category_id").references(() => categories.id),
+    toCategoryId: uuid("to_category_id").references(() => categories.id),
+    // 'import' | 'changeset' | 'ui' — and, for a changeset, its id in source_ref.
+    source: text("source").notNull(),
+    sourceRef: text("source_ref"),
+    reason: text("reason").notNull(),
+    at: timestamp("at").defaultNow().notNull(),
+  },
+  (t) => [index("lifecycle_events_song_idx").on(t.songId, t.at)]
 );
 
 export const clocks = pgTable("clocks", {

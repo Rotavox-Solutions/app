@@ -52,6 +52,7 @@ export default async function TodayPage() {
 
   const attention = balance.filter(needsAttention);
   const covered = balance.filter((b) => b.status === "covered");
+  const restDue = balance.filter((b) => b.restDue > 0);
 
   // A station with an as-played feed (assumeLogAired false) should be reconciling continuously.
   const feedExpected = !summary.assumeLogAired;
@@ -136,6 +137,22 @@ export default async function TodayPage() {
             All categories →
           </a>
         </Card>
+
+        {restDue.length > 0 && (
+          <Card title="Rest reviews due" tone="warn">
+            <p>These songs have rested past their pool&apos;s standard rest. Decide where each one goes next.</p>
+            <ul className="space-y-1">
+              {restDue.map((b) => (
+                <li key={b.id}>
+                  <a href={`/music/categories/${b.id}`} className="text-neutral-200 hover:underline">
+                    {b.name}
+                  </a>{" "}
+                  — {b.restDue} {b.restDue === 1 ? "song" : "songs"}, rested {b.restReviewDays}+ days
+                </li>
+              ))}
+            </ul>
+          </Card>
+        )}
 
         <Card title="As-played" tone={reconcileStale ? "warn" : "ok"}>
           {feedExpected ? (

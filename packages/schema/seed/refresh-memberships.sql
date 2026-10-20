@@ -1,4 +1,13 @@
 BEGIN;
+-- Re-derives membership from RadioDJ subcategories. Only valid BEFORE the station's
+-- one-time import (ADR-0002 §4): after it, membership is authored in Rotavox and this
+-- would overwrite every decision made since.
+DO $$
+BEGIN
+  IF (SELECT membership_imported_at FROM stations WHERE id = '6a42a599-acfc-404f-a524-9fb9b65d36f3') IS NOT NULL THEN
+    RAISE EXCEPTION 'Membership is Rotavox-owned for this station (imported). Edit it in Rotavox, or apply a changeset through the Runner.';
+  END IF;
+END $$;
 DELETE FROM song_categories WHERE category_id IN (SELECT id FROM categories WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3');
 INSERT INTO song_categories (song_id, category_id)
 SELECT s.id, c.id FROM songs s JOIN categories c ON c.station_id = s.station_id

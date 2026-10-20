@@ -9,6 +9,8 @@
 //   node tools/m4-seed.mjs > packages/schema/seed/m4-clubfm-seed.sql
 //   npm run seed -w @rotavox/schema -- seed/m4-clubfm-seed.sql
 //
+//   node tools/m4-seed.mjs --projection-only > packages/schema/seed/m4-projection.sql
+//
 // Requires a library re-sync FIRST: song_categories derives from songs.rdj_subcategory_id
 // and the mirror is a derived cache (ADR-0001). Seeding against a stale mirror maps
 // categories to yesterday's pool assignment.
@@ -51,6 +53,27 @@ const SUBCAT = {
 };
 
 /**
+ * RadioDJ subcategories that encode a lifecycle STATE, not a pool (ADR-0002 §3). Written to
+ * stations.rdj_lifecycle_subcats, which the membership import and the Runner's changeset
+ * mirror read. Z[x] = "rested, came from x" (ADR-0001 §3.7); generic Z has no recorded
+ * origin, so a song moved into it rests from whatever pool it was in.
+ */
+const LIFECYCLE = {
+  31: { state: "benched" }, // Y — import staging for gold compilations
+  32: { state: "resting" }, // Z
+  33: { state: "resting", origin: "N" }, // ZN
+  34: { state: "retired" }, // K — killed
+  35: { state: "benched" }, // W
+};
+
+/**
+ * Standard rest per pool, in days (ADR-0002 §6.2). Past it, a resting song is surfaced for
+ * a decision; it never moves on its own. A default for the PD to tune — the seed only
+ * fills it where the category has none, so an edited value survives a re-seed.
+ */
+const REST_REVIEW_DAYS = { A1: 90, A2: 90, B: 90, C: 90, N: 90 };
+
+/**
  * SUBTRACTIVE PRIORITY — what an hour gives up when it cannot fit its budget, lowest
  * first. The additive counterpart of fillerPriority.
  *
@@ -76,6 +99,12 @@ const PARENT = {
 };
 
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`;
+const IMPORTED = `(SELECT membership_imported_at FROM stations WHERE id = ${q(STATION)})`;
+// Categories are upserted by name. Turnover and structure are the seed's; rest standards
+// are the PD's once set, so only an empty value is filled.
+const UPSERT_CATEGORY =
+  `ON CONFLICT ON CONSTRAINT categories_station_name_unique DO UPDATE SET kind = EXCLUDED.kind, ` +
+  `parent_id = EXCLUDED.parent_id, default_target_turnover_hours = EXCLUDED.default_target_turnover_hours`;
 const cat = (name) =>
   `(SELECT id FROM categories WHERE station_id=${q(STATION)} AND name=${q(name)})`;
 const clk = (name) =>
@@ -109,8 +138,12 @@ w(`DELETE FROM format_grid WHERE station_id = ${q(STATION)};`);
 w(`DELETE FROM clock_positions WHERE clock_id IN (SELECT id FROM clocks WHERE station_id = ${q(STATION)});`);
 w(`DELETE FROM clocks WHERE station_id = ${q(STATION)};`);
 w(`DELETE FROM rules WHERE station_id = ${q(STATION)};`);
-w(`DELETE FROM song_categories WHERE category_id IN (SELECT id FROM categories WHERE station_id = ${q(STATION)});`);
-w(`DELETE FROM categories WHERE station_id = ${q(STATION)};`);
+w(`-- Membership is a derived snapshot until the station's one-time import (ADR-0002 §4);`);
+w(`-- after it, membership is authored in Rotavox and this seed must never touch it.`);
+w(`-- Categories are upserted in place below rather than torn down, so membership and`);
+w(`-- lifecycle history keep pointing at the same rows.`);
+w(`DELETE FROM song_categories WHERE category_id IN (SELECT id FROM categories WHERE station_id = ${q(STATION)})`);
+w(`  AND ${IMPORTED} IS NULL;`);
 w(``);
 
 // ------------------------------------------------------------------- station rotation
@@ -124,7 +157,8 @@ w(``);
 w(`-- Parent music categories`);
 w(`INSERT INTO categories (station_id, name, kind, default_target_turnover_hours) VALUES`);
 w([...["Currents", "Recurrents", "Gold"].map((n) => `  (${q(STATION)}, ${q(n)}, 'music', NULL)`),
-   `  (${q(STATION)}, 'Discovery', 'music', ${Math.round(TURNOVER.Discovery ?? 37)})`].join(",\n") + ";");
+   `  (${q(STATION)}, 'Discovery', 'music', ${Math.round(TURNOVER.Discovery ?? 37)})`].join(",\n"));
+w(UPSERT_CATEGORY + ";");
 w(``);
 
 w(`-- Child music categories. default_target_turnover_hours is the SOLVED turnover from`);
@@ -133,7 +167,8 @@ const children = [...CUR, ...REC, ...GOLD];
 w(`INSERT INTO categories (station_id, name, kind, parent_id, default_target_turnover_hours) VALUES`);
 w(children.map((c) =>
   `  (${q(STATION)}, ${q(c)}, 'music', ${cat(PARENT[c])}, ${Math.round(TURNOVER[c] ?? 0) || "NULL"})`
-).join(",\n") + ";");
+).join(",\n"));
+w(UPSERT_CATEGORY + ";");
 w(``);
 
 w(`-- F is the late-stage fallback: it exists so that an hour-length miscalculation or a`);
@@ -141,7 +176,8 @@ w(`-- pool that cannot fill has something legal to take rather than leaving dead
 w(`-- is never called by a clock position and costs nothing to carry.`);
 w(`INSERT INTO categories (station_id, name, kind, default_target_turnover_hours) VALUES`);
 w(`  (${q(STATION)}, 'F', 'music', NULL),`);
-w(`  (${q(STATION)}, 'GDEEP', 'music', NULL);`);
+w(`  (${q(STATION)}, 'GDEEP', 'music', NULL)`);
+w(UPSERT_CATEGORY + ";");
 w(``);
 
 // Every non-music key in the contract gets a category, not just the ones a clock
@@ -158,16 +194,50 @@ w(`-- the station IS at that moment rather than one generic ID everywhere.`);
 w(`INSERT INTO categories (station_id, name, kind, default_target_turnover_hours) VALUES`);
 w(imagingCats.map((c) =>
   `  (${q(STATION)}, ${q(c)}, 'imaging', ${c.startsWith("TOH ") ? TOH_TURNOVER : "NULL"})`
-).join(",\n") + ";");
+).join(",\n"));
+w(UPSERT_CATEGORY + ";");
 w(``);
 
+// --------------------------------------------------------- categories no longer seeded
+const allCats = ["Currents", "Recurrents", "Gold", "Discovery", ...children, "F", "GDEEP", ...imagingCats];
+const catList = allCats.map(q).join(", ");
+w(`-- Categories this seed no longer declares. Dropping one that still holds authored`);
+w(`-- membership would silently unassign its songs, so that aborts instead; one referenced`);
+w(`-- by lifecycle history fails on its foreign key, which is also the right answer.`);
+w(`DO $$`);
+w(`DECLARE n int;`);
+w(`BEGIN`);
+w(`  SELECT count(*) INTO n FROM song_categories sc JOIN categories c ON c.id = sc.category_id`);
+w(`    WHERE c.station_id = ${q(STATION)} AND c.name NOT IN (${catList});`);
+w(`  IF n > 0 THEN RAISE EXCEPTION '% memberships sit in categories this seed would drop — reassign them first', n; END IF;`);
+w(`END $$;`);
+w(`DELETE FROM categories WHERE station_id = ${q(STATION)} AND name NOT IN (${catList});`);
+w(``);
+
+// ---------------------------------------------------------------- projection to RadioDJ
+const projectionStart = out.length;
+w(`-- Projection map (ADR-0002 §3): which RadioDJ subcategories each category stands for.`);
+w(`-- This is the library <-> clockset contract, now in the database where the import and`);
+w(`-- the Runner can read it rather than only in this generator.`);
+for (const name of allCats) {
+  const ids = SUBCAT[name];
+  w(`UPDATE categories SET rdj_subcategory_ids = ${ids && ids.length ? `ARRAY[${ids.join(",")}]` : "'{}'"}::int[]` +
+    ` WHERE station_id = ${q(STATION)} AND name = ${q(name)};`);
+}
+for (const [name, days] of Object.entries(REST_REVIEW_DAYS)) {
+  w(`UPDATE categories SET rest_review_days = ${days} WHERE station_id = ${q(STATION)} AND name = ${q(name)} AND rest_review_days IS NULL;`);
+}
+w(`UPDATE stations SET rdj_lifecycle_subcats = ${q(JSON.stringify(LIFECYCLE))}::jsonb WHERE id = ${q(STATION)};`);
+w(``);
+const projection = out.slice(projectionStart);
+
 // ------------------------------------------------------------------------ song mapping
-w(`-- Library <-> clockset contract. Identity is the RadioDJ subcategory ID; the mirror`);
-w(`-- follows RadioDJ (ADR-0001 §3.2 stage 1). B is subcat 1 alone since the 2026-08-02`);
-w(`-- consolidation retired subcat 5.`);
+w(`-- Derived membership, for a station not yet imported (ADR-0002 §4). Identity is the`);
+w(`-- RadioDJ subcategory ID; the mirror follows RadioDJ (ADR-0001 §3.2 stage 1). Once the`);
+w(`-- station is imported this inserts nothing and authored membership stands.`);
 w(`INSERT INTO song_categories (song_id, category_id)`);
 w(`SELECT s.id, c.id FROM songs s JOIN categories c ON c.station_id = s.station_id`);
-w(`WHERE s.station_id = ${q(STATION)} AND (`);
+w(`WHERE s.station_id = ${q(STATION)} AND ${IMPORTED} IS NULL AND (`);
 w(Object.entries(SUBCAT).filter(([, ids]) => ids.length > 0).map(([name, ids]) =>
   `  (c.name = ${q(name)} AND s.rdj_subcategory_id ${ids.length > 1 ? `IN (${ids.join(",")})` : `= ${ids[0]}`})`
 ).join(" OR\n"));
@@ -286,4 +356,15 @@ w(`END $$;`);
 w(``);
 w(`COMMIT;`);
 
-process.stdout.write(out.join("\n") + "\n");
+// --projection-only: just the projection map, lifecycle map and rest standards, for a
+// station whose format is already seeded. Writes no clocks, so — unlike a full re-seed —
+// it leaves approved logs' clock positions, and with them TOH timing, untouched.
+if (process.argv.includes("--projection-only")) {
+  process.stdout.write([
+    `-- M4 projection map for The BOLT — GENERATED by tools/m4-seed.mjs --projection-only.`,
+    `-- Run before the first import-membership on a station seeded before migration 0005.`,
+    `BEGIN;`, ``, ...projection, `COMMIT;`,
+  ].join("\n") + "\n");
+} else {
+  process.stdout.write(out.join("\n") + "\n");
+}

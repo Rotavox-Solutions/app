@@ -2,6 +2,8 @@ import "dotenv/config";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { pool } from "./db.js";
+import { mirrorChangesetMoves } from "@rotavox/schema";
+import { pgClient, schedulerDb } from "./scheduler-db.js";
 import { loadSchemaMap, requireCanonical } from "./schema-map.js";
 import {
   validateShape,
@@ -28,6 +30,8 @@ interface Args {
   file: string;
   apply: boolean;
   allowTagDrift: boolean;
+  /** Skip RadioDJ entirely and only mirror the moves into Rotavox — recovery for a failed mirror. */
+  mirrorOnly: boolean;
   outDir: string;
 }
 
@@ -37,17 +41,18 @@ function parseArgs(argv: string[]): Args {
   const file = positional[0];
   if (!file) {
     throw new Error(
-      "usage: npm run apply-changeset -- <changeset.json> [--apply] [--allow-tag-drift]\n" +
+      "usage: npm run apply-changeset -- <changeset.json> [--apply] [--allow-tag-drift] [--mirror-only]\n" +
         "       (validate-only unless --apply is given)"
     );
   }
   for (const f of flags) {
-    if (!["--apply", "--allow-tag-drift"].includes(f)) throw new Error(`Unknown flag ${f}`);
+    if (!["--apply", "--allow-tag-drift", "--mirror-only"].includes(f)) throw new Error(`Unknown flag ${f}`);
   }
   return {
     file,
     apply: flags.has("--apply"),
     allowTagDrift: flags.has("--allow-tag-drift"),
+    mirrorOnly: flags.has("--mirror-only"),
     outDir: path.resolve(path.dirname(file), ".."),
   };
 }
@@ -71,6 +76,12 @@ async function main(): Promise<void> {
       `Changeset targets station ${cs.station_id} but this Runner serves ${expectedStation}.`
     );
     process.exitCode = 1;
+    return;
+  }
+
+  if (args.mirrorOnly) {
+    await mirrorIntoRotavox(cs);
+    await pool.end();
     return;
   }
 
@@ -241,11 +252,43 @@ async function main(): Promise<void> {
     ) + "\n"
   );
 
+  await mirrorIntoRotavox(cs);
   console.log(
-    "\nNext: re-sync the mirror (`npm run sync-library`) before generating any log — " +
-      "a log generated now would use stale pool membership."
+    "\nNext: re-sync the mirror (`npm run sync-library`) so it reflects RadioDJ's new subcategories" +
+      " (and, for a station not yet imported, re-derive membership before generating any log)."
   );
   await pool.end();
+}
+
+/**
+ * Mirrors the changeset's moves into Rotavox membership (ADR-0002 §4.3). Runs after the
+ * RadioDJ commit, so the library is already changed if this fails — hence the explicit
+ * recovery path rather than a silent warning.
+ */
+async function mirrorIntoRotavox(cs: Changeset): Promise<void> {
+  const moves = (cs.moves ?? []).map((m) => ({ rdjSongId: m.rdj_song_id, toSubcat: m.to_subcat, reason: m.reason }));
+  try {
+    const result = await mirrorChangesetMoves(schedulerDb, cs.station_id, cs.id, moves);
+    if (result.skipped) {
+      console.log("\nRotavox membership not mirrored: this station is not imported yet, so membership is still derived.");
+    } else {
+      console.log(`\nMirrored into Rotavox: ${result.changed} song(s) changed pool or state.`);
+      if (result.missing.length) {
+        console.warn(
+          `  warning: ${result.missing.length} song(s) are not in the Rotavox mirror yet ` +
+            `(${result.missing.join(", ")}). Run sync-library, then import-membership --apply to place them.`
+        );
+      }
+    }
+  } catch (err) {
+    console.error(
+      `\nMIRROR FAILED — RadioDJ has the change but Rotavox membership does not: ${(err as Error).message}\n` +
+        `Fix the cause, then re-run with --mirror-only. Do not generate a log until it succeeds.`
+    );
+    process.exitCode = 1;
+  } finally {
+    await pgClient.end();
+  }
 }
 
 if (process.argv[1]?.endsWith("apply-changeset.ts")) {

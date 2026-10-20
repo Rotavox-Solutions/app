@@ -29,12 +29,23 @@ export interface BalanceCategoryInput {
   kind: string;
   parentId: string | null;
   defaultTargetTurnoverHours: number | null;
+  /** Standard rest for songs resting from this pool (ADR-0002 §6.2). */
+  restReviewDays?: number | null;
 }
 
 export interface BalanceInput {
   categories: BalanceCategoryInput[];
   /** One row per (song, category) membership. */
-  memberships: { songId: string; categoryId: string; enabled: boolean | null }[];
+  memberships: {
+    songId: string;
+    categoryId: string;
+    enabled: boolean | null;
+    /** 'primary' | 'also' — omitted counts as primary. */
+    role?: string;
+    /** Omitted counts as active. */
+    lifecycleState?: string;
+    lifecycleSince?: Date | null;
+  }[];
   /** Positions that call a category, with the clock they belong to. */
   positions: {
     clockId: string;
@@ -48,6 +59,8 @@ export interface BalanceInput {
   cycleWeeks: number;
   /** Spins per song over the recent window, from play_history. */
   recentSpinsBySong: Map<string, number>;
+  /** "Now", for rest-review arithmetic. Defaults to the current time. */
+  now?: Date;
 }
 
 export interface CategoryBalance {
@@ -57,10 +70,26 @@ export interface CategoryBalance {
   parentId: string | null;
   /** A grouping node (Currents, Gold …) — its depth is the sum of its sub-pools. */
   hasChildren: boolean;
-  /** Songs in this pool or any sub-pool — what a position calling it draws from. */
+  /** Songs whose primary pool is this one or a sub-pool, in any lifecycle state. */
   depth: number;
-  /** Of those, enabled. The engine filters on enabled, so this is the real depth. */
+  /**
+   * Of those, enabled and active — what the engine can actually schedule, and so the
+   * real depth. Resting songs keep their pool but are excluded (ADR-0002 §3).
+   */
   enabledDepth: number;
+  /** Songs resting from this pool. */
+  restingDepth: number;
+  /**
+   * Resting songs that have passed the pool's standard rest and are waiting on a
+   * decision. A prompt, never a move: rest exit is decided case by case (ADR-0002 §6.1).
+   */
+  restDue: number;
+  /**
+   * Schedulable songs eligible here as an 'also' (their primary pool is elsewhere). Kept
+   * out of depth and turnover: their plays are shared with another pool, and counting them
+   * twice is how one song quietly props up two pools (ADR-0002 §6.4).
+   */
+  alsoDepth: number;
   /** Positions calling this category per week, averaged over the rotation cycle. */
   weeklySlots: number;
   /**
@@ -73,6 +102,7 @@ export interface CategoryBalance {
   /** Hours for the pool to cycle once, at designed demand. Null when uncalled or empty. */
   projectedTurnoverHours: number | null;
   targetTurnoverHours: number | null;
+  restReviewDays: number | null;
   status: BalanceStatus;
   /** Actual spins of this pool's songs over the recent window. Fallback lands here. */
   recentSpins: number;
@@ -113,6 +143,7 @@ export function classifyBalance(
 }
 
 export function computeBalance(input: BalanceInput): CategoryBalance[] {
+  const now = input.now ?? new Date();
   const childrenOf = new Map<string, string[]>();
   for (const c of input.categories) {
     if (!c.parentId) continue;
@@ -141,21 +172,41 @@ export function computeBalance(input: BalanceInput): CategoryBalance[] {
       );
   }
 
-  const membersByCategory = new Map<string, { songId: string; enabled: boolean | null }[]>();
+  const membersByCategory = new Map<string, BalanceInput["memberships"]>();
   for (const m of input.memberships) {
     membersByCategory.set(m.categoryId, [...(membersByCategory.get(m.categoryId) ?? []), m]);
   }
+  const schedulable = (m: BalanceInput["memberships"][number]) =>
+    m.enabled === true && (m.lifecycleState ?? "active") === "active";
 
   return input.categories.map((c) => {
     const pool = descendantsOf(c.id, childrenOf);
-    const songs = new Map<string, boolean>();
+    const songs = new Map<string, BalanceInput["memberships"][number]>();
+    const also = new Set<string>();
     for (const catId of pool) {
       for (const m of membersByCategory.get(catId) ?? []) {
-        songs.set(m.songId, songs.get(m.songId) === true || m.enabled === true);
+        if ((m.role ?? "primary") === "primary") songs.set(m.songId, m);
+        else if (schedulable(m)) also.add(m.songId);
       }
     }
+    for (const songId of songs.keys()) also.delete(songId);
     const depth = songs.size;
-    const enabledDepth = [...songs.values()].filter(Boolean).length;
+    const enabledDepth = [...songs.values()].filter(schedulable).length;
+    const resting = [...songs.values()].filter((m) => m.lifecycleState === "resting");
+    const restingDepth = resting.length;
+    const restCutoff = c.restReviewDays != null ? now.getTime() - c.restReviewDays * 86_400_000 : null;
+    // Only this pool's own songs: a parent's rest standard does not reach into sub-pools
+    // that set their own, so count against direct membership.
+    const restDue =
+      restCutoff == null
+        ? 0
+        : (membersByCategory.get(c.id) ?? []).filter(
+            (m) =>
+              (m.role ?? "primary") === "primary" &&
+              m.lifecycleState === "resting" &&
+              m.lifecycleSince != null &&
+              m.lifecycleSince.getTime() <= restCutoff
+          ).length;
     const weeklySlots = slotsByCategory.get(c.id) ?? 0;
     const weeklyFillerSlots = fillerSlotsByCategory.get(c.id) ?? 0;
     const weeklyFallbackSlots = fallbackSlotsByCategory.get(c.id) ?? 0;
@@ -172,11 +223,15 @@ export function computeBalance(input: BalanceInput): CategoryBalance[] {
       hasChildren: childrenOf.has(c.id),
       depth,
       enabledDepth,
+      restingDepth,
+      restDue,
+      alsoDepth: also.size,
       weeklySlots,
       weeklyFillerSlots,
       weeklyFallbackSlots,
       projectedTurnoverHours,
       targetTurnoverHours: c.defaultTargetTurnoverHours,
+      restReviewDays: c.restReviewDays ?? null,
       status: classifyBalance(
         weeklySlots,
         enabledDepth,

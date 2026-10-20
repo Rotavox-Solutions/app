@@ -35,12 +35,22 @@ for history only. Song IDs also changed, so no pre-rebuild changeset can be repl
 Mapped to an empty list (no RadioDJ subcategory yet, so the engine falls back): the nine per-block
 TOH pools (to TOH IDs), GDEEP, Heritage Backsells (to Gold Backsells).
 
-**Membership is a seed-time snapshot.** `song_categories` is derived from
-`songs.rdj_subcategory_id` only when the seed runs; `sync-library` updates the subcategory but
-not the membership. After any changeset, re-derive membership (the seed's `INSERT INTO
-song_categories` block, preceded by a DELETE for the station) before generating, or moved songs
-keep their old category. Re-running the whole seed also works but clears `clock_position_id` on
-approved logs, which breaks TOH timing for a log that is on air.
+**Membership is a seed-time snapshot until the station is imported** (ADR-0002 §4).
+Before the import, `song_categories` is derived from `songs.rdj_subcategory_id` only when the
+seed runs, and `sync-library` updates the subcategory but not the membership. So after any
+changeset, re-derive membership (`refresh-memberships.sql`) before generating.
+
+After `npm run import-membership -w @rotavox/runner -- --apply`, Rotavox owns membership and
+lifecycle state:
+- The mapping in this table lives in `categories.rdj_subcategory_ids`.
+- The rows under "Deliberately unmapped" that encode a state (Y, Z, ZN, K, W) live in
+  `stations.rdj_lifecycle_subcats`. Both are written by the seed, or by
+  `seed/m4-projection.sql` alone.
+- `apply-changeset` mirrors every move into Rotavox after the RadioDJ commit.
+  `refresh-memberships.sql` refuses to run. The M4 seed upserts categories in place and
+  leaves membership alone.
+- Re-running the full seed still clears `clock_position_id` on approved logs, which breaks
+  TOH timing for a log that is on air.
 
 ## Deliberately unmapped
 

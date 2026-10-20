@@ -20,6 +20,11 @@ export interface EngineSong {
   soundCodes: string[] | null;
   targetTurnoverHours: number | null;
   enabled: boolean | null;
+  /**
+   * Lifecycle state (ADR-0002 §3). Only 'active' is schedulable: a resting song keeps
+   * its pool membership but must not air. Omitted counts as active, for fixtures.
+   */
+  lifecycleState?: string;
 }
 
 export interface EngineCategory {

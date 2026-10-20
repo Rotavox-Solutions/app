@@ -16,7 +16,7 @@ export interface FilterContext {
   prevMusicTempo: number | null;
 }
 
-/** Pool membership + song_type + enabled — the rung-independent base pool. */
+/** Pool membership + song_type + enabled + active lifecycle — the rung-independent base pool. */
 export function basePool(
   songs: EngineSong[],
   poolCategoryIds: Set<string>,
@@ -26,6 +26,7 @@ export function basePool(
     .filter(
       (s) =>
         s.enabled === true &&
+        (s.lifecycleState ?? "active") === "active" &&
         s.songType != null &&
         allowedSongTypes.includes(s.songType) &&
         s.categoryIds.some((c) => poolCategoryIds.has(c))

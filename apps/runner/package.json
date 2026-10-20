@@ -9,6 +9,7 @@
     "sync-library": "tsx src/sync-library.ts",
     "prune-library": "tsx src/prune-library.ts",
     "apply-changeset": "tsx src/apply-changeset.ts",
+    "import-membership": "tsx src/import-membership.ts",
     "reconcile": "tsx src/reconcile-history.ts",
     "pace": "tsx src/pace.ts",
     "watchdog": "tsx src/watchdog.ts",

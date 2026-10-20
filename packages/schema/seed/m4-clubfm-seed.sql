@@ -20,8 +20,12 @@ DELETE FROM format_grid WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3
 DELETE FROM clock_positions WHERE clock_id IN (SELECT id FROM clocks WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3');
 DELETE FROM clocks WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3';
 DELETE FROM rules WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3';
-DELETE FROM song_categories WHERE category_id IN (SELECT id FROM categories WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3');
-DELETE FROM categories WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3';
+-- Membership is a derived snapshot until the station's one-time import (ADR-0002 §4);
+-- after it, membership is authored in Rotavox and this seed must never touch it.
+-- Categories are upserted in place below rather than torn down, so membership and
+-- lifecycle history keep pointing at the same rows.
+DELETE FROM song_categories WHERE category_id IN (SELECT id FROM categories WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3')
+  AND (SELECT membership_imported_at FROM stations WHERE id = '6a42a599-acfc-404f-a524-9fb9b65d36f3') IS NULL;
 
 -- Rotation: the grid repeats over 2 weeks. The epoch anchors week 0 and must
 -- never move — changing it flips which variant every Golden Hour cell resolves to.
@@ -33,7 +37,8 @@ INSERT INTO categories (station_id, name, kind, default_target_turnover_hours) V
   ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'Currents', 'music', NULL),
   ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'Recurrents', 'music', NULL),
   ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'Gold', 'music', NULL),
-  ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'Discovery', 'music', 35);
+  ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'Discovery', 'music', 35)
+ON CONFLICT ON CONSTRAINT categories_station_name_unique DO UPDATE SET kind = EXCLUDED.kind, parent_id = EXCLUDED.parent_id, default_target_turnover_hours = EXCLUDED.default_target_turnover_hours;
 
 -- Child music categories. default_target_turnover_hours is the SOLVED turnover from
 -- tools/depth-solver.mjs, not an aspiration: depth was chosen to land these.
@@ -50,14 +55,16 @@ INSERT INTO categories (station_id, name, kind, parent_id, default_target_turnov
   ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'G2000', 'music', (SELECT id FROM categories WHERE station_id='6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name='Gold'), 105),
   ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'G1990', 'music', (SELECT id FROM categories WHERE station_id='6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name='Gold'), 129),
   ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'H1', 'music', (SELECT id FROM categories WHERE station_id='6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name='Gold'), 130),
-  ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'H2', 'music', (SELECT id FROM categories WHERE station_id='6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name='Gold'), 560);
+  ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'H2', 'music', (SELECT id FROM categories WHERE station_id='6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name='Gold'), 560)
+ON CONFLICT ON CONSTRAINT categories_station_name_unique DO UPDATE SET kind = EXCLUDED.kind, parent_id = EXCLUDED.parent_id, default_target_turnover_hours = EXCLUDED.default_target_turnover_hours;
 
 -- F is the late-stage fallback: it exists so that an hour-length miscalculation or a
 -- pool that cannot fill has something legal to take rather than leaving dead air. It
 -- is never called by a clock position and costs nothing to carry.
 INSERT INTO categories (station_id, name, kind, default_target_turnover_hours) VALUES
   ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'F', 'music', NULL),
-  ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'GDEEP', 'music', NULL);
+  ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'GDEEP', 'music', NULL)
+ON CONFLICT ON CONSTRAINT categories_station_name_unique DO UPDATE SET kind = EXCLUDED.kind, parent_id = EXCLUDED.parent_id, default_target_turnover_hours = EXCLUDED.default_target_turnover_hours;
 
 -- Imaging categories. Per-block TOH IDs (subcats 40-48) so the hour opens with what
 -- the station IS at that moment rather than one generic ID everywhere.
@@ -77,14 +84,72 @@ INSERT INTO categories (station_id, name, kind, default_target_turnover_hours) V
   ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'TOH HD', 'imaging', 47),
   ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'TOH IDs', 'imaging', 47),
   ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'TOH WD', 'imaging', 47),
-  ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'TOH WW', 'imaging', 47);
+  ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'TOH WW', 'imaging', 47)
+ON CONFLICT ON CONSTRAINT categories_station_name_unique DO UPDATE SET kind = EXCLUDED.kind, parent_id = EXCLUDED.parent_id, default_target_turnover_hours = EXCLUDED.default_target_turnover_hours;
 
--- Library <-> clockset contract. Identity is the RadioDJ subcategory ID; the mirror
--- follows RadioDJ (ADR-0001 §3.2 stage 1). B is subcat 1 alone since the 2026-08-02
--- consolidation retired subcat 5.
+-- Categories this seed no longer declares. Dropping one that still holds authored
+-- membership would silently unassign its songs, so that aborts instead; one referenced
+-- by lifecycle history fails on its foreign key, which is also the right answer.
+DO $$
+DECLARE n int;
+BEGIN
+  SELECT count(*) INTO n FROM song_categories sc JOIN categories c ON c.id = sc.category_id
+    WHERE c.station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND c.name NOT IN ('Currents', 'Recurrents', 'Gold', 'Discovery', 'A1', 'A2', 'B', 'C', 'N', 'R1', 'R2', 'R3', 'G2010', 'G2000', 'G1990', 'H1', 'H2', 'F', 'GDEEP', 'Gold Backsells', 'Heritage Backsells', 'Liners', 'New-Music Sweepers', 'Relaunch Sweepers', 'Station Promos', 'TOH CO', 'TOH DN', 'TOH EM', 'TOH ES', 'TOH FF', 'TOH GH', 'TOH HD', 'TOH IDs', 'TOH WD', 'TOH WW');
+  IF n > 0 THEN RAISE EXCEPTION '% memberships sit in categories this seed would drop — reassign them first', n; END IF;
+END $$;
+DELETE FROM categories WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name NOT IN ('Currents', 'Recurrents', 'Gold', 'Discovery', 'A1', 'A2', 'B', 'C', 'N', 'R1', 'R2', 'R3', 'G2010', 'G2000', 'G1990', 'H1', 'H2', 'F', 'GDEEP', 'Gold Backsells', 'Heritage Backsells', 'Liners', 'New-Music Sweepers', 'Relaunch Sweepers', 'Station Promos', 'TOH CO', 'TOH DN', 'TOH EM', 'TOH ES', 'TOH FF', 'TOH GH', 'TOH HD', 'TOH IDs', 'TOH WD', 'TOH WW');
+
+-- Projection map (ADR-0002 §3): which RadioDJ subcategories each category stands for.
+-- This is the library <-> clockset contract, now in the database where the import and
+-- the Runner can read it rather than only in this generator.
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'Currents';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'Recurrents';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'Gold';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[30]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'Discovery';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[5]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'A1';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[3]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'A2';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[6]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'B';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[23]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'C';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[24]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'N';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[26]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'R1';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[27]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'R2';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[28]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'R3';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[29]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'G2010';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[4]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'G2000';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[1]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'G1990';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[2]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'H1';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[36]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'H2';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[25]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'F';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'GDEEP';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[41]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'Gold Backsells';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'Heritage Backsells';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[37]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'Liners';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[38]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'New-Music Sweepers';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[40]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'Relaunch Sweepers';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[43]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'Station Promos';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'TOH CO';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'TOH DN';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'TOH EM';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'TOH ES';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'TOH FF';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'TOH GH';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'TOH HD';
+UPDATE categories SET rdj_subcategory_ids = ARRAY[42]::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'TOH IDs';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'TOH WD';
+UPDATE categories SET rdj_subcategory_ids = '{}'::int[] WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'TOH WW';
+UPDATE categories SET rest_review_days = 90 WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'A1' AND rest_review_days IS NULL;
+UPDATE categories SET rest_review_days = 90 WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'A2' AND rest_review_days IS NULL;
+UPDATE categories SET rest_review_days = 90 WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'B' AND rest_review_days IS NULL;
+UPDATE categories SET rest_review_days = 90 WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'C' AND rest_review_days IS NULL;
+UPDATE categories SET rest_review_days = 90 WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'N' AND rest_review_days IS NULL;
+UPDATE stations SET rdj_lifecycle_subcats = '{"31":{"state":"benched"},"32":{"state":"resting"},"33":{"state":"resting","origin":"N"},"34":{"state":"retired"},"35":{"state":"benched"}}'::jsonb WHERE id = '6a42a599-acfc-404f-a524-9fb9b65d36f3';
+
+-- Derived membership, for a station not yet imported (ADR-0002 §4). Identity is the
+-- RadioDJ subcategory ID; the mirror follows RadioDJ (ADR-0001 §3.2 stage 1). Once the
+-- station is imported this inserts nothing and authored membership stands.
 INSERT INTO song_categories (song_id, category_id)
 SELECT s.id, c.id FROM songs s JOIN categories c ON c.station_id = s.station_id
-WHERE s.station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND (
+WHERE s.station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND (SELECT membership_imported_at FROM stations WHERE id = '6a42a599-acfc-404f-a524-9fb9b65d36f3') IS NULL AND (
   (c.name = 'A1' AND s.rdj_subcategory_id = 5) OR
   (c.name = 'A2' AND s.rdj_subcategory_id = 3) OR
   (c.name = 'B' AND s.rdj_subcategory_id = 6) OR
