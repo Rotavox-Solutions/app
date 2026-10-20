@@ -6,6 +6,12 @@ import { schedulerDb, pgClient, stationId } from "./scheduler-db.js";
 import { loadSchemaMap, requireCanonical, findColumn } from "./schema-map.js";
 
 const SYNC_KEY = "library_sync";
+/**
+ * When a sync last completed. Not the watermark row's updated_at: that only moves when a
+ * row's date_modified does, and pool moves and set_tags never touch it, so a sync that
+ * repaired hundreds of songs through the drift check still left it days old.
+ */
+const SYNC_RUN_KEY = "library_sync_run";
 const EPOCH = new Date(0);
 
 async function getWatermark(): Promise<Date> {
@@ -221,6 +227,11 @@ async function main() {
     }
     console.log(`Repaired ${drifted.length} song(s).`);
   }
+
+  await schedulerDb
+    .insert(syncState)
+    .values({ stationId, syncKey: SYNC_RUN_KEY, watermark: null })
+    .onConflictDoUpdate({ target: [syncState.stationId, syncState.syncKey], set: { updatedAt: new Date() } });
 
   // Deletions are NOT handled here -- a purged row simply stops appearing, so it cannot
   // be detected by diffing rows that exist. That is prune-library.ts's job, and it

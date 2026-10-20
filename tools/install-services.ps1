@@ -34,7 +34,10 @@ foreach ($s in $services) {
   & $Nssm set $name AppStdout (Join-Path $Logs "$name.log") | Out-Null
   & $Nssm set $name AppStderr (Join-Path $Logs "$name.log") | Out-Null
   & $Nssm set $name AppRotateFiles 1 | Out-Null
-  & $Nssm set $name AppRotateOnline 1 | Out-Null
+  # Rotate at service start only. With online rotation, NSSM 2.24-101 kills the app on
+  # stop and then never reports the service stopped: StopPending until its nssm.exe is
+  # killed by an admin (2026-10-20, all three services, reproduced and fixed by this).
+  & $Nssm set $name AppRotateOnline 0 | Out-Null
   & $Nssm set $name AppRotateBytes 10485760 | Out-Null
   & $Nssm set $name AppRestartDelay 5000 | Out-Null
   # Ctrl+C first, with time to act on it: the pacer's SIGINT handler hands playout back

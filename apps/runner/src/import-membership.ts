@@ -24,8 +24,8 @@ async function main(): Promise<void> {
   const [sync] = await schedulerDb
     .select({ updatedAt: syncState.updatedAt })
     .from(syncState)
-    .where(and(eq(syncState.stationId, stationId), eq(syncState.syncKey, "library_sync")));
-  console.log(`Library last synced: ${sync ? sync.updatedAt.toISOString() : "never"} — re-sync first if that is stale.`);
+    .where(and(eq(syncState.stationId, stationId), eq(syncState.syncKey, "library_sync_run")));
+  console.log(`Library last synced: ${sync ? sync.updatedAt.toISOString() : "unknown (no sync since this was recorded)"} — re-sync first if that is stale.`);
 
   const summary = await importMembership(schedulerDb, stationId, { dryRun: !apply });
 
