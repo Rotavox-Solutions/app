@@ -1,10 +1,10 @@
 import { ChangesetError, unstage } from "@rotavox/schema";
 import { db } from "@/lib/db";
-import { stationId } from "@/lib/station";
+import { stationRoute } from "@/lib/auth";
 import { changesetResponse, readJson } from "@/lib/changeset-http";
 
 /** Take songs back out of the draft: { songIds: [...] }. */
-export async function DELETE(request: Request) {
+export const DELETE = stationRoute("edit_music", async (request, { stationId }) => {
   const body = await readJson(request);
   return changesetResponse(async () => {
     if (!Array.isArray(body.songIds) || !body.songIds.every((s) => typeof s === "string")) {
@@ -12,4 +12,4 @@ export async function DELETE(request: Request) {
     }
     await unstage(db, stationId, body.songIds as string[]);
   });
-}
+});

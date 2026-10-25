@@ -12,6 +12,8 @@ Who owns which facts (Rotavox vs RadioDJ), and the sync policy for each:
 syncs, before touching pool assignment, and before adding any write path to RadioDJ.
 `ADR-0002-pool-ownership-and-lifecycle.md` extends it: the UI is the source of
 truth for format data, membership and lifecycle state.
+`ADR-0003-accounts-and-roles.md` covers sign-in, station roles and Rotavox staff. Every
+API route goes through a guard in `apps/web/src/lib/auth.ts`.
 
 ## Architecture (only the adapter touches the station)
 
@@ -53,6 +55,8 @@ Next.js + Postgres          local agent, Win box                      REST plugi
    adapter tier-2 rule, not a prohibition on producing files: at tier 0 the deliverable
    *is* an exported log the station ingests itself.
 3. **`station_id` on every table** in the Scheduler's Postgres schema, from day one.
+   The one exception is `users`, since a person can work for several stations
+   (`ADR-0003-accounts-and-roles.md`).
 4. **All RadioDJ contact goes through the Runner.** The web app never connects to
    RadioDJ (DB or REST) directly.
 5. **M0 is a gate.** The §4c integration spike must pass on the real rig before any

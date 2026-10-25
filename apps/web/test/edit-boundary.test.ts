@@ -88,7 +88,7 @@ describe("applyReplace / applySwap boundary enforcement (integration)", () => {
       projectedAirAt: farFuture(),
     });
 
-    await expect(applyReplace(log.id, item.id, songB.id)).rejects.toThrow(EditRejectedError);
+    await expect(applyReplace(station.id, log.id, item.id, songB.id)).rejects.toThrow(EditRejectedError);
 
     const [after] = await db.select().from(logItems).where(eq(logItems.id, item.id));
     expect(after.songId).toBe(songA.id);
@@ -104,7 +104,7 @@ describe("applyReplace / applySwap boundary enforcement (integration)", () => {
       pushedAt: new Date(),
     });
 
-    await expect(applyReplace(log.id, item.id, songB.id)).rejects.toThrow(EditRejectedError);
+    await expect(applyReplace(station.id, log.id, item.id, songB.id)).rejects.toThrow(EditRejectedError);
 
     const [after] = await db.select().from(logItems).where(eq(logItems.id, item.id));
     expect(after.songId).toBe(songA.id);
@@ -119,7 +119,7 @@ describe("applyReplace / applySwap boundary enforcement (integration)", () => {
       projectedAirAt: new Date(Date.now() + 5 * 60_000), // 5 min out, inside the 15 min horizon
     });
 
-    await expect(applyReplace(log.id, item.id, songB.id)).rejects.toThrow(EditRejectedError);
+    await expect(applyReplace(station.id, log.id, item.id, songB.id)).rejects.toThrow(EditRejectedError);
 
     const [after] = await db.select().from(logItems).where(eq(logItems.id, item.id));
     expect(after.songId).toBe(songA.id);
@@ -142,7 +142,7 @@ describe("applyReplace / applySwap boundary enforcement (integration)", () => {
       pushedAt: new Date(),
     });
 
-    await expect(applySwap(log.id, editableItem.id, pushedItem.id)).rejects.toThrow(EditRejectedError);
+    await expect(applySwap(station.id, log.id, editableItem.id, pushedItem.id)).rejects.toThrow(EditRejectedError);
 
     const [afterA] = await db.select().from(logItems).where(eq(logItems.id, editableItem.id));
     const [afterB] = await db.select().from(logItems).where(eq(logItems.id, pushedItem.id));
@@ -160,10 +160,10 @@ describe("applyReplace / applySwap boundary enforcement (integration)", () => {
       locked: true,
     });
 
-    await expect(applyReplace(log.id, item.id, songB.id)).rejects.toThrow(EditRejectedError);
+    await expect(applyReplace(station.id, log.id, item.id, songB.id)).rejects.toThrow(EditRejectedError);
 
-    await setLocked(log.id, item.id, false);
-    const result = await applyReplace(log.id, item.id, songB.id);
+    await setLocked(station.id, log.id, item.id, false);
+    const result = await applyReplace(station.id, log.id, item.id, songB.id);
     expect(result.item.songId).toBe(songB.id);
   });
 });

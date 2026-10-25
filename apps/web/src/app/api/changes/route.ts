@@ -1,10 +1,10 @@
 import { ChangesetError, discardDraft, stageChanges, type LifecycleState } from "@rotavox/schema";
 import { db } from "@/lib/db";
-import { stationId } from "@/lib/station";
+import { stationRoute } from "@/lib/auth";
 import { changesetResponse, readJson } from "@/lib/changeset-http";
 
 /** Stage placement changes into the draft: { items: [{ songId, state, categoryId, reason? }] }. */
-export async function POST(request: Request) {
+export const POST = stationRoute("edit_music", async (request, { stationId }) => {
   const body = await readJson(request);
   return changesetResponse(async () => {
     if (!Array.isArray(body.items)) throw new ChangesetError("invalid", "items must be an array");
@@ -22,9 +22,9 @@ export async function POST(request: Request) {
     const draft = await stageChanges(db, stationId, requests);
     return { changesetId: draft.id, itemCount: draft.items.length };
   });
-}
+});
 
 /** Discard the draft. */
-export async function DELETE() {
-  return changesetResponse(() => discardDraft(db, stationId));
-}
+export const DELETE = stationRoute("edit_music", async (_request, { stationId }) =>
+  changesetResponse(() => discardDraft(db, stationId)),
+);

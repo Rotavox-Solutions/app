@@ -1,11 +1,10 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { searchSongs } from "@/lib/queries";
-import { stationId } from "@/lib/station";
+import { stationRoute } from "@/lib/auth";
 
-export async function GET(request: Request) {
+export const GET = stationRoute("view", async (request, { stationId }) => {
   const { searchParams } = new URL(request.url);
   const categoryId = searchParams.get("categoryId") ?? undefined;
   const q = searchParams.get("q") ?? undefined;
-  const results = await searchSongs(stationId, { categoryId, q });
-  return NextResponse.json(results);
-}
+  return NextResponse.json(await searchSongs(stationId, { categoryId, q }));
+});

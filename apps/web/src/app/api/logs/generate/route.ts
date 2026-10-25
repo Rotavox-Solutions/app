@@ -1,8 +1,8 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { generateNextHours, HorizonConflictError } from "@/lib/generation";
-import { stationId } from "@/lib/station";
+import { stationRoute } from "@/lib/auth";
 
-export async function POST(request: Request) {
+export const POST = stationRoute("edit_logs", async (request, { stationId }) => {
   const body = await request.json().catch(() => ({}));
   const hours = typeof body.hours === "number" ? body.hours : 24;
   const start = typeof body.start === "string" ? new Date(body.start) : undefined;
@@ -16,4 +16,4 @@ export async function POST(request: Request) {
     }
     throw err;
   }
-}
+});

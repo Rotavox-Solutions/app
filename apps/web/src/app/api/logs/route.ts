@@ -1,8 +1,7 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { listLogs } from "@/lib/queries";
-import { stationId } from "@/lib/station";
+import { stationRoute } from "@/lib/auth";
 
-export async function GET() {
-  const rows = await listLogs(stationId);
-  return NextResponse.json(rows);
-}
+export const GET = stationRoute("view", async (_request, { stationId }) =>
+  NextResponse.json(await listLogs(stationId)),
+);

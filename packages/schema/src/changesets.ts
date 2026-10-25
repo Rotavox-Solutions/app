@@ -207,6 +207,7 @@ export interface ChangesetSummary extends ChangesetRow {
   itemCount: number;
   /** The changeset that undid this one, if any. */
   revertedById: string | null;
+  appliedByName: string | null;
 }
 
 export async function listAppliedChangesets(db: Db, stationId: string, limit = 50): Promise<ChangesetSummary[]> {
@@ -228,6 +229,7 @@ export async function listAppliedChangesets(db: Db, stationId: string, limit = 5
       projectionError: changesets.projectionError,
       itemCount: sql<number>`(SELECT count(*) FROM changeset_items i WHERE i.changeset_id = changesets.id)`,
       revertedById: undo,
+      appliedByName: sql<string | null>`(SELECT u.name FROM users u WHERE u.id = changesets.applied_by)`,
     })
     .from(changesets)
     .where(and(eq(changesets.stationId, stationId), eq(changesets.status, "applied")))
@@ -360,7 +362,7 @@ async function projects(tx: Tx, stationId: string): Promise<boolean> {
 export async function applyDraft(
   db: Db,
   stationId: string,
-  opts: { intent?: string; at?: Date } = {}
+  opts: { intent?: string; at?: Date; appliedBy?: string | null } = {}
 ): Promise<{ changesetId: string; changed: number }> {
   const at = opts.at ?? new Date();
   return db.transaction(async (tx) => {
@@ -399,7 +401,7 @@ export async function applyDraft(
     const changed = await applyPlacements(tx, stationId, changes, at);
     await tx
       .update(changesets)
-      .set({ status: "applied", intent, appliedAt: at, projection: (await projects(tx, stationId)) ? "pending" : null })
+      .set({ status: "applied", intent, appliedAt: at, appliedBy: opts.appliedBy ?? null, projection: (await projects(tx, stationId)) ? "pending" : null })
       .where(eq(changesets.id, draft.id));
     return { changesetId: draft.id, changed };
   });

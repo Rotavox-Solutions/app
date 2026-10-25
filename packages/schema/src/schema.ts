@@ -14,8 +14,8 @@ import {
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
-// station_id on every table, from day one (invariant #3) — even though this is a
-// single-station build for now.
+// station_id on every table, from day one (invariant #3). The one exception is `users`:
+// a person can work for several stations (ADR-0003).
 
 export const stations = pgTable("stations", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -54,6 +54,88 @@ export const stations = pgTable("stations", {
    */
   rdjLifecycleSubcats: jsonb("rdj_lifecycle_subcats"),
 });
+
+// ── Accounts (ADR-0003) ─────────────────────────────────────────────────────────────
+// A person is one account across every station they work for, so `users` is the one
+// table without a station_id; what they may do at a station lives in station_members,
+// which has one.
+export const users = pgTable(
+  "users",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    /** Stored lowercased; the sign-in name. */
+    email: text("email").notNull(),
+    name: text("name").notNull(),
+    /** scrypt, self-describing: `scrypt$N$r$p$salt$hash` (see the web app's lib/auth/password.ts). */
+    passwordHash: text("password_hash").notNull(),
+    /** Rotavox staff: every station, every station-admin power, and the staff-only tools. */
+    isStaff: boolean("is_staff").default(false).notNull(),
+    failedLogins: integer("failed_logins").default(0).notNull(),
+    lockedUntil: timestamp("locked_until"),
+    disabledAt: timestamp("disabled_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    lastLoginAt: timestamp("last_login_at"),
+  },
+  (t) => [uniqueIndex("users_email_unique").on(t.email)]
+);
+
+export const stationMembers = pgTable(
+  "station_members",
+  {
+    stationId: uuid("station_id")
+      .notNull()
+      .references(() => stations.id, { onDelete: "cascade" }),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    // 'admin' | 'programmer' | 'viewer'
+    role: text("role").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [unique("station_members_pk").on(t.stationId, t.userId), index("station_members_user_idx").on(t.userId)]
+);
+
+// A signed-in browser. The cookie holds a random token; only its SHA-256 is stored, so
+// a leaked table can't be replayed as a session.
+export const sessions = pgTable(
+  "sessions",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    tokenHash: text("token_hash").notNull(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    /** The station this browser is working on. Null for staff before they pick one. */
+    stationId: uuid("station_id").references(() => stations.id, { onDelete: "set null" }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    lastSeenAt: timestamp("last_seen_at").defaultNow().notNull(),
+    expiresAt: timestamp("expires_at").notNull(),
+  },
+  (t) => [uniqueIndex("sessions_token_unique").on(t.tokenHash), index("sessions_user_idx").on(t.userId)]
+);
+
+// One-time links: an invitation to a station (or, from the engineer bootstrap, to
+// Rotavox staff), or a password reset. Hashed like session tokens.
+export const accountTokens = pgTable(
+  "account_tokens",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    // 'invite' | 'reset'
+    purpose: text("purpose").notNull(),
+    tokenHash: text("token_hash").notNull(),
+    email: text("email").notNull(),
+    /** The station an invite is for. Null for a staff invite or a reset. */
+    stationId: uuid("station_id").references(() => stations.id, { onDelete: "cascade" }),
+    role: text("role"),
+    isStaff: boolean("is_staff").default(false).notNull(),
+    createdBy: uuid("created_by").references(() => users.id, { onDelete: "set null" }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    expiresAt: timestamp("expires_at").notNull(),
+    usedAt: timestamp("used_at"),
+    revokedAt: timestamp("revoked_at"),
+  },
+  (t) => [uniqueIndex("account_tokens_token_unique").on(t.tokenHash), index("account_tokens_station_idx").on(t.stationId)]
+);
 
 // Mirror + Scheduler-owned extended metadata (spec §5). Core fields are written by
 // the Runner's library sync; extended fields are Scheduler/UI-owned and must never
@@ -189,6 +271,8 @@ export const changesets = pgTable(
     projection: text("projection"),
     projectedAt: timestamp("projected_at"),
     projectionError: text("projection_error"),
+    /** Who applied it. Null for one applied outside the UI. */
+    appliedBy: uuid("applied_by").references(() => users.id, { onDelete: "set null" }),
   },
   (t) => [
     uniqueIndex("changesets_one_draft").on(t.stationId).where(sql`status = 'draft'`),
@@ -240,6 +324,8 @@ export const runnerJobs = pgTable(
     status: text("status").default("queued").notNull(),
     // 'ui' | 'schedule' | 'changeset' — why it was queued, for the activity list
     requestedBy: text("requested_by").notNull(),
+    /** The person, when requestedBy is 'ui'. */
+    requestedByUser: uuid("requested_by_user").references(() => users.id, { onDelete: "set null" }),
     requestedAt: timestamp("requested_at").defaultNow().notNull(),
     startedAt: timestamp("started_at"),
     finishedAt: timestamp("finished_at"),

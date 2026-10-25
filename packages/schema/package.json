@@ -8,7 +8,8 @@
   "scripts": {
     "generate": "drizzle-kit generate",
     "migrate": "tsx src/migrate.ts",
-    "seed": "tsx src/seed.ts"
+    "seed": "tsx src/seed.ts",
+    "invite-staff": "tsx src/invite-staff.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.2",

@@ -6,6 +6,8 @@ export interface NavItem {
   href?: string;
   /** Key into the counts the layout passes the sidebar, shown as a badge when non-zero. */
   badge?: "inbox" | "changes";
+  /** Shown only to people who have this permission (the server enforces it regardless). */
+  needs?: "manage_people" | "staff";
 }
 
 export interface NavSection {
@@ -31,5 +33,13 @@ export const NAV: NavSection[] = [
   },
   { label: "Logs", items: [{ label: "Logs", href: "/logs" }] },
   { label: "Reports", items: [{ label: "As-run", href: "/reports/as-run" }] },
-  { label: "Station", items: [{ label: "Library & Runner", href: "/station" }, { label: "Settings" }] },
+  {
+    label: "Station",
+    items: [
+      { label: "Library & Runner", href: "/station" },
+      { label: "People", href: "/station/people", needs: "manage_people" },
+      { label: "Settings" },
+    ],
+  },
+  { label: "Rotavox", items: [{ label: "Staff", href: "/staff", needs: "staff" }] },
 ];

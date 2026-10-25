@@ -18,10 +18,16 @@ export type RunnerJob = typeof runnerJobs.$inferSelect;
  * twice is the same request, so a double-click or a scheduled run that lands mid-job
  * doesn't stack duplicates.
  */
-export async function enqueueJob(db: Db, stationId: string, kind: JobKind, requestedBy: JobRequester): Promise<RunnerJob> {
+export async function enqueueJob(
+  db: Db,
+  stationId: string,
+  kind: JobKind,
+  requestedBy: JobRequester,
+  requestedByUser: string | null = null
+): Promise<RunnerJob> {
   const [created] = await db
     .insert(runnerJobs)
-    .values({ stationId, kind, requestedBy })
+    .values({ stationId, kind, requestedBy, requestedByUser })
     .onConflictDoNothing()
     .returning();
   if (created) return created;

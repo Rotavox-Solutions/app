@@ -12,7 +12,7 @@ describe("approval state machine", () => {
     const station = await seedStation();
     const log = await seedLog(station.id, { status: "draft" });
 
-    const result = await approveLog(log.id);
+    const result = await approveLog(station.id, log.id);
 
     expect(result.log.status).toBe("approved");
   });
@@ -21,7 +21,7 @@ describe("approval state machine", () => {
     const station = await seedStation();
     const log = await seedLog(station.id, { status: "approved" });
 
-    const result = await approveLog(log.id);
+    const result = await approveLog(station.id, log.id);
 
     expect(result.log.status).toBe("approved");
   });
@@ -42,7 +42,7 @@ describe("approval state machine", () => {
       projectedAirAt: new Date(now + 3_700_000), // well past the safety horizon
     });
 
-    const result = await applyReplace(log.id, item.id, songB.id);
+    const result = await applyReplace(station.id, log.id, item.id, songB.id);
 
     expect(result.log.status).toBe("draft");
     expect(result.item.songId).toBe(songB.id);
@@ -65,7 +65,7 @@ describe("approval state machine", () => {
       projectedAirAt: new Date(now + 30 * 60_000), // 30 min out, well past the safety horizon
     });
 
-    const result = await applyReplace(log.id, item.id, songB.id);
+    const result = await applyReplace(station.id, log.id, item.id, songB.id);
 
     expect(result.log.status).toBe("approved");
     expect(result.item.songId).toBe(songB.id);

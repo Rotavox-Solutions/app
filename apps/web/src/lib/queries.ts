@@ -85,8 +85,8 @@ export interface LogDetail {
   items: LogItemDetail[];
 }
 
-export async function getLogDetail(logId: string): Promise<LogDetail | null> {
-  const [log] = await db.select().from(logs).where(eq(logs.id, logId));
+export async function getLogDetail(stationId: string, logId: string): Promise<LogDetail | null> {
+  const [log] = await db.select().from(logs).where(and(eq(logs.id, logId), eq(logs.stationId, stationId)));
   if (!log) return null;
 
   const rows = await db

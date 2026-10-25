@@ -118,7 +118,7 @@ VALUES ('6a42a599-acfc-404f-a524-9fb9b65d36f3', 'The BOLT', 'America/New_York');
 ```
 
 Adjust name/timezone to taste; keep the uuid. (Or pick a new uuid and update
-`\set sid` at the top of the seed — but then update `SCHEDULER_STATION_ID` everywhere
+`\set sid` at the top of the seed — but then update the Runner's `SCHEDULER_STATION_ID`
 too.)
 
 ### 5. Runner `.env` + re-introspection
@@ -200,8 +200,8 @@ enforce) and on `last_scheduled_at`. Rotation quality tightens as history accumu
 
 ### 9. Generate and approve a log
 
-The web app owns generation as of M4a. With `DATABASE_URL` and `SCHEDULER_STATION_ID`
-set (`apps/web/.env.example`):
+The web app owns generation as of M4a. With `DATABASE_URL` set (`apps/web/.env.example`)
+and the first account made (step 12):
 
 ```
 npm run dev --workspace=@rotavox/web
@@ -276,6 +276,24 @@ release notes say when one is needed.
 Keep Runner and Watchdog independent, with no dependency between the two services. The
 watchdog's whole job is to keep working when the runner doesn't. Stopping the runner alone
 hands playout to AutoDJ within ~20s; that is the fail-safe, not a fault.
+
+### 12. The first account
+
+The web app requires signing in (ADR-0003). On a fresh install there are no accounts, and
+the sign-in page says so. Make the first Rotavox staff account from the box:
+
+```
+npm run invite-staff -w @rotavox/schema -- you@example.com
+```
+
+It prints a one-time link, valid 7 days. Open it in a browser that can reach the web app,
+then choose a name and password. No password goes on the command line. Set `APP_URL` if
+the printed address should be something other than `http://localhost:3000`.
+
+From there, everything is in the app. A staff member opens the station, goes to
+Station › People and invites its station admin, who invites the PD and MD. Rotavox
+doesn't send email yet, so each invitation is a link to pass on. Staff make
+password-reset links from the same page.
 
 ---
 

@@ -1,8 +1,8 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getAsRunReport } from "@/lib/queries";
-import { stationId } from "@/lib/station";
+import { stationRoute } from "@/lib/auth";
 
-export async function GET(request: Request) {
+export const GET = stationRoute("view", async (request, { stationId }) => {
   const { searchParams } = new URL(request.url);
   const fromParam = searchParams.get("from");
   const toParam = searchParams.get("to");
@@ -11,4 +11,4 @@ export async function GET(request: Request) {
     to: toParam ? new Date(toParam) : undefined,
   });
   return NextResponse.json(rows);
-}
+});

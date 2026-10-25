@@ -33,9 +33,11 @@ interface Props {
   logStatus: "draft" | "approved";
   displayStatus: DisplayStatus;
   items: LogItemDetail[];
+  /** For a Viewer: the timeline without approve, replace, swap or lock. */
+  readOnly?: boolean;
 }
 
-export function LogTimeline({ logId, logStatus, displayStatus, items }: Props) {
+export function LogTimeline({ logId, logStatus, displayStatus, items, readOnly = false }: Props) {
   const router = useRouter();
   const [swapSelection, setSwapSelection] = useState<string[]>([]);
   const [replaceTarget, setReplaceTarget] = useState<{ itemId: string; categoryId: string | null } | null>(null);
@@ -100,13 +102,15 @@ export function LogTimeline({ logId, logStatus, displayStatus, items }: Props) {
     <div className="space-y-4">
       <div className="flex items-center gap-3">
         <StatusBadge status={displayStatus} />
-        <button
-          onClick={handleApprove}
-          disabled={pendingApprove || logStatus === "approved"}
-          className="rounded bg-blue-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-40"
-        >
-          {logStatus === "approved" ? "Approved" : pendingApprove ? "Approving…" : "Approve"}
-        </button>
+        {!readOnly && (
+          <button
+            onClick={handleApprove}
+            disabled={pendingApprove || logStatus === "approved"}
+            className="rounded bg-blue-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-40"
+          >
+            {logStatus === "approved" ? "Approved" : pendingApprove ? "Approving…" : "Approve"}
+          </button>
+        )}
         {swapSelection.length === 2 && (
           <button
             onClick={handleSwap}
@@ -128,7 +132,7 @@ export function LogTimeline({ logId, logStatus, displayStatus, items }: Props) {
             <th className="py-2 pr-2 font-medium">Category</th>
             <th className="py-2 pr-2 font-medium">Song</th>
             <th className="py-2 pr-2 font-medium">Violations</th>
-            <th className="py-2 font-medium">Actions</th>
+            {!readOnly && <th className="py-2 font-medium">Actions</th>}
           </tr>
         </thead>
         <tbody>
@@ -156,46 +160,59 @@ export function LogTimeline({ logId, logStatus, displayStatus, items }: Props) {
                 <td className="py-1.5 pr-2 text-neutral-400">{item.elementType}</td>
                 <td className="py-1.5 pr-2 text-neutral-400">{item.categoryName ?? "—"}</td>
                 <td className="py-1.5 pr-2 text-neutral-100">
-                  {item.artist ? `${item.artist} — ${item.title}` : <span className="text-neutral-600">(unfilled)</span>}
+                  {item.artist ? (
+                    `${item.artist} — ${item.title}`
+                  ) : (
+                    <span className="text-neutral-600">(unfilled)</span>
+                  )}
                   {item.locked && <span className="ml-2 text-xs text-neutral-500">🔒</span>}
                 </td>
                 <td className="py-1.5 pr-2">
                   {violationSteps.length > 0 ? (
-                    <span className="rounded bg-amber-900/60 px-1.5 py-0.5 text-xs text-amber-300" title={violationSteps.join(", ")}>
+                    <span
+                      className="rounded bg-amber-900/60 px-1.5 py-0.5 text-xs text-amber-300"
+                      title={violationSteps.join(", ")}
+                    >
                       {violationSteps.length}
                     </span>
                   ) : (
                     <span className="text-neutral-700">—</span>
                   )}
                 </td>
-                <td className="py-1.5">
-                  <div className="flex items-center gap-1.5" title={disabledTitle}>
-                    <button
-                      disabled={!item.editable}
-                      onClick={() => setReplaceTarget({ itemId: item.id, categoryId: item.categoryId })}
-                      className="rounded border border-neutral-700 px-1.5 py-0.5 text-xs hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-30"
-                    >
-                      Replace
-                    </button>
-                    <button
-                      disabled={!item.editable}
-                      onClick={() => toggleSwapSelect(item.id)}
-                      className={`rounded border px-1.5 py-0.5 text-xs disabled:cursor-not-allowed disabled:opacity-30 ${
-                        selected ? "border-purple-500 bg-purple-900/40" : "border-neutral-700 hover:bg-neutral-800"
-                      }`}
-                    >
-                      {selected ? "Selected" : "Select for swap"}
-                    </button>
-                    <button
-                      disabled={!item.editable && !item.locked}
-                      onClick={() => handleLockToggle(item.id, item.locked)}
-                      className="rounded border border-neutral-700 px-1.5 py-0.5 text-xs hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-30"
-                    >
-                      {item.locked ? "Unlock" : "Lock"}
-                    </button>
-                  </div>
-                  {rowError?.id === item.id && <p className="text-xs text-red-400">{REASON_LABEL[rowError.message as EditRejectReason] ?? rowError.message}</p>}
-                </td>
+                {!readOnly && (
+                  <td className="py-1.5">
+                    <div className="flex items-center gap-1.5" title={disabledTitle}>
+                      <button
+                        disabled={!item.editable}
+                        onClick={() => setReplaceTarget({ itemId: item.id, categoryId: item.categoryId })}
+                        className="rounded border border-neutral-700 px-1.5 py-0.5 text-xs hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-30"
+                      >
+                        Replace
+                      </button>
+                      <button
+                        disabled={!item.editable}
+                        onClick={() => toggleSwapSelect(item.id)}
+                        className={`rounded border px-1.5 py-0.5 text-xs disabled:cursor-not-allowed disabled:opacity-30 ${
+                          selected ? "border-purple-500 bg-purple-900/40" : "border-neutral-700 hover:bg-neutral-800"
+                        }`}
+                      >
+                        {selected ? "Selected" : "Select for swap"}
+                      </button>
+                      <button
+                        disabled={!item.editable && !item.locked}
+                        onClick={() => handleLockToggle(item.id, item.locked)}
+                        className="rounded border border-neutral-700 px-1.5 py-0.5 text-xs hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-30"
+                      >
+                        {item.locked ? "Unlock" : "Lock"}
+                      </button>
+                    </div>
+                    {rowError?.id === item.id && (
+                      <p className="text-xs text-red-400">
+                        {REASON_LABEL[rowError.message as EditRejectReason] ?? rowError.message}
+                      </p>
+                    )}
+                  </td>
+                )}
               </tr>
             );
           })}

@@ -69,8 +69,9 @@ export function canMutateItem(item: LogItemRow, now: Date = new Date()): { ok: t
 // PgTransaction's generic signature.
 type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0];
 
-async function fetchLogAndItem(tx: Tx, logId: string, itemId: string) {
-  const [log] = await tx.select().from(logs).where(eq(logs.id, logId));
+// Every lookup is scoped to the caller's station: a log id from another station is not_found.
+async function fetchLogAndItem(tx: Tx, stationId: string, logId: string, itemId: string) {
+  const [log] = await tx.select().from(logs).where(and(eq(logs.id, logId), eq(logs.stationId, stationId)));
   if (!log) throw new EditRejectedError("not_found");
   const [item] = await tx.select().from(logItems).where(and(eq(logItems.id, itemId), eq(logItems.logId, logId)));
   if (!item) throw new EditRejectedError("not_found");
@@ -87,13 +88,14 @@ async function maybeReturnToDraft(tx: Tx, log: LogRow, now: Date): Promise<LogRo
 }
 
 export async function applyReplace(
+  stationId: string,
   logId: string,
   itemId: string,
   songId: string
 ): Promise<{ item: LogItemRow; log: LogRow }> {
   const now = new Date();
   return db.transaction(async (tx) => {
-    const { log, item } = await fetchLogAndItem(tx, logId, itemId);
+    const { log, item } = await fetchLogAndItem(tx, stationId, logId, itemId);
     const check = canMutateItem(item, now);
     if (!check.ok) throw new EditRejectedError(check.reason);
 
@@ -112,6 +114,7 @@ export async function applyReplace(
 }
 
 export async function applySwap(
+  stationId: string,
   logId: string,
   itemIdA: string,
   itemIdB: string
@@ -119,7 +122,7 @@ export async function applySwap(
   if (itemIdA === itemIdB) throw new EditRejectedError("not_found");
   const now = new Date();
   return db.transaction(async (tx) => {
-    const [log] = await tx.select().from(logs).where(eq(logs.id, logId));
+    const [log] = await tx.select().from(logs).where(and(eq(logs.id, logId), eq(logs.stationId, stationId)));
     if (!log) throw new EditRejectedError("not_found");
 
     const [itemA] = await tx.select().from(logItems).where(and(eq(logItems.id, itemIdA), eq(logItems.logId, logId)));
@@ -147,10 +150,10 @@ export async function applySwap(
   });
 }
 
-export async function setLocked(logId: string, itemId: string, locked: boolean): Promise<{ item: LogItemRow }> {
+export async function setLocked(stationId: string, logId: string, itemId: string, locked: boolean): Promise<{ item: LogItemRow }> {
   const now = new Date();
   return db.transaction(async (tx) => {
-    const { item } = await fetchLogAndItem(tx, logId, itemId);
+    const { item } = await fetchLogAndItem(tx, stationId, logId, itemId);
     // Lock is exempt from the re-approval flip (locking touches no field that
     // affects playback) but still gated by the same boundary — locking an
     // already-pushed or fixed_event item is meaningless and racy for the same
@@ -163,8 +166,8 @@ export async function setLocked(logId: string, itemId: string, locked: boolean):
   });
 }
 
-export async function approveLog(logId: string): Promise<{ log: LogRow }> {
-  const [log] = await db.select().from(logs).where(eq(logs.id, logId));
+export async function approveLog(stationId: string, logId: string): Promise<{ log: LogRow }> {
+  const [log] = await db.select().from(logs).where(and(eq(logs.id, logId), eq(logs.stationId, stationId)));
   if (!log) throw new EditRejectedError("not_found");
   if (log.status === "approved") return { log };
   const [updated] = await db.update(logs).set({ status: "approved" }).where(eq(logs.id, logId)).returning();
