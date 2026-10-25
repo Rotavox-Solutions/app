@@ -1,13 +1,15 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { NAV } from "./nav";
+import { NAV, type NavItem } from "./nav";
 
 function isActive(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function Sidebar({ stationName }: { stationName: string }) {
+export type NavCounts = Partial<Record<NonNullable<NavItem["badge"]>, number>>;
+
+export function Sidebar({ stationName, counts = {} }: { stationName: string; counts?: NavCounts }) {
   const pathname = usePathname();
 
   return (
@@ -35,6 +37,11 @@ export function Sidebar({ stationName }: { stationName: string }) {
                 }`}
               >
                 {item.label}
+                {item.badge && counts[item.badge] ? (
+                  <span className="ml-2 rounded bg-neutral-700 px-1.5 text-xs tabular-nums text-neutral-200">
+                    {counts[item.badge]}
+                  </span>
+                ) : null}
               </a>
             ) : (
               <span

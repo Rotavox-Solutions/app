@@ -64,6 +64,11 @@ runtime introspection (`schema-map.json`), never hardcoded — invariant #1 and 
 
 JSON. One file per changeset, committed to the repo under `changesets/`.
 
+Changesets authored in the Rotavox UI (ADR-0002 §3) live in Postgres. The Runner's
+`project-changesets` command converts each applied one into this format under
+`changesets/rotavox/`, with `basis.sheet_id` set to `rotavox:<changeset id>`. It applies
+them through the same validation and inverse path as hand-authored files.
+
 ```jsonc
 {
   "changeset_version": 1,

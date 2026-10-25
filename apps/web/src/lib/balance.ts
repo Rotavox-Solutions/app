@@ -259,3 +259,43 @@ export function requiredDepth(b: CategoryBalance): number | null {
   if (b.weeklySlots === 0 || b.targetTurnoverHours == null) return null;
   return Math.ceil((b.targetTurnoverHours * b.weeklySlots) / HOURS_PER_WEEK);
 }
+
+export interface PlacementWhatIf {
+  songId: string;
+  to: { state: string; categoryId: string | null };
+  /** The song's enabled flag — needed for songs with no membership yet (the inbox). */
+  enabled: boolean | null;
+}
+
+/**
+ * The balance input as it would be after these placements — the changeset review's
+ * "after" column. Mirrors applyPlacements: the primary row moves, an 'also' row for the
+ * new pool is absorbed into it, and benched or retired songs lose every row.
+ */
+export function withPlacements(input: BalanceInput, changes: PlacementWhatIf[]): BalanceInput {
+  const bySong = new Map(changes.map((c) => [c.songId, c]));
+  const memberships: BalanceInput["memberships"] = [];
+  for (const m of input.memberships) {
+    const c = bySong.get(m.songId);
+    if (!c) {
+      memberships.push(m);
+      continue;
+    }
+    const out = c.to.state === "benched" || c.to.state === "retired";
+    const isPrimary = (m.role ?? "primary") === "primary";
+    if (out || isPrimary || m.categoryId === c.to.categoryId) continue;
+    memberships.push({ ...m, lifecycleState: c.to.state });
+  }
+  for (const c of changes) {
+    if (!c.to.categoryId || c.to.state === "benched" || c.to.state === "retired") continue;
+    memberships.push({
+      songId: c.songId,
+      categoryId: c.to.categoryId,
+      enabled: c.enabled,
+      role: "primary",
+      lifecycleState: c.to.state,
+      lifecycleSince: input.now ?? new Date(),
+    });
+  }
+  return { ...input, memberships };
+}

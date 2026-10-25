@@ -43,6 +43,13 @@
       "when": 1792457142994,
       "tag": "0005_curvy_oracle",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792868887183,
+      "tag": "0006_colorful_swarm",
+      "breakpoints": true
     }
   ]
 }

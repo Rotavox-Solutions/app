@@ -4,6 +4,8 @@
 export interface NavItem {
   label: string;
   href?: string;
+  /** Key into the counts the layout passes the sidebar, shown as a badge when non-zero. */
+  badge?: "inbox" | "changes";
 }
 
 export interface NavSection {
@@ -15,7 +17,13 @@ export const NAV: NavSection[] = [
   { label: "", items: [{ label: "Today", href: "/today" }] },
   {
     label: "Music",
-    items: [{ label: "Categories", href: "/music/categories" }, { label: "Library" }, { label: "Lifecycle" }],
+    items: [
+      { label: "Categories", href: "/music/categories" },
+      { label: "Inbox", href: "/music/inbox", badge: "inbox" },
+      { label: "Changes", href: "/music/changes", badge: "changes" },
+      { label: "Library" },
+      { label: "Lifecycle" },
+    ],
   },
   {
     label: "Format",

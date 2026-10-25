@@ -1,5 +1,6 @@
 import { getCategoryBalance, getTodaySummary } from "@/lib/queries";
 import { stationId } from "@/lib/station";
+import { getChangesStatus } from "@/lib/music-edits";
 import { needsAttention } from "@/lib/balance";
 import { HOUR_MS } from "@/lib/constants";
 import { fmtAgo, fmtTurnover } from "@/components/music/format";
@@ -41,7 +42,11 @@ function fmtWhen(at: Date, timezone: string): string {
 }
 
 export default async function TodayPage() {
-  const [summary, balance] = await Promise.all([getTodaySummary(stationId), getCategoryBalance(stationId)]);
+  const [summary, balance, changes] = await Promise.all([
+    getTodaySummary(stationId),
+    getCategoryBalance(stationId),
+    getChangesStatus(stationId),
+  ]);
   if (!summary) {
     return <p className="text-sm text-neutral-500">No station configured for SCHEDULER_STATION_ID.</p>;
   }
@@ -151,6 +156,42 @@ export default async function TodayPage() {
                 </li>
               ))}
             </ul>
+          </Card>
+        )}
+
+        {(changes.draftItems > 0 || changes.inbox > 0 || changes.pendingProjection > 0 || changes.failedProjection > 0) && (
+          <Card title="Music changes" tone={changes.failedProjection ? "alert" : "warn"}>
+            {changes.inbox > 0 && (
+              <p>
+                <a href="/music/inbox" className="text-neutral-200 hover:underline">
+                  {changes.inbox} {changes.inbox === 1 ? "song has" : "songs have"} no pool
+                </a>{" "}
+                and can&apos;t be scheduled.
+              </p>
+            )}
+            {changes.draftItems > 0 && (
+              <p>
+                <a href="/music/changes" className="text-neutral-200 hover:underline">
+                  {changes.draftItems} staged {changes.draftItems === 1 ? "change" : "changes"}
+                </a>{" "}
+                waiting to be applied.
+              </p>
+            )}
+            {changes.pendingProjection > 0 && (
+              <p>
+                {changes.pendingProjection} applied {changes.pendingProjection === 1 ? "change is" : "changes are"} not
+                in RadioDJ yet. AutoDJ&apos;s fallback still uses the old pools until the Runner writes them.
+              </p>
+            )}
+            {changes.failedProjection > 0 && (
+              <p className="text-red-300">
+                {changes.failedProjection} {changes.failedProjection === 1 ? "change" : "changes"} failed to reach
+                RadioDJ.{" "}
+                <a href="/music/changes" className="hover:underline">
+                  See why →
+                </a>
+              </p>
+            )}
           </Card>
         )}
 

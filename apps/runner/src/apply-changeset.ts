@@ -85,6 +85,34 @@ async function main(): Promise<void> {
     return;
   }
 
+  const written = await applyToRadioDJ(cs, args);
+  if (!written) {
+    await pool.end();
+    await pgClient.end();
+    return;
+  }
+
+  await mirrorIntoRotavox(cs);
+  console.log(
+    "\nNext: re-sync the mirror (`npm run sync-library`) so it reflects RadioDJ's new subcategories" +
+      " (and, for a station not yet imported, re-derive membership before generating any log)."
+  );
+  await pool.end();
+}
+
+export interface ApplyOptions {
+  apply: boolean;
+  allowTagDrift: boolean;
+  /** The changesets directory: inverse/ and applied/ are written under it. */
+  outDir: string;
+}
+
+/**
+ * Validates a changeset against live RadioDJ and, with `apply`, writes it in one
+ * transaction after emitting its inverse. Returns whether anything was written. Leaves
+ * the RadioDJ pool open: the caller owns its lifetime.
+ */
+export async function applyToRadioDJ(cs: Changeset, args: ApplyOptions): Promise<boolean> {
   const map = loadSchemaMap();
   const songsTable = map.tables.songs;
   const subcategoryTable = map.tables.subcategory;
@@ -138,8 +166,7 @@ async function main(): Promise<void> {
         "were made on. Re-cut the sheet rather than editing the changeset to match."
     );
     process.exitCode = 1;
-    await pool.end();
-    return;
+    return false;
   }
 
   // ---- summary ----
@@ -164,8 +191,7 @@ async function main(): Promise<void> {
 
   if (!args.apply) {
     console.log("\nValidate-only. Re-run with --apply to write these changes.");
-    await pool.end();
-    return;
+    return false;
   }
 
   // ---- inverse written BEFORE the transaction commits ----
@@ -252,12 +278,7 @@ async function main(): Promise<void> {
     ) + "\n"
   );
 
-  await mirrorIntoRotavox(cs);
-  console.log(
-    "\nNext: re-sync the mirror (`npm run sync-library`) so it reflects RadioDJ's new subcategories" +
-      " (and, for a station not yet imported, re-derive membership before generating any log)."
-  );
-  await pool.end();
+  return true;
 }
 
 /**

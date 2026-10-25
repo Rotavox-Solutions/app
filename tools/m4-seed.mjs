@@ -63,7 +63,7 @@ const LIFECYCLE = {
   32: { state: "resting" }, // Z
   33: { state: "resting", origin: "N" }, // ZN
   34: { state: "retired" }, // K — killed
-  35: { state: "benched" }, // W
+  35: { state: "benched", default: true }, // W — where a bench made in Rotavox lands
 };
 
 /**

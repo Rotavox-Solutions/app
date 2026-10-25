@@ -46,6 +46,10 @@ lifecycle state:
 - The rows under "Deliberately unmapped" that encode a state (Y, Z, ZN, K, W) live in
   `stations.rdj_lifecycle_subcats`. Both are written by the seed, or by
   `seed/m4-projection.sql` alone.
+- Pool and state edits are made in the UI (Music › Inbox, Music › Changes). Once applied,
+  `npm run project-changesets -w @rotavox/runner [-- --apply]` writes them to RadioDJ.
+  Until it runs, AutoDJ's fallback rotations still see the old subcategories, and Today
+  says so.
 - `apply-changeset` mirrors every move into Rotavox after the RadioDJ commit.
   `refresh-memberships.sql` refuses to run. The M4 seed upserts categories in place and
   leaves membership alone.

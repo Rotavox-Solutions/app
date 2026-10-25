@@ -17,7 +17,7 @@ import {
 import { db } from "./db";
 import { canEditItem, deriveDisplayStatus, type DisplayStatus, type EditRejectReason, type LogRow } from "./log-edits";
 import { HOUR_MS } from "./constants";
-import { computeBalance, type CategoryBalance } from "./balance";
+import { computeBalance, type BalanceInput, type CategoryBalance } from "./balance";
 
 export interface LogListRow {
   id: string;
@@ -229,8 +229,14 @@ async function recentSpinsBySong(stationId: string, since: Date): Promise<Map<st
 }
 
 export async function getCategoryBalance(stationId: string): Promise<CategoryBalance[]> {
+  const input = await loadBalanceInput(stationId);
+  return input ? computeBalance(input) : [];
+}
+
+/** Everything the balance arithmetic reads, so a caller can compute it for a what-if too. */
+export async function loadBalanceInput(stationId: string): Promise<BalanceInput | null> {
   const [station] = await db.select().from(stations).where(eq(stations.id, stationId));
-  if (!station) return [];
+  if (!station) return null;
 
   const [catRows, memberRows, positionRows, gridRows, spins] = await Promise.all([
     db.select().from(categories).where(eq(categories.stationId, stationId)).orderBy(asc(categories.name)),
@@ -260,14 +266,14 @@ export async function getCategoryBalance(stationId: string): Promise<CategoryBal
     recentSpinsBySong(stationId, new Date(Date.now() - RECENT_SPINS_DAYS * 24 * HOUR_MS)),
   ]);
 
-  return computeBalance({
+  return {
     categories: catRows,
     memberships: memberRows,
     positions: positionRows,
     grid: gridRows,
     cycleWeeks: station.formatCycleWeeks ?? 1,
     recentSpinsBySong: spins,
-  });
+  };
 }
 
 export interface PoolSongRow {

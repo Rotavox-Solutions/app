@@ -10,6 +10,7 @@ import {
   unique,
   uniqueIndex,
   index,
+  type AnyPgColumn,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
@@ -162,6 +163,67 @@ export const lifecycleEvents = pgTable(
     at: timestamp("at").defaultNow().notNull(),
   },
   (t) => [index("lifecycle_events_song_idx").on(t.songId, t.at)]
+);
+
+// A UI-authored changeset (ADR-0002 §2.3): the reviewable, reversible unit every pool and
+// lifecycle edit goes through. At most one draft per station: edits from any screen stage
+// into it, and it is reviewed and applied as a whole. Applying writes Rotavox at once;
+// `projection` then tracks getting the same change into the playout library.
+export const changesets = pgTable(
+  "changesets",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    stationId: uuid("station_id").notNull().references(() => stations.id),
+    // 'draft' | 'applied' | 'discarded'
+    status: text("status").default("draft").notNull(),
+    /** Why this exists — required to apply, and the reason for any item without its own. */
+    intent: text("intent"),
+    /** Set on an undo: the applied changeset this one reverses. */
+    revertsChangesetId: uuid("reverts_changeset_id").references((): AnyPgColumn => changesets.id),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    appliedAt: timestamp("applied_at"),
+    /**
+     * Null when the station has nothing to project to (tier 0/1). Otherwise 'pending'
+     * until the Runner writes it to RadioDJ, then 'projected' or 'failed'.
+     */
+    projection: text("projection"),
+    projectedAt: timestamp("projected_at"),
+    projectionError: text("projection_error"),
+  },
+  (t) => [
+    uniqueIndex("changesets_one_draft").on(t.stationId).where(sql`status = 'draft'`),
+    index("changesets_station_applied_idx").on(t.stationId, t.appliedAt),
+  ]
+);
+
+// One song's placement change. `from_*` is the precondition captured when the item was
+// staged; applying re-checks it, so a song changed by someone else in between is
+// reported rather than silently overwritten (CHANGESET-CONTRACT §5).
+export const changesetItems = pgTable(
+  "changeset_items",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    stationId: uuid("station_id").notNull().references(() => stations.id),
+    changesetId: uuid("changeset_id")
+      .notNull()
+      .references(() => changesets.id, { onDelete: "cascade" }),
+    songId: uuid("song_id").notNull().references(() => songs.id),
+    fromState: text("from_state").notNull(),
+    fromCategoryId: uuid("from_category_id").references(() => categories.id),
+    toState: text("to_state").notNull(),
+    toCategoryId: uuid("to_category_id").references(() => categories.id),
+    reason: text("reason"),
+    /** The song's RadioDJ subcategory per the mirror when it was staged. */
+    fromRdjSubcat: integer("from_rdj_subcat"),
+    /**
+     * Set on an undo: the exact RadioDJ subcategory to restore, the original's
+     * `from_rdj_subcat`. Otherwise derived from the placement at projection time — and some
+     * placements (active with no pool) have no subcategory of their own to derive.
+     */
+    toRdjSubcat: integer("to_rdj_subcat"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [unique("changeset_items_one_per_song").on(t.changesetId, t.songId)]
 );
 
 export const clocks = pgTable("clocks", {

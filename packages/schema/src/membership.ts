@@ -15,6 +15,11 @@ export interface LifecycleSubcatRule {
   state: Exclude<LifecycleState, "active">;
   /** Category name a resting song belongs to (ZN → "N"). Ignored for other states. */
   origin?: string;
+  /**
+   * Where a change made in Rotavox lands when several subcategories encode the same state
+   * (W and Y both bench). Reading is unaffected: every one of them still means the state.
+   */
+  default?: boolean;
 }
 export type LifecycleSubcatMap = Record<string, LifecycleSubcatRule>;
 
@@ -50,6 +55,9 @@ export function validateProjectionMap(cats: ProjectedCategory[], lifecycle: Life
     if (owner.has(id)) errors.push(`RadioDJ subcategory ${id} is both the pool ${owner.get(id)} and a ${rule.state} state`);
     if (!["resting", "benched", "retired"].includes(rule.state)) {
       errors.push(`lifecycle subcategory ${key} has unknown state "${rule.state}"`);
+    }
+    if (rule.default && Object.values(lifecycle ?? {}).filter((r) => r.default && r.state === rule.state && !r.origin).length > 1) {
+      errors.push(`more than one lifecycle subcategory is the default for ${rule.state}`);
     }
     if (rule.origin && !cats.some((c) => c.name === rule.origin)) {
       errors.push(`lifecycle subcategory ${key} names origin "${rule.origin}", which is not a category`);
@@ -166,7 +174,8 @@ export async function applyPlacements(
   return changed;
 }
 
-async function loadProjection(tx: Tx, stationId: string) {
+/** The station's projection map, validated. Throws when it is ambiguous or empty. */
+export async function loadProjection(tx: Tx | Db, stationId: string) {
   const [station] = await tx.select().from(stations).where(eq(stations.id, stationId));
   if (!station) throw new Error(`station ${stationId} not found`);
   const cats = await tx

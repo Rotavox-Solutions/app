@@ -24,3 +24,15 @@ export function fmtDuration(ms: number | null): string {
   const s = Math.round(ms / 1000);
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 }
+
+/** Where a song sits, in a PD's words: its pool, or its state when that is what matters. */
+export function fmtPlacement(p: { state: string; categoryId: string | null }, names: Map<string, string>): string {
+  const pool = p.categoryId ? names.get(p.categoryId) ?? "?" : null;
+  if (p.state === "active") return pool ?? "no pool";
+  if (p.state === "resting") return pool ? `resting from ${pool}` : "resting";
+  return p.state;
+}
+
+export function fmtWhenShort(at: Date, timeZone: string): string {
+  return at.toLocaleString("en-US", { timeZone, month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+}

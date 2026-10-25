@@ -103,10 +103,16 @@ Schema, additive (migration 0005):
   history of transitions. It is what makes "why is this in R2" answerable, and what
   standing rules will read.
 
-Deferred to the first editing screen: a `changesets` table holding UI-authored
-changesets in the CHANGESET-CONTRACT format (with the v2 `lifecycle` and `generated_by`
-fields). Until then, changesets stay files, applied by the Runner. The Runner mirrors
-each applied move into Rotavox membership (§4, step 3).
+UI-authored changesets (migration 0006, built 2026-10-24): `changesets` and
+`changeset_items`, one row per song with its from-placement as the precondition. Each
+station has at most one draft. Every edit screen stages into it, and Music › Changes
+reviews it against the Balance view and applies it as a whole with a required intent.
+Undo drafts the inverse, which is reviewed like any other change. An applied changeset is
+marked `projection = 'pending'` where the station has a projection map. The Runner's
+`project-changesets` command then turns it into a v1 file changeset under
+`changesets/rotavox/` and writes it through apply-changeset's validated path. It is
+operator-run, not automatic, because it writes the live library. Hand-authored file
+changesets still work, and the Runner mirrors their moves into Rotavox (§4, step 3).
 
 Engine change: `basePool` additionally requires `lifecycle_state = 'active'`. It is
 one filter, next to `enabled`.
