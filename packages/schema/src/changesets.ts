@@ -102,7 +102,7 @@ async function requireImported(tx: Tx, stationId: string) {
   if (!station.membershipImportedAt) {
     throw new ChangesetError(
       "not_imported",
-      "Pool membership for this station is still derived from RadioDJ. Run import-membership before editing it here."
+      "Pools for this station still come from RadioDJ. Import them on the Station page before editing them here."
     );
   }
   return station;
@@ -573,4 +573,34 @@ export async function markProjection(
         : { projection: "failed", projectionError: result.error }
     )
     .where(eq(changesets.id, changesetId));
+}
+
+/** Puts a failed projection back in line, for the Runner to try again. */
+export async function retryProjection(db: Db, stationId: string, changesetId: string): Promise<void> {
+  const rows = await db
+    .update(changesets)
+    .set({ projection: "pending", projectionError: null })
+    .where(and(eq(changesets.stationId, stationId), eq(changesets.id, changesetId), eq(changesets.projection, "failed")))
+    .returning({ id: changesets.id });
+  if (rows.length === 0) throw new ChangesetError("not_found", "no failed projection to retry for that changeset");
+}
+
+/**
+ * The projection state of the oldest applied changeset not yet in RadioDJ. 'failed' at
+ * the head blocks the queue until someone retries it; later changes may build on it.
+ */
+export async function nextProjectionStatus(db: Db, stationId: string): Promise<"pending" | "failed" | null> {
+  const [row] = await db
+    .select({ projection: changesets.projection })
+    .from(changesets)
+    .where(
+      and(
+        eq(changesets.stationId, stationId),
+        eq(changesets.status, "applied"),
+        inArray(changesets.projection, ["pending", "failed"])
+      )
+    )
+    .orderBy(asc(changesets.appliedAt))
+    .limit(1);
+  return (row?.projection as "pending" | "failed" | undefined) ?? null;
 }

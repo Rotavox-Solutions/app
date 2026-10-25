@@ -1,6 +1,6 @@
 /** Whether an applied change has reached the playout library yet (ADR-0002 §5). */
 export function ProjectionBadge({ projection, error }: { projection: string | null; error?: string | null }) {
-  if (projection == null) return <span className="text-neutral-500">not projected</span>;
+  if (projection == null) return <span className="text-neutral-500">not written</span>;
   if (projection === "projected") return <span className="text-neutral-400">written</span>;
   if (projection === "failed")
     return (
@@ -9,8 +9,8 @@ export function ProjectionBadge({ projection, error }: { projection: string | nu
       </span>
     );
   return (
-    <span className="text-amber-300" title="Run project-changesets on the Runner to write it to RadioDJ">
-      waiting for the Runner
+    <span className="text-amber-300" title="The Runner on the broadcast box writes it within a few seconds">
+      writing…
     </span>
   );
 }

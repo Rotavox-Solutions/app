@@ -5,10 +5,13 @@ import {
   categories,
   changesets,
   getDraft,
+  placementForSubcat,
   songCategories,
   songs,
   stations,
   type ChangesetItemRow,
+  type LifecycleSubcatMap,
+  type Placement,
   type ChangesetWithItems,
 } from "@rotavox/schema";
 import { db } from "./db";
@@ -50,6 +53,13 @@ export interface InboxSong {
   durationMs: number | null;
   /** Where the draft would put it, if it is staged. */
   stagedCategoryId: string | null;
+  /** In the draft at all — a staged bench has no pool to show. */
+  isStaged: boolean;
+  /**
+   * What its RadioDJ subcategory means, when that is anything: a song filed in A1 in
+   * RadioDJ since the import arrives here with A1 suggested. Null when it maps to nothing.
+   */
+  suggested: Placement | null;
 }
 
 export interface Inbox {
@@ -88,11 +98,26 @@ export async function getInbox(stationId: string): Promise<Inbox> {
     )
     .orderBy(asc(songs.artist), asc(songs.title));
 
-  const draft = await getDraft(db, stationId);
+  const [draft, cats] = await Promise.all([
+    getDraft(db, stationId),
+    db
+      .select({ id: categories.id, name: categories.name, rdjSubcategoryIds: categories.rdjSubcategoryIds })
+      .from(categories)
+      .where(eq(categories.stationId, stationId)),
+  ]);
+  const lifecycle = (station.rdjLifecycleSubcats ?? null) as LifecycleSubcatMap | null;
   const staged = new Map((draft?.items ?? []).map((i) => [i.songId, i.to.categoryId]));
   return {
     imported: station.membershipImportedAt != null,
-    songs: rows.map((r) => ({ ...r, stagedCategoryId: staged.get(r.id) ?? null })),
+    songs: rows.map((r) => {
+      const p = placementForSubcat(r.rdjSubcategoryId, cats, lifecycle, null);
+      return {
+        ...r,
+        stagedCategoryId: staged.get(r.id) ?? null,
+        isStaged: staged.has(r.id),
+        suggested: p.state === "active" && !p.categoryId ? null : p,
+      };
+    }),
   };
 }
 

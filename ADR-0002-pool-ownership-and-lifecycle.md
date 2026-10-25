@@ -109,10 +109,17 @@ station has at most one draft. Every edit screen stages into it, and Music › C
 reviews it against the Balance view and applies it as a whole with a required intent.
 Undo drafts the inverse, which is reviewed like any other change. An applied changeset is
 marked `projection = 'pending'` where the station has a projection map. The Runner's
-`project-changesets` command then turns it into a v1 file changeset under
-`changesets/rotavox/` and writes it through apply-changeset's validated path. It is
-operator-run, not automatic, because it writes the live library. Hand-authored file
-changesets still work, and the Runner mirrors their moves into Rotavox (§4, step 3).
+projection job then turns it into a v1 file changeset under `changesets/rotavox/` and
+writes it through apply-changeset's validated path. The PD applying a reviewed change is
+the operator confirmation the contract requires. Hand-authored file changesets still
+work, and the Runner mirrors their moves into Rotavox (§4, step 3).
+
+**Nothing a PD does needs the command line** (2026-10-25). Anything that needs RadioDJ is
+queued in `runner_jobs` and done by the Runner service: library sync every 15 minutes
+plus Sync now, and writing applied changes, with retry. The web app still never contacts
+RadioDJ. The one-time import runs from the Station page, because it only reads
+Postgres. The CLI commands remain for engineers. Deploying (migrate, build, restart) is
+an install task, not a PD task.
 
 Engine change: `basePool` additionally requires `lifecycle_state = 'active'`. It is
 one filter, next to `enabled`.

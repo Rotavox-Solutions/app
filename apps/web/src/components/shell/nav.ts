@@ -31,5 +31,5 @@ export const NAV: NavSection[] = [
   },
   { label: "Logs", items: [{ label: "Logs", href: "/logs" }] },
   { label: "Reports", items: [{ label: "As-run", href: "/reports/as-run" }] },
-  { label: "Station", items: [{ label: "Settings" }] },
+  { label: "Station", items: [{ label: "Library & Runner", href: "/station" }, { label: "Settings" }] },
 ];

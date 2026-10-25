@@ -54,7 +54,28 @@ export function InboxTable({ songs, options }: { songs: InboxSong[]; options: Ca
       else next.add(id);
       return next;
     });
-  const stagedCount = songs.filter((s) => s.stagedCategoryId).length;
+  const stagedCount = songs.filter((s) => s.isStaged).length;
+  const nameOf = new Map(options.map((o) => [o.id, o.name]));
+  const suggestionLabel = (s: InboxSong) =>
+    !s.suggested
+      ? null
+      : s.suggested.state === "active"
+        ? nameOf.get(s.suggested.categoryId ?? "") ?? null
+        : s.suggested.state === "resting" && s.suggested.categoryId
+          ? `resting from ${nameOf.get(s.suggested.categoryId) ?? "?"}`
+          : s.suggested.state;
+  const acceptable = visible.filter((s) => s.suggested && !s.isStaged);
+  const acceptAll = () =>
+    run(() =>
+      stage(
+        acceptable.map((s) => ({
+          songId: s.id,
+          state: s.suggested!.state,
+          categoryId: s.suggested!.categoryId,
+          reason: "Filed this way in RadioDJ",
+        }))
+      )
+    );
 
   return (
     <div className="space-y-3">
@@ -77,6 +98,16 @@ export function InboxTable({ songs, options }: { songs: InboxSong[]; options: Ca
             Stage
           </button>
         </div>
+        {acceptable.length > 0 && (
+          <button
+            onClick={acceptAll}
+            disabled={pending}
+            className="rounded border border-neutral-700 px-3 py-1 text-sm text-neutral-200 hover:bg-neutral-900 disabled:opacity-50"
+            title="Stage every shown song where RadioDJ's subcategory already says where it goes"
+          >
+            Accept RadioDJ&apos;s filing ({acceptable.length})
+          </button>
+        )}
         {stagedCount > 0 && (
           <a href="/music/changes" className="text-sm text-neutral-300 hover:underline">
             {stagedCount} staged — review changes →
@@ -118,6 +149,9 @@ export function InboxTable({ songs, options }: { songs: InboxSong[]; options: Ca
                 </td>
                 <td className="py-1.5 text-neutral-400">
                   subcat {s.rdjSubcategoryId ?? "—"}
+                  {suggestionLabel(s) && (
+                    <span className="block text-xs text-neutral-300">filed as {suggestionLabel(s)}</span>
+                  )}
                   {s.songType != null && s.songType !== 0 && (
                     <span className="ml-2 text-xs text-neutral-500">{SONG_TYPE[s.songType] ?? `type ${s.songType}`}</span>
                   )}
@@ -130,7 +164,11 @@ export function InboxTable({ songs, options }: { songs: InboxSong[]; options: Ca
                     onChange={(c) => place([s.id], c)}
                     disabled={pending}
                   />
-                  {s.stagedCategoryId && <span className="ml-2 text-xs uppercase tracking-wide text-sky-300">staged</span>}
+                  {s.isStaged && (
+                    <span className="ml-2 text-xs uppercase tracking-wide text-sky-300">
+                      staged{s.stagedCategoryId ? "" : ` · ${suggestionLabel(s) ?? "no pool"}`}
+                    </span>
+                  )}
                 </td>
               </tr>
             ))}

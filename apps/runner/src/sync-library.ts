@@ -35,7 +35,20 @@ async function setWatermark(value: Date): Promise<void> {
     });
 }
 
-async function main() {
+export type Log = (line: string) => void;
+
+export interface SyncResult {
+  /** Songs RadioDJ reported changed since the watermark. */
+  fetched: number;
+  /** Songs the drift check found out of step and re-pulled. */
+  repaired: number;
+}
+
+/**
+ * One library sync: the incremental pull by date_modified, then the drift check over the
+ * whole library. Leaves both pools open: the CLI closes them, the Runner keeps them.
+ */
+export async function syncLibrary(log: Log = console.log): Promise<SyncResult> {
   const map = loadSchemaMap();
   const songsTable = map.tables.songs;
   const subcategoryTable = map.tables.subcategory;
@@ -68,7 +81,7 @@ async function main() {
   for (const row of subcatRows) categoryBySubcat.set(row.ID, row.parentId);
 
   const watermark = await getWatermark();
-  console.log(`Syncing songs with ${dateModifiedCol} > ${watermark.toISOString()}`);
+  log(`Syncing songs with ${dateModifiedCol} > ${watermark.toISOString()}`);
 
   const SELECT_COLS =
     `SELECT \`${songIdCol}\` AS rdjSongId, \`${artistCol}\` AS artist, \`${titleCol}\` AS title, \`${albumCol}\` AS album,
@@ -82,7 +95,7 @@ async function main() {
     [watermark]
   );
 
-  console.log(
+  log(
     rows.length === 0
       ? "No songs changed since last sync."
       : `Fetched ${rows.length} changed song(s).`
@@ -152,7 +165,7 @@ async function main() {
       rows[0].dateModified
     );
     await setWatermark(maxDateModified);
-    console.log(`Synced ${rows.length} song(s). New watermark: ${maxDateModified.toISOString()}`);
+    log(`Synced ${rows.length} song(s). New watermark: ${maxDateModified.toISOString()}`);
   }
 
   /**
@@ -213,9 +226,9 @@ async function main() {
   }
 
   if (drifted.length === 0) {
-    console.log("Drift check: mirror matches RadioDJ.");
+    log("Drift check: mirror matches RadioDJ.");
   } else {
-    console.log(`Drift check: ${drifted.length} song(s) disagree with RadioDJ — repairing.`);
+    log(`Drift check: ${drifted.length} song(s) disagree with RadioDJ — repairing.`);
     // Chunked: a single IN () with thousands of ids can exceed max_allowed_packet.
     for (let i = 0; i < drifted.length; i += 500) {
       const chunk = drifted.slice(i, i + 500);
@@ -225,7 +238,7 @@ async function main() {
       );
       await upsertAll(repair);
     }
-    console.log(`Repaired ${drifted.length} song(s).`);
+    log(`Repaired ${drifted.length} song(s).`);
   }
 
   await schedulerDb
@@ -237,11 +250,17 @@ async function main() {
   // be detected by diffing rows that exist. That is prune-library.ts's job, and it
   // disables rather than deletes to preserve log_items and play_history references.
 
-  await pool.end();
-  await pgClient.end();
+  return { fetched: rows.length, repaired: drifted.length };
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exitCode = 1;
-});
+if (process.argv[1]?.endsWith("sync-library.ts")) {
+  syncLibrary()
+    .catch((err) => {
+      console.error(err);
+      process.exitCode = 1;
+    })
+    .finally(async () => {
+      await pool.end();
+      await pgClient.end();
+    });
+}

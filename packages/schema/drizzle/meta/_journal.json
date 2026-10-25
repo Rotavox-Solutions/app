@@ -50,6 +50,13 @@
       "when": 1792868887183,
       "tag": "0006_colorful_swarm",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1792950405181,
+      "tag": "0007_yellow_hobgoblin",
+      "breakpoints": true
     }
   ]
 }

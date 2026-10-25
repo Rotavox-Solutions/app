@@ -20,8 +20,11 @@ export default async function InboxPage() {
 
       {!inbox.imported ? (
         <p className="rounded border border-amber-900/60 bg-amber-950/30 p-4 text-sm text-amber-200">
-          Pool membership for this station still comes from RadioDJ subcategories. Run{" "}
-          <code className="text-amber-100">import-membership</code> on the Runner before placing songs here.
+          Pools for this station still come from RadioDJ&apos;s subcategories. Import them on the{" "}
+          <a href="/station" className="text-amber-100 underline">
+            Station
+          </a>{" "}
+          page before placing songs here.
         </p>
       ) : inbox.songs.length === 0 ? (
         <p className="text-sm text-neutral-500">Every song has a pool.</p>

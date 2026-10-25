@@ -7,6 +7,8 @@ import { BalanceStatusBadge } from "@/components/music/BalanceStatusBadge";
 import { DraftEditor } from "@/components/music/DraftEditor";
 import { ProjectionBadge } from "@/components/music/ProjectionBadge";
 import { RevertButton } from "@/components/music/RevertButton";
+import { AutoRefresh } from "@/components/station/AutoRefresh";
+import { RunnerButton } from "@/components/station/RunnerButton";
 import { fmtTurnover, fmtWhenShort } from "@/components/music/format";
 
 // Live view over current DB state — never statically prerendered.
@@ -96,6 +98,7 @@ export default async function ChangesPage() {
 
   return (
     <div className="space-y-8">
+      <AutoRefresh active={history.some((h) => h.projection === "pending")} />
       <div>
         <h1 className="text-xl font-semibold">Changes</h1>
         <p className="mt-1 max-w-2xl text-sm text-neutral-500">
@@ -172,6 +175,15 @@ export default async function ChangesPage() {
                     <td className="py-1.5 text-right tabular-nums">{h.itemCount}</td>
                     <td className="py-1.5 pl-6">
                       <ProjectionBadge projection={h.projection} error={h.projectionError} />
+                      {h.projection === "failed" && (
+                        <div className="mt-1">
+                          <RunnerButton
+                            url={`/api/changes/${h.id}/retry`}
+                            label="Sync and retry"
+                            pendingLabel="Queuing…"
+                          />
+                        </div>
+                      )}
                     </td>
                     <td className="py-1.5 pl-3 text-right">
                       {!h.revertedById && !h.revertsChangesetId && <RevertButton changesetId={h.id} />}

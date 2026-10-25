@@ -1,6 +1,7 @@
 import { getCategoryBalance, getTodaySummary } from "@/lib/queries";
 import { stationId } from "@/lib/station";
 import { getChangesStatus } from "@/lib/music-edits";
+import { getRunnerStatus } from "@/lib/runner-status";
 import { needsAttention } from "@/lib/balance";
 import { HOUR_MS } from "@/lib/constants";
 import { fmtAgo, fmtTurnover } from "@/components/music/format";
@@ -10,6 +11,8 @@ export const dynamic = "force-dynamic";
 
 /** Less approved air ahead than this and the PD should be generating the next log. */
 const COVERAGE_WARN_HOURS = 24;
+/** The Runner syncs every 15 minutes; three missed runs is worth a look. */
+const SYNC_STALE_MINUTES = 45;
 /** No as-played this long and the Runner is probably not reconciling. */
 const RECONCILE_STALE_MINUTES = 30;
 
@@ -42,10 +45,11 @@ function fmtWhen(at: Date, timezone: string): string {
 }
 
 export default async function TodayPage() {
-  const [summary, balance, changes] = await Promise.all([
+  const [summary, balance, changes, runner] = await Promise.all([
     getTodaySummary(stationId),
     getCategoryBalance(stationId),
     getChangesStatus(stationId),
+    getRunnerStatus(stationId),
   ]);
   if (!summary) {
     return <p className="text-sm text-neutral-500">No station configured for SCHEDULER_STATION_ID.</p>;
@@ -179,21 +183,40 @@ export default async function TodayPage() {
             )}
             {changes.pendingProjection > 0 && (
               <p>
-                {changes.pendingProjection} applied {changes.pendingProjection === 1 ? "change is" : "changes are"} not
-                in RadioDJ yet. AutoDJ&apos;s fallback still uses the old pools until the Runner writes them.
+                {changes.pendingProjection} applied {changes.pendingProjection === 1 ? "change is" : "changes are"} being
+                written to RadioDJ.
               </p>
             )}
             {changes.failedProjection > 0 && (
               <p className="text-red-300">
                 {changes.failedProjection} {changes.failedProjection === 1 ? "change" : "changes"} failed to reach
-                RadioDJ.{" "}
+                RadioDJ, so AutoDJ&apos;s fail-safe still uses the old pools.{" "}
                 <a href="/music/changes" className="hover:underline">
-                  See why →
+                  See why and retry →
                 </a>
               </p>
             )}
           </Card>
         )}
+
+        {(() => {
+          const stale = !runner.lastSync || now.getTime() - runner.lastSync.getTime() > SYNC_STALE_MINUTES * 60_000;
+          const failed = runner.latest.sync_library?.status === "failed";
+          return (
+            <Card title="Library" tone={runner.runnerSilent ? "alert" : stale || failed ? "warn" : "ok"}>
+              <p>
+                Synced from RadioDJ <span className="text-neutral-100">{fmtAgo(runner.lastSync, now)}</span>.
+              </p>
+              {runner.runnerSilent && (
+                <p className="text-red-300">The Runner isn&apos;t picking up work. Check the services on the box.</p>
+              )}
+              {failed && <p className="text-amber-300">The last sync failed: {runner.latest.sync_library?.summary}</p>}
+              <a href="/station" className="inline-block text-neutral-300 hover:underline">
+                Library &amp; Runner →
+              </a>
+            </Card>
+          );
+        })()}
 
         <Card title="As-played" tone={reconcileStale ? "warn" : "ok"}>
           {feedExpected ? (

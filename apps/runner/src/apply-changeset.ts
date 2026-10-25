@@ -85,8 +85,9 @@ async function main(): Promise<void> {
     return;
   }
 
-  const written = await applyToRadioDJ(cs, args);
-  if (!written) {
+  const outcome = await applyToRadioDJ(cs, args);
+  if (outcome !== "written") {
+    if (outcome === "rejected") process.exitCode = 1;
     await pool.end();
     await pgClient.end();
     return;
@@ -105,14 +106,27 @@ export interface ApplyOptions {
   allowTagDrift: boolean;
   /** The changesets directory: inverse/ and applied/ are written under it. */
   outDir: string;
+  log?: ApplyLog;
 }
+
+export interface ApplyLog {
+  info: (line: string) => void;
+  warn: (line: string) => void;
+  error: (line: string) => void;
+}
+
+const consoleLog: ApplyLog = { info: console.log, warn: console.warn, error: console.error };
+
+/** "rejected": validation failed and nothing was written. "validated": would write, but `apply` was off. */
+export type ApplyOutcome = "written" | "validated" | "rejected";
 
 /**
  * Validates a changeset against live RadioDJ and, with `apply`, writes it in one
- * transaction after emitting its inverse. Returns whether anything was written. Leaves
+ * transaction after emitting its inverse. Returns what happened. Leaves
  * the RadioDJ pool open: the caller owns its lifetime.
  */
-export async function applyToRadioDJ(cs: Changeset, args: ApplyOptions): Promise<boolean> {
+export async function applyToRadioDJ(cs: Changeset, args: ApplyOptions): Promise<ApplyOutcome> {
+  const log = args.log ?? consoleLog;
   const map = loadSchemaMap();
   const songsTable = map.tables.songs;
   const subcategoryTable = map.tables.subcategory;
@@ -157,41 +171,40 @@ export async function applyToRadioDJ(cs: Changeset, args: ApplyOptions): Promise
     allowTagDrift: args.allowTagDrift,
   });
 
-  for (const w of warnings) console.warn(`  warning: ${w}`);
+  for (const w of warnings) log.warn(`  warning: ${w}`);
   if (errors.length) {
-    console.error(`\nPreconditions failed (${errors.length} error(s)) — nothing was written:`);
-    for (const e of errors) console.error(`  - ${e}`);
-    console.error(
+    log.error(`\nPreconditions failed (${errors.length} error(s)) — nothing was written:`);
+    for (const e of errors) log.error(`  - ${e}`);
+    log.error(
       "\nA precondition failure means live has drifted from the sheet these decisions " +
         "were made on. Re-cut the sheet rather than editing the changeset to match."
     );
-    process.exitCode = 1;
-    return false;
+    return "rejected";
   }
 
   // ---- summary ----
   const moves = cs.moves ?? [];
   const setEnabled = cs.set_enabled ?? [];
   const setTags = cs.set_tags ?? [];
-  console.log(`Changeset "${cs.id}" — ${cs.intent}`);
-  console.log(`  authored ${cs.authored_at} from sheet ${cs.basis.sheet_id}`);
-  console.log(
+  log.info(`Changeset "${cs.id}" — ${cs.intent}`);
+  log.info(`  authored ${cs.authored_at} from sheet ${cs.basis.sheet_id}`);
+  log.info(
     `  ${moves.length} move(s), ${setEnabled.length} enable/disable change(s), ${setTags.length} tag correction(s)`
   );
   if (moves.length) {
-    console.log("\n  net movement by subcategory:");
+    log.info("\n  net movement by subcategory:");
     for (const s of summarize(cs)) {
       const net = s.in - s.out;
-      console.log(
+      log.info(
         `    subcat ${String(s.subcatId).padStart(3)}: +${s.in} / -${s.out}  (net ${net >= 0 ? "+" : ""}${net})`
       );
     }
   }
-  console.log(`\nAll preconditions passed against live RadioDJ.`);
+  log.info(`\nAll preconditions passed against live RadioDJ.`);
 
   if (!args.apply) {
-    console.log("\nValidate-only. Re-run with --apply to write these changes.");
-    return false;
+    log.info("\nValidate-only. Re-run with --apply to write these changes.");
+    return "validated";
   }
 
   // ---- inverse written BEFORE the transaction commits ----
@@ -199,7 +212,7 @@ export async function applyToRadioDJ(cs: Changeset, args: ApplyOptions): Promise
   mkdirSync(inverseDir, { recursive: true });
   const inversePath = path.join(inverseDir, `${cs.id}.json`);
   writeFileSync(inversePath, JSON.stringify(invert(cs), null, 2) + "\n");
-  console.log(`\nRollback artifact written: ${inversePath}`);
+  log.info(`\nRollback artifact written: ${inversePath}`);
 
   const conn = await pool.getConnection();
   try {
@@ -244,12 +257,12 @@ export async function applyToRadioDJ(cs: Changeset, args: ApplyOptions): Promise
       }
     }
     await conn.commit();
-    console.log(
+    log.info(
       `\nApplied ${moves.length + setEnabled.length + setTags.length} operation(s) in one transaction.`
     );
   } catch (err) {
     await conn.rollback();
-    console.error("\nApply failed — transaction rolled back, library unchanged.");
+    log.error("\nApply failed — transaction rolled back, library unchanged.");
     throw err;
   } finally {
     conn.release();
@@ -278,7 +291,7 @@ export async function applyToRadioDJ(cs: Changeset, args: ApplyOptions): Promise
     ) + "\n"
   );
 
-  return true;
+  return "written";
 }
 
 /**

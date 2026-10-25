@@ -226,6 +226,35 @@ export const changesetItems = pgTable(
   (t) => [unique("changeset_items_one_per_song").on(t.changesetId, t.songId)]
 );
 
+// Work the UI asks the Runner to do (ADR-0001 invariant #4: the web app never contacts
+// RadioDJ, so a button that needs RadioDJ queues a job here). The Runner service polls,
+// claims and records each one; the UI shows its state and output.
+export const runnerJobs = pgTable(
+  "runner_jobs",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    stationId: uuid("station_id").notNull().references(() => stations.id),
+    // 'sync_library' | 'project_changesets'
+    kind: text("kind").notNull(),
+    // 'queued' | 'running' | 'succeeded' | 'failed'
+    status: text("status").default("queued").notNull(),
+    // 'ui' | 'schedule' | 'changeset' — why it was queued, for the activity list
+    requestedBy: text("requested_by").notNull(),
+    requestedAt: timestamp("requested_at").defaultNow().notNull(),
+    startedAt: timestamp("started_at"),
+    finishedAt: timestamp("finished_at"),
+    /** One line for the UI: "12 songs updated", or the error. */
+    summary: text("summary"),
+    /** The job's full output, for when the summary isn't enough. */
+    output: text("output"),
+  },
+  (t) => [
+    // Asking twice while one is waiting or running is the same request.
+    uniqueIndex("runner_jobs_one_open").on(t.stationId, t.kind).where(sql`status IN ('queued', 'running')`),
+    index("runner_jobs_station_requested_idx").on(t.stationId, t.requestedAt),
+  ]
+);
+
 export const clocks = pgTable("clocks", {
   id: uuid("id").defaultRandom().primaryKey(),
   stationId: uuid("station_id").notNull().references(() => stations.id),

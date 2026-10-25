@@ -17,6 +17,7 @@ import {
 } from "./cursor.js";
 import { decideBoundaryAction, EARLY_AIR_HARD_CAP_MS } from "./boundary.js";
 import { reconcileHistory } from "./reconcile-history.js";
+import { jobsLoop } from "./jobs.js";
 import { backfillAiredAt, matchAndStampAiredAt } from "./backfill-aired.js";
 import { writeHeartbeat } from "./heartbeat.js";
 
@@ -441,7 +442,8 @@ async function main(): Promise<void> {
   } catch (err) {
     sayError("[pace] startup AutoDJ reconciliation failed (continuing into the loop):", err);
   }
-  await Promise.all([paceLoop(), watchNowPlaying()]);
+  // The job loop never rejects: a failed job is recorded on the job, not thrown here.
+  await Promise.all([paceLoop(), watchNowPlaying(), jobsLoop(say, sayError)]);
 }
 
 /**

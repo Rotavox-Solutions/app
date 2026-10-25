@@ -47,9 +47,12 @@ lifecycle state:
   `stations.rdj_lifecycle_subcats`. Both are written by the seed, or by
   `seed/m4-projection.sql` alone.
 - Pool and state edits are made in the UI (Music › Inbox, Music › Changes). Once applied,
-  `npm run project-changesets -w @rotavox/runner [-- --apply]` writes them to RadioDJ.
-  Until it runs, AutoDJ's fallback rotations still see the old subcategories, and Today
-  says so.
+  the Runner writes them to RadioDJ within seconds. If a write fails, Music › Changes
+  shows why and offers "Sync and retry". Until a change is written, AutoDJ's fallback
+  rotations still see the old subcategories, and Today says so.
+- The Runner syncs the library every 15 minutes. Station › Library & Runner has Sync now
+  and the output of every run. New songs land in the Inbox, with the pool their RadioDJ
+  subcategory implies offered as "Accept RadioDJ's filing".
 - `apply-changeset` mirrors every move into Rotavox after the RadioDJ commit.
   `refresh-memberships.sql` refuses to run. The M4 seed upserts categories in place and
   leaves membership alone.
