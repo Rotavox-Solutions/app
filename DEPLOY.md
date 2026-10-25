@@ -254,8 +254,24 @@ Day to day, as the operator (no elevation needed after `-OperatorUser`):
 .\tools\rotavox.ps1 logs runner -Follow
 ```
 
-**After a `git pull`**, run `npm ci` if `package-lock.json` changed, rebuild the web app if
-`apps/web` changed, then `.\tools\rotavox.ps1 restart`.
+**To deploy a new version**, push it to GitHub, then on the box:
+
+```
+.\tools\rotavox.ps1 update
+```
+
+It pulls (fast-forward only), runs `npm ci` when `package-lock.json` changed, migrates the
+database, rebuilds the web app and restarts everything in the safe order. It refuses to
+run over local edits to tracked files. A failed step stops before the restart, so the old
+version keeps running. It is safe to re-run. `-NoPull` deploys the checkout as it stands.
+
+When dependencies changed it has to stop the services for `npm ci`, so AutoDJ covers
+playout for that minute or two. Otherwise playout is only interrupted by the restart. The
+web UI is down while it rebuilds.
+
+One-off steps a release calls for, such as a station seed, are not part of `update`. A
+seed rewrites data the PD now edits in the UI, so it must never run on every deploy. The
+release notes say when one is needed.
 
 Keep Runner and Watchdog independent, with no dependency between the two services. The
 watchdog's whole job is to keep working when the runner doesn't. Stopping the runner alone

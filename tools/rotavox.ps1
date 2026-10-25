@@ -5,14 +5,16 @@
 #   .\tools\rotavox.ps1 stop [svc]        stop (all = watchdog first, so it can't fail over to AutoDJ mid-stop)
 #   .\tools\rotavox.ps1 start [svc]
 #   .\tools\rotavox.ps1 logs [svc] [-Follow]
+#   .\tools\rotavox.ps1 update [-NoPull]  deploy what's on GitHub: pull, deps, migrate, build, restart
 #
 # Stopping the runner without the watchdog hands playout to AutoDJ within ~20s; that is
 # the fail-safe working, not a fault. Needs elevation unless tools\install-services.ps1
 # was run with -OperatorUser for this account.
 param(
-  [Parameter(Position = 0)][ValidateSet('status', 'start', 'stop', 'restart', 'logs')][string]$Command = 'status',
+  [Parameter(Position = 0)][ValidateSet('status', 'start', 'stop', 'restart', 'logs', 'update')][string]$Command = 'status',
   [Parameter(Position = 1)][ValidateSet('all', 'runner', 'watchdog', 'web')][string]$Service = 'all',
-  [switch]$Follow
+  [switch]$Follow,
+  [switch]$NoPull
 )
 $ErrorActionPreference = 'Stop'
 $Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
@@ -32,7 +34,23 @@ function WaitForHeartbeat([int]$TimeoutSeconds = 60) {
   return $false
 }
 
+# Native commands don't throw on a non-zero exit, even with ErrorActionPreference Stop.
+function Run([string]$What, [scriptblock]$Cmd) {
+  Write-Host "`n== $What" -ForegroundColor Cyan
+  & $Cmd
+  if ($LASTEXITCODE -ne 0) { throw "$What failed (exit $LASTEXITCODE). Nothing after it ran; the services are as they were unless noted above." }
+}
+
 function Targets { if ($Service -eq 'all') { 'watchdog', 'runner', 'web' } else { $Service } }
+
+function Restart-All {
+  # Watchdog down first so a runner restart isn't mistaken for a dead pacer, then back
+  # up only once the new runner is heartbeating.
+  Stop-Service $Names.watchdog
+  Restart-Service $Names.runner
+  if (WaitForHeartbeat) { 'RotavoxRunner restarted, heartbeat fresh' } else { Write-Warning 'RotavoxRunner has not written a heartbeat in 60s; check: .\tools\rotavox.ps1 logs runner' }
+  Start-Service $Names.watchdog; 'RotavoxWatchdog started'
+}
 
 switch ($Command) {
   'status' {
@@ -55,14 +73,41 @@ switch ($Command) {
     foreach ($k in @(Targets) | Sort-Object { @('runner', 'watchdog', 'web').IndexOf($_) }) { Start-Service $Names[$k]; "$($Names[$k]) started" }
   }
   'restart' {
-    if ($Service -eq 'all' -or $Service -eq 'runner') {
-      # Watchdog down first so a runner restart isn't mistaken for a dead pacer, then
-      # back up only once the new runner is heartbeating.
-      Stop-Service $Names.watchdog
-      Restart-Service $Names.runner
-      if (WaitForHeartbeat) { 'RotavoxRunner restarted, heartbeat fresh' } else { Write-Warning 'RotavoxRunner has not written a heartbeat in 60s; check: .\tools\rotavox.ps1 logs runner' }
-      Start-Service $Names.watchdog; 'RotavoxWatchdog started'
-    } elseif ($Service -eq 'watchdog') { Restart-Service $Names.watchdog; 'RotavoxWatchdog restarted' }
+    if ($Service -eq 'all' -or $Service -eq 'runner') { Restart-All } elseif ($Service -eq 'watchdog') { Restart-Service $Names.watchdog; 'RotavoxWatchdog restarted' }
     if ($Service -eq 'all' -or $Service -eq 'web') { Restart-Service $Names.web; 'RotavoxWeb restarted' }
+  }
+  'update' {
+    # The whole routine deploy, in the one safe order. Safe to re-run: every step is
+    # idempotent, and a failed step stops before the restart, leaving the old code running.
+    # One-off steps a release asks for (a station seed, say) stay manual: a seed rewrites
+    # data the UI owns, so it must never run on every update.
+    Push-Location $Root
+    try {
+      if (git status --porcelain --untracked-files=no) {
+        throw "This checkout has local edits to tracked files (git status). Commit or discard them first; update only deploys what's on GitHub."
+      }
+      $before = git rev-parse HEAD
+      if (-not $NoPull) { Run 'Pull from GitHub' { git pull --ff-only } }
+      $after = git rev-parse HEAD
+      if ($before -eq $after) { "Already at $($after.Substring(0, 7)); rebuilding and restarting anyway." }
+      else { git log --oneline "$before..$after" }
+
+      $lockChanged = $before -ne $after -and (git diff --name-only $before $after -- package-lock.json)
+      if ($lockChanged -or -not (Test-Path (Join-Path $Root 'node_modules'))) {
+        # npm ci replaces node_modules, which the running services load from. Stop them
+        # first; the runner's stop hands playout back to AutoDJ until the restart below.
+        Write-Host "`n== Dependencies changed: stopping services (AutoDJ covers playout meanwhile)" -ForegroundColor Cyan
+        foreach ($k in 'watchdog', 'runner', 'web') { Stop-Service $Names[$k] }
+        Run 'Install dependencies' { npm ci }
+      }
+      Run 'Migrate the database' { npm run migrate -w @rotavox/schema }
+      # The web app is briefly unavailable while this replaces its build; playout is not.
+      Run 'Build the web app' { npm run build -w @rotavox/web }
+
+      Write-Host "`n== Restart" -ForegroundColor Cyan
+      Restart-All
+      Restart-Service $Names.web; 'RotavoxWeb restarted'
+      "`nDeployed $(git log --oneline -1)"
+    } finally { Pop-Location }
   }
 }
