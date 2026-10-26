@@ -341,6 +341,29 @@ export const runnerJobs = pgTable(
   ]
 );
 
+// How a station's Runner proves who it is to the API (ADR-0004). One key per install;
+// only the SHA-256 is stored. The key names the station, so nothing the Runner sends
+// can reach another station's data.
+export const runnerKeys = pgTable(
+  "runner_keys",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    stationId: uuid("station_id")
+      .notNull()
+      .references(() => stations.id, { onDelete: "cascade" }),
+    tokenHash: text("token_hash").notNull(),
+    /** What the person who made it called it: "BOLT broadcast box". */
+    label: text("label").notNull(),
+    createdBy: uuid("created_by").references(() => users.id, { onDelete: "set null" }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    lastUsedAt: timestamp("last_used_at"),
+    /** The Runner version that last used it, from its X-Rotavox-Runner header. */
+    lastVersion: text("last_version"),
+    revokedAt: timestamp("revoked_at"),
+  },
+  (t) => [uniqueIndex("runner_keys_token_unique").on(t.tokenHash), index("runner_keys_station_idx").on(t.stationId)]
+);
+
 export const clocks = pgTable("clocks", {
   id: uuid("id").defaultRandom().primaryKey(),
   stationId: uuid("station_id").notNull().references(() => stations.id),

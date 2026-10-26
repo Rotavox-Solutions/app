@@ -125,10 +125,11 @@ too.)
 
 Copy `apps/runner/.env.example` to `apps/runner/.env` and fill in: RadioDJ MariaDB
 host/user/password/db, REST port + auth key, `DATABASE_URL`, and
-`SCHEDULER_STATION_ID` set to the uuid from step 4.
+`SCHEDULER_STATION_ID` set to the uuid from step 4. That is direct mode. Once the web app
+is up and the first account exists (step 12), switch the Runner to the API (step 13).
 
-Because RadioDJ was reinstalled, regenerate both introspection artifacts rather than
-trusting the committed ones:
+Then generate the two introspection files. They describe this box's RadioDJ, so each box
+makes its own and git ignores them:
 
 ```
 npm run introspect   --workspace=@rotavox/runner   # rewrites schema-map.json
@@ -295,13 +296,30 @@ Station › People and invites its station admin, who invites the PD and MD. Rot
 doesn't send email yet, so each invitation is a link to pass on. Staff make
 password-reset links from the same page.
 
+
+### 13. Connect the Runner through the API
+
+The Runner reaches Rotavox through the Runner API with a key (ADR-0004). It no longer
+needs the database.
+
+1. In Rotavox, open Station › Library & Runner. Under Runner connection, name the key
+   after the box and press **Make a Runner key**.
+2. Copy the two lines it shows (`ROTAVOX_API_URL` and `ROTAVOX_RUNNER_KEY`) into
+   `apps\runner\.env`. On a box where the web app also runs, the address is
+   `http://127.0.0.1:3000`.
+3. `.\tools\rotavox.ps1 restart`, then `.\tools\rotavox.ps1 logs runner`. The first
+   lines say `Rotavox API http://127.0.0.1:3000 — station <name>`. Back in Rotavox, the
+   key shows when it was last used and by which Runner version.
+
+To go back to direct mode, blank those two lines and restart. If the key leaks or the box
+is replaced, revoke it on the same page and make a new one.
 ---
 
 ## Gaps
 
 - **The M4.5 fail-safe has never run on a rig.** Unit-tested, not field-tested.
-- **The Runner talks to Postgres directly** rather than through the SaaS API that spec
-  §7 describes. Fine co-located; blocks the SaaS story.
+- **The Runner still has a direct mode** that reads Postgres itself (ADR-0004). Every box
+  should move to the API (step 13); direct mode is then retired.
 - **No authoring UI** for categories, clocks, format grid, or rules (§8 items 1–4).
   Until those exist, the format lives in `m2-clubfm-seed.sql` and every change is a
   SQL edit — including the step-6 remapping above.

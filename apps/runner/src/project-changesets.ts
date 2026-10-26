@@ -1,10 +1,9 @@
 import "dotenv/config";
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { and, eq } from "drizzle-orm";
-import { listPendingProjections, loadProjection, markProjection, songs } from "@rotavox/schema";
+import type { PendingProjection } from "@rotavox/schema";
 import { pool } from "./db.js";
-import { pgClient, schedulerDb, stationId } from "./scheduler-db.js";
+import { api, closeScheduler, stationIdentity } from "./scheduler.js";
 import { applyToRadioDJ, type ApplyLog } from "./apply-changeset.js";
 import { validateShape } from "./changeset.js";
 import { planProjection } from "./projection.js";
@@ -36,17 +35,18 @@ export interface ProjectResult {
 
 export async function projectChangesets(opts: { apply: boolean; log: ApplyLog }): Promise<ProjectResult> {
   const { apply, log } = opts;
-  const pending = await listPendingProjections(schedulerDb, stationId);
-  if (pending.length === 0) {
+  const { pending: wire, cats, lifecycle } = await api("pendingProjections");
+  if (wire.length === 0) {
     log.info("Nothing to write: every applied change is already in RadioDJ.");
     return { projected: 0, stopped: null };
   }
-  const { cats, lifecycle } = await loadProjection(schedulerDb, stationId);
+  const pending: PendingProjection[] = wire.map((p) => ({ ...p, mirrorSubcat: new Map(Object.entries(p.mirrorSubcat)) }));
+  const stationId = (await stationIdentity()).id;
   log.info(`${pending.length} changeset(s) applied in Rotavox and not yet in RadioDJ.`);
 
   let projected = 0;
   const fail = async (id: string, reason: string): Promise<ProjectResult> => {
-    if (apply) await markProjection(schedulerDb, id, { ok: false, error: reason });
+    if (apply) await api("finishProjection", { changesetId: id, ok: false, error: reason });
     log.error(`  Stopped: ${reason}. Later changes wait behind this one, since they may depend on it.`);
     return { projected, stopped: reason };
   };
@@ -60,7 +60,7 @@ export async function projectChangesets(opts: { apply: boolean; log: ApplyLog })
     }
     if (!plan.changeset) {
       log.info("  RadioDJ already matches — no subcategory changes needed.");
-      if (apply) await markProjection(schedulerDb, p.id, { ok: true });
+      if (apply) await api("finishProjection", { changesetId: p.id, ok: true });
       projected++;
       continue;
     }
@@ -84,15 +84,13 @@ export async function projectChangesets(opts: { apply: boolean; log: ApplyLog })
     }
     if (outcome === "validated") continue; // dry run: keep showing what each would do
 
-    // Keep the mirror's subcategory current, so the next changeset's precondition is right
-    // without waiting for a sync. sync-library would repair it anyway.
-    for (const m of plan.changeset.moves ?? []) {
-      await schedulerDb
-        .update(songs)
-        .set({ rdjSubcategoryId: m.to_subcat })
-        .where(and(eq(songs.stationId, stationId), eq(songs.rdjSongId, m.rdj_song_id)));
-    }
-    await markProjection(schedulerDb, p.id, { ok: true });
+    // Marked written, and the mirror's subcategories updated to match, in one call: the
+    // next changeset's precondition is then right without waiting for a sync.
+    await api("finishProjection", {
+      changesetId: p.id,
+      ok: true,
+      moves: (plan.changeset.moves ?? []).map((m) => ({ rdjSongId: m.rdj_song_id, toSubcat: m.to_subcat })),
+    });
     projected++;
     log.info("  Written to RadioDJ.");
   }
@@ -114,6 +112,6 @@ if (process.argv[1]?.endsWith("project-changesets.ts")) {
     })
     .finally(async () => {
       await pool.end();
-      await pgClient.end();
+      await closeScheduler();
     });
 }

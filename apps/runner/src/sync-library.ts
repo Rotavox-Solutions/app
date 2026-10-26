@@ -1,41 +1,18 @@
 import "dotenv/config";
-import { eq, and } from "drizzle-orm";
-import { songs, syncState } from "@rotavox/schema";
+import type { SyncedSong } from "@rotavox/schema";
 import { pool } from "./db.js";
-import { schedulerDb, pgClient, stationId } from "./scheduler-db.js";
+import { api, closeScheduler } from "./scheduler.js";
 import { loadSchemaMap, requireCanonical, findColumn } from "./schema-map.js";
 
-const SYNC_KEY = "library_sync";
-/**
- * When a sync last completed. Not the watermark row's updated_at: that only moves when a
- * row's date_modified does, and pool moves and set_tags never touch it, so a sync that
- * repaired hundreds of songs through the drift check still left it days old.
- */
-const SYNC_RUN_KEY = "library_sync_run";
 const EPOCH = new Date(0);
 
 async function getWatermark(): Promise<Date> {
-  const [row] = await schedulerDb
-    .select()
-    .from(syncState)
-    .where(and(eq(syncState.stationId, stationId), eq(syncState.syncKey, SYNC_KEY)));
-  return row?.watermark ? new Date(row.watermark) : EPOCH;
-}
-
-// Watermark is always the max value actually observed in a synced batch, never the
-// local clock's `now()` — M0's spike hit exactly this bug comparing across a runner
-// host / DB server clock skew, so that mistake isn't repeated here.
-async function setWatermark(value: Date): Promise<void> {
-  await schedulerDb
-    .insert(syncState)
-    .values({ stationId, syncKey: SYNC_KEY, watermark: value.toISOString() })
-    .onConflictDoUpdate({
-      target: [syncState.stationId, syncState.syncKey],
-      set: { watermark: value.toISOString(), updatedAt: new Date() },
-    });
+  return (await api("libraryWatermark")).watermark ?? EPOCH;
 }
 
 export type Log = (line: string) => void;
+
+const UPSERT_BATCH = 500;
 
 export interface SyncResult {
   /** Songs RadioDJ reported changed since the watermark. */
@@ -124,7 +101,12 @@ export async function syncLibrary(log: Log = console.log): Promise<SyncResult> {
     return ms;
   };
 
-  const upsertAll = async (batch: any[]): Promise<void> => {
+  // Watermark is always the max value actually observed in a synced batch, never the
+  // local clock's `now()` — M0's spike hit exactly this bug comparing across a runner
+  // host / DB server clock skew, so that mistake isn't repeated here. It moves in the same
+  // call as the batch it came from.
+  const upsertAll = async (batch: any[], watermark?: Date): Promise<void> => {
+  const synced: SyncedSong[] = [];
   for (const row of batch) {
     const rdjCategoryId = categoryBySubcat.get(row.subcategoryId) ?? null;
     // Core fields only — extended metadata (era/tempo/energy/mood/...) is
@@ -147,24 +129,22 @@ export async function syncLibrary(log: Log = console.log): Promise<SyncResult> {
       songType: row.songType,
     };
 
-    await schedulerDb
-      .insert(songs)
-      .values({ stationId, rdjSongId: row.rdjSongId, ...coreFields })
-      .onConflictDoUpdate({
-        target: [songs.stationId, songs.rdjSongId],
-        set: coreFields,
-      });
+    synced.push({ rdjSongId: row.rdjSongId, ...coreFields });
+  }
+  // Batches keep each API call a sensible size; only the last carries the watermark, so
+  // a failure partway leaves it where the next run will re-fetch from.
+  for (let i = 0; i < synced.length; i += UPSERT_BATCH) {
+    const last = i + UPSERT_BATCH >= synced.length;
+    await api("upsertSongs", { songs: synced.slice(i, i + UPSERT_BATCH), watermark: last ? watermark : undefined });
   }
   };
-
-  await upsertAll(rows);
 
   if (rows.length > 0) {
     const maxDateModified: Date = rows.reduce(
       (max, r) => (r.dateModified > max ? r.dateModified : max),
       rows[0].dateModified
     );
-    await setWatermark(maxDateModified);
+    await upsertAll(rows, maxDateModified);
     log(`Synced ${rows.length} song(s). New watermark: ${maxDateModified.toISOString()}`);
   }
 
@@ -198,16 +178,7 @@ export async function syncLibrary(log: Log = console.log): Promise<SyncResult> {
             \`${artistCol}\` AS artist, \`${titleCol}\` AS title
      FROM \`${songsTable}\``
   );
-  const mirror = await schedulerDb
-    .select({
-      id: songs.rdjSongId,
-      subcat: songs.rdjSubcategoryId,
-      enabled: songs.enabled,
-      artist: songs.artist,
-      title: songs.title,
-    })
-    .from(songs)
-    .where(eq(songs.stationId, stationId));
+  const mirror = await api("libraryMirror");
 
   const mirrorById = new Map(mirror.map((m) => [m.id, m]));
   const drifted: number[] = [];
@@ -241,10 +212,7 @@ export async function syncLibrary(log: Log = console.log): Promise<SyncResult> {
     log(`Repaired ${drifted.length} song(s).`);
   }
 
-  await schedulerDb
-    .insert(syncState)
-    .values({ stationId, syncKey: SYNC_RUN_KEY, watermark: null })
-    .onConflictDoUpdate({ target: [syncState.stationId, syncState.syncKey], set: { updatedAt: new Date() } });
+  await api("markLibrarySynced");
 
   // Deletions are NOT handled here -- a purged row simply stops appearing, so it cannot
   // be detected by diffing rows that exist. That is prune-library.ts's job, and it
@@ -261,6 +229,6 @@ if (process.argv[1]?.endsWith("sync-library.ts")) {
     })
     .finally(async () => {
       await pool.end();
-      await pgClient.end();
+      await closeScheduler();
     });
 }

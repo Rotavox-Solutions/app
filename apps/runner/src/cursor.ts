@@ -1,52 +1,26 @@
-import { and, asc, desc, eq, gt, isNotNull, isNull, lte, ne, sql } from "drizzle-orm";
-import { clockPositions, logItems, logs, songs } from "@rotavox/schema";
+import type { LogItemRow, LogRow } from "@rotavox/schema";
 import { drainInstant } from "./boundary.js";
-import { schedulerDb, stationId } from "./scheduler-db.js";
+import { api } from "./scheduler.js";
 import { pool } from "./db.js";
 import { loadSchemaMap, guessHistoryColumns } from "./schema-map.js";
 import { getQueue, extractQueueSongIds } from "./rest.js";
 
-export type LogRow = typeof logs.$inferSelect;
-export type LogItemRow = typeof logItems.$inferSelect;
+export type { LogItemRow, LogRow };
 
 /** The current log: approved, and `now` falls inside [starts_at, ends_at). */
 export async function selectCurrentLog(): Promise<LogRow | null> {
-  const now = new Date();
-  const rows = await schedulerDb
-    .select()
-    .from(logs)
-    .where(
-      and(
-        eq(logs.stationId, stationId),
-        eq(logs.status, "approved"),
-        lte(logs.startsAt, now),
-        gt(logs.endsAt, now)
-      )
-    )
-    .orderBy(logs.generatedAt);
-  if (rows.length === 0) return null;
-  return rows[rows.length - 1]; // most recent generatedAt
+  return api("currentLog", { at: new Date() });
 }
 
 /** Next log_item to push: earliest sort_order, unpushed, not a fixed_event (§6 — RadioDJ-owned). */
 export async function nextUnpushedItem(logId: string): Promise<LogItemRow | null> {
-  const [row] = await schedulerDb
-    .select()
-    .from(logItems)
-    .where(and(eq(logItems.logId, logId), isNull(logItems.pushedAt), ne(logItems.elementType, "fixed_event")))
-    .orderBy(asc(logItems.sortOrder))
-    .limit(1);
-  return row ?? null;
+  return api("nextUnpushedItem", { logId });
 }
 
 /** target_offset_seconds = 0 marks the TOH-locked position (see plan §5). */
 export async function isTohLocked(item: LogItemRow): Promise<boolean> {
   if (!item.clockPositionId) return false;
-  const [pos] = await schedulerDb
-    .select({ offset: clockPositions.targetOffsetSeconds })
-    .from(clockPositions)
-    .where(eq(clockPositions.id, item.clockPositionId));
-  return pos?.offset === 0;
+  return api("isTohLocked", { clockPositionId: item.clockPositionId });
 }
 
 export const TOH_LOOKAHEAD_SECONDS = 10;
@@ -57,16 +31,6 @@ export function shouldPushNow(item: LogItemRow, tohLocked: boolean, now: Date): 
   if (!item.projectedAirAt) return true;
   return now.getTime() >= item.projectedAirAt.getTime() - TOH_LOOKAHEAD_SECONDS * 1000;
 }
-
-/**
- * Segue-aware duration for timing arithmetic.
- *
- * The next track starts at RadioDJ's `xta` cue, not at end-of-file, so
- * effective_duration_ms is what the queue actually consumes; duration_ms is the
- * fallback where the sync could not read cue points (schema.ts notes that using file
- * duration throughout costs roughly 24s of drift per hour).
- */
-const TIMING_DURATION_MS = sql<number>`coalesce(${songs.effectiveDurationMs}, ${songs.durationMs}, 0)`;
 
 /**
  * How much audio RadioDJ is already holding, expressed as the instant it runs out.
@@ -85,27 +49,11 @@ export async function projectedQueueDrainAt(
   now: Date,
   extraPendingMs = 0
 ): Promise<Date> {
-  const [pending] = await schedulerDb
-    .select({ ms: sql<number>`coalesce(sum(${TIMING_DURATION_MS}), 0)` })
-    .from(logItems)
-    .leftJoin(songs, eq(logItems.songId, songs.id))
-    .where(and(eq(logItems.logId, logId), isNotNull(logItems.pushedAt), isNull(logItems.airedAt)));
-
-  // The item on air is the most recently stamped one; the queue cannot drain before it
-  // finishes, and everything pushed behind it is the `pending` sum above.
-  const [playing] = await schedulerDb
-    .select({ airedAt: logItems.airedAt, durationMs: TIMING_DURATION_MS })
-    .from(logItems)
-    .leftJoin(songs, eq(logItems.songId, songs.id))
-    .where(and(eq(logItems.logId, logId), isNotNull(logItems.airedAt)))
-    .orderBy(desc(logItems.airedAt))
-    .limit(1);
-
-  const playingEndsAt = playing?.airedAt
-    ? playing.airedAt.getTime() + Number(playing.durationMs ?? 0)
-    : null;
-
-  return drainInstant(now, playingEndsAt, Number(pending?.ms ?? 0) + extraPendingMs);
+  // Durations are segue-aware (effective_duration_ms, falling back to file duration);
+  // the item on air is the most recently stamped one, and the queue cannot drain before
+  // it finishes.
+  const { pendingMs, playingEndsAtMs } = await api("queueDrainInputs", { logId });
+  return drainInstant(now, playingEndsAtMs, pendingMs + extraPendingMs);
 }
 
 /**
@@ -124,12 +72,7 @@ export async function pickFillerItem(
   excludeIds: Set<number>,
   currentlyPlaying: number | null
 ): Promise<{ item: LogItemRow; durationMs: number } | null> {
-  const rows = await schedulerDb
-    .select({ item: logItems, durationMs: TIMING_DURATION_MS })
-    .from(logItems)
-    .leftJoin(songs, eq(logItems.songId, songs.id))
-    .where(and(eq(logItems.logId, logId), eq(logItems.elementType, "music")))
-    .orderBy(asc(logItems.sortOrder)); // sort_order asc ≈ oldest-aired first
+  const rows = await api("fillerCandidates", { logId }); // sort_order asc ≈ oldest-aired first
   const pushed = rows.filter((r) => r.item.pushedAt != null && r.item.rdjSongId != null);
   const chosen =
     pushed.find((r) => !excludeIds.has(r.item.rdjSongId!)) ??
@@ -139,7 +82,7 @@ export async function pickFillerItem(
   // Selection rule unchanged on purpose — longest-that-fits is proposed but NOT
   // adopted (PERFECT-HOUR.md §5a). With the trigger fixed this path should be
   // effectively unreachable, so changing both at once would be untestable in anger.
-  return chosen ? { item: chosen.item, durationMs: Number(chosen.durationMs ?? 0) } : null;
+  return chosen ? { item: chosen.item, durationMs: chosen.durationMs } : null;
 }
 
 interface RebuildResult {
@@ -181,12 +124,7 @@ export async function rebuildCursor(log: LogRow): Promise<RebuildResult> {
   // Fresh log — nothing of ours pushed yet. Our own DB is already ground truth
   // for "not pushed"; nothing to reconcile, and no queue/history read at all —
   // this is what prevents foreign content from ever causing a false anomaly here.
-  const [anyPushed] = await schedulerDb
-    .select({ id: logItems.id })
-    .from(logItems)
-    .where(and(eq(logItems.logId, log.id), ne(logItems.elementType, "fixed_event"), isNotNull(logItems.pushedAt)))
-    .limit(1);
-  if (!anyPushed) {
+  if (!(await api("hasPushed", { logId: log.id }))) {
     return { backfilled: 0, anomaly: null, freshTakeover: true };
   }
 
@@ -204,19 +142,14 @@ export async function rebuildCursor(log: LogRow): Promise<RebuildResult> {
   const queueIds = extractQueueSongIds(await getQueue());
   const realizedIds = new Set<number>([...historyRows.map((r) => Number(r.rdjSongId)), ...queueIds]);
 
-  const candidates = await schedulerDb
-    .select()
-    .from(logItems)
-    .where(and(eq(logItems.logId, log.id), isNull(logItems.pushedAt), ne(logItems.elementType, "fixed_event")))
-    .orderBy(asc(logItems.sortOrder))
-    .limit(REBUILD_LOOKAHEAD);
+  const candidates = await api("unpushedItems", { logId: log.id, limit: REBUILD_LOOKAHEAD });
 
   let backfilled = 0;
   let anomaly: RebuildResult["anomaly"] = null;
   const now = new Date();
   for (const item of candidates) {
     if (item.rdjSongId != null && realizedIds.has(item.rdjSongId)) {
-      await schedulerDb.update(logItems).set({ pushedAt: now }).where(eq(logItems.id, item.id));
+      await api("markPushed", { itemIds: [item.id], at: now });
       backfilled++;
     } else if (backfilled === 0) {
       // The very next item isn't visibly realized — the normal case (no crash gap).
@@ -254,44 +187,5 @@ export async function rebuildCursor(log: LogRow): Promise<RebuildResult> {
  *   logic absorbs.
  */
 export async function resetAfterQueueClear(logId: string, now: Date): Promise<{ unpushed: number; skipped: number }> {
-  return schedulerDb.transaction(async (tx) => {
-    const [lastAired] = await tx
-      .select({ sortOrder: logItems.sortOrder })
-      .from(logItems)
-      .where(and(eq(logItems.logId, logId), isNotNull(logItems.airedAt)))
-      .orderBy(desc(logItems.sortOrder))
-      .limit(1);
-    const floor = lastAired?.sortOrder ?? -1;
-
-    const unpushedRows = await tx
-      .update(logItems)
-      .set({ pushedAt: null })
-      .where(
-        and(
-          eq(logItems.logId, logId),
-          isNotNull(logItems.pushedAt),
-          isNull(logItems.airedAt),
-          gt(logItems.sortOrder, floor),
-          ne(logItems.elementType, "fixed_event")
-        )
-      )
-      .returning({ id: logItems.id });
-
-    const pending = await tx
-      .select({ id: logItems.id, projectedAirAt: logItems.projectedAirAt })
-      .from(logItems)
-      .where(and(eq(logItems.logId, logId), isNull(logItems.pushedAt), ne(logItems.elementType, "fixed_event")))
-      .orderBy(asc(logItems.sortOrder));
-
-    const skipIds: string[] = [];
-    for (let i = 0; i + 1 < pending.length; i++) {
-      const nextStart = pending[i + 1].projectedAirAt;
-      if (!nextStart || nextStart.getTime() > now.getTime()) break;
-      skipIds.push(pending[i].id);
-    }
-    for (const id of skipIds) {
-      await tx.update(logItems).set({ pushedAt: now }).where(eq(logItems.id, id));
-    }
-    return { unpushed: unpushedRows.length, skipped: skipIds.length };
-  });
+  return api("resetAfterQueueClear", { logId, now });
 }

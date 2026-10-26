@@ -1,10 +1,12 @@
+import { headers } from "next/headers";
 import { eq } from "drizzle-orm";
-import { stations } from "@rotavox/schema";
+import { listRunnerKeys, stations } from "@rotavox/schema";
 import { db } from "@/lib/db";
 import { getRunnerStatus, JOB_LABEL, REQUESTER_LABEL, RUNNER_SILENT_SECONDS } from "@/lib/runner-status";
 import { AutoRefresh } from "@/components/station/AutoRefresh";
 import { ImportMembership } from "@/components/station/ImportMembership";
 import { RunnerButton } from "@/components/station/RunnerButton";
+import { RunnerKeys } from "@/components/station/RunnerKeys";
 import { fmtAgo, fmtWhenShort } from "@/components/music/format";
 import { allowed, requireStation } from "@/lib/auth";
 
@@ -17,6 +19,22 @@ const STATUS_STYLE: Record<string, string> = {
   succeeded: "text-neutral-400",
   failed: "text-red-300",
 };
+
+/**
+ * The address a Runner should use: APP_URL when set, otherwise how this page was reached.
+ * "localhost" becomes 127.0.0.1, because Node may try IPv6 ::1 first, and the web service
+ * on the box listens on 127.0.0.1 only.
+ */
+async function runnerApiUrl(): Promise<string> {
+  if (process.env.APP_URL) return process.env.APP_URL.replace(/\/$/, "");
+  const h = await headers();
+  const proto = h.get("x-forwarded-proto") ?? "http";
+  const host = (h.get("x-forwarded-host") ?? h.get("host") ?? "127.0.0.1:3000").replace(
+    /^localhost(?=:|$)/,
+    "127.0.0.1",
+  );
+  return `${proto}://${host}`;
+}
 
 export default async function StationPage() {
   const ctx = await requireStation();
@@ -99,6 +117,26 @@ export default async function StationPage() {
           </div>
         )}
       </section>
+
+      {allowed(ctx, "manage_station") && (
+        <section className="space-y-3">
+          <h2 className="text-sm font-medium uppercase tracking-wide text-neutral-500">Runner connection</h2>
+          <p className="max-w-2xl text-sm text-neutral-400">
+            The Runner on the broadcast box proves it works for {station.name} with a key. Make one when installing a
+            Runner, and revoke it if the box is replaced or the key gets out.
+          </p>
+          <RunnerKeys
+            apiUrl={await runnerApiUrl()}
+            keys={(await listRunnerKeys(db, stationId)).map((k) => ({
+              id: k.id,
+              label: k.label,
+              created: fmtWhenShort(k.createdAt, tz),
+              lastUsed: k.lastUsedAt ? fmtAgo(k.lastUsedAt) : "never",
+              version: k.lastVersion,
+            }))}
+          />
+        </section>
+      )}
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wide text-neutral-500">Runner activity</h2>

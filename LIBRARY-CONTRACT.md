@@ -40,7 +40,7 @@ Before the import, `song_categories` is derived from `songs.rdj_subcategory_id` 
 seed runs, and `sync-library` updates the subcategory but not the membership. So after any
 changeset, re-derive membership (`refresh-memberships.sql`) before generating.
 
-After `npm run import-membership -w @rotavox/runner -- --apply`, Rotavox owns membership and
+After the membership import (Station › Library & Runner › Pools), Rotavox owns membership and
 lifecycle state:
 - The mapping in this table lives in `categories.rdj_subcategory_ids`.
 - The rows under "Deliberately unmapped" that encode a state (Y, Z, ZN, K, W) live in

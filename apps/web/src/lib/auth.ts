@@ -4,7 +4,14 @@ import { cache } from "react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
-import { AccountError, can, resolveSession, type Permission, type SessionContext } from "@rotavox/schema";
+import {
+  AccountError,
+  can,
+  resolveRunnerKey,
+  resolveSession,
+  type Permission,
+  type SessionContext,
+} from "@rotavox/schema";
 import { db } from "./db";
 
 export const SESSION_COOKIE = "rotavox_session";
@@ -146,4 +153,21 @@ export function linkFor(request: Request, path: string): string {
   const proto = request.headers.get("x-forwarded-proto") ?? new URL(request.url).protocol.replace(":", "");
   const host = request.headers.get("x-forwarded-host") ?? request.headers.get("host") ?? new URL(request.url).host;
   return `${process.env.APP_URL?.replace(/\/$/, "") ?? `${proto}://${host}`}${path}`;
+}
+
+/**
+ * The Runner API (ADR-0004). Authenticated by the station's Runner key, not a person's
+ * session: `Authorization: Bearer rvx_runner_…`. No Origin check, since no browser
+ * carries this credential on its own.
+ */
+export function runnerRoute<P = Record<string, never>>(
+  handler: (request: Request, runner: { stationId: string; keyId: string }, params: P) => Promise<Response>,
+) {
+  return async (request: Request, segment: Segment<P>) => {
+    const header = request.headers.get("authorization") ?? "";
+    const key = header.startsWith("Bearer ") ? header.slice(7).trim() : "";
+    const runner = key ? await resolveRunnerKey(db, key, { version: request.headers.get("x-rotavox-runner") }) : null;
+    if (!runner) return json(401, "bad_runner_key", "Unknown or revoked Runner key.");
+    return handler(request, runner, await segment.params);
+  };
 }

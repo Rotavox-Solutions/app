@@ -14,6 +14,9 @@ syncs, before touching pool assignment, and before adding any write path to Radi
 truth for format data, membership and lifecycle state.
 `ADR-0003-accounts-and-roles.md` covers sign-in, station roles and Rotavox staff. Every
 API route goes through a guard in `apps/web/src/lib/auth.ts`.
+`ADR-0004-runner-api.md`: the Runner reaches Rotavox only through `scheduler.ts`. That
+means the Runner API ops in `packages/schema/src/runner-ops.ts`, authenticated by a
+station's Runner key. Never add a direct Postgres query to the Runner.
 
 ## Architecture (only the adapter touches the station)
 

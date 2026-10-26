@@ -235,8 +235,9 @@ describe("request guards", () => {
       const rel = path.relative(root, file);
       // Every exported handler is built by a guard, never a bare function.
       expect(src, rel).not.toMatch(/export (async )?function (GET|POST|PUT|PATCH|DELETE)/);
-      expect(src, rel).toMatch(/export const (GET|POST|PUT|PATCH|DELETE) = (stationRoute|userRoute|publicRoute)/);
+      expect(src, rel).toMatch(/export const (GET|POST|PUT|PATCH|DELETE) = (stationRoute|userRoute|publicRoute|runnerRoute)/);
       if (/publicRoute\(/.test(src)) expect(rel.startsWith("auth/"), rel).toBe(true);
+      if (/runnerRoute\(/.test(src)) expect(rel.startsWith("runner/v1/"), rel).toBe(true);
     }
   });
 });

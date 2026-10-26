@@ -3,3 +3,6 @@ node_modules/
 dist/
 runner.heartbeat
 runner.heartbeat.tmp
+# Introspection output, per box (DEPLOY.md step 5)
+schema-map.json
+rest-capabilities.json

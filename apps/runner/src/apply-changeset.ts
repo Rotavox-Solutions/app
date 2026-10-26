@@ -2,8 +2,7 @@ import "dotenv/config";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { pool } from "./db.js";
-import { mirrorChangesetMoves } from "@rotavox/schema";
-import { pgClient, schedulerDb } from "./scheduler-db.js";
+import { api, closeScheduler, stationIdentity } from "./scheduler.js";
 import { loadSchemaMap, requireCanonical } from "./schema-map.js";
 import {
   validateShape,
@@ -89,7 +88,7 @@ async function main(): Promise<void> {
   if (outcome !== "written") {
     if (outcome === "rejected") process.exitCode = 1;
     await pool.end();
-    await pgClient.end();
+    await closeScheduler();
     return;
   }
 
@@ -302,7 +301,12 @@ export async function applyToRadioDJ(cs: Changeset, args: ApplyOptions): Promise
 async function mirrorIntoRotavox(cs: Changeset): Promise<void> {
   const moves = (cs.moves ?? []).map((m) => ({ rdjSongId: m.rdj_song_id, toSubcat: m.to_subcat, reason: m.reason }));
   try {
-    const result = await mirrorChangesetMoves(schedulerDb, cs.station_id, cs.id, moves);
+    // The station is the one this Runner serves; a file written for another can't be mirrored here.
+    const station = await stationIdentity();
+    if (station.id !== cs.station_id) {
+      throw new Error(`this changeset is for station ${cs.station_id}, but this Runner serves ${station.name} (${station.id})`);
+    }
+    const result = await api("mirrorChangeset", { changesetId: cs.id, moves });
     if (result.skipped) {
       console.log("\nRotavox membership not mirrored: this station is not imported yet, so membership is still derived.");
     } else {
@@ -310,7 +314,7 @@ async function mirrorIntoRotavox(cs: Changeset): Promise<void> {
       if (result.missing.length) {
         console.warn(
           `  warning: ${result.missing.length} song(s) are not in the Rotavox mirror yet ` +
-            `(${result.missing.join(", ")}). Run sync-library, then import-membership --apply to place them.`
+            `(${result.missing.join(", ")}). They arrive in Music › Inbox after the next library sync, to be placed there.`
         );
       }
     }
@@ -321,7 +325,7 @@ async function mirrorIntoRotavox(cs: Changeset): Promise<void> {
     );
     process.exitCode = 1;
   } finally {
-    await pgClient.end();
+    await closeScheduler();
   }
 }
 

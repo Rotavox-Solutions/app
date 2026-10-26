@@ -1,8 +1,6 @@
 import "dotenv/config";
-import { and, eq, inArray, notInArray } from "drizzle-orm";
-import { songs } from "@rotavox/schema";
 import { pool } from "./db.js";
-import { schedulerDb, pgClient, stationId } from "./scheduler-db.js";
+import { api, closeScheduler } from "./scheduler.js";
 import { loadSchemaMap, requireCanonical } from "./schema-map.js";
 
 /**
@@ -45,50 +43,21 @@ async function main(): Promise<void> {
     );
   }
 
-  const orphans = await schedulerDb
-    .select({ id: songs.id, rdjSongId: songs.rdjSongId, artist: songs.artist, title: songs.title })
-    .from(songs)
-    .where(
-      and(
-        eq(songs.stationId, stationId),
-        eq(songs.enabled, true),
-        notInArray(songs.rdjSongId, liveIds)
-      )
-    );
+  const { orphans } = await api("disableOrphans", { liveIds, apply: true });
 
-  console.log(`RadioDJ has ${liveIds.length} song(s); mirror has ${orphans.length} enabled orphan(s).`);
-
+  console.log(`RadioDJ has ${liveIds.length} song(s); ${orphans.length} enabled song(s) in Rotavox are no longer in it.`);
   if (orphans.length === 0) {
     console.log("Nothing to prune.");
-    await pool.end();
-    await pgClient.end();
-    return;
-  }
-
-  for (const o of orphans) {
-    console.log(`  disabling rdj:${o.rdjSongId} — ${o.artist ?? "?"} — ${o.title ?? "?"}`);
-  }
-
-  await schedulerDb
-    .update(songs)
-    .set({ enabled: false })
-    .where(
-      and(
-        eq(songs.stationId, stationId),
-        inArray(
-          songs.id,
-          orphans.map((o) => o.id)
-        )
-      )
+  } else {
+    for (const o of orphans) console.log(`  disabled rdj:${o.rdjSongId} — ${o.artist ?? "?"} — ${o.title ?? "?"}`);
+    console.log(`Disabled ${orphans.length} orphaned song(s).`);
+    console.log(
+      "Any approved log generated before this still references them — regenerate the un-aired horizon, or expect those items to skip at playout."
     );
-
-  console.log(`Disabled ${orphans.length} orphaned song(s).`);
-  console.log(
-    "Any approved log generated before this still references them — regenerate the un-aired horizon, or expect those items to skip at playout."
-  );
+  }
 
   await pool.end();
-  await pgClient.end();
+  await closeScheduler();
 }
 
 if (process.argv[1]?.endsWith("prune-library.ts")) {

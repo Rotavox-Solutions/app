@@ -1,8 +1,6 @@
 import "dotenv/config";
-import { eq } from "drizzle-orm";
-import { logItems } from "@rotavox/schema";
 import { restCall, getState, getNowPlaying, getQueue, extractNowPlayingId, extractQueueSongIds } from "./rest.js";
-import { schedulerDb, pgClient } from "./scheduler-db.js";
+import { api, closeScheduler, scheduler, stationIdentity } from "./scheduler.js";
 import { pool } from "./db.js";
 import {
   selectCurrentLog,
@@ -75,7 +73,7 @@ const recentlyAiredIds: number[] = [];
 let bridgedMs = 0;
 
 async function markPushed(itemId: string): Promise<void> {
-  await schedulerDb.update(logItems).set({ pushedAt: new Date() }).where(eq(logItems.id, itemId));
+  await api("markPushed", { itemIds: [itemId], at: new Date() });
 }
 
 /** Record a song as recently aired (rolling window), de-duping consecutive repeats. */
@@ -434,6 +432,16 @@ async function reconcileAutoDjOnStartup(): Promise<void> {
 }
 
 async function main(): Promise<void> {
+  // Which way this Runner reaches Rotavox, and for which station. A bad key or an
+  // unreachable API is logged and retried by the loops, never fatal: the pacer must keep
+  // its heartbeat going, and the watchdog decides what a dead pacer means.
+  const client = await scheduler();
+  try {
+    const station = await stationIdentity();
+    say(`[pace] Rotavox ${client.mode === "api" ? `API ${process.env.ROTAVOX_API_URL}` : "database (direct mode)"} — station ${station.name}`);
+  } catch (err) {
+    sayError(`[pace] could not reach Rotavox (${client.mode} mode) at startup; the loops will keep trying:`, err);
+  }
   // Non-fatal: a REST timeout here (seen on the 2026-10-15 rebuild) used to reject main()
   // before the loop started, leaving a live process that never wrote a heartbeat — so
   // the service manager saw it running and the watchdog saw "unknown", and nobody acted.
@@ -461,7 +469,7 @@ async function shutdown(signal: string): Promise<void> {
     sayError("[pace] failed to hand back to AutoDJ during shutdown (continuing shutdown):", err);
   }
   await pool.end();
-  await pgClient.end();
+  await closeScheduler();
   process.exit(0);
 }
 

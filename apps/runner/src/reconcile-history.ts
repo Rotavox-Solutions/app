@@ -1,24 +1,13 @@
 import "dotenv/config";
-import { eq, and, inArray } from "drizzle-orm";
-import { playHistory, songs, syncState } from "@rotavox/schema";
 import { pool } from "./db.js";
-import { schedulerDb, pgClient, stationId } from "./scheduler-db.js";
+import { api, closeScheduler } from "./scheduler.js";
 import { loadSchemaMap, guessHistoryColumns, findColumn } from "./schema-map.js";
 
-const SYNC_KEY = "history_reconcile";
 const BATCH_SIZE = 500;
 
 export interface ReconciledRow {
   rdjSongId: number;
   airedAt: Date;
-}
-
-async function getWatermark(): Promise<number> {
-  const [row] = await schedulerDb
-    .select()
-    .from(syncState)
-    .where(and(eq(syncState.stationId, stationId), eq(syncState.syncKey, SYNC_KEY)));
-  return row?.watermark ? Number(row.watermark) : 0;
 }
 
 /**
@@ -56,7 +45,7 @@ export async function reconcileHistory(): Promise<ReconciledRow[]> {
   const { pk: idCol, fk: trackIdCol, ts: datePlayedCol } = guessHistoryColumns(map);
   const artistCol = findColumn(map, "history", "artist");
 
-  let watermark = await getWatermark();
+  let { watermark } = await api("historyWatermark");
   const allReconciled: ReconciledRow[] = [];
   const clockOffsetMs = await getDbClockOffsetMs();
 
@@ -73,43 +62,21 @@ export async function reconcileHistory(): Promise<ReconciledRow[]> {
 
     if (rows.length === 0) break;
 
-    const rdjSongIds = [...new Set(rows.map((r) => r.rdjSongId))];
-    const mirrorRows = await schedulerDb
-      .select({ id: songs.id, rdjSongId: songs.rdjSongId })
-      .from(songs)
-      .where(and(eq(songs.stationId, stationId), inArray(songs.rdjSongId, rdjSongIds)));
-    const songIdByRdjId = new Map(mirrorRows.map((r) => [r.rdjSongId, r.id]));
-
     const batchMaxId = Math.max(...rows.map((r) => r.id));
     const correctedAiredAt = new Map<number, Date>(
       rows.map((row) => [row.id, new Date(new Date(row.datePlayed).getTime() + clockOffsetMs)])
     );
 
-    await schedulerDb.transaction(async (tx) => {
-      await tx
-        .insert(playHistory)
-        .values(
-          rows.map((row) => ({
-            stationId,
-            songId: songIdByRdjId.get(row.rdjSongId) ?? null,
-            rdjSongId: row.rdjSongId,
-            artist: row.artist ?? null,
-            airedAt: correctedAiredAt.get(row.id)!,
-            source: "reconciled" as const,
-            rdjHistoryId: row.id,
-          }))
-        )
-        // Guards against reprocessing a batch after a crash between this insert
-        // and the watermark bump below — both happen in the same transaction.
-        .onConflictDoNothing({ target: [playHistory.stationId, playHistory.rdjHistoryId] });
-
-      await tx
-        .insert(syncState)
-        .values({ stationId, syncKey: SYNC_KEY, watermark: String(batchMaxId) })
-        .onConflictDoUpdate({
-          target: [syncState.stationId, syncState.syncKey],
-          set: { watermark: String(batchMaxId), updatedAt: new Date() },
-        });
+    // The rows and the watermark bump land in one transaction on the Rotavox side, and
+    // rows already recorded are skipped, so reprocessing a batch after a crash is harmless.
+    await api("recordHistory", {
+      watermark: batchMaxId,
+      rows: rows.map((row) => ({
+        rdjHistoryId: row.id,
+        rdjSongId: row.rdjSongId,
+        artist: row.artist ?? null,
+        airedAt: correctedAiredAt.get(row.id)!,
+      })),
     });
 
     watermark = batchMaxId;
@@ -126,7 +93,7 @@ async function main() {
   const reconciled = await reconcileHistory();
   console.log(`Done. ${reconciled.length} history row(s) processed.`);
   await pool.end();
-  await pgClient.end();
+  await closeScheduler();
 }
 
 if (process.argv[1]?.endsWith("reconcile-history.ts")) {

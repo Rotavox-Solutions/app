@@ -3,7 +3,8 @@ import { NextResponse, type NextRequest } from "next/server";
 // A cheap first gate: no session cookie, no app. Whether the cookie is any good is
 // checked against the database by the page or route itself (lib/auth.ts); this only
 // spares a signed-out visitor a broken page.
-const PUBLIC = [/^\/login$/, /^\/invite\//, /^\/reset\//, /^\/api\/auth\//];
+// The Runner API authenticates with a Runner key, checked in its route.
+const PUBLIC = [/^\/login$/, /^\/invite\//, /^\/reset\//, /^\/api\/auth\//, /^\/api\/runner\/v1\//];
 
 export function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;

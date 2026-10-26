@@ -1,6 +1,9 @@
+import path from "node:path";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
+  // The same "@/..." alias tsconfig.json gives the app, so a test can import a route handler.
+  resolve: { alias: { "@": path.resolve(__dirname, "src") } },
   test: {
     setupFiles: ["./test/helpers/env.ts"],
     testTimeout: 15_000,
