@@ -18,7 +18,7 @@ import {
 import { db } from "../src/lib/db";
 import { POST } from "../src/app/api/runner/v1/[op]/route";
 import { resetDb } from "./helpers/db";
-import { seedLog, seedLogItem, seedSong, seedStation } from "./helpers/fixtures";
+import { seedClock, seedClockPosition, seedLog, seedLogItem, seedSong, seedStation } from "./helpers/fixtures";
 
 /** Calls an operation the way the Runner's direct mode does: through the wire format. */
 async function op<T = any>(stationId: string, name: RunnerOpName, args: unknown = {}): Promise<T> {
@@ -88,39 +88,56 @@ describe("runner keys", () => {
 describe("runner operations", () => {
   beforeEach(resetDb);
 
-  it("paces through the API exactly as through the database", async () => {
+  it("hands the Runner its copy of the logs, and only resends a log that changed", async () => {
     const station = await seedStation();
     const song = await seedSong(station.id, 101, { durationMs: 200_000, effectiveDurationMs: 180_000 });
+    const clock = await seedClock(station.id);
+    const toh = await seedClockPosition(clock.id, { targetOffsetSeconds: 0 });
     const log = await airingLog(station.id);
-    const fixed = await seedLogItem(log.id, { sortOrder: 0, elementType: "fixed_event" });
-    const first = await seedLogItem(log.id, { sortOrder: 1, songId: song.id, rdjSongId: 101 });
-    const second = await seedLogItem(log.id, { sortOrder: 2, songId: song.id, rdjSongId: 101 });
+    await seedLog(station.id, { status: "draft", startsAt: new Date(Date.now() + 7_200_000) });
+    await seedLogItem(log.id, { sortOrder: 0, elementType: "fixed_event" });
+    const first = await seedLogItem(log.id, { sortOrder: 1, songId: song.id, rdjSongId: 101, clockPositionId: toh.id });
+    await seedLogItem(log.id, { sortOrder: 2, rdjSongId: 102 });
 
     const { key } = await createRunnerKey(db, { stationId: station.id, label: "Box", createdBy: null });
-    const current = await http(key, "currentLog", { at: new Date() });
-    expect(current.body.id).toBe(log.id);
-    expect(current.body.startsAt).toBeInstanceOf(Date);
+    const window = { from: new Date(Date.now() - 3_600_000), to: new Date(Date.now() + 86_400_000) };
+    const res = await http(key, "logWindow", window);
+    expect(res.status).toBe(200);
+    const [copy] = res.body.logs; // drafts aren't aired, so aren't sent
+    expect(res.body.logs).toHaveLength(1);
+    expect(copy.log.startsAt).toBeInstanceOf(Date);
+    expect(copy.items.map((i: any) => [i.sortOrder, i.timingMs, i.tohLocked])).toEqual([
+      [0, 0, false],
+      [1, 180_000, true],
+      [2, 0, false],
+    ]);
 
-    // fixed_event items are RadioDJ's, never pushed.
-    expect((await op(station.id, "nextUnpushedItem", { logId: log.id })).id).toBe(first.id);
-    expect(await op(station.id, "hasPushed", { logId: log.id })).toBe(false);
+    // Unchanged: no items. The Runner's own reports don't count as a change.
+    const have = { [log.id]: copy.digest };
+    await op(station.id, "recordItemTimes", { items: [{ id: first.id, pushedAt: new Date(), airedAt: null }] });
+    expect((await op(station.id, "logWindow", { ...window, have })).logs[0].items).toBeNull();
 
-    const pushedAt = new Date();
-    await op(station.id, "markPushed", { itemIds: [first.id], at: pushedAt });
-    expect((await op(station.id, "nextUnpushedItem", { logId: log.id })).id).toBe(second.id);
-    expect(await op(station.id, "queueDrainInputs", { logId: log.id })).toEqual({
-      pendingMs: 180_000,
-      playingEndsAtMs: null,
+    // A PD's replace does.
+    await db.update(logItems).set({ rdjSongId: 999 }).where(eq(logItems.logId, log.id));
+    expect((await op(station.id, "logWindow", { ...window, have })).logs[0].items).toHaveLength(3);
+  });
+
+  it("records the Runner's item times as given, including putting one back", async () => {
+    const station = await seedStation();
+    const log = await airingLog(station.id);
+    const item = await seedLogItem(log.id, { sortOrder: 1, rdjSongId: 5 });
+    const pushedAt = new Date("2026-10-26T15:00:00Z");
+    const airedAt = new Date("2026-10-26T15:03:00Z");
+
+    expect(await op(station.id, "recordItemTimes", { items: [{ id: item.id, pushedAt, airedAt }] })).toEqual({
+      updated: 1,
     });
+    let [row] = await db.select().from(logItems).where(eq(logItems.id, item.id));
+    expect([row.pushedAt?.getTime(), row.airedAt?.getTime()]).toEqual([pushedAt.getTime(), airedAt.getTime()]);
 
-    const airedAt = new Date();
-    expect(await op(station.id, "stampAired", { logId: log.id, rdjSongId: 101, airedAt })).toBe(true);
-    const [row] = await db.select().from(logItems).where(eq(logItems.id, first.id));
-    expect(row.airedAt?.getTime()).toBe(airedAt.getTime());
-    expect((await op(station.id, "queueDrainInputs", { logId: log.id })).playingEndsAtMs).toBe(
-      airedAt.getTime() + 180_000,
-    );
-    expect(fixed.pushedAt).toBeNull();
+    await op(station.id, "recordItemTimes", { items: [{ id: item.id, pushedAt: null, airedAt: null }] });
+    [row] = await db.select().from(logItems).where(eq(logItems.id, item.id));
+    expect([row.pushedAt, row.airedAt]).toEqual([null, null]);
   });
 
   it("can't see or touch another station's logs", async () => {
@@ -129,15 +146,13 @@ describe("runner operations", () => {
     const log = await airingLog(theirs.id);
     const item = await seedLogItem(log.id, { sortOrder: 1, rdjSongId: 5 });
 
-    expect(await op(mine.id, "currentLog", { at: new Date() })).toBeNull();
-    await expect(op(mine.id, "nextUnpushedItem", { logId: log.id })).rejects.toThrow(/no log/);
-    await expect(op(mine.id, "resetAfterQueueClear", { logId: log.id, now: new Date() })).rejects.toThrow(/no log/);
-    expect(await op(mine.id, "markPushed", { itemIds: [item.id], at: new Date() })).toEqual({ updated: 0 });
+    const window = { from: new Date(Date.now() - 3_600_000), to: new Date(Date.now() + 3_600_000) };
+    expect(await op(mine.id, "logWindow", window)).toEqual({ logs: [] });
+    expect(
+      await op(mine.id, "recordItemTimes", { items: [{ id: item.id, pushedAt: new Date(), airedAt: null }] }),
+    ).toEqual({ updated: 0 });
     const [row] = await db.select().from(logItems).where(eq(logItems.id, item.id));
     expect(row.pushedAt).toBeNull();
-
-    const { key } = await createRunnerKey(db, { stationId: mine.id, label: "Box", createdBy: null });
-    expect((await http(key, "nextUnpushedItem", { logId: log.id })).status).toBe(404);
   });
 
   it("syncs songs with the watermark, and records history once", async () => {

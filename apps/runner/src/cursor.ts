@@ -1,32 +1,18 @@
-import type { LogItemRow, LogRow } from "@rotavox/schema";
 import { drainInstant } from "./boundary.js";
-import { api } from "./scheduler.js";
+import type { LogStore, LogRow, PacingItem } from "./log-store.js";
 import { pool } from "./db.js";
 import { loadSchemaMap, guessHistoryColumns } from "./schema-map.js";
 import { getQueue, extractQueueSongIds } from "./rest.js";
 
-export type { LogItemRow, LogRow };
+// Pacing decisions, made from the Runner's own copy of the logs (log-store.ts). Nothing
+// here waits on Rotavox.
 
-/** The current log: approved, and `now` falls inside [starts_at, ends_at). */
-export async function selectCurrentLog(): Promise<LogRow | null> {
-  return api("currentLog", { at: new Date() });
-}
-
-/** Next log_item to push: earliest sort_order, unpushed, not a fixed_event (§6 — RadioDJ-owned). */
-export async function nextUnpushedItem(logId: string): Promise<LogItemRow | null> {
-  return api("nextUnpushedItem", { logId });
-}
-
-/** target_offset_seconds = 0 marks the TOH-locked position (see plan §5). */
-export async function isTohLocked(item: LogItemRow): Promise<boolean> {
-  if (!item.clockPositionId) return false;
-  return api("isTohLocked", { clockPositionId: item.clockPositionId });
-}
+export type { LogRow, PacingItem };
 
 export const TOH_LOOKAHEAD_SECONDS = 10;
 
 /** §5: TOH-locked items wait for real time to approach their projected air instant; everything else paces on depth alone. */
-export function shouldPushNow(item: LogItemRow, tohLocked: boolean, now: Date): boolean {
+export function shouldPushNow(item: PacingItem, tohLocked: boolean, now: Date): boolean {
   if (!tohLocked) return true;
   if (!item.projectedAirAt) return true;
   return now.getTime() >= item.projectedAirAt.getTime() - TOH_LOOKAHEAD_SECONDS * 1000;
@@ -35,7 +21,7 @@ export function shouldPushNow(item: LogItemRow, tohLocked: boolean, now: Date): 
 /**
  * How much audio RadioDJ is already holding, expressed as the instant it runs out.
  *
- * Composed from our own DB rather than RadioDJ's queue XML deliberately: /RDJp is not
+ * Composed from our own record of what was pushed rather than RadioDJ's queue XML deliberately: /RDJp is not
  * documented to carry per-track duration on this plugin version, and inventing a field
  * name would violate invariant #1. We already know exactly what we pushed, and the
  * now-playing watcher tells us what has started.
@@ -44,15 +30,11 @@ export function shouldPushNow(item: LogItemRow, tohLocked: boolean, now: Date): 
  * repeat is an already-aired log_item, so it keeps its original aired_at and looks
  * like history rather than like something still queued.
  */
-export async function projectedQueueDrainAt(
-  logId: string,
-  now: Date,
-  extraPendingMs = 0
-): Promise<Date> {
+export function projectedQueueDrainAt(store: LogStore, logId: string, now: Date, extraPendingMs = 0): Date {
   // Durations are segue-aware (effective_duration_ms, falling back to file duration);
   // the item on air is the most recently stamped one, and the queue cannot drain before
   // it finishes.
-  const { pendingMs, playingEndsAtMs } = await api("queueDrainInputs", { logId });
+  const { pendingMs, playingEndsAtMs } = store.queueDrainInputs(logId);
   return drainInstant(now, playingEndsAtMs, pendingMs + extraPendingMs);
 }
 
@@ -67,12 +49,13 @@ export async function projectedQueueDrainAt(
  * twice"). Fallbacks when everything is excluded (tiny catalogue): oldest not-
  * currently-playing item, then the oldest pushed item, then null.
  */
-export async function pickFillerItem(
+export function pickFillerItem(
+  store: LogStore,
   logId: string,
   excludeIds: Set<number>,
   currentlyPlaying: number | null
-): Promise<{ item: LogItemRow; durationMs: number } | null> {
-  const rows = await api("fillerCandidates", { logId }); // sort_order asc ≈ oldest-aired first
+): { item: PacingItem; durationMs: number } | null {
+  const rows = store.fillerCandidates(logId); // sort_order asc ≈ oldest-aired first
   const pushed = rows.filter((r) => r.item.pushedAt != null && r.item.rdjSongId != null);
   const chosen =
     pushed.find((r) => !excludeIds.has(r.item.rdjSongId!)) ??
@@ -120,11 +103,11 @@ const REBUILD_LOOKAHEAD = 10;
  *    live queue, and a mismatch is reported for visibility but never stops
  *    pushing — the pacer always keeps the queue defended.
  */
-export async function rebuildCursor(log: LogRow): Promise<RebuildResult> {
+export async function rebuildCursor(store: LogStore, log: LogRow): Promise<RebuildResult> {
   // Fresh log — nothing of ours pushed yet. Our own DB is already ground truth
   // for "not pushed"; nothing to reconcile, and no queue/history read at all —
   // this is what prevents foreign content from ever causing a false anomaly here.
-  if (!(await api("hasPushed", { logId: log.id }))) {
+  if (!store.hasPushed(log.id)) {
     return { backfilled: 0, anomaly: null, freshTakeover: true };
   }
 
@@ -142,14 +125,14 @@ export async function rebuildCursor(log: LogRow): Promise<RebuildResult> {
   const queueIds = extractQueueSongIds(await getQueue());
   const realizedIds = new Set<number>([...historyRows.map((r) => Number(r.rdjSongId)), ...queueIds]);
 
-  const candidates = await api("unpushedItems", { logId: log.id, limit: REBUILD_LOOKAHEAD });
+  const candidates = store.unpushedItems(log.id, REBUILD_LOOKAHEAD);
 
   let backfilled = 0;
   let anomaly: RebuildResult["anomaly"] = null;
   const now = new Date();
   for (const item of candidates) {
     if (item.rdjSongId != null && realizedIds.has(item.rdjSongId)) {
-      await api("markPushed", { itemIds: [item.id], at: now });
+      await store.markPushed(log.id, [item.id], now);
       backfilled++;
     } else if (backfilled === 0) {
       // The very next item isn't visibly realized — the normal case (no crash gap).
@@ -163,29 +146,4 @@ export async function rebuildCursor(log: LogRow): Promise<RebuildResult> {
     }
   }
   return { backfilled, anomaly, freshTakeover: false };
-}
-
-/**
- * After RadioDJ's queue was cleared to evict foreign (AutoDJ) content mid-log: put our
- * own cleared items back to "unpushed", then skip forward past items whose slot has
- * already gone by, so the log resumes on its timetable instead of running as late as
- * the AutoDJ interlude lasted.
- *
- * Why this exists (live 2026-10-16): AutoDJ was switched on at the console for under a
- * minute. The pacer turned it back off within its 60s check, but AutoDJ had already
- * topped the queue up to its ~15-track fill, which kept depth >= MIN_DEPTH for ~25 min —
- * the pacer, heartbeating and healthy, never pushed. A watchdog failover leaves the
- * same 15 tracks behind for the pacer when it comes back.
- *
- * - Un-push: pushed_at set, aired_at null, and later than the last aired item — those
- *   were sitting in the queue that was just cleared. Earlier pushed-but-unaired items
- *   are genuine skips and stay as they are.
- * - Skip: an unpushed item whose NEXT item was projected to start at or before `now`
- *   has had its whole slot pass. It is marked pushed with aired_at null, the same
- *   "pushed but never aired" state a skip already has. The item whose slot contains
- *   `now` is kept, so the log re-enters at most one song late, which the TOH boundary
- *   logic absorbs.
- */
-export async function resetAfterQueueClear(logId: string, now: Date): Promise<{ unpushed: number; skipped: number }> {
-  return api("resetAfterQueueClear", { logId, now });
 }

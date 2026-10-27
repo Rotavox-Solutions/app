@@ -127,7 +127,13 @@ export async function api<K extends RunnerOpName>(
 /** The station this Runner serves: from its key in API mode, SCHEDULER_STATION_ID in direct mode. */
 let identity: Promise<{ id: string; name: string; timezone: string }> | null = null;
 export function stationIdentity() {
-  identity ??= api("whoami").then((r) => r.station);
+  identity ??= api("whoami").then(
+    (r) => r.station,
+    (err) => {
+      identity = null; // an outage at the first ask mustn't be remembered as the answer
+      throw err;
+    },
+  );
   return identity;
 }
 

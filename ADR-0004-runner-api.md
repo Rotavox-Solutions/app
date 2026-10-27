@@ -37,17 +37,15 @@ running against the wrong Rotavox.
 | Group | Operations |
 |---|---|
 | Identity | `whoami` |
-| Pacing | `currentLog`, `nextUnpushedItem`, `isTohLocked`, `queueDrainInputs`, `fillerCandidates`, `hasPushed`, `unpushedItems`, `markPushed`, `resetAfterQueueClear`, `stampAired`, `backfillAired` |
+| The log copy | `logWindow`, `recordItemTimes` (§6) |
 | Library | `libraryWatermark`, `libraryMirror`, `upsertSongs`, `markLibrarySynced`, `disableOrphans` |
 | As-played | `historyWatermark`, `recordHistory` |
 | Jobs | `failInterruptedJobs`, `nextJob`, `finishJob`, `pruneJobs` |
 | RadioDJ writes | `pendingProjections`, `finishProjection`, `mirrorChangeset` |
 
-The pacing operations are the Runner's existing queries, moved over with unchanged
-meaning. The decisions stay in the Runner: when to push, the TOH boundary, choosing the
-filler. Moving queries rather than rewriting the pacer kept on-air behaviour identical in
-this step. Step 3 replaces the per-tick pacing calls with a log the Runner keeps locally,
-so an outage can't stop playout. The library, history, job and projection operations are
+The pacing queries first moved here one for one, unchanged in meaning. Step 3 replaced
+them with the log copy (§6): the pacer now makes those decisions from its own copy and
+asks Rotavox nothing mid-hour. The library, history, job and projection operations are
 the lasting shape.
 
 Two calls became single transactions on the Rotavox side, where they had been two:
@@ -81,7 +79,38 @@ Station page's import has replaced it (ADR-0002 §4; see the UI-not-CLI rule).
 
 ## 5. Not yet
 
-- A local log buffer and write queue (step 3).
 - Moving the web app and database off the box (step 4). Until then the API URL on the
   BOLT box is `http://127.0.0.1:3000`.
 - Retiring direct mode, `DATABASE_URL` and `SCHEDULER_STATION_ID` from the Runner.
+
+## 6. The Runner's copy of the logs (step 3, 2026-10-26)
+
+Before this, every pacing decision was a call to Rotavox. If Rotavox couldn't be reached,
+the pacer kept writing its heartbeat, so the watchdog saw nothing wrong, while it stopped
+pushing. RadioDJ's queue then ran dry in 10–15 minutes and the station went silent.
+
+Now the pacer works from a copy it keeps on the box, in `runner-state.json`
+(`apps/runner/src/log-store.ts`):
+
+- **What it holds:** the station's approved logs from an hour ago to 26 hours ahead
+  (`logWindow`). Each item comes with what pacing decides from: its timing duration
+  and whether it is TOH-locked. The copy is refreshed every 30 seconds. A log that hasn't
+  changed costs one row: its digest matches, and its items aren't resent.
+- **Who owns what:** the Runner is the only writer of `pushed_at` and `aired_at`, so its
+  values win. Every change is made in the copy, saved to disk, then reported
+  (`recordItemTimes`, as absolute values, so a resend is harmless). Rotavox owns
+  everything else. A refresh takes the items' content, such as a PD's swap, and which
+  logs are approved.
+- **Edits arrive in time:** an item can't be edited within 15 minutes of air (the safety
+  horizon), and the copy refreshes every 30 seconds, so the copy is always current
+  before an item is pushed.
+- **During an outage:** pacing carries on from the copy. Reports and reconciled
+  RadioDJ history wait in the file, in order, through restarts, and are sent when
+  Rotavox is back. The Runner logs the outage once, and the job loop says its jobs are
+  waiting. If the outage outlasts the copy, no current log remains and the pacer hands
+  playout to AutoDJ, as it does at the end of any log.
+- **Known edges:**
+  - Approving or un-approving a log during an outage reaches the Runner only when
+    Rotavox is back. Until then it airs the last approved version it was given.
+  - A copy saved for another station's key is discarded, along with its unsent reports.
+

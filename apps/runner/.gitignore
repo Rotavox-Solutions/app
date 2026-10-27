@@ -6,3 +6,6 @@ runner.heartbeat.tmp
 # Introspection output, per box (DEPLOY.md step 5)
 schema-map.json
 rest-capabilities.json
+# The pacer's log copy and waiting reports (src/log-store.ts)
+runner-state.json
+runner-state.json.tmp

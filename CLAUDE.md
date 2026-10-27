@@ -16,7 +16,9 @@ truth for format data, membership and lifecycle state.
 API route goes through a guard in `apps/web/src/lib/auth.ts`.
 `ADR-0004-runner-api.md`: the Runner reaches Rotavox only through `scheduler.ts`. That
 means the Runner API ops in `packages/schema/src/runner-ops.ts`, authenticated by a
-station's Runner key. Never add a direct Postgres query to the Runner.
+station's Runner key. Never add a direct Postgres query to the Runner. Pacing reads and
+writes only the Runner's local log copy (`apps/runner/src/log-store.ts`, ADR-0004 §6),
+never Rotavox mid-hour: an outage must not reach the air.
 
 ## Architecture (only the adapter touches the station)
 

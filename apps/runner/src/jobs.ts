@@ -6,7 +6,7 @@
 // Runs inside the pacer process, beside the pace loop. It must never take the pacer down,
 // so every failure stays inside a job and is recorded on it.
 import type { RunnerJob } from "@rotavox/schema";
-import { api } from "./scheduler.js";
+import { api, SchedulerApiError } from "./scheduler.js";
 import { syncLibrary } from "./sync-library.js";
 import { projectChangesets } from "./project-changesets.js";
 import type { ApplyLog } from "./apply-changeset.js";
@@ -60,6 +60,9 @@ export async function jobsLoop(say: Say, sayError: Say): Promise<never> {
     sayError("[jobs] could not clear interrupted jobs:", err);
   }
   let lastPrune = 0;
+  // An outage would otherwise log the same failure every 5s. The log copy reports it once
+  // (log-store.ts); here it is enough to say the jobs are waiting.
+  let waiting = false;
   while (true) {
     try {
       const now = new Date();
@@ -68,6 +71,7 @@ export async function jobsLoop(say: Say, sayError: Say): Promise<never> {
         lastPrune = now.getTime();
       }
       const job = await api("nextJob", { now });
+      waiting = false;
       if (job) {
         say(`[jobs] ${job.kind} started (asked by ${job.requestedBy}).`);
         const result = await runJob(job);
@@ -76,7 +80,12 @@ export async function jobsLoop(say: Say, sayError: Say): Promise<never> {
         continue; // straight to the next one, if any
       }
     } catch (err) {
-      sayError("[jobs] loop error (continuing):", err);
+      if (err instanceof SchedulerApiError && err.status === 0) {
+        if (!waiting) say("[jobs] Rotavox is unreachable; jobs wait until it's back.");
+        waiting = true;
+      } else {
+        sayError("[jobs] loop error (continuing):", err);
+      }
     }
     await new Promise((r) => setTimeout(r, POLL_MS));
   }

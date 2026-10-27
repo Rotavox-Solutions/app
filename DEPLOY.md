@@ -313,6 +313,12 @@ needs the database.
 
 To go back to direct mode, blank those two lines and restart. If the key leaks or the box
 is replaced, revoke it on the same page and make a new one.
+
+The Runner keeps its copy of the coming day's logs in `apps\runner\runner-state.json`
+(ADR-0004 §6). That copy keeps the station paced through a Rotavox outage. Its first log
+line after a start reads `[log-copy] N approved log(s) through …`. Leave the file alone
+during an outage: it holds the reports waiting to reach Rotavox. While Rotavox is
+reachable it is safe to delete, and the next start fetches a fresh copy.
 ---
 
 ## Gaps

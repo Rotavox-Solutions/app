@@ -1,23 +1,13 @@
 import "dotenv/config";
 import { restCall, getState, getNowPlaying, getQueue, extractNowPlayingId, extractQueueSongIds } from "./rest.js";
-import { api, closeScheduler, scheduler, stationIdentity } from "./scheduler.js";
+import { closeScheduler, scheduler } from "./scheduler.js";
 import { pool } from "./db.js";
-import {
-  selectCurrentLog,
-  nextUnpushedItem,
-  isTohLocked,
-  shouldPushNow,
-  pickFillerItem,
-  projectedQueueDrainAt,
-  rebuildCursor,
-  resetAfterQueueClear,
-  type LogRow,
-} from "./cursor.js";
+import { shouldPushNow, pickFillerItem, projectedQueueDrainAt, rebuildCursor, type LogRow } from "./cursor.js";
 import { decideBoundaryAction, EARLY_AIR_HARD_CAP_MS } from "./boundary.js";
-import { reconcileHistory } from "./reconcile-history.js";
+import { reconcileHistory, type HistorySink } from "./reconcile-history.js";
 import { jobsLoop } from "./jobs.js";
-import { backfillAiredAt, matchAndStampAiredAt } from "./backfill-aired.js";
 import { writeHeartbeat } from "./heartbeat.js";
+import { LOG_STORE_PATH, LogStore } from "./log-store.js";
 
 /**
  * Every line the pacer emits carries a timestamp.
@@ -72,8 +62,19 @@ const recentlyAiredIds: number[] = [];
  */
 let bridgedMs = 0;
 
-async function markPushed(itemId: string): Promise<void> {
-  await api("markPushed", { itemIds: [itemId], at: new Date() });
+/**
+ * The Runner's copy of the logs (ADR-0004 §6). Every pacing read and write below goes to
+ * it, never to Rotavox, so an outage can't stop playout while the copy reaches ahead.
+ */
+let store: LogStore;
+/** Reconciled history goes through the copy too, and waits there during an outage. */
+const historySink: HistorySink = {
+  watermark: async () => store.historyWatermark(),
+  record: (batch) => store.queueHistory(batch),
+};
+
+async function markPushed(item: { id: string; logId: string }): Promise<void> {
+  await store.markPushed(item.logId, [item.id], new Date());
 }
 
 /** Record a song as recently aired (rolling window), de-duping consecutive repeats. */
@@ -96,12 +97,12 @@ async function primeQueue(log: LogRow): Promise<void> {
   for (let i = 0; i < MIN_DEPTH; i++) {
     const depth = Number(await restCall("StatusQueue"));
     if (depth >= MIN_DEPTH) break;
-    const next = await nextUnpushedItem(log.id);
+    const next = store.nextUnpushedItem(log.id);
     if (!next?.rdjSongId) break;
-    const tohLocked = await isTohLocked(next);
+    const tohLocked = next.tohLocked;
     if (tohLocked && !shouldPushNow(next, tohLocked, now)) break;
     await restCall("LoadTrackToBottom", next.rdjSongId);
-    await markPushed(next.id);
+    await markPushed(next);
     say(`[pace] prime pushed rdj:${next.rdjSongId} (sort ${next.sortOrder}), depth was ${depth}`);
   }
 }
@@ -119,9 +120,9 @@ async function reclaimQueue(log: LogRow): Promise<void> {
   await restCall("ClearPlaylist");
   // Stamp what genuinely aired first (e.g. our queued items that played out while this
   // process was dead) so the reset below can't mistake them for cleared and re-air them.
-  const reconciled = await reconcileHistory();
-  if (reconciled.length > 0) await backfillAiredAt(log.id, reconciled);
-  const { unpushed, skipped } = await resetAfterQueueClear(log.id, new Date());
+  const reconciled = await reconcileHistory(historySink);
+  if (reconciled.length > 0) await store.backfillAired(log.id, reconciled);
+  const { unpushed, skipped } = await store.resetAfterQueueClear(log.id, new Date());
   previousQueueIds = null; // the clear is not a run of skips for the queue-diff watcher
   bridgedMs = 0;
   sayWarn(
@@ -144,7 +145,7 @@ async function startupForLog(log: LogRow): Promise<void> {
   // Cross-checks against RadioDJ only when resuming a log we've already started
   // pushing into (see cursor.ts docstring — a hard-halt here once caused real dead
   // air). A detected anomaly is logged, never blocking: the queue stays defended.
-  const rebuild = await rebuildCursor(log);
+  const rebuild = await rebuildCursor(store, log);
   if (rebuild.freshTakeover) {
     // Cold takeover from AutoDJ: drop whatever AutoDJ pre-queued below the currently
     // playing track. Without this the log airs behind ~15 leftover tracks (~50min),
@@ -173,7 +174,7 @@ async function startupForLog(log: LogRow): Promise<void> {
 }
 
 async function tick(): Promise<void> {
-  const log = await selectCurrentLog();
+  const log = store.currentLog(new Date());
 
   if (!log) {
     if (currentLogId !== null) {
@@ -193,14 +194,14 @@ async function tick(): Promise<void> {
   }
 
   const depth = Number(await restCall("StatusQueue"));
-  const next = await nextUnpushedItem(log.id);
+  const next = store.nextUnpushedItem(log.id);
 
   if (!next) {
     say(`[pace] no unpushed items remain in the current log (depth ${depth}).`);
     return;
   }
 
-  const tohLocked = await isTohLocked(next);
+  const tohLocked = next.tohLocked;
   const now = new Date();
 
   // Plan §5: TOH-locked items are gated purely on time (never rushed in just
@@ -214,7 +215,7 @@ async function tick(): Promise<void> {
     // Push before recording pushed_at, never the reverse — see plan §2. If the
     // process dies right after this call, rebuildCursor() picks it up on restart.
     await restCall("LoadTrackToBottom", next.rdjSongId!);
-    await markPushed(next.id);
+    await markPushed(next);
     if (tohLocked) bridgedMs = 0; // boundary crossed — the bridge is spent
     say(
       `[pace] pushed rdj:${next.rdjSongId} (sort ${next.sortOrder}${tohLocked ? ", TOH-locked" : ""}), depth was ${depth}`
@@ -228,7 +229,7 @@ async function tick(): Promise<void> {
   // not exist and pushed the ID ten minutes late.
   if (!tohLocked) return;
 
-  const drainAt = await projectedQueueDrainAt(log.id, now, bridgedMs);
+  const drainAt = projectedQueueDrainAt(store, log.id, now, bridgedMs);
   const gapMs = next.projectedAirAt ? next.projectedAirAt.getTime() - drainAt.getTime() : null;
   const decision = decideBoundaryAction(gapMs);
 
@@ -239,7 +240,7 @@ async function tick(): Promise<void> {
     // tolerance is <= one song either side of :00, and there is no inventory between
     // ~15s and ~169s to bridge with anyway (PERFECT-HOUR.md §5b).
     await restCall("LoadTrackToBottom", next.rdjSongId!);
-    await markPushed(next.id);
+    await markPushed(next);
     bridgedMs = 0;
     const early = Math.round(decision.earlyByMs / 1000);
     const line =
@@ -260,7 +261,7 @@ async function tick(): Promise<void> {
   const currentlyPlaying = extractNowPlayingId(await getNowPlaying());
   const exclude = new Set<number>(recentlyAiredIds);
   if (currentlyPlaying != null) exclude.add(currentlyPlaying);
-  const filler = await pickFillerItem(log.id, exclude, currentlyPlaying);
+  const filler = pickFillerItem(store, log.id, exclude, currentlyPlaying);
   if (filler) {
     await restCall("LoadTrackToBottom", filler.item.rdjSongId!);
     bridgedMs += filler.durationMs;
@@ -334,7 +335,7 @@ async function watchNowPlaying(): Promise<void> {
 
         if (id != null && id !== lastObservedNowPlayingId) {
           recordAired(id);
-          const matched = await matchAndStampAiredAt(currentLogId, id, observedAt);
+          const matched = await store.stampAired(currentLogId, id, observedAt);
           if (matched) {
             say(`[now-playing] rdj:${id} observed airing at ${observedAt.toISOString()}`);
           }
@@ -351,7 +352,7 @@ async function watchNowPlaying(): Promise<void> {
           // them "aired" is a false log entry; leave aired_at null (the truthful
           // state: pushed but never aired) and just log the skip for visibility.
           if (vanished.length === 1) {
-            const matched = await matchAndStampAiredAt(currentLogId, vanished[0], observedAt);
+            const matched = await store.stampAired(currentLogId, vanished[0], observedAt);
             if (matched) {
               say(`[queue-diff] rdj:${vanished[0]} inferred aired (vanished between polls) at ${observedAt.toISOString()}`);
             }
@@ -383,15 +384,15 @@ async function paceLoop(): Promise<void> {
       await tick();
 
       if (tickCount % RECONCILE_EVERY_N_TICKS === 0 && currentLogId) {
-        const reconciled = await reconcileHistory();
+        const reconciled = await reconcileHistory(historySink);
         if (reconciled.length > 0) {
-          const updated = await backfillAiredAt(currentLogId, reconciled);
+          const updated = await store.backfillAired(currentLogId, reconciled);
           say(`[reconcile] ${reconciled.length} history row(s), ${updated} log_item(s) backfilled with aired_at.`);
         }
       }
 
       if (tickCount % AUTODJ_CHECK_EVERY_N_TICKS === 0 && currentLogId) {
-        const log = await selectCurrentLog();
+        const log = store.currentLog(new Date());
         if (log?.id === currentLogId) await assertAutoDjOff(log);
       }
     } catch (err) {
@@ -419,7 +420,7 @@ async function paceLoop(): Promise<void> {
  * AutoDJ — leaving it off with nobody pacing. Run once, before the main loop starts.
  */
 async function reconcileAutoDjOnStartup(): Promise<void> {
-  const log = await selectCurrentLog();
+  const log = store.currentLog(new Date());
   if (log) return; // normal startupForLog() path on the first tick will take it from here
 
   const autoDj = extractAutoDj(await getState());
@@ -436,12 +437,19 @@ async function main(): Promise<void> {
   // unreachable API is logged and retried by the loops, never fatal: the pacer must keep
   // its heartbeat going, and the watchdog decides what a dead pacer means.
   const client = await scheduler();
+  const where = client.mode === "api" ? `API ${process.env.ROTAVOX_API_URL}` : "database (direct mode)";
+  store = new LogStore(client, { path: LOG_STORE_PATH, say, warn: sayWarn });
+  await store.load();
   try {
-    const station = await stationIdentity();
-    say(`[pace] Rotavox ${client.mode === "api" ? `API ${process.env.ROTAVOX_API_URL}` : "database (direct mode)"} — station ${station.name}`);
+    const { station } = await client.call("whoami");
+    await store.refresh();
+    say(`[pace] Rotavox ${where} — station ${station.name}`);
   } catch (err) {
-    sayError(`[pace] could not reach Rotavox (${client.mode} mode) at startup; the loops will keep trying:`, err);
+    sayError(`[pace] could not reach Rotavox (${where}) at startup; pacing from the saved copy and retrying:`, err);
   }
+  say(`[log-copy] ${store.describe()}`);
+  store.start();
+  void store.flush();
   // Non-fatal: a REST timeout here (seen on the 2026-10-15 rebuild) used to reject main()
   // before the loop started, leaving a live process that never wrote a heartbeat — so
   // the service manager saw it running and the watchdog saw "unknown", and nobody acted.

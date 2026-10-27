@@ -6,22 +6,14 @@
 // against that station first.
 //
 // Queries moved here from the Runner unchanged in meaning; the comments that explain
-// them moved with them (cursor.ts, backfill-aired.ts, sync-library.ts,
-// reconcile-history.ts, prune-library.ts, jobs.ts).
-import { and, asc, desc, eq, gt, inArray, isNotNull, isNull, lte, ne, notInArray, sql } from "drizzle-orm";
+// them moved with them (sync-library.ts, reconcile-history.ts, prune-library.ts,
+// jobs.ts). Pacing decisions are not here: the Runner makes them from its own copy of
+// the logs (logWindow), so an outage can't stop playout.
+import { createHash } from "node:crypto";
+import { and, asc, eq, gt, inArray, lt, notInArray, sql } from "drizzle-orm";
 import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import * as schema from "./schema.js";
-import {
-  changesets,
-  clockPositions,
-  clocks,
-  logItems,
-  logs,
-  playHistory,
-  songs,
-  stations,
-  syncState,
-} from "./schema.js";
+import { changesets, clockPositions, logItems, logs, playHistory, songs, stations, syncState } from "./schema.js";
 import { listPendingProjections, nextProjectionStatus } from "./changesets.js";
 import { claimNextJob, enqueueJob, failInterruptedJobs, finishJob, lastRequested, pruneJobs } from "./jobs.js";
 import { loadProjection, mirrorChangesetMoves, type MirrorMove } from "./membership.js";
@@ -43,6 +35,19 @@ export class RunnerOpError extends Error {
 export type LogRow = typeof logs.$inferSelect;
 export type LogItemRow = typeof logItems.$inferSelect;
 
+/** A log item as the Runner paces it: with its timing duration and TOH lock resolved. */
+export interface PacingItem extends LogItemRow {
+  timingMs: number;
+  tohLocked: boolean;
+}
+
+export interface WindowLog {
+  log: LogRow;
+  digest: string;
+  /** Null when the Runner's copy is already current. */
+  items: PacingItem[] | null;
+}
+
 // ── Wire format ─────────────────────────────────────────────────────────────────────
 // JSON has no dates. Every Date is sent as an ISO-8601 UTC string and comes back a Date
 // on the other side. Both modes go through this, so direct mode can't hide a value that
@@ -55,14 +60,6 @@ export const decodeWire = <T>(text: string): T =>
   JSON.parse(text, (_key, v) => (typeof v === "string" && ISO_UTC.test(v) ? new Date(v) : v)) as T;
 
 // ── Station checks ──────────────────────────────────────────────────────────────────
-
-async function ownLog(db: Db, stationId: string, logId: string): Promise<void> {
-  const [row] = await db
-    .select({ id: logs.id })
-    .from(logs)
-    .where(and(eq(logs.id, logId), eq(logs.stationId, stationId)));
-  if (!row) throw new RunnerOpError(404, `no log ${logId} at this station`);
-}
 
 const stationLogIds = (stationId: string) => sql`(SELECT id FROM logs WHERE station_id = ${stationId})`;
 
@@ -124,10 +121,23 @@ export const runnerOps = {
     return { station, apiVersion: RUNNER_API_VERSION };
   },
 
-  // ── Pacing ──
+  // ── The Runner's copy of the logs (ADR-0004 §6) ──
 
-  /** The current log: approved, and `at` falls inside [starts_at, ends_at); the most recently generated wins. */
-  async currentLog(db: Db, stationId: string, a: { at: Date }): Promise<LogRow | null> {
+  /**
+   * The station's approved logs overlapping [from, to), for the copy the Runner paces
+   * from. Each item carries what pacing decides with, so the Runner never has to ask
+   * mid-hour: its timing duration and whether its clock position is TOH-locked.
+   *
+   * `have` maps the logs the Runner already holds to their digest. A log whose digest
+   * still matches comes back without its items, so the routine refresh costs a row per
+   * log. The digest covers what Rotavox owns (the log, and each item's content), never
+   * pushed_at or aired_at, which are the Runner's.
+   */
+  async logWindow(
+    db: Db,
+    stationId: string,
+    a: { from: Date; to: Date; have?: Record<string, string> },
+  ): Promise<{ logs: WindowLog[] }> {
     const rows = await db
       .select()
       .from(logs)
@@ -135,193 +145,62 @@ export const runnerOps = {
         and(
           eq(logs.stationId, stationId),
           eq(logs.status, "approved"),
-          lte(logs.startsAt, a.at),
-          gt(logs.endsAt, a.at),
+          lt(logs.startsAt, a.to),
+          gt(logs.endsAt, a.from),
         ),
       )
-      .orderBy(logs.generatedAt);
-    return rows.length === 0 ? null : rows[rows.length - 1];
-  },
-
-  /** Next log_item to push: earliest sort_order, unpushed, not a fixed_event (§6 — RadioDJ-owned). */
-  async nextUnpushedItem(db: Db, stationId: string, a: { logId: string }): Promise<LogItemRow | null> {
-    await ownLog(db, stationId, a.logId);
-    const [row] = await db
-      .select()
-      .from(logItems)
-      .where(and(eq(logItems.logId, a.logId), isNull(logItems.pushedAt), ne(logItems.elementType, "fixed_event")))
-      .orderBy(asc(logItems.sortOrder))
-      .limit(1);
-    return row ?? null;
-  },
-
-  /** target_offset_seconds = 0 marks the TOH-locked position. */
-  async isTohLocked(db: Db, stationId: string, a: { clockPositionId: string }): Promise<boolean> {
-    const [pos] = await db
-      .select({ offset: clockPositions.targetOffsetSeconds })
-      .from(clockPositions)
-      .innerJoin(clocks, eq(clocks.id, clockPositions.clockId))
-      .where(and(eq(clockPositions.id, a.clockPositionId), eq(clocks.stationId, stationId)));
-    return pos?.offset === 0;
-  },
-
-  /**
-   * What the queue-drain projection needs: the audio pushed and not yet started, and when
-   * the item on air ends. The item on air is the most recently stamped one; the queue
-   * cannot drain before it finishes.
-   */
-  async queueDrainInputs(db: Db, stationId: string, a: { logId: string }) {
-    await ownLog(db, stationId, a.logId);
-    const [pending] = await db
-      .select({ ms: sql<number>`coalesce(sum(${TIMING_DURATION_MS}), 0)` })
+      .orderBy(logs.startsAt);
+    if (rows.length === 0) return { logs: [] };
+    const itemRows = await db
+      .select({ item: logItems, timingMs: TIMING_DURATION_MS, offset: clockPositions.targetOffsetSeconds })
       .from(logItems)
       .leftJoin(songs, eq(logItems.songId, songs.id))
-      .where(and(eq(logItems.logId, a.logId), isNotNull(logItems.pushedAt), isNull(logItems.airedAt)));
-    const [playing] = await db
-      .select({ airedAt: logItems.airedAt, durationMs: TIMING_DURATION_MS })
-      .from(logItems)
-      .leftJoin(songs, eq(logItems.songId, songs.id))
-      .where(and(eq(logItems.logId, a.logId), isNotNull(logItems.airedAt)))
-      .orderBy(desc(logItems.airedAt))
-      .limit(1);
+      .leftJoin(clockPositions, eq(logItems.clockPositionId, clockPositions.id))
+      .where(
+        inArray(
+          logItems.logId,
+          rows.map((r) => r.id),
+        ),
+      )
+      .orderBy(asc(logItems.sortOrder));
+    const byLog = new Map<string, PacingItem[]>();
+    for (const r of itemRows) {
+      const list = byLog.get(r.item.logId) ?? [];
+      list.push({ ...r.item, timingMs: Number(r.timingMs ?? 0), tohLocked: r.offset === 0 });
+      byLog.set(r.item.logId, list);
+    }
     return {
-      pendingMs: Number(pending?.ms ?? 0),
-      playingEndsAtMs: playing?.airedAt ? playing.airedAt.getTime() + Number(playing.durationMs ?? 0) : null,
+      logs: rows.map((log) => {
+        const items = byLog.get(log.id) ?? [];
+        const digest = logDigest(log, items);
+        return { log, digest, items: a.have?.[log.id] === digest ? null : items };
+      }),
     };
   },
 
-  /** Music items in this log, oldest first, with their timing duration — the underrun filler's candidates. */
-  async fillerCandidates(db: Db, stationId: string, a: { logId: string }) {
-    await ownLog(db, stationId, a.logId);
-    const rows = await db
-      .select({ item: logItems, durationMs: TIMING_DURATION_MS })
-      .from(logItems)
-      .leftJoin(songs, eq(logItems.songId, songs.id))
-      .where(and(eq(logItems.logId, a.logId), eq(logItems.elementType, "music")))
-      .orderBy(asc(logItems.sortOrder));
-    return rows.map((r) => ({ item: r.item, durationMs: Number(r.durationMs ?? 0) }));
-  },
-
-  /** Whether anything of ours in this log has been pushed — false means a cold takeover. */
-  async hasPushed(db: Db, stationId: string, a: { logId: string }): Promise<boolean> {
-    await ownLog(db, stationId, a.logId);
-    const [row] = await db
-      .select({ id: logItems.id })
-      .from(logItems)
-      .where(and(eq(logItems.logId, a.logId), ne(logItems.elementType, "fixed_event"), isNotNull(logItems.pushedAt)))
-      .limit(1);
-    return Boolean(row);
-  },
-
-  /** The next `limit` unpushed items, in order — the cursor rebuild's lookahead. */
-  async unpushedItems(db: Db, stationId: string, a: { logId: string; limit: number }): Promise<LogItemRow[]> {
-    await ownLog(db, stationId, a.logId);
-    return db
-      .select()
-      .from(logItems)
-      .where(and(eq(logItems.logId, a.logId), isNull(logItems.pushedAt), ne(logItems.elementType, "fixed_event")))
-      .orderBy(asc(logItems.sortOrder))
-      .limit(Math.min(Math.max(1, a.limit), 100));
-  },
-
-  async markPushed(db: Db, stationId: string, a: { itemIds: string[]; at: Date }): Promise<{ updated: number }> {
-    if (a.itemIds.length === 0) return { updated: 0 };
-    const rows = await db
-      .update(logItems)
-      .set({ pushedAt: a.at })
-      .where(and(inArray(logItems.id, a.itemIds), sql`${logItems.logId} IN ${stationLogIds(stationId)}`))
-      .returning({ id: logItems.id });
-    return { updated: rows.length };
-  },
-
   /**
-   * After RadioDJ's queue was cleared to evict foreign (AutoDJ) content mid-log: put our
-   * own cleared items back to "unpushed", then skip forward past items whose slot has
-   * already gone by, so the log resumes on its timetable instead of running as late as
-   * the AutoDJ interlude lasted.
-   *
-   * - Un-push: pushed_at set, aired_at null, and later than the last aired item — those
-   *   were sitting in the queue that was just cleared. Earlier pushed-but-unaired items
-   *   are genuine skips and stay as they are.
-   * - Skip: an unpushed item whose NEXT item was projected to start at or before `now`
-   *   has had its whole slot pass. It is marked pushed with aired_at null, the same
-   *   "pushed but never aired" state a skip already has. The item whose slot contains
-   *   `now` is kept, so the log re-enters at most one song late, which the TOH boundary
-   *   logic absorbs.
+   * The Runner's record of when items were pushed and aired, as absolute values: the
+   * Runner is the only writer of both, so the latest report wins. Reports queued while
+   * Rotavox was unreachable arrive this way too. An item from another station is ignored.
    */
-  async resetAfterQueueClear(db: Db, stationId: string, a: { logId: string; now: Date }) {
-    await ownLog(db, stationId, a.logId);
-    const { logId, now } = a;
-    return db.transaction(async (tx) => {
-      const [lastAired] = await tx
-        .select({ sortOrder: logItems.sortOrder })
-        .from(logItems)
-        .where(and(eq(logItems.logId, logId), isNotNull(logItems.airedAt)))
-        .orderBy(desc(logItems.sortOrder))
-        .limit(1);
-      const floor = lastAired?.sortOrder ?? -1;
-
-      const unpushedRows = await tx
-        .update(logItems)
-        .set({ pushedAt: null })
-        .where(
-          and(
-            eq(logItems.logId, logId),
-            isNotNull(logItems.pushedAt),
-            isNull(logItems.airedAt),
-            gt(logItems.sortOrder, floor),
-            ne(logItems.elementType, "fixed_event"),
-          ),
-        )
-        .returning({ id: logItems.id });
-
-      const pending = await tx
-        .select({ id: logItems.id, projectedAirAt: logItems.projectedAirAt })
-        .from(logItems)
-        .where(and(eq(logItems.logId, logId), isNull(logItems.pushedAt), ne(logItems.elementType, "fixed_event")))
-        .orderBy(asc(logItems.sortOrder));
-
-      const skipIds: string[] = [];
-      for (let i = 0; i + 1 < pending.length; i++) {
-        const nextStart = pending[i + 1].projectedAirAt;
-        if (!nextStart || nextStart.getTime() > now.getTime()) break;
-        skipIds.push(pending[i].id);
-      }
-      for (const id of skipIds) {
-        await tx.update(logItems).set({ pushedAt: now }).where(eq(logItems.id, id));
-      }
-      return { unpushed: unpushedRows.length, skipped: skipIds.length };
-    });
-  },
-
-  /**
-   * Matches one rdj_song_id to the earliest pushed-but-unaired log_item in `logId` and
-   * stamps aired_at. The now-playing watch and the history backstop both use it;
-   * whichever fires first for an item wins, since both require aired_at IS NULL.
-   */
-  async stampAired(
+  async recordItemTimes(
     db: Db,
     stationId: string,
-    a: { logId: string; rdjSongId: number; airedAt: Date },
-  ): Promise<boolean> {
-    await ownLog(db, stationId, a.logId);
-    return stampAired(db, a.logId, a.rdjSongId, a.airedAt);
-  },
-
-  /**
-   * The history backstop: each reconciled row (chronological) matched in turn, so a song
-   * repeated within one batch matches distinct items in order. Correct because RadioDJ
-   * plays its queue FIFO and the Runner is the only writer.
-   */
-  async backfillAired(
-    db: Db,
-    stationId: string,
-    a: { logId: string; rows: { rdjSongId: number; airedAt: Date }[] },
+    a: { items: { id: string; pushedAt: Date | null; airedAt: Date | null }[] },
   ): Promise<{ updated: number }> {
-    await ownLog(db, stationId, a.logId);
-    let updated = 0;
-    for (const row of a.rows) if (await stampAired(db, a.logId, row.rdjSongId, row.airedAt)) updated++;
-    return { updated };
+    if (a.items.length === 0) return { updated: 0 };
+    return db.transaction(async (tx) => {
+      let updated = 0;
+      for (const item of a.items) {
+        const rows = await tx
+          .update(logItems)
+          .set({ pushedAt: item.pushedAt, airedAt: item.airedAt })
+          .where(and(eq(logItems.id, item.id), sql`${logItems.logId} IN ${stationLogIds(stationId)}`))
+          .returning({ id: logItems.id });
+        updated += rows.length;
+      }
+      return { updated };
+    });
   },
 
   // ── Library ──
@@ -554,23 +433,27 @@ export const runnerOps = {
   },
 };
 
-async function stampAired(db: Db, logId: string, rdjSongId: number, airedAt: Date): Promise<boolean> {
-  const [candidate] = await db
-    .select({ id: logItems.id })
-    .from(logItems)
-    .where(
-      and(
-        eq(logItems.logId, logId),
-        eq(logItems.rdjSongId, rdjSongId),
-        isNotNull(logItems.pushedAt),
-        isNull(logItems.airedAt),
-      ),
-    )
-    .orderBy(asc(logItems.sortOrder))
-    .limit(1);
-  if (!candidate) return false; // no planned counterpart (e.g. a filler repeat) — expected, not an error
-  await db.update(logItems).set({ airedAt }).where(eq(logItems.id, candidate.id));
-  return true;
+/** What a log's copy depends on, besides the Runner's own pushed_at and aired_at. */
+function logDigest(log: LogRow, items: PacingItem[]): string {
+  const hash = createHash("sha256");
+  hash.update(JSON.stringify([log.id, log.status, log.startsAt, log.endsAt, log.generatedAt]));
+  for (const i of items) {
+    hash.update(
+      JSON.stringify([
+        i.id,
+        i.sortOrder,
+        i.projectedAirAt,
+        i.elementType,
+        i.songId,
+        i.rdjSongId,
+        i.clockPositionId,
+        i.locked,
+        i.timingMs,
+        i.tohLocked,
+      ]),
+    );
+  }
+  return hash.digest("base64url");
 }
 
 export type RunnerOps = typeof runnerOps;

@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { pool } from "./db.js";
+import type { HistoryRow } from "@rotavox/schema";
 import { api, closeScheduler } from "./scheduler.js";
 import { loadSchemaMap, guessHistoryColumns, findColumn } from "./schema-map.js";
 
@@ -9,6 +10,24 @@ export interface ReconciledRow {
   rdjSongId: number;
   airedAt: Date;
 }
+
+/**
+ * Where reconciliation resumes and where its rows go. The pacer's is its log copy, so
+ * history read during an outage waits on disk (log-store.ts); this script's own run
+ * talks to Rotavox directly.
+ */
+export interface HistorySink {
+  /** The RadioDJ history id to resume after, or null when it isn't known yet. */
+  watermark(): Promise<number | null>;
+  record(batch: { watermark: number; rows: HistoryRow[] }): Promise<void>;
+}
+
+const directSink: HistorySink = {
+  watermark: async () => (await api("historyWatermark")).watermark,
+  record: async (batch) => {
+    await api("recordHistory", batch);
+  },
+};
 
 /**
  * RadioDJ's MariaDB server clock reads behind true UTC (M0 found ~1hr; measured
@@ -36,7 +55,7 @@ async function getDbClockOffsetMs(): Promise<number> {
  * without re-querying. Does NOT close the DB connections — long-lived callers
  * (pace.ts) own that lifecycle; see main() below for the standalone-script case.
  */
-export async function reconcileHistory(): Promise<ReconciledRow[]> {
+export async function reconcileHistory(sink: HistorySink = directSink): Promise<ReconciledRow[]> {
   const map = loadSchemaMap();
   const historyTable = map.tables.history;
   if (!historyTable) {
@@ -45,7 +64,10 @@ export async function reconcileHistory(): Promise<ReconciledRow[]> {
   const { pk: idCol, fk: trackIdCol, ts: datePlayedCol } = guessHistoryColumns(map);
   const artistCol = findColumn(map, "history", "artist");
 
-  let { watermark } = await api("historyWatermark");
+  // Unknown only when the pacer has neither a saved copy nor reached Rotavox yet. Starting
+  // from 0 then would read the station's whole history; wait for the real watermark.
+  let watermark = await sink.watermark();
+  if (watermark === null) return [];
   const allReconciled: ReconciledRow[] = [];
   const clockOffsetMs = await getDbClockOffsetMs();
 
@@ -69,7 +91,7 @@ export async function reconcileHistory(): Promise<ReconciledRow[]> {
 
     // The rows and the watermark bump land in one transaction on the Rotavox side, and
     // rows already recorded are skipped, so reprocessing a batch after a crash is harmless.
-    await api("recordHistory", {
+    await sink.record({
       watermark: batchMaxId,
       rows: rows.map((row) => ({
         rdjHistoryId: row.id,
