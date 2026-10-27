@@ -3,7 +3,7 @@
 // apps/runner keeps its other direct Postgres writes (pushed_at, aired_at,
 // play_history, sync_state) until M4.5; only generation moved this milestone.
 import { createHash } from "node:crypto";
-import { and, desc, eq, gt, gte, lt, sql } from "drizzle-orm";
+import { and, desc, eq, gt, gte, isNull, lt, sql } from "drizzle-orm";
 import {
   categories,
   clockPositions,
@@ -111,6 +111,32 @@ export async function loadGenerationInputs(
     .leftJoin(songs, eq(songs.id, playHistory.songId))
     .where(and(eq(playHistory.stationId, stationId), gte(playHistory.airedAt, lookbackStart)));
 
+  // Approved items still to air before the horizon count as history at their projected
+  // time. play_history only holds what has aired, so without these a horizon that starts
+  // ahead of now (the next log, or the rest of an airing log after a regenerate) can't
+  // see the songs scheduled right before its seam, and separation breaks across it.
+  const now = new Date();
+  const scheduledRows = await db
+    .select({
+      rdjSongId: logItems.rdjSongId,
+      artist: songs.artist,
+      airedAt: logItems.projectedAirAt,
+      title: songs.title,
+    })
+    .from(logItems)
+    .innerJoin(logs, eq(logs.id, logItems.logId))
+    .leftJoin(songs, eq(songs.id, logItems.songId))
+    .where(
+      and(
+        eq(logs.stationId, stationId),
+        eq(logs.status, "approved"),
+        eq(logItems.elementType, "music"),
+        isNull(logItems.airedAt),
+        gte(logItems.projectedAirAt, now > lookbackStart ? now : lookbackStart),
+        lt(logItems.projectedAirAt, horizonStart),
+      ),
+    );
+
   const categoryIdsBySong = new Map<string, string[]>();
   for (const m of membershipRows) {
     const list = categoryIdsBySong.get(m.songId) ?? [];
@@ -204,7 +230,12 @@ export async function loadGenerationInputs(
       hardness: r.hardness as "hard" | "soft",
       weight: r.weight,
     })),
-    history: historyRows.map((h) => ({
+    history: [
+      ...historyRows,
+      ...scheduledRows.filter(
+        (s): s is typeof s & { rdjSongId: number; airedAt: Date } => s.rdjSongId != null && s.airedAt != null,
+      ),
+    ].map((h) => ({
       rdjSongId: h.rdjSongId,
       artist: h.artist,
       title: h.title,
@@ -215,15 +246,28 @@ export async function loadGenerationInputs(
   return { input, stationName: station.name, cueFidelity, songsWithoutCue: withoutCue };
 }
 
+type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0];
+
+export interface PersistOptions {
+  /**
+   * Runs first, inside the insert's transaction: a regenerate removes the log or hours
+   * it replaces here, so a failed insert leaves them in place rather than leaving a gap.
+   */
+  clear?: (tx: Tx) => Promise<void>;
+  status?: "draft" | "approved";
+}
+
 /** Idempotency guard + transactional insert. Throws HorizonConflictError on overlap. */
 async function persistGeneratedLog(
   stationId: string,
   horizonStart: Date,
   horizonEnd: Date,
   seed: string,
-  result: GenerateLogResult
+  result: GenerateLogResult,
+  opts: PersistOptions = {}
 ): Promise<string> {
   return db.transaction(async (tx) => {
+    await opts.clear?.(tx);
     const [conflict] = await tx
       .select({ id: logs.id })
       .from(logs)
@@ -236,7 +280,7 @@ async function persistGeneratedLog(
         stationId,
         startsAt: horizonStart,
         endsAt: horizonEnd,
-        status: "draft",
+        status: opts.status ?? "draft",
         generatedAt: new Date(),
         generatorVersion: ENGINE_VERSION,
         seed,
@@ -289,7 +333,16 @@ export async function generateNextHours(
   opts?: { start?: Date }
 ): Promise<GenerateNextHoursResult> {
   const horizonStart = opts?.start ?? (await computeHorizonStart(stationId));
-  const horizonEnd = new Date(horizonStart.getTime() + hours * HOUR_MS);
+  return generateSpan(stationId, horizonStart, new Date(horizonStart.getTime() + hours * HOUR_MS));
+}
+
+/** Generates and stores a log for exactly [horizonStart, horizonEnd). */
+export async function generateSpan(
+  stationId: string,
+  horizonStart: Date,
+  horizonEnd: Date,
+  opts: PersistOptions = {}
+): Promise<GenerateNextHoursResult> {
   const seed = createHash("sha256").update(String(Math.random())).digest("hex").slice(0, 12);
 
   const { input, cueFidelity, songsWithoutCue: withoutCue } =
@@ -297,7 +350,7 @@ export async function generateNextHours(
   input.seed = seed;
 
   const result = generateLog(input);
-  const logId = await persistGeneratedLog(stationId, horizonStart, horizonEnd, seed, result);
+  const logId = await persistGeneratedLog(stationId, horizonStart, horizonEnd, seed, result, opts);
 
   // Surfaced on every generation, not just when it is bad: a silent fallback to file
   // duration is what let a systematic ~24 s/hour shortfall run unnoticed. If this is

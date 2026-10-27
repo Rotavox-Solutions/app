@@ -6,6 +6,7 @@ import type { LogItemDetail } from "@/lib/queries";
 import type { DisplayStatus, EditRejectReason } from "@/lib/log-edits";
 import { StatusBadge } from "./ViolationBadge";
 import { ReplaceModal } from "./ReplaceModal";
+import { LogActions } from "./LogActions";
 
 function fmtTime(date: Date | string | null): string {
   if (!date) return "—";
@@ -26,6 +27,8 @@ const REASON_LABEL: Record<EditRejectReason, string> = {
   within_safety_horizon: "airing too soon to edit safely",
   locked: "locked — unlock first",
   song_not_found: "song not found",
+  nothing_remaining: "nothing left to change",
+  changed: "the log changed — try again",
 };
 
 interface Props {
@@ -120,6 +123,7 @@ export function LogTimeline({ logId, logStatus, displayStatus, items, readOnly =
             {pendingSwap ? "Swapping…" : "Swap selected"}
           </button>
         )}
+        {!readOnly && <LogActions logId={logId} displayStatus={displayStatus} />}
       </div>
 
       <table className="w-full text-left text-sm">

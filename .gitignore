@@ -19,4 +19,4 @@ __pycache__/
 *.swp
 
 # Service output (tools/install-services.ps1)
-logs/
+/logs/
