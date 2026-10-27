@@ -1,0 +1,11 @@
+{
+  "changeset_id": "2026-10-27-heritage-rebalance",
+  "sheet_id": "thebolt-active-library-2026-10-26",
+  "applied_at": "2026-10-27T16:04:29.000Z",
+  "database": "radiodj3",
+  "moves": 74,
+  "set_enabled": 6,
+  "set_tags": 0,
+  "tag_drift_allowed": false,
+  "inverse": "inverse/2026-10-27-heritage-rebalance.json"
+}
