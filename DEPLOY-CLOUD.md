@@ -7,7 +7,7 @@ while Rotavox is down, so a VM reboot, deploy or the cutover below never reaches
 
 | Piece | Where | Cost |
 | --- | --- | --- |
-| VM: Next.js + Postgres 17 | OCI, Ampere A1, 2 OCPU / 12 GB, Ubuntu 24.04 | Always Free compute; the 50 GB disk is ~$1–2/month, because the tenancy's volumes already pass the 200 GB free storage |
+| VM: Next.js + Postgres 18 | OCI, Ampere A1, 2 OCPU / 12 GB, Ubuntu 24.04 | Always Free compute; the 50 GB disk is ~$1–2/month, because the tenancy's volumes already pass the 200 GB free storage |
 | Way in for the public | Cloudflare Tunnel to `127.0.0.1:3000` | Free |
 | TLS, DNS, DDoS, static-asset caching | Cloudflare | Free |
 | Sign-in rate limit | Cloudflare WAF rate-limiting rule | Free (one rule) |

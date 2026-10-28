@@ -3,7 +3,7 @@
 # hands this to cloud-init as user-data, so it runs as root on first boot; it is
 # also safe to re-run (`tools/cloud/cloud.sh bootstrap`) after editing it.
 #
-# Installs Postgres 17, Node 24 and cloudflared, and lays out:
+# Installs Postgres 18, Node 24 and cloudflared, and lays out:
 #   /opt/rotavox/releases/<sha>   one directory per deploy (release.sh)
 #   /opt/rotavox/current          symlink to the live release
 #   /etc/rotavox/web.env          the app's env, incl. the generated DB password
@@ -17,7 +17,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 APP_ORIGIN=https://app.rotavox.com
 NODE_MAJOR=24
-PG_MAJOR=17
+PG_MAJOR=18
 
 apt-get update
 apt-get install -y ca-certificates curl gnupg postgresql-common rclone

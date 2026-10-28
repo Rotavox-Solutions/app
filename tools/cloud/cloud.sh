@@ -17,14 +17,16 @@
 #
 # Env (or .env at the repo root): CLOUD_VM_IP (written by provision.sh), and the
 # bastion settings in tools/lib/bastion-tunnel.sh. Optional: CLOUD_SSH_PORT
-# (default 2223), CLOUD_SSH_KEY (default ~/.ssh/id_ed25519).
+# (default 2223), CLOUD_SSH_KEY (default ~/.ssh/id_rotavox; one set on the
+# command line wins over .env).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+KEY_FROM_CALLER=${CLOUD_SSH_KEY:-}
 . "$ROOT/tools/lib/bastion-tunnel.sh"
 : "${CLOUD_VM_IP:?set CLOUD_VM_IP (tools/cloud/provision.sh writes it)}"
 PORT="${CLOUD_SSH_PORT:-2223}"
-SSH_KEY="${CLOUD_SSH_KEY:-$HOME/.ssh/id_ed25519}"
+SSH_KEY="${KEY_FROM_CALLER:-${CLOUD_SSH_KEY:-$HOME/.ssh/id_rotavox}}"
 
 usage() { sed -n '5,16p' "$0" | sed 's/^# \{0,1\}//' >&2; exit 2; }
 
@@ -34,8 +36,8 @@ connect() {
   ss -ltn "sport = :$PORT" | grep -q LISTEN || bastion_tunnel 22 "$PORT" "$CLOUD_VM_IP" >&2
 }
 vm() {
-  ssh -i "$SSH_KEY" -p "$PORT" -o StrictHostKeyChecking=accept-new -o HostKeyAlias=rotavox-cloud \
-    -o ServerAliveInterval=30 "$@"
+  ssh -i "$SSH_KEY" -o IdentitiesOnly=yes -p "$PORT" -o StrictHostKeyChecking=accept-new \
+    -o HostKeyAlias=rotavox-cloud -o ServerAliveInterval=30 "$@"
 }
 on_vm() { vm ubuntu@localhost "$@"; }
 
@@ -64,7 +66,7 @@ case "$COMMAND" in
   status)
     connect
     wait_for_bootstrap
-    on_vm 'for u in rotavox-web cloudflared postgresql@17-main rotavox-backup.timer; do
+    on_vm 'for u in rotavox-web cloudflared postgresql@18-main rotavox-backup.timer; do
         printf "%-22s %s\n" "$u" "$(systemctl is-active "$u")"; done
       echo "Release:               $(if [ -e /opt/rotavox/current ]; then basename "$(readlink -f /opt/rotavox/current)"; else echo none; fi)"
       echo "Last backup:           $(sudo ls -1t /var/backups/rotavox | head -1)"
@@ -143,7 +145,7 @@ case "$COMMAND" in
       sudo -u postgres createdb --owner=rotavox rotavox
       sudo -u postgres psql -q -d rotavox -c "ALTER SCHEMA public OWNER TO rotavox;"
       sudo chmod 0644 /tmp/rotavox-restore.dump
-      sudo -u postgres pg_restore --no-owner --role=rotavox --exit-on-error -d rotavox /tmp/rotavox-restore.dump
+      sudo -u postgres pg_restore --no-owner --no-privileges --role=rotavox --exit-on-error -d rotavox /tmp/rotavox-restore.dump
       rm -f /tmp/rotavox-restore.dump
       if [ -e /opt/rotavox/current ]; then
         cd /opt/rotavox/current

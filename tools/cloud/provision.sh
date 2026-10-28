@@ -13,7 +13,7 @@
 #
 # Usage: tools/cloud/provision.sh
 # Env (or .env at the repo root): OCI_BASTION_ID, OCI_REGION as for the bastion
-# scripts. Optional: CLOUD_SSH_KEYS (default: ~/.ssh/id_ed25519.pub and
+# scripts. Optional: CLOUD_SSH_KEYS (default: ~/.ssh/id_rotavox.pub and
 # ~/.ssh/id_claude_ed25519.pub, whichever exist).
 # On success it writes CLOUD_VM_IP to .env.
 set -euo pipefail
@@ -86,7 +86,7 @@ if [ -z "$INSTANCE" ]; then
     --query 'data[0].id' --raw-output)
   KEYS=$(mktemp)
   trap 'rm -f "$KEYS"' EXIT
-  for k in ${CLOUD_SSH_KEYS:-$HOME/.ssh/id_ed25519.pub $HOME/.ssh/id_claude_ed25519.pub}; do
+  for k in ${CLOUD_SSH_KEYS:-$HOME/.ssh/id_rotavox.pub $HOME/.ssh/id_claude_ed25519.pub}; do
     [ -f "$k" ] && cat "$k" >>"$KEYS"
   done
   [ -s "$KEYS" ] || { echo "No SSH public keys found (set CLOUD_SSH_KEYS)." >&2; exit 1; }
