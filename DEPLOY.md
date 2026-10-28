@@ -4,7 +4,8 @@ Written after losing a broadcast box. Ordered, because two of the steps only wor
 one order and the failure mode of getting it wrong is silent — see the two traps below.
 
 Assumes the target layout: **Runner on the Windows RadioDJ box**, Postgres reachable
-from it, web app wherever convenient.
+from it, web app wherever convenient. Moving the web app and Postgres to the cloud VM
+at `app.rotavox.com`: `DEPLOY-CLOUD.md`.
 
 ## What survives a box loss
 
