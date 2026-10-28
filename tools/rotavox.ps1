@@ -52,6 +52,10 @@ function Restart-All {
   Start-Service $Names.watchdog; 'RotavoxWatchdog started'
 }
 
+# Since the cloud cutover (DEPLOY-CLOUD.md) the web app and its database live at
+# app.rotavox.com and RotavoxWeb is disabled here; a box like that only runs the runner.
+function WebHere { (Get-Service $Names.web -ErrorAction SilentlyContinue).StartType -ne 'Disabled' }
+
 switch ($Command) {
   'status' {
     foreach ($k in 'runner', 'watchdog', 'web') {
@@ -70,11 +74,14 @@ switch ($Command) {
   'stop' { foreach ($k in Targets) { Stop-Service $Names[$k]; "$($Names[$k]) stopped" } }
   'start' {
     # Runner before watchdog, so the watchdog's first look finds a fresh heartbeat.
-    foreach ($k in @(Targets) | Sort-Object { @('runner', 'watchdog', 'web').IndexOf($_) }) { Start-Service $Names[$k]; "$($Names[$k]) started" }
+    foreach ($k in @(Targets) | Sort-Object { @('runner', 'watchdog', 'web').IndexOf($_) }) {
+      if ($k -eq 'web' -and -not (WebHere)) { 'RotavoxWeb is disabled (the web app runs in the cloud); not started'; continue }
+      Start-Service $Names[$k]; "$($Names[$k]) started"
+    }
   }
   'restart' {
     if ($Service -eq 'all' -or $Service -eq 'runner') { Restart-All } elseif ($Service -eq 'watchdog') { Restart-Service $Names.watchdog; 'RotavoxWatchdog restarted' }
-    if ($Service -eq 'all' -or $Service -eq 'web') { Restart-Service $Names.web; 'RotavoxWeb restarted' }
+    if (($Service -eq 'all' -or $Service -eq 'web') -and (WebHere)) { Restart-Service $Names.web; 'RotavoxWeb restarted' }
   }
   'update' {
     # The whole routine deploy, in the one safe order. Safe to re-run: every step is
@@ -97,16 +104,18 @@ switch ($Command) {
         # npm ci replaces node_modules, which the running services load from. Stop them
         # first; the runner's stop hands playout back to AutoDJ until the restart below.
         Write-Host "`n== Dependencies changed: stopping services (AutoDJ covers playout meanwhile)" -ForegroundColor Cyan
-        foreach ($k in 'watchdog', 'runner', 'web') { Stop-Service $Names[$k] }
+        foreach ($k in 'watchdog', 'runner', 'web') { if ($k -ne 'web' -or (WebHere)) { Stop-Service $Names[$k] } }
         Run 'Install dependencies' { npm ci }
       }
-      Run 'Migrate the database' { npm run migrate -w @rotavox/schema }
-      # The web app is briefly unavailable while this replaces its build; playout is not.
-      Run 'Build the web app' { npm run build -w @rotavox/web }
+      if (WebHere) {
+        Run 'Migrate the database' { npm run migrate -w @rotavox/schema }
+        # The web app is briefly unavailable while this replaces its build; playout is not.
+        Run 'Build the web app' { npm run build -w @rotavox/web }
+      } else { "`nRotavoxWeb is disabled: the web app and database are in the cloud (tools/cloud/cloud.sh deploy). Updating the runner only." }
 
       Write-Host "`n== Restart" -ForegroundColor Cyan
       Restart-All
-      Restart-Service $Names.web; 'RotavoxWeb restarted'
+      if (WebHere) { Restart-Service $Names.web; 'RotavoxWeb restarted' }
       "`nDeployed $(git log --oneline -1)"
     } finally { Pop-Location }
   }

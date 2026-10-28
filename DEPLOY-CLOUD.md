@@ -5,6 +5,13 @@ stays on the box and reaches Rotavox at `https://app.rotavox.com` through the Ru
 API (ADR-0004). The Runner's local log copy (ADR-0004 §6) keeps the station on air
 while Rotavox is down, so a VM reboot, deploy or the cutover below never reaches air.
 
+**BOLT cut over on 2026-10-28 (16:40–16:43 UTC).** On the box, `RotavoxWeb` and
+`Cloudflared` are stopped and disabled, and the Runner's `.env` points at
+`https://app.rotavox.com` (the old file is kept as `apps/runner/.env.pre-cloud`). The
+box's Postgres is untouched and frozen at the cutover, as a fallback until it's retired.
+`rotavox.ps1 update` on the box now updates only the Runner while `RotavoxWeb` is
+disabled. Web deploys are `tools/cloud/cloud.sh deploy`.
+
 | Piece | Where | Cost |
 | --- | --- | --- |
 | VM: Next.js + Postgres 18 | OCI, Ampere A1, 2 OCPU / 12 GB, Ubuntu 24.04 | Always Free compute; the 50 GB disk is ~$1–2/month, because the tenancy's volumes already pass the 200 GB free storage |
@@ -91,7 +98,8 @@ from its log copy and queues its reports until Rotavox answers again.
    `tools/cloud/cloud.sh restore rotavox.dump`.
 3. Move the tunnel. Stop the connector on the box, then in Zero Trust → Networks →
    Tunnels → the `app.rotavox.com` tunnel → Configure, copy the token from the install
-   command and run `tools/cloud/cloud.sh set-tunnel`. Only the VM's connector should be
+   command and run `tools/cloud/cloud.sh set-tunnel`. (The box keeps the same token in
+   `C:\ProgramData\cloudflared\token`.) Only the VM's connector should be
    left listed as healthy.
 4. Sign in at `https://app.rotavox.com`.
 5. On the box, check the Runner's `ROTAVOX_API_URL` is `https://app.rotavox.com`

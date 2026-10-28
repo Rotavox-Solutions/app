@@ -103,13 +103,29 @@ case "$COMMAND" in
     ;;
   set-tunnel)
     # The token is the tunnel's credential: read it without echoing, and hand it
-    # to the VM on stdin so it never sits in a shell history or a process list here.
+    # to the VM on stdin into a root-only file (as the box kept it), so it never
+    # sits in a shell history, a process list or a unit file.
     read -r -s -p "Cloudflare Tunnel token (Zero Trust > Networks > Tunnels > the tunnel > Configure): " TOKEN
     echo
     [ -n "$TOKEN" ] || { echo "No token given." >&2; exit 1; }
     connect
-    printf '%s' "$TOKEN" | on_vm 'sudo cloudflared service uninstall >/dev/null 2>&1 || true;
-      sudo cloudflared service install "$(cat)" && sudo systemctl --no-pager --lines=5 status cloudflared'
+    printf '%s' "$TOKEN" | on_vm 'sudo install -d -m 0700 /etc/cloudflared && sudo install -m 0600 /dev/stdin /etc/cloudflared/token'
+    on_vm 'sudo tee /etc/systemd/system/cloudflared.service >/dev/null <<UNIT
+[Unit]
+Description=Cloudflare Tunnel connector for app.rotavox.com
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/cloudflared --no-autoupdate tunnel run --token-file /etc/cloudflared/token
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+UNIT
+      sudo systemctl daemon-reload && sudo systemctl enable cloudflared && sudo systemctl restart cloudflared &&
+      sleep 5 && sudo journalctl -u cloudflared -n 20 --no-pager | grep -E "Registered tunnel connection|ERR"'
     ;;
   set-backup)
     read -r -p "Cloudflare account ID: " ACCOUNT
