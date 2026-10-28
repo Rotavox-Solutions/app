@@ -1,8 +1,10 @@
 import "dotenv/config";
 import { readFileSync } from "node:fs";
+import { readRevision } from "./revision.js";
 import {
   decodeWire,
   encodeWire,
+  formatRunnerVersion,
   RUNNER_API_VERSION,
   type RunnerOpArgs,
   type RunnerOpName,
@@ -40,6 +42,9 @@ export const RUNNER_VERSION: string = (() => {
   }
 })();
 
+/** The commit this Runner was started from; read once, since an update restarts the Runner. */
+export const RUNNER_REVISION: string | null = readRevision();
+
 export class SchedulerApiError extends Error {
   constructor(
     readonly op: string,
@@ -63,7 +68,7 @@ export function apiClient(baseUrl: string, key: string, fetchImpl: typeof fetch 
           headers: {
             authorization: `Bearer ${key}`,
             "content-type": "application/json",
-            "x-rotavox-runner": RUNNER_VERSION,
+            "x-rotavox-runner": formatRunnerVersion(RUNNER_VERSION, RUNNER_REVISION),
           },
           body: encodeWire(args[0] ?? {}),
           signal: AbortSignal.timeout(API_TIMEOUT_MS),

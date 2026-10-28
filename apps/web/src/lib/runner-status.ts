@@ -9,6 +9,7 @@ export const JOB_LABEL: Record<JobKind, string> = {
   sync_library: "Library sync",
   project_changesets: "Write changes to RadioDJ",
   project_autodj_events: "AutoDJ fail-safe events",
+  update_runner: "Update the Runner",
 };
 
 export const REQUESTER_LABEL: Record<string, string> = {

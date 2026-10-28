@@ -25,7 +25,8 @@ as_app npm ci --include=dev --no-audit --no-fund
 step "Migrate the database"
 as_app npm run migrate -w @rotavox/schema
 step "Build the web app"
-as_app npm run build -w @rotavox/web
+# The build records its commit: the staff console shows it, and Runners update to it.
+as_app env ROTAVOX_REVISION="$SHA" npm run build -w @rotavox/web
 
 PREVIOUS=$(readlink -f /opt/rotavox/current 2>/dev/null || true)
 step "Switch to $SHA"

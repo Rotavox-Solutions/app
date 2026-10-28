@@ -2,7 +2,8 @@
 // invariant #4 — the web app queues work, the Runner does it). Rotavox also queues the
 // routine work nobody has to ask for, as part of handing out the next job: a library
 // sync every 15 minutes, writing applied changes to RadioDJ, and moving the AutoDJ
-// fail-safe's events when DST changes the station's UTC offset.
+// fail-safe's events when DST changes the station's UTC offset. Rotavox staff can also ask
+// a Runner to update itself to the commit the cloud runs (self-update.ts).
 //
 // Runs inside the pacer process, beside the pace loop. It must never take the pacer down,
 // so every failure stays inside a job and is recorded on it.
@@ -11,6 +12,7 @@ import { api, SchedulerApiError, stationIdentity } from "./scheduler.js";
 import { syncLibrary } from "./sync-library.js";
 import { projectChangesets } from "./project-changesets.js";
 import { projectAutodjEvents } from "./autodj-events.js";
+import { reportFinishedUpdate, updateRunner } from "./self-update.js";
 import type { ApplyLog } from "./apply-changeset.js";
 
 const POLL_MS = 5_000;
@@ -54,6 +56,10 @@ async function runJob(job: RunnerJob): Promise<JobResult> {
       const r = await projectAutodjEvents({ apply: true, log: out.log, timezone, now: new Date() });
       return { ok: true, summary: r.summary, output: out.text(), watermark: r.watermark };
     }
+    if (job.kind === "update_runner") {
+      const r = await updateRunner(job.id, out.log);
+      return { ...r, output: [out.text(), r.output].filter(Boolean).join("\n") };
+    }
     return { ok: false, summary: `Unknown job kind "${job.kind}"`, output: "" };
   } catch (err) {
     out.log.error(String((err as Error).stack ?? err));
@@ -62,6 +68,11 @@ async function runJob(job: RunnerJob): Promise<JobResult> {
 }
 
 export async function jobsLoop(say: Say, sayError: Say): Promise<never> {
+  try {
+    await reportFinishedUpdate(say);
+  } catch (err) {
+    sayError("[jobs] could not report the update that restarted this Runner (retrying):", err);
+  }
   try {
     const { failed: n } = await api("failInterruptedJobs");
     if (n) say(`[jobs] marked ${n} job(s) interrupted by the last restart as failed.`);
@@ -74,6 +85,7 @@ export async function jobsLoop(say: Say, sayError: Say): Promise<never> {
   let waiting = false;
   while (true) {
     try {
+      await reportFinishedUpdate(say);
       const now = new Date();
       if (now.getTime() - lastPrune > 86_400_000) {
         await api("pruneJobs", { now });

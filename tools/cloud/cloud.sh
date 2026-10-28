@@ -4,7 +4,7 @@
 #
 # Usage: tools/cloud/cloud.sh <command>
 #   status              services, disk and the last backup (waits out first boot)
-#   deploy              build and start the committed HEAD; refuses local edits
+#   deploy              build and start the committed HEAD; refuses local edits and unpushed commits
 #   logs                follow the web app's log
 #   ssh [cmd...]        a shell, or one command, on the VM
 #   web                 forward the app to http://localhost:13000 to try it out
@@ -77,6 +77,13 @@ case "$COMMAND" in
     cd "$ROOT"
     if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
       echo "This checkout has local edits to tracked files (git status). Commit or discard them first; deploy ships HEAD." >&2
+      exit 1
+    fi
+    # Runners update themselves to the commit the cloud runs, fetching it from GitHub's
+    # main (rotavox.ps1 self-update), so the cloud must never run one that isn't there.
+    git fetch --quiet origin main
+    if ! git merge-base --is-ancestor HEAD origin/main; then
+      echo "HEAD isn't on GitHub's main yet. Push it first: Runners update to the commit the cloud runs, from GitHub." >&2
       exit 1
     fi
     SHA=$(git rev-parse --short=12 HEAD)

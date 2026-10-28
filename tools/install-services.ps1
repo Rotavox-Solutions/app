@@ -1,6 +1,7 @@
-# install-services.ps1 — define the three Rotavox Windows services (NSSM) against the
-# checkout this script lives in. Run once per box from an elevated PowerShell, and again
-# whenever the checkout moves. Idempotent: existing services are reconfigured in place.
+# install-services.ps1 — define the three Rotavox Windows services (NSSM), and the task
+# the Runner updates itself with, against the checkout this script lives in. Run once per
+# box from an elevated PowerShell, and again whenever the checkout moves. Idempotent:
+# existing services and the task are reconfigured in place.
 #
 #   powershell -ExecutionPolicy Bypass -File tools\install-services.ps1 [-OperatorUser broadcast]
 #
@@ -48,6 +49,19 @@ foreach ($s in $services) {
   # to keep working when the runner doesn't (DEPLOY.md step 11).
   Write-Host "$name -> $(Join-Path $Root $s.Dir)"
 }
+
+# The Runner's self-update (tools\rotavox.ps1 self-update): a task with no trigger, which the
+# Runner starts when Rotavox staff press "Update Runner". It runs as SYSTEM, outside the
+# Runner's service, because the update restarts that service. The Runner runs as
+# LocalSystem, which may start any task; nothing else is granted.
+$task = 'Rotavox Update'
+$action = New-ScheduledTaskAction -Execute 'powershell.exe' -WorkingDirectory $Root `
+  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$Root\tools\rotavox.ps1`" self-update"
+$principal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -LogonType ServiceAccount -RunLevel Highest
+$settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Hours 1) -MultipleInstances IgnoreNew `
+  -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+Register-ScheduledTask -TaskName $task -Action $action -Principal $principal -Settings $settings -Force | Out-Null
+Write-Host "$task task -> $Root\tools\rotavox.ps1 self-update"
 
 if ($OperatorUser) {
   $sid = (New-Object Security.Principal.NTAccount $OperatorUser).Translate([Security.Principal.SecurityIdentifier]).Value

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { eq } from "drizzle-orm";
 import {
   changesets,
@@ -6,7 +6,11 @@ import {
   decodeWire,
   encodeWire,
   enqueueJob,
+  finishJob,
+  JOB_KINDS,
+  listRunnerFleet,
   logItems,
+  parseRunnerVersion,
   playHistory,
   resolveRunnerKey,
   revokeRunnerKey,
@@ -84,6 +88,52 @@ describe("runner keys", () => {
     const station = await seedStation();
     const { key } = await createRunnerKey(db, { stationId: station.id, label: "Box", createdBy: null });
     expect((await http(key, "dropAllTables")).status).toBe(404);
+  });
+});
+
+describe("updating Runners", () => {
+  beforeEach(resetDb);
+  afterEach(() => vi.unstubAllEnvs());
+
+  it("tells a Runner which commit the cloud runs, which is what it updates to", async () => {
+    const station = await seedStation();
+    const { key } = await createRunnerKey(db, { stationId: station.id, label: "Box", createdBy: null });
+    vi.stubEnv("ROTAVOX_REVISION", "fc96ac3e1b2a");
+    expect((await http(key, "whoami")).body.revision).toBe("fc96ac3e1b2a");
+    vi.stubEnv("ROTAVOX_REVISION", "not a commit; rm -rf");
+    expect((await http(key, "whoami")).body.revision).toBeNull();
+  });
+
+  it("reads a Runner's version and commit from its header, and an older Runner's version alone", () => {
+    expect(parseRunnerVersion("0.6.0+fc96ac3e1b2a")).toEqual({ version: "0.6.0", revision: "fc96ac3e1b2a" });
+    expect(parseRunnerVersion("0.5.0")).toEqual({ version: "0.5.0", revision: null });
+    expect(parseRunnerVersion("0.6.0+$(evil)")).toEqual({ version: "0.6.0", revision: null });
+    expect(parseRunnerVersion(null)).toBeNull();
+  });
+
+  it("is staff's to ask for, never a station's", () => {
+    expect(JOB_KINDS).not.toContain("update_runner");
+  });
+
+  it("lists every station's Runner with its version and its last update", async () => {
+    const bolt = await seedStation({ name: "BOLT" });
+    const quiet = await seedStation({ name: "Quiet FM" });
+    const { key, row } = await createRunnerKey(db, { stationId: bolt.id, label: "BOLT box", createdBy: null });
+    const { row: revoked } = await createRunnerKey(db, { stationId: bolt.id, label: "Old box", createdBy: null });
+    await revokeRunnerKey(db, bolt.id, revoked.id);
+    await resolveRunnerKey(db, key, { version: "0.6.0+fc96ac3e1b2a" });
+    const first = await enqueueJob(db, bolt.id, "update_runner", "ui");
+    await finishJob(db, first.id, { ok: false, summary: "Update failed: offline", output: "" });
+    const second = await enqueueJob(db, bolt.id, "update_runner", "ui");
+
+    const fleet = await listRunnerFleet(db);
+    expect(fleet.map((s) => s.name)).toEqual(["BOLT", "Quiet FM"]);
+    const [b, q] = fleet;
+    expect(b.runners).toEqual([
+      { keyId: row.id, label: "BOLT box", lastUsedAt: expect.any(Date), lastVersion: "0.6.0+fc96ac3e1b2a" },
+    ]);
+    expect(b.lastUpdate).toMatchObject({ id: second.id, status: "queued" });
+    expect(q).toMatchObject({ id: quiet.id, runners: [], lastUpdate: null });
   });
 });
 

@@ -114,3 +114,32 @@ Now the pacer works from a copy it keeps on the box, in `runner-state.json`
     Rotavox is back. Until then it airs the last approved version it was given.
   - A copy saved for another station's key is discarded, along with its unsent reports.
 
+
+## 7. Runners update themselves (step 5, 2026-10-28)
+
+A Runner sends its commit with its version (`X-Rotavox-Runner: 0.6.0+<commit>`), and
+`whoami` tells it the commit the cloud runs (baked into the web build by `release.sh`).
+The staff console (`/staff`, Runners) lists every station's Runner with what it last
+reported, and offers **Update** for one that's behind. That queues an `update_runner`
+job, which only staff can ask for: it isn't in `JOB_KINDS`, so the station's jobs route
+refuses it.
+
+- **How it runs** (`apps/runner/src/self-update.ts`): the update restarts the Runner's
+  own service, and NSSM stops whatever that service started, so the Runner can't run
+  it. It writes `runner-update.json` and starts the `Rotavox Update` scheduled task
+  (defined by `tools/install-services.ps1`, no trigger, runs as SYSTEM). The task runs
+  `rotavox.ps1 self-update`: `update -Revision <commit> -NoRestart` in a child
+  PowerShell, then writes `runner-update-result.json`, then restarts. The new Runner
+  reports the job at startup, after checking it really runs that commit. If the update
+  failed, the services aren't restarted, and the waiting Runner reports it.
+- **Rotavox names the commit; GitHub supplies the code.** The box fetches from GitHub
+  and only fast-forwards, to a commit on `main`. A downgrade, a diverged box, or a commit
+  GitHub doesn't have is refused with nothing changed. So a compromised Rotavox can't
+  hand a box code of its own. `cloud.sh deploy` refuses a commit that isn't on GitHub's
+  `main` yet, so the cloud never names one a Runner can't fetch.
+- **On air:** the restart hands playout to AutoDJ until the new Runner is back, as any
+  Runner restart does: under a minute, or a few minutes when dependencies change.
+- **Edges:** a Runner before 0.6.0 doesn't know the job or report its commit. It's
+  updated on the box once, and the task needs `install-services.ps1` re-run, elevated,
+  once per box. If the task never starts, the job fails after 2 minutes. If it hangs,
+  the job fails after 30.

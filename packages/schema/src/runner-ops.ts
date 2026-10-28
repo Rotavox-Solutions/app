@@ -18,6 +18,7 @@ import { listPendingProjections, nextProjectionStatus } from "./changesets.js";
 import { claimNextJob, enqueueJob, failInterruptedJobs, finishJob, lastRequested, pruneJobs } from "./jobs.js";
 import { loadProjection, mirrorChangesetMoves, type MirrorMove } from "./membership.js";
 import { AUTODJ_EVENTS_SYNC_KEY, utcOffsetMinutes } from "./autodj-events.js";
+import { serverRevision } from "./revisions.js";
 
 type Db = PostgresJsDatabase<typeof schema>;
 
@@ -143,7 +144,8 @@ export const runnerOps = {
       .from(stations)
       .where(eq(stations.id, stationId));
     if (!station) throw new RunnerOpError(404, "this key's station no longer exists");
-    return { station, apiVersion: RUNNER_API_VERSION };
+    // revision: the commit the cloud runs, which a Runner updates itself to (update_runner).
+    return { station, apiVersion: RUNNER_API_VERSION, revision: serverRevision() };
   },
 
   // ── The Runner's copy of the logs (ADR-0004 §6) ──

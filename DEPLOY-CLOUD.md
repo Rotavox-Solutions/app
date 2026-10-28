@@ -121,6 +121,16 @@ tools/cloud/cloud.sh status
 tools/cloud/cloud.sh logs
 ```
 
+Deploy only what's on GitHub's `main`: `deploy` refuses anything else, because Runners
+update to the commit the cloud runs, fetched from GitHub.
+
+**Runners** follow the cloud from the staff console (`/staff`, Runners): a Runner that's
+behind gets an **Update** button, which brings its box to the cloud's commit and
+restarts it (ADR-0004 §7). Each box needs, once, an elevated
+`tools\install-services.ps1`, which adds the `Rotavox Update` task. Runners before 0.6.0
+also need one update by hand first (`.\tools\rotavox.ps1 update`). The output of each
+update is in the console, and in `logs\RotavoxUpdate.log` on the box.
+
 A deploy builds the new release beside the live one in `/opt/rotavox/releases/<sha>`,
 migrates, switches the `current` symlink and restarts. If `/login` doesn't answer
 within a minute, it switches back. The three newest releases are kept. Security

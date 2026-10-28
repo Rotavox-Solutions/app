@@ -318,7 +318,7 @@ export const runnerJobs = pgTable(
   {
     id: uuid("id").defaultRandom().primaryKey(),
     stationId: uuid("station_id").notNull().references(() => stations.id),
-    // 'sync_library' | 'project_changesets' | 'project_autodj_events'
+    // 'sync_library' | 'project_changesets' | 'project_autodj_events' | 'update_runner'
     kind: text("kind").notNull(),
     // 'queued' | 'running' | 'succeeded' | 'failed'
     status: text("status").default("queued").notNull(),
