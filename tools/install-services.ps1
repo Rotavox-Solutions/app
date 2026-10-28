@@ -44,7 +44,9 @@ foreach ($s in $services) {
   # Ctrl+C first, with time to act on it: the pacer's SIGINT handler hands playout back
   # to AutoDJ over REST, which NSSM's default 1.5s window can cut off.
   & $Nssm set $name AppStopMethodConsole 10000 | Out-Null
-  & $Nssm set $name Start SERVICE_AUTO_START | Out-Null
+  # A disabled service stays disabled: since the cloud cutover RotavoxWeb is, and
+  # rotavox.ps1 update reads that as "the web app isn't on this box" (DEPLOY-CLOUD.md).
+  if ((Get-Service $name).StartType -ne 'Disabled') { & $Nssm set $name Start SERVICE_AUTO_START | Out-Null }
   # No DependOnService between Runner and Watchdog, deliberately: the watchdog's job is
   # to keep working when the runner doesn't (DEPLOY.md step 11).
   Write-Host "$name -> $(Join-Path $Root $s.Dir)"
