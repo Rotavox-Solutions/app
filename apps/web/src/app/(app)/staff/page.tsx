@@ -43,7 +43,9 @@ function RunnerRow({ s, cloud, now }: { s: FleetStation; cloud: string | null; n
   else if (!cloud) state = <span className="text-neutral-500">at {shortRevision(reported.revision)}</span>;
   else if (sameRevision(reported.revision, cloud)) state = <span className="text-emerald-300">Current</span>;
   else {
-    state = <span className="text-amber-300">Behind: at {shortRevision(reported.revision)}</span>;
+    // Usually behind, but a box updated by hand can be ahead: only the box can tell, and it
+    // refuses to go backwards, so this doesn't guess.
+    state = <span className="text-amber-300">At {shortRevision(reported.revision)}, not Rotavox&apos;s commit</span>;
     canUpdate = true;
   }
 
@@ -124,9 +126,9 @@ export default async function StaffPage() {
         <h2 className="text-sm font-medium uppercase tracking-wide text-neutral-500">Runners</h2>
         <p className="max-w-2xl text-sm text-neutral-400">
           Rotavox runs {cloud ? <span className="text-neutral-200">{shortRevision(cloud)}</span> : "an unknown commit"}.
-          A Runner that&apos;s behind updates itself to the same commit, fetched from GitHub. The update restarts it,
-          and RadioDJ&apos;s AutoDJ covers playout until it&apos;s back: under a minute, or a few minutes when the
-          update installs new dependencies.
+          A Runner on another commit can update itself to this one, fetched from GitHub; a box that&apos;s already ahead
+          refuses, and catches up when Rotavox is deployed. The update restarts it, and RadioDJ&apos;s AutoDJ covers
+          playout until it&apos;s back: under a minute, or a few minutes when the update installs new dependencies.
         </p>
         <ul className="divide-y divide-neutral-900 text-sm">
           {fleet.map((s) => (

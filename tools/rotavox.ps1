@@ -161,12 +161,12 @@ switch ($Command) {
       $errLog = "$log.err"
       $p = Start-Process powershell.exe -Wait -PassThru -NoNewWindow -RedirectStandardOutput $log -RedirectStandardError $errLog `
         -ArgumentList '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', "`"$PSCommandPath`"", 'update', '-Revision', $ask.revision, '-NoRestart'
+      # An uncaught error's message is the first line PowerShell writes to stderr; the
+      # lines after it are its position and record, wrapped at the console's width.
+      $why = @(Get-Content $errLog -ErrorAction SilentlyContinue | Where-Object { $_ -match '\S' }) | Select-Object -First 1
       Add-Content $log (Get-Content $errLog -Raw -ErrorAction SilentlyContinue); Remove-Item $errLog -ErrorAction SilentlyContinue
       $ok = $p.ExitCode -eq 0
-      $summary = if ($ok) { "Updated to $($ask.revision.Substring(0, 7))" } else {
-        $why = @(Get-Content $log | Where-Object { $_ -match '\S' -and $_ -notmatch '^\s*(At |\+ |CategoryInfo|FullyQualifiedErrorId)' }) | Select-Object -Last 1
-        "Update failed: $why"
-      }
+      $summary = if ($ok) { "Updated to $($ask.revision.Substring(0, 7))" } else { "Update failed: $why" }
     } catch { $summary = "Update failed: $($_.Exception.Message)"; Add-Content $log $summary }
     $output = Get-Content $log -Raw -ErrorAction SilentlyContinue
     [ordered]@{
