@@ -20,7 +20,8 @@ step() { printf '\n== %s\n' "$*"; }
 
 chown -R rotavox:rotavox "$DIR"
 step "Install dependencies"
-as_app npm ci --no-audit --no-fund
+# web.env sets NODE_ENV=production, which would skip the dev tools migrate and build need.
+as_app npm ci --include=dev --no-audit --no-fund
 step "Migrate the database"
 as_app npm run migrate -w @rotavox/schema
 step "Build the web app"
