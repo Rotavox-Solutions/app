@@ -13,6 +13,8 @@ import {
   runRunnerOp,
   runnerJobs,
   songs,
+  syncState,
+  utcOffsetMinutes,
   type RunnerOpName,
 } from "@rotavox/schema";
 import { db } from "../src/lib/db";
@@ -218,6 +220,54 @@ describe("runner operations", () => {
     await expect(op(station.id, "finishJob", { jobId: foreign.id, ok: true, summary: "", output: "" })).rejects.toThrow(
       /no job/,
     );
+  });
+
+  it("rewrites the AutoDJ fail-safe events when DST moves the offset, once a person has written them", async () => {
+    const LA = "America/Los_Angeles";
+    const station = await seedStation({ timezone: LA });
+    const summer = new Date("2026-10-31T12:00:00Z");
+    const winter = new Date("2026-11-01T12:00:00Z"); // after 09:00 UTC, when PDT ends
+    /** The jobs the Runner would be handed at `now`, each finished as the Runner would. */
+    const drain = async (now: Date, ok = true) => {
+      // A sync just asked for, so the scheduled one doesn't crowd the answer.
+      await db.insert(runnerJobs).values({
+        stationId: station.id,
+        kind: "sync_library",
+        requestedBy: "schedule",
+        status: "succeeded",
+        requestedAt: now,
+      });
+      const kinds: string[] = [];
+      for (let job = await op(station.id, "nextJob", { now }); job; job = await op(station.id, "nextJob", { now })) {
+        kinds.push(job.kind);
+        const watermark = job.kind === "project_autodj_events" ? String(utcOffsetMinutes(now, LA)) : undefined;
+        await op(station.id, "finishJob", { jobId: job.id, ok, summary: "", output: "", watermark });
+      }
+      return kinds;
+    };
+    const written = async () =>
+      (await db.select().from(syncState).where(eq(syncState.stationId, station.id))).find(
+        (r) => r.syncKey === "autodj_events_offset",
+      )?.watermark;
+
+    expect(await drain(winter)).toEqual([]); // not opted in: never written from Rotavox
+    await enqueueJob(db, station.id, "project_autodj_events", "ui");
+    expect(await drain(summer)).toEqual(["project_autodj_events"]);
+    expect(await written()).toBe("-420");
+    expect(await drain(summer)).toEqual([]);
+
+    expect(await drain(winter)).toEqual(["project_autodj_events"]);
+    expect(await written()).toBe("-480");
+    expect(await drain(winter)).toEqual([]);
+
+    // A failed rewrite keeps the old offset and waits for a person, like any failed RadioDJ write.
+    expect(await drain(summer, false)).toEqual(["project_autodj_events"]);
+    expect(await written()).toBe("-480");
+    expect(await drain(summer)).toEqual([]);
+
+    // A box without a plan says so once, and isn't asked again.
+    await db.update(syncState).set({ watermark: "none" }).where(eq(syncState.stationId, station.id));
+    expect(await drain(winter)).toEqual([]);
   });
 
   it("records a RadioDJ write and updates the mirror in the same step", async () => {

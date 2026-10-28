@@ -8,6 +8,7 @@ export const RUNNER_SILENT_SECONDS = 60;
 export const JOB_LABEL: Record<JobKind, string> = {
   sync_library: "Library sync",
   project_changesets: "Write changes to RadioDJ",
+  project_autodj_events: "AutoDJ fail-safe events",
 };
 
 export const REQUESTER_LABEL: Record<string, string> = {

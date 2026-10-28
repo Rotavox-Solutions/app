@@ -1,7 +1,9 @@
-// Mirrors the Rotavox M4 clocks into RadioDJ rotations + weekly "Load Rotation" events,
-// so AutoDJ (the fail-safe) follows the same hour plan when no Rotavox log is pacing.
-// Idempotent: rotations/events are matched by name; existing item rows are rewritten in
-// place (the RadioDJ user has no DELETE grant). Formats learned from PD-made examples.
+// Mirrors the Rotavox M4 clocks into RadioDJ rotations, so AutoDJ (the fail-safe) plays
+// the same clock shapes when no Rotavox log is pacing. The weekly "Load Rotation" events
+// that pick a rotation per hour are written by the Runner's project_autodj_events job
+// (src/autodj-events.ts) from this file's localEvents, because they move with DST.
+// Idempotent: rotations are matched by name; existing item rows are rewritten in place
+// (the RadioDJ user has no DELETE grant). Formats learned from PD-made examples.
 import "dotenv/config"; import mysql from "mysql2/promise"; import { readFileSync } from "node:fs";
 const plan = JSON.parse(readFileSync(process.argv[2], "utf8"));
 const c = await mysql.createConnection({host:process.env.RADIODJ_DB_HOST,port:+process.env.RADIODJ_DB_PORT,user:process.env.RADIODJ_DB_USER,password:process.env.RADIODJ_DB_PASSWORD,database:process.env.RADIODJ_DB_NAME});
@@ -27,22 +29,7 @@ try {
   }
   const [[def]] = await c.query("SELECT ID FROM rotations WHERE name='Default'");
   await writeRotation(def.ID, plan.default);
-  // Events: the PD's example (ID 1) is reused for the first one.
-  const [existing] = await c.query("SELECT ID, name FROM events WHERE type=1 AND data LIKE 'Load Rotation|%' ORDER BY ID");
-  const spare = existing.filter(e => !e.name.startsWith("BOLT ")).map(e => e.ID);
-  let n = 0;
-  for (const e of plan.events) {
-    const hh = String(e.hour).padStart(2, "0");
-    const name = `${e.rot} ${hh}:00 UTC`;
-    const day = "&" + e.days.join("&");
-    const data = `Load Rotation|${ids[e.rot]}|${e.rot}`;
-    const [[row]] = await c.query("SELECT ID FROM events WHERE name=?", [name]);
-    const id = row?.ID ?? spare.shift();
-    if (id) await c.query("UPDATE events SET type=1, time=?, name=?, day=?, hours='&', data=?, enabled=1, catID=1, smart=0, grouped=0 WHERE ID=?", [`${hh}:00:00`, name, day, data, id]);
-    else await c.query("INSERT INTO events (type,time,name,day,hours,data,enabled,catID,smart,grouped) VALUES (1,?,?,?,'&',?,1,1,0,0)", [`${hh}:00:00`, name, day, data]);
-    n++;
-  }
   await c.commit();
-  console.log(JSON.stringify({ rotations: ids, default: def.ID, events: n }));
+  console.log(JSON.stringify({ rotations: ids, default: def.ID }));
 } catch (e) { await c.rollback(); console.error("ROLLED BACK:", e.message); process.exitCode = 1; }
 await c.end();

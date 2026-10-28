@@ -10,13 +10,14 @@
 // jobs.ts). Pacing decisions are not here: the Runner makes them from its own copy of
 // the logs (logWindow), so an outage can't stop playout.
 import { createHash } from "node:crypto";
-import { and, asc, eq, gt, inArray, lt, notInArray, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gt, inArray, lt, notInArray, sql } from "drizzle-orm";
 import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import * as schema from "./schema.js";
 import { changesets, clockPositions, logItems, logs, playHistory, songs, stations, syncState } from "./schema.js";
 import { listPendingProjections, nextProjectionStatus } from "./changesets.js";
 import { claimNextJob, enqueueJob, failInterruptedJobs, finishJob, lastRequested, pruneJobs } from "./jobs.js";
 import { loadProjection, mirrorChangesetMoves, type MirrorMove } from "./membership.js";
+import { AUTODJ_EVENTS_SYNC_KEY, utcOffsetMinutes } from "./autodj-events.js";
 
 type Db = PostgresJsDatabase<typeof schema>;
 
@@ -103,6 +104,30 @@ export type WirePendingProjection = Omit<Awaited<ReturnType<typeof listPendingPr
 
 /** How often the library is synced unprompted, so songs added in RadioDJ reach the Inbox. */
 export const SCHEDULED_SYNC_MINUTES = 15;
+
+/**
+ * True when the AutoDJ fail-safe's events were written at a UTC offset the station no
+ * longer has. Only a station whose Runner has written them once (a person ran the job
+ * from the Station page) is kept in step: no record means the station hasn't opted in,
+ * and "none" means its box has no fail-safe plan. A failed run waits for a person, like
+ * any failed RadioDJ write.
+ */
+async function autodjEventsStale(db: Db, stationId: string, now: Date): Promise<boolean> {
+  const [row] = await db
+    .select({ watermark: syncState.watermark, timezone: stations.timezone })
+    .from(syncState)
+    .innerJoin(stations, eq(stations.id, syncState.stationId))
+    .where(and(eq(syncState.stationId, stationId), eq(syncState.syncKey, AUTODJ_EVENTS_SYNC_KEY)));
+  if (!row?.watermark || !/^-?\d+$/.test(row.watermark)) return false;
+  if (Number(row.watermark) === utcOffsetMinutes(now, row.timezone)) return false;
+  const [last] = await db
+    .select({ status: schema.runnerJobs.status })
+    .from(schema.runnerJobs)
+    .where(and(eq(schema.runnerJobs.stationId, stationId), eq(schema.runnerJobs.kind, "project_autodj_events")))
+    .orderBy(desc(schema.runnerJobs.requestedAt))
+    .limit(1);
+  return last?.status !== "failed";
+}
 const KEEP_SCHEDULED_DAYS = 7;
 const LIBRARY_SYNC_KEY = "library_sync";
 const LIBRARY_SYNC_RUN_KEY = "library_sync_run";
@@ -350,7 +375,8 @@ export const runnerOps = {
 
   /**
    * Queues the routine work nobody has to ask for, then claims the oldest queued job:
-   * a library sync every SCHEDULED_SYNC_MINUTES, and writing applied changes to RadioDJ.
+   * a library sync every SCHEDULED_SYNC_MINUTES, writing applied changes to RadioDJ, and
+   * rewriting the AutoDJ fail-safe's events when the station's UTC offset has moved (DST).
    * A failed write at the head of the line waits for a person to retry it from the UI.
    */
   async nextJob(db: Db, stationId: string, a: { now: Date }) {
@@ -361,16 +387,36 @@ export const runnerOps = {
     if ((await nextProjectionStatus(db, stationId)) === "pending") {
       await enqueueJob(db, stationId, "project_changesets", "changeset");
     }
+    if (await autodjEventsStale(db, stationId, a.now)) {
+      await enqueueJob(db, stationId, "project_autodj_events", "schedule");
+    }
     return claimNextJob(db, stationId, a.now);
   },
 
-  async finishJob(db: Db, stationId: string, a: { jobId: string; ok: boolean; summary: string; output: string }) {
+  /**
+   * `watermark` is what a job hands Rotavox to remember. Only project_autodj_events sends
+   * one: the UTC offset RadioDJ's events are now set for, or "none" for a box without a plan.
+   */
+  async finishJob(
+    db: Db,
+    stationId: string,
+    a: { jobId: string; ok: boolean; summary: string; output: string; watermark?: string | null },
+  ) {
     const [job] = await db
-      .select({ id: schema.runnerJobs.id })
+      .select({ id: schema.runnerJobs.id, kind: schema.runnerJobs.kind })
       .from(schema.runnerJobs)
       .where(and(eq(schema.runnerJobs.id, a.jobId), eq(schema.runnerJobs.stationId, stationId)));
     if (!job) throw new RunnerOpError(404, `no job ${a.jobId} at this station`);
     await finishJob(db, a.jobId, { ok: a.ok, summary: a.summary, output: a.output });
+    if (a.ok && job.kind === "project_autodj_events" && a.watermark) {
+      await db
+        .insert(syncState)
+        .values({ stationId, syncKey: AUTODJ_EVENTS_SYNC_KEY, watermark: a.watermark })
+        .onConflictDoUpdate({
+          target: [syncState.stationId, syncState.syncKey],
+          set: { watermark: a.watermark, updatedAt: new Date() },
+        });
+    }
   },
 
   async pruneJobs(db: Db, stationId: string, a: { now: Date }): Promise<void> {

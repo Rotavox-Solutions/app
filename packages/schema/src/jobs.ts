@@ -8,8 +8,8 @@ import { runnerJobs } from "./schema.js";
 
 type Db = PostgresJsDatabase<typeof schema>;
 
-export type JobKind = "sync_library" | "project_changesets";
-export const JOB_KINDS: readonly JobKind[] = ["sync_library", "project_changesets"];
+export type JobKind = "sync_library" | "project_changesets" | "project_autodj_events";
+export const JOB_KINDS: readonly JobKind[] = ["sync_library", "project_changesets", "project_autodj_events"];
 export type JobRequester = "ui" | "schedule" | "changeset";
 export type RunnerJob = typeof runnerJobs.$inferSelect;
 

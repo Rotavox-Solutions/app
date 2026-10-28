@@ -1,6 +1,13 @@
 import { headers } from "next/headers";
-import { eq } from "drizzle-orm";
-import { listRunnerKeys, stations } from "@rotavox/schema";
+import { and, eq } from "drizzle-orm";
+import {
+  AUTODJ_EVENTS_SYNC_KEY,
+  formatOffset,
+  listRunnerKeys,
+  stations,
+  syncState,
+  utcOffsetMinutes,
+} from "@rotavox/schema";
 import { db } from "@/lib/db";
 import { getRunnerStatus, JOB_LABEL, REQUESTER_LABEL, RUNNER_SILENT_SECONDS } from "@/lib/runner-status";
 import { AutoRefresh } from "@/components/station/AutoRefresh";
@@ -39,14 +46,23 @@ async function runnerApiUrl(): Promise<string> {
 export default async function StationPage() {
   const ctx = await requireStation();
   const { stationId } = ctx;
-  const [[station], status] = await Promise.all([
+  const [[station], status, [eventsState]] = await Promise.all([
     db.select().from(stations).where(eq(stations.id, stationId)),
     getRunnerStatus(stationId),
+    db
+      .select()
+      .from(syncState)
+      .where(and(eq(syncState.stationId, stationId), eq(syncState.syncKey, AUTODJ_EVENTS_SYNC_KEY))),
   ]);
   if (!station) return <p className="text-sm text-neutral-500">This station no longer exists.</p>;
   const tz = station.timezone;
   const sync = status.latest.sync_library;
   const syncOpen = sync && (sync.status === "queued" || sync.status === "running");
+  const events = status.latest.project_autodj_events;
+  const eventsOpen = events && (events.status === "queued" || events.status === "running");
+  const eventsOffset =
+    eventsState?.watermark && /^-?\d+$/.test(eventsState.watermark) ? Number(eventsState.watermark) : null;
+  const offsetNow = utcOffsetMinutes(new Date(), tz);
 
   return (
     <div className="space-y-8">
@@ -116,6 +132,47 @@ export default async function StationPage() {
             )}
           </div>
         )}
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-sm font-medium uppercase tracking-wide text-neutral-500">AutoDJ fail-safe</h2>
+        <p className="max-w-2xl text-sm text-neutral-400">
+          If Rotavox stops pacing, RadioDJ&apos;s AutoDJ takes over and its weekly events switch rotations to follow
+          this station&apos;s clocks. RadioDJ keeps those events in UTC, so they move when daylight saving changes the
+          station&apos;s offset. Once they&apos;ve been written here, Rotavox rewrites them by itself at every change.
+          After a rewrite, open and close RadioDJ&apos;s Event Scheduler on the box so it loads them.
+        </p>
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <span className="text-neutral-300">
+            {eventsState?.watermark === "none" ? (
+              "The broadcast box has no fail-safe plan."
+            ) : eventsOffset === null ? (
+              "Not written from Rotavox yet."
+            ) : (
+              <>
+                Events set for <span className="text-neutral-100">{formatOffset(eventsOffset)}</span>
+                {eventsOffset === offsetNow ? (
+                  <span className="text-neutral-500"> (current)</span>
+                ) : (
+                  <span className="text-amber-300"> — the station is now {formatOffset(offsetNow)}</span>
+                )}
+                <span className="text-neutral-500"> · {fmtAgo(eventsState!.updatedAt)}</span>
+              </>
+            )}
+            {events?.status === "failed" && (
+              <span className="ml-2 text-red-300">last attempt failed: {events.summary}</span>
+            )}
+          </span>
+          {eventsOpen ? (
+            <span className="text-sky-300">
+              {events!.status === "running" ? "Writing now…" : "Waiting for the Runner…"}
+            </span>
+          ) : (
+            allowed(ctx, "run_runner") && (
+              <RunnerButton url="/api/runner/jobs" body={{ kind: "project_autodj_events" }} label="Write events now" />
+            )
+          )}
+        </div>
       </section>
 
       {allowed(ctx, "manage_station") && (

@@ -1,14 +1,16 @@
 // The Runner's job loop: does what the UI asks for on the broadcast box (ADR-0001
 // invariant #4 — the web app queues work, the Runner does it). Rotavox also queues the
 // routine work nobody has to ask for, as part of handing out the next job: a library
-// sync every 15 minutes, and writing applied changes to RadioDJ.
+// sync every 15 minutes, writing applied changes to RadioDJ, and moving the AutoDJ
+// fail-safe's events when DST changes the station's UTC offset.
 //
 // Runs inside the pacer process, beside the pace loop. It must never take the pacer down,
 // so every failure stays inside a job and is recorded on it.
 import type { RunnerJob } from "@rotavox/schema";
-import { api, SchedulerApiError } from "./scheduler.js";
+import { api, SchedulerApiError, stationIdentity } from "./scheduler.js";
 import { syncLibrary } from "./sync-library.js";
 import { projectChangesets } from "./project-changesets.js";
+import { projectAutodjEvents } from "./autodj-events.js";
 import type { ApplyLog } from "./apply-changeset.js";
 
 const POLL_MS = 5_000;
@@ -25,7 +27,9 @@ function capture(): { log: ApplyLog; text: () => string } {
   return { log: { info: push(""), warn: push("warning: "), error: push("error: ") }, text: () => lines.join("\n") };
 }
 
-async function runJob(job: RunnerJob): Promise<{ ok: boolean; summary: string; output: string }> {
+type JobResult = { ok: boolean; summary: string; output: string; watermark?: string | null };
+
+async function runJob(job: RunnerJob): Promise<JobResult> {
   const out = capture();
   try {
     if (job.kind === "sync_library") {
@@ -44,6 +48,11 @@ async function runJob(job: RunnerJob): Promise<{ ok: boolean; summary: string; o
         summary: r.projected ? `${r.projected} change(s) written to RadioDJ` : "Nothing to write",
         output: out.text(),
       };
+    }
+    if (job.kind === "project_autodj_events") {
+      const { timezone } = await stationIdentity();
+      const r = await projectAutodjEvents({ apply: true, log: out.log, timezone, now: new Date() });
+      return { ok: true, summary: r.summary, output: out.text(), watermark: r.watermark };
     }
     return { ok: false, summary: `Unknown job kind "${job.kind}"`, output: "" };
   } catch (err) {
