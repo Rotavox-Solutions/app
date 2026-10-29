@@ -210,6 +210,24 @@ export const categories = pgTable("categories", {
   unique("categories_station_name_unique").on(t.stationId, t.name),
 ]);
 
+// RadioDJ's subcategories as the Runner last saw them (library sync): names only, so a
+// PD can map a new category to one by name. RadioDJ owns these; Rotavox never writes them.
+export const rdjSubcategories = pgTable(
+  "rdj_subcategories",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    stationId: uuid("station_id")
+      .notNull()
+      .references(() => stations.id, { onDelete: "cascade" }),
+    rdjSubcategoryId: integer("rdj_subcategory_id").notNull(),
+    name: text("name").notNull(),
+    /** Its RadioDJ category: "Sweepers", "Station IDs". */
+    parentName: text("parent_name"),
+    syncedAt: timestamp("synced_at").defaultNow().notNull(),
+  },
+  (t) => [unique("rdj_subcategories_station_rdj_unique").on(t.stationId, t.rdjSubcategoryId)]
+);
+
 export const songCategories = pgTable(
   "song_categories",
   {

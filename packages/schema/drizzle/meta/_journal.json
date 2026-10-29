@@ -71,6 +71,13 @@
       "when": 1792963387648,
       "tag": "0009_supreme_mystique",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1793215667452,
+      "tag": "0010_rdj_subcategories",
+      "breakpoints": true
     }
   ]
 }

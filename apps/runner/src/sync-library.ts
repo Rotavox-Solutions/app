@@ -2,7 +2,7 @@ import "dotenv/config";
 import type { SyncedSong } from "@rotavox/schema";
 import { pool } from "./db.js";
 import { api, closeScheduler } from "./scheduler.js";
-import { loadSchemaMap, requireCanonical, findColumn } from "./schema-map.js";
+import { loadSchemaMap, requireCanonical, findColumn, type SchemaMap } from "./schema-map.js";
 
 const EPOCH = new Date(0);
 
@@ -11,6 +11,33 @@ async function getWatermark(): Promise<Date> {
 }
 
 export type Log = (line: string) => void;
+
+/**
+ * RadioDJ's subcategory names, with the category each sits in, so a PD can map a new
+ * Rotavox category to one by name. Introspected like everything else: a RadioDJ without
+ * a name column just doesn't send names, and the sync carries on.
+ */
+async function syncSubcategoryNames(map: SchemaMap, subcategoryTable: string, parentIdCol: string, log: Log) {
+  const nameCol = findColumn(map, "subcategory", "name");
+  const categoryTable = map.tables.categories;
+  const categoryNameCol = categoryTable ? findColumn(map, "categories", "name") : null;
+  if (!nameCol) {
+    log("RadioDJ's subcategory table has no name column; subcategory names not synced.");
+    return;
+  }
+  const [rows] = await pool.query<any[]>(
+    categoryNameCol
+      ? `SELECT s.ID AS id, s.\`${nameCol}\` AS name, c.\`${categoryNameCol}\` AS parent
+         FROM \`${subcategoryTable}\` s LEFT JOIN \`${categoryTable}\` c ON c.ID = s.\`${parentIdCol}\``
+      : `SELECT ID AS id, \`${nameCol}\` AS name, NULL AS parent FROM \`${subcategoryTable}\``,
+  );
+  const subcategories = rows.map((r) => ({
+    id: Number(r.id),
+    name: String(r.name ?? "").trim() || `Subcategory ${r.id}`,
+    parent: r.parent == null ? null : String(r.parent),
+  }));
+  if (subcategories.length) await api("syncSubcategories", { subcategories });
+}
 
 const UPSERT_BATCH = 500;
 
@@ -56,6 +83,7 @@ export async function syncLibrary(log: Log = console.log): Promise<SyncResult> {
   );
   const categoryBySubcat = new Map<number, number>();
   for (const row of subcatRows) categoryBySubcat.set(row.ID, row.parentId);
+  await syncSubcategoryNames(map, subcategoryTable, parentIdCol, log);
 
   const watermark = await getWatermark();
   log(`Syncing songs with ${dateModifiedCol} > ${watermark.toISOString()}`);

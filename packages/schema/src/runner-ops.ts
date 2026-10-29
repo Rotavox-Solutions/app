@@ -19,6 +19,7 @@ import { claimNextJob, enqueueJob, failInterruptedJobs, finishJob, lastRequested
 import { loadProjection, mirrorChangesetMoves, type MirrorMove } from "./membership.js";
 import { AUTODJ_EVENTS_SYNC_KEY, utcOffsetMinutes } from "./autodj-events.js";
 import { serverRevision } from "./revisions.js";
+import { replaceRdjSubcategories } from "./categories.js";
 
 type Db = PostgresJsDatabase<typeof schema>;
 
@@ -290,6 +291,16 @@ export const runnerOps = {
       .insert(syncState)
       .values({ stationId, syncKey: LIBRARY_SYNC_RUN_KEY, watermark: null })
       .onConflictDoUpdate({ target: [syncState.stationId, syncState.syncKey], set: { updatedAt: new Date() } });
+  },
+
+  /** RadioDJ's subcategory names, read on each library sync, so a PD can map a category by name. */
+  async syncSubcategories(
+    db: Db,
+    stationId: string,
+    a: { subcategories: { id: number; name: string; parent: string | null }[] },
+  ) {
+    if (a.subcategories.length === 0) throw new RunnerOpError(400, "refusing an empty subcategory list");
+    await replaceRdjSubcategories(db, stationId, a.subcategories);
   },
 
   /**

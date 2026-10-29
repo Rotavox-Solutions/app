@@ -2,14 +2,21 @@ import { getCategoryBalance } from "@/lib/queries";
 import { needsAttention, requiredDepth } from "@/lib/balance";
 import { BalanceTable } from "@/components/music/BalanceTable";
 import { fmtTurnover } from "@/components/music/format";
-import { requireStation } from "@/lib/auth";
+import { allowed, requireStation } from "@/lib/auth";
+import { listUnmappedSubcategories } from "@rotavox/schema";
+import { db } from "@/lib/db";
+import { NewCategory } from "@/components/music/NewCategory";
 
 // Live view over current DB state — never statically prerendered.
 export const dynamic = "force-dynamic";
 
 export default async function CategoriesPage() {
-  const { stationId } = await requireStation();
-  const balance = await getCategoryBalance(stationId);
+  const ctx = await requireStation();
+  const { stationId } = ctx;
+  const [balance, unmapped] = await Promise.all([
+    getCategoryBalance(stationId),
+    listUnmappedSubcategories(db, stationId),
+  ]);
   const music = balance.filter((b) => b.kind === "music");
   const other = balance.filter((b) => b.kind !== "music");
   const attention = balance.filter(needsAttention);
@@ -58,6 +65,13 @@ export default async function CategoriesPage() {
         <h2 className="text-sm font-medium uppercase tracking-wide text-neutral-500">Imaging &amp; other</h2>
         <BalanceTable rows={other} />
       </section>
+
+      {allowed(ctx, "edit_music") && (
+        <section className="space-y-3">
+          <h2 className="text-sm font-medium uppercase tracking-wide text-neutral-500">New category</h2>
+          <NewCategory unmapped={unmapped} />
+        </section>
+      )}
     </div>
   );
 }
