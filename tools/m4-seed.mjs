@@ -70,8 +70,9 @@ const LIFECYCLE = {
   31: { state: "benched" }, // Y — import staging for gold compilations
   32: { state: "resting" }, // Z
   33: { state: "resting", origin: "N" }, // ZN
-  34: { state: "retired" }, // K — killed
+  34: { state: "retired", default: true }, // K — killed; where a retirement made in Rotavox lands
   35: { state: "benched", default: true }, // W — where a bench made in Rotavox lands
+  66: { state: "retired" }, // Retired Imaging — demoted imaging, disabled and kept (2026-10-29)
 };
 
 /**

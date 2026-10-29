@@ -54,6 +54,6 @@ UPDATE categories SET rest_review_days = 90 WHERE station_id = '6a42a599-acfc-40
 UPDATE categories SET rest_review_days = 90 WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'B' AND rest_review_days IS NULL;
 UPDATE categories SET rest_review_days = 90 WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'C' AND rest_review_days IS NULL;
 UPDATE categories SET rest_review_days = 90 WHERE station_id = '6a42a599-acfc-404f-a524-9fb9b65d36f3' AND name = 'N' AND rest_review_days IS NULL;
-UPDATE stations SET rdj_lifecycle_subcats = '{"31":{"state":"benched"},"32":{"state":"resting"},"33":{"state":"resting","origin":"N"},"34":{"state":"retired"},"35":{"state":"benched","default":true}}'::jsonb WHERE id = '6a42a599-acfc-404f-a524-9fb9b65d36f3';
+UPDATE stations SET rdj_lifecycle_subcats = '{"31":{"state":"benched"},"32":{"state":"resting"},"33":{"state":"resting","origin":"N"},"34":{"state":"retired","default":true},"35":{"state":"benched","default":true},"66":{"state":"retired"}}'::jsonb WHERE id = '6a42a599-acfc-404f-a524-9fb9b65d36f3';
 
 COMMIT;

@@ -1,0 +1,37 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-29-existing-imaging-retire-disable",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-29",
+  "intent": "Disable the 3 imaging items that 2026-10-29-existing-imaging-review moved into Retired Imaging (66). Retired imaging is disabled and kept, never deleted (handoff house rule). Apply after that changeset.",
+  "basis": {
+    "sheet_id": "thebolt/proposals/2026-10-29-existing-imaging-moves.csv",
+    "sheet_captured_at": "2026-10-29"
+  },
+  "set_enabled": [
+    {
+      "rdj_song_id": 1776,
+      "artist": "",
+      "title": "Elevenlabs 2026-07-27T18 31 39 Christian Bastian Gen Sp83 S61 Sb49 Se27 B M2",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Retired imaging is disabled, never deleted (handoff house rule). Announces the station coming back on air (relaunch wording)"
+    },
+    {
+      "rdj_song_id": 1917,
+      "artist": "The BOLT",
+      "title": "Station Promo 6 B",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Retired imaging is disabled, never deleted (handoff house rule). Promises \"no repeats, guaranteed\" across a 9-to-5, which the format does not deliver"
+    },
+    {
+      "rdj_song_id": 1918,
+      "artist": "The BOLT",
+      "title": "Station Promo 6 A",
+      "from_enabled": true,
+      "to_enabled": false,
+      "reason": "Retired imaging is disabled, never deleted (handoff house rule). Promises \"no repeats, guaranteed\" across a 9-to-5, which the format does not deliver"
+    }
+  ]
+}

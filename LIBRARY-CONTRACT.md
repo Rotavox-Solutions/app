@@ -26,14 +26,14 @@ for history only. Song IDs also changed, so no pre-rebuild changeset can be repl
 | Discovery | 30 (X) | 32 |
 | F | 25 | 66 |
 | TOH IDs (fallback for every per-block TOH pool) | 42 | 32 |
-| Liners | 37, 52 (Positioning) | 61 |
+| Liners | 37, 52 (Positioning) | 70 |
 | New-Music Sweepers | 38, 55 (New Music Front) | 52 |
-| Relaunch Sweepers | 40 | 12 |
+| Relaunch Sweepers | 40 | 0 (falls back to Liners) |
 | Gold Backsells | 41 | 26 |
-| Station Promos | 43 | 28 |
-| Front-sell | 53 | 16 |
+| Station Promos | 43 | 26 |
+| Front-sell | 53 | 18 |
 | Back-sell | 54 | 16 |
-| New Music Back | 56 | 8 |
+| New Music Back | 56 | 24 |
 | Power | 59 | 8 |
 | Discovery Sweepers | 60 | 12 |
 | Recurrent Sweepers | 61 | 8 |
@@ -46,6 +46,12 @@ into subcats 51–67 by changeset `2026-10-28-imaging-sort-render-10k`. On 2026-
 59–64 (seed SQL `2026-10-29-imaging-pools.sql`), and the clocks started calling them through Contextual breaks
 (`tools/clock-order.mjs`; applied in place by `2026-10-29-imaging-clock-placement.sql`).
 
+Later on 2026-10-29, changeset `2026-10-29-existing-imaging-review` routed the existing imaging by its wording
+(transcribed; see `thebolt/proposals/2026-10-29-existing-imaging-review.md`). Liners and Relaunch Sweepers went to
+Positioning (52), 2 liners to Front-sell (53), New-Music Sweepers to New Music Front (55) and New-Music Trail to
+New Music Back (56). That leaves 37, 38, 39 and 40 empty. 37, 38 and 40 stay mapped, so a new import filed there still lands in
+the right pool. 3 items were retired into 66 (below) and disabled by `2026-10-29-existing-imaging-retire-disable`.
+
 Mapped to an empty list (no RadioDJ subcategory yet, so the engine falls back): the nine per-block
 TOH pools (to TOH IDs), GDEEP, Heritage Backsells (to Gold Backsells).
 
@@ -57,7 +63,7 @@ changeset, re-derive membership (`refresh-memberships.sql`) before generating.
 After the membership import (Station › Library & Runner › Pools), Rotavox owns membership and
 lifecycle state:
 - The mapping in this table lives in `categories.rdj_subcategory_ids`.
-- The rows under "Deliberately unmapped" that encode a state (Y, Z, ZN, K, W) live in
+- The rows under "Deliberately unmapped" that encode a state (Y, Z, ZN, K, W, Retired Imaging) live in
   `stations.rdj_lifecycle_subcats`. Both are written by the seed, or by
   `seed/m4-projection.sql` alone.
 - Pool and state edits are made in the UI (Music › Inbox, Music › Changes). Once applied,
@@ -77,11 +83,12 @@ lifecycle state:
 
 | Subcat | Name | Why |
 |---|---|---|
-| 39 | New-Music Trail | Imaging, 16 enabled; no clock position calls it yet |
+| 39 | New-Music Trail | Empty since 2026-10-29: its 16 back-sells moved to New Music Back (56) |
 | 31 | Y | Import staging for gold compilations |
 | 32 | Z | Rested |
 | 33 | ZN | Rested from N |
-| 34 | K | Killed: records the PD has removed from the format for good |
+| 34 | K | Killed: records the PD has removed from the format for good. The default for `retired`: a retirement made in Rotavox lands here |
+| 66 | Retired Imaging | Also `retired` (since 2026-10-29): demoted imaging, disabled and kept, never deleted. 3 items |
 | 35 | W | Bench |
 
 ### Imaging pools added 2026-10-27, still unmapped
@@ -96,7 +103,6 @@ Enabled counts are as of 2026-10-28.
 | 57 | Sweepers | Transition Up | 10 | Needs per-song energy data to place |
 | 58 | Sweepers | Transition Down | 10 | Needs per-song energy data to place |
 | 65 | Sweepers | Seasonal Halloween | 8 | Track sweepers on 8 songs until 2026-11-01; then disabled and kept for next October |
-| 66 | Sweepers | Retired Imaging | 0 | Demoted imaging goes here instead of being deleted |
 | 67 | Sweepers | Imaging Inbox | 0 | Landing spot for new imaging imports before they are sorted |
 
 ---
