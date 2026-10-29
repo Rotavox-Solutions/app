@@ -67,6 +67,13 @@ export interface PositionConstraints {
    * which is arbitrary with respect to programming value.
    */
   trimPriority?: number;
+  /**
+   * For imaging whose copy is about a neighbouring record: that record's sortOrder in the
+   * same clock ("From the last decade" ahead of a G2010, a back-sell after an N). When the
+   * fit sacrifices the anchor to land the hour, this position draws from its
+   * fallbackCategoryId instead, so the copy never airs next to the wrong record.
+   */
+  anchorSortOrder?: number;
 }
 
 export type PositionType = "category" | "fixed_event" | "sweeper" | "voicetrack";
@@ -268,6 +275,8 @@ export interface GenerateLogResult {
     fillerActivated: number;
     /** Positions deliberately given up because an hour could not fit its budget. */
     sacrificed: number;
+    /** Anchored imaging redrawn from its fallback pool because its anchor was sacrificed. */
+    anchorFallbacks: number;
     /**
      * Share of the schedulable library with a known segue point (0..1), set by the
      * caller. At 1 the predicted hour length is exact rather than approximate: the

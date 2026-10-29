@@ -82,6 +82,7 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
   let trimmed = 0;
   let fillerActivated = 0;
   let sacrificed = 0;
+  let anchorFallbacks = 0;
 
   /**
    * SIGNED top-of-hour drift carried into the next hour, ms.
@@ -192,6 +193,8 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
     song: EngineSong | null;
     durationMs: number;
     violations: GeneratedItem["violations"];
+    /** When pass A drew it, so a redraw ranks at the same instant. */
+    at?: number;
   }
 
   for (const hourStart of iterateHours(input.horizonStart, input.horizonEnd)) {
@@ -256,7 +259,7 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
       const ranked = rankAt(position, at);
       const song = pickFromShortlist(ranked, config, rng);
       const durationMs = song ? durationOf(song) : 0;
-      drawn.set(position.id, { song, durationMs, violations: ranked.violations });
+      drawn.set(position.id, { song, durationMs, violations: ranked.violations, at: cursor });
       if (song) commitSong(song, position, at);
       cursor += durationMs;
     }
@@ -313,6 +316,54 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
 
     const removedIds = new Set(fit.removed.map((u) => u.id));
     sacrificed += fit.removed.length;
+
+    // ---- ANCHORED IMAGING -------------------------------------------------------------
+    // A break whose copy is about a neighbouring record can't air once the fit has given
+    // that record up: "From the last decade" between a B and an N is wrong on air. It
+    // redraws from its fallback pool, which is generic copy. The swap is a few seconds of
+    // imaging either way, inside the fit's margin, so the fit isn't rerun.
+    const removedSorts = new Set(programmed.filter((p) => removedIds.has(p.id)).map((p) => p.sortOrder));
+    for (const position of programmed) {
+      const anchor = position.constraints?.anchorSortOrder;
+      const was = drawn.get(position.id);
+      if (anchor == null || !removedSorts.has(anchor) || removedIds.has(position.id) || !was?.song) continue;
+      const fallbackId = position.constraints?.fallbackCategoryId;
+      const generic: EnginePosition | null = fallbackId
+        ? {
+            ...position,
+            // Its own id: pools are cached per position id.
+            id: `${position.id}#anchor-fallback`,
+            categoryId: fallbackId,
+            constraints: { ...position.constraints, fallbackCategoryId: undefined, anchorSortOrder: undefined },
+          }
+        : null;
+      // Separation for this hour was rolled back with pass A's trial, so keep the redraw
+      // off anything another position already drew this hour.
+      const inHour = new Set([...drawn.values()].map((d) => d.song?.id).filter(Boolean));
+      const full = generic ? rankAt(generic, new Date(was.at ?? startAt)) : null;
+      const ranked = full ? { ...full, shortlist: full.shortlist.filter((s) => !inHour.has(s.id)) } : null;
+      const song = ranked && ranked.shortlist.length > 0 ? pickFromShortlist(ranked, config, rng) : null;
+      if (!ranked || !song) {
+        warnings.push(
+          `hour ${hourStart.toISOString()} sacrificed the record that position ${position.sortOrder}'s imaging is about, ` +
+            `and it has no usable fallback — kept as drawn`
+        );
+        continue;
+      }
+      drawn.set(position.id, {
+        song,
+        durationMs: durationOf(song),
+        at: was.at,
+        violations: [
+          ...ranked.violations,
+          {
+            step: "fallback_category",
+            detail: { fromCategoryId: position.categoryId, toCategoryId: fallbackId, anchorSacrificed: anchor },
+          },
+        ],
+      });
+      anchorFallbacks++;
+    }
 
     // Added units name a DURATION, not a song: buildReachable collapses equal-length
     // songs because they are interchangeable to the fit. Assign each back to a
@@ -467,6 +518,6 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
   return {
     items,
     warnings,
-    stats: { totalItems: items.length, violationCounts, unfillable, trimmed, fillerActivated, sacrificed },
+    stats: { totalItems: items.length, violationCounts, unfillable, trimmed, fillerActivated, sacrificed, anchorFallbacks },
   };
 }

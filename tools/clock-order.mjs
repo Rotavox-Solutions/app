@@ -393,8 +393,36 @@ function woven(code) {
   return WOVEN[code].map((x) => ({ ...x }));
 }
 
+/**
+ * The record a context-tied break's copy is about: "next" for copy that sells the record
+ * after it, "prev" for copy about the one before, null for generic copy that fits anywhere.
+ * The seed stores the anchor's slot, so when the generator sacrifices that record to land
+ * the hour, the break falls back to its generic pool instead of airing out of context.
+ */
+const ANCHOR = {
+  Power: "next", "Discovery Sweepers": "next", "Recurrent Sweepers": "next",
+  "New-Music Sweepers": "next", "Relaunch Sweepers": "next",
+  "New Music Back": "prev", "Gold Backsells": "prev", "Heritage Backsells": "prev",
+};
+const ERA_OF = Object.fromEntries(Object.entries(ERA_SWEEPER).map(([era, pool]) => [pool, era]));
+function anchorSide(cat, prev, next) {
+  if (ERA_OF[cat]) return next === ERA_OF[cat] ? "next" : "prev";
+  return ANCHOR[cat] ?? null;
+}
+
 export function clockSequence(code) {
-  const seq = woven(code);
+  const seq = fillers(woven(code), code);
+  seq.forEach((x, i) => {
+    if (x.kind !== "imaging") return;
+    const side = anchorSide(x.cat, seq[i - 1]?.cat, seq[i + 1]?.cat);
+    const j = side === "prev" ? i - 1 : side === "next" ? i + 1 : -1;
+    // A filler never sits next to imaging (fillers()), so the anchor is the neighbour itself.
+    if (j >= 0 && seq[j]?.kind === "music" && seq[j].cat !== "F") x.anchorIndex = j;
+  });
+  return seq;
+}
+
+function fillers(seq, code) {
   const n = FILLER_SLOTS[code] ?? 0;
   if (n === 0) return seq;
 

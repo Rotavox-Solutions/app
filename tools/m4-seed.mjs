@@ -287,6 +287,9 @@ for (const code of codes) {
     const parts = [];
     if (fb) parts.push(`'fallbackCategoryId', ${cat(fb)}::text`);
     if (item.fillerPriority != null) parts.push(`'fillerPriority', ${item.fillerPriority}`);
+    // anchorSortOrder: the slot of the record this break's copy is about. If the generator
+    // sacrifices that record, the break takes its fallback pool instead of airing out of context.
+    if (item.anchorIndex != null) parts.push(`'anchorSortOrder', ${item.anchorIndex + 1}`);
     if (TRIM_PRIORITY[item.cat] != null) parts.push(`'trimPriority', ${TRIM_PRIORITY[item.cat]}`);
     const constraints = parts.length
       ? `(SELECT jsonb_build_object(${parts.join(", ")}))`
