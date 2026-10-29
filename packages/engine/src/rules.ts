@@ -6,6 +6,11 @@ import type { EngineCategory, EnginePosition, EngineRule } from "./types.js";
 //   from this category, keep these windows") — resolved per position with
 //   global → category-ancestry → position precedence, narrowest scope winning.
 //
+//   Artist separation from a global or category rule applies to music positions only.
+//   Station imaging all carries one artist ("The BOLT"), so a station-wide artist window
+//   would keep every imaging item apart from every other and relax on most breaks. A
+//   rule scoped to the position itself still applies.
+//
 // - max_per_hour + daypart_restrict bind to the CANDIDATE's category membership,
 //   station-wide ("this category's songs, at most N per hour / only these hours"),
 //   so they hold even when a song enters a slot via fallback from another pool.
@@ -120,6 +125,7 @@ export function resolveRules(
       if (rule.hardness !== "hard") continue; // soft rules act through scoring weights
       switch (rule.ruleType) {
         case "artist_separation": {
+          if (position.positionType !== "category" && rule.scope !== "position") break;
           const m = minMinutes(rule);
           if (m != null) {
             eff.artistSepMin = m;

@@ -29,6 +29,46 @@ describe("rule resolution & hard filters", () => {
     expect(softOnly.artistSepMin).toBeNull();
   });
 
+  it("artist separation from global and category rules binds music positions only", () => {
+    const rules = [
+      rule({ id: "r-global", ruleType: "artist_separation", params: { minMinutes: 45 } }),
+      rule({ id: "r-cat", ruleType: "artist_separation", scope: "category", scopeRef: "cat-imaging", params: { minMinutes: 30 } }),
+      rule({ id: "r-title", ruleType: "title_separation", params: { minMinutes: 150 } }),
+    ];
+    const sweeper = position({ sortOrder: 1, categoryId: "cat-imaging", positionType: "sweeper" });
+    const eff = resolveRules(rules, sweeper, ["cat-imaging"]);
+    expect(eff.artistSepMin).toBeNull();
+    // title separation still binds imaging: it keeps a script's two takes apart
+    expect(eff.titleSepMin).toBe(150);
+    // a rule on the position itself is deliberate and still applies
+    const own = rule({ id: "r-pos", ruleType: "artist_separation", scope: "position", scopeRef: "pos-1", params: { minMinutes: 10 } });
+    expect(resolveRules([...rules, own], sweeper, ["cat-imaging"]).artistSepMin).toBe(10);
+    // music positions are unchanged
+    const music = position({ sortOrder: 1, categoryId: "cat-imaging" });
+    expect(resolveRules(rules, music, ["cat-imaging"]).artistSepMin).toBe(30);
+  });
+
+  it("imaging that shares the station's artist fills back-to-back breaks without relaxing", () => {
+    const imaging = category({ id: "cat-imaging", kind: "imaging" });
+    const input = baseInput({
+      categories: [imaging],
+      songs: [1, 2, 3, 4].map((n) =>
+        song({ rdjSongId: n, songType: 2, artist: "The BOLT", title: `line ${n}`, categoryIds: ["cat-imaging"] })
+      ),
+      clocks: [
+        {
+          id: "clock-1",
+          name: "Imaging",
+          positions: [1, 2, 3].map((n) => position({ sortOrder: n, categoryId: "cat-imaging", positionType: "sweeper" })),
+        } satisfies EngineClock,
+      ],
+      horizonEnd: new Date("2026-07-06T01:00:00.000Z"),
+    });
+    const items = generateLog(input).items.filter((i) => i.rdjSongId != null);
+    expect(items).toHaveLength(3);
+    for (const item of items) expect(item.violations).toEqual([]);
+  });
+
   it("hard tempo_clash filters candidates against the previous music item", () => {
     // prev item tempo 1; candidates tempo 5 (clash, |Δ|=4 > 2) vs tempo 2 (ok).
     const input = baseInput({
