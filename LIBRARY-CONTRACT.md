@@ -70,6 +70,34 @@ lifecycle state:
 | 34 | K | Killed: records the PD has removed from the format for good |
 | 35 | W | Bench |
 
+### Imaging pools added 2026-10-27
+
+Created for the 10K imaging renders (`bolt-imaging-handoff`) and filled by changeset
+`2026-10-28-imaging-sort-render-10k`, which also added 20 renders to TOH IDs (42, now 32 enabled)
+and 8 to Station Promos (43, now 28). None of these is mapped to a scheduler category or called by
+a clock yet. Until one is, they air only through RadioDJ's own rotations, or as track sweepers
+(65). Enabled counts are as of 2026-10-28.
+
+| Subcat | Parent | Name | Enabled | Why |
+|---|---|---|---|---|
+| 51 | Station IDs | Stingers | 24 | Clock placement pending |
+| 52 | Sweepers | Positioning | 20 | Clock placement pending |
+| 53 | Sweepers | Front-sell | 16 | Clock placement pending |
+| 54 | Sweepers | Back-sell | 16 | Clock placement pending |
+| 55 | Sweepers | New Music Front | 8 | Clock placement pending |
+| 56 | Sweepers | New Music Back | 8 | Clock placement pending |
+| 57 | Sweepers | Transition Up | 10 | Clock placement pending |
+| 58 | Sweepers | Transition Down | 10 | Clock placement pending |
+| 59 | Sweepers | Power | 8 | Clock placement pending |
+| 60 | Sweepers | Discovery Sweepers | 12 | Clock placement pending |
+| 61 | Sweepers | Recurrent Sweepers | 8 | Clock placement pending |
+| 62 | Sweepers | Gold 90s | 6 | Clock placement pending |
+| 63 | Sweepers | Gold 00s | 6 | Clock placement pending |
+| 64 | Sweepers | Gold 10s | 6 | Clock placement pending |
+| 65 | Sweepers | Seasonal Halloween | 8 | Track sweepers on 8 songs until 2026-11-01; then disabled and kept for next October |
+| 66 | Sweepers | Retired Imaging | 0 | Demoted imaging goes here instead of being deleted |
+| 67 | Sweepers | Imaging Inbox | 0 | Landing spot for new imaging imports before they are sorted |
+
 ---
 
 ## Historical: 2026-08-01 install (destroyed box)
