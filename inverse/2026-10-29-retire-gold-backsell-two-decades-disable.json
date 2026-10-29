@@ -1,0 +1,22 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-29-retire-gold-backsell-two-decades-disable-inverse",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-29",
+  "intent": "Inverse of \"2026-10-29-retire-gold-backsell-two-decades-disable\". Restores the state that changeset replaced.",
+  "basis": {
+    "sheet_id": "thebolt/proposals/2026-10-29-existing-imaging-moves.csv",
+    "sheet_captured_at": "2026-10-29"
+  },
+  "moves": [],
+  "set_enabled": [
+    {
+      "rdj_song_id": 1783,
+      "artist": "",
+      "title": "Elevenlabs 2026-07-11T03 55 09 Christian Bastian Gen Sp85 S50 Sb62 Se50 B M2",
+      "from_enabled": false,
+      "to_enabled": true,
+      "reason": "Rollback of: Retired imaging is disabled, never deleted (handoff house rule)."
+    }
+  ]
+}

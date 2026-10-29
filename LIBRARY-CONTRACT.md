@@ -29,7 +29,7 @@ for history only. Song IDs also changed, so no pre-rebuild changeset can be repl
 | Liners | 37, 52 (Positioning) | 70 |
 | New-Music Sweepers | 38, 55 (New Music Front) | 52 |
 | Relaunch Sweepers | 40 | 0 (falls back to Liners) |
-| Gold Backsells | 41 | 26 |
+| Gold Backsells | 41 | 25 |
 | Station Promos | 43 | 26 |
 | Front-sell | 53 | 18 |
 | Back-sell | 54 | 16 |
@@ -50,7 +50,9 @@ Later on 2026-10-29, changeset `2026-10-29-existing-imaging-review` routed the e
 (transcribed; see `thebolt/proposals/2026-10-29-existing-imaging-review.md`). Liners and Relaunch Sweepers went to
 Positioning (52), 2 liners to Front-sell (53), New-Music Sweepers to New Music Front (55) and New-Music Trail to
 New Music Back (56). That leaves 37, 38, 39 and 40 empty. 37, 38 and 40 stay mapped, so a new import filed there still lands in
-the right pool. 3 items were retired into 66 (below) and disabled by `2026-10-29-existing-imaging-retire-disable`.
+the right pool. 3 items were retired into 66 (below) and disabled by `2026-10-29-existing-imaging-retire-disable`, and gold
+back-sell 1783 ("Two decades of rock", which no longer matches the active gold) by
+`2026-10-29-retire-gold-backsell-two-decades`.
 
 Mapped to an empty list (no RadioDJ subcategory yet, so the engine falls back): the nine per-block
 TOH pools (to TOH IDs), GDEEP, Heritage Backsells (to Gold Backsells).
@@ -88,7 +90,7 @@ lifecycle state:
 | 32 | Z | Rested |
 | 33 | ZN | Rested from N |
 | 34 | K | Killed: records the PD has removed from the format for good. The default for `retired`: a retirement made in Rotavox lands here |
-| 66 | Retired Imaging | Also `retired` (since 2026-10-29): demoted imaging, disabled and kept, never deleted. 3 items |
+| 66 | Retired Imaging | Also `retired` (since 2026-10-29): demoted imaging, disabled and kept, never deleted. 4 items |
 | 35 | W | Bench |
 
 ### Imaging pools added 2026-10-27, still unmapped

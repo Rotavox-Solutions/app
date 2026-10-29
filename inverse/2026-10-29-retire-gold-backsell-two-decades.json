@@ -1,0 +1,22 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-29-retire-gold-backsell-two-decades-inverse",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-29",
+  "intent": "Inverse of \"2026-10-29-retire-gold-backsell-two-decades\". Restores the state that changeset replaced.",
+  "basis": {
+    "sheet_id": "thebolt/proposals/2026-10-29-existing-imaging-moves.csv",
+    "sheet_captured_at": "2026-10-29"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 1783,
+      "artist": "",
+      "title": "Elevenlabs 2026-07-11T03 55 09 Christian Bastian Gen Sp85 S50 Sb62 Se50 B M2",
+      "from_subcat": 66,
+      "to_subcat": 41,
+      "reason": "Rollback of: Gold Backsells → Retired Imaging: says \"Two decades of rock, and the deep ones too. The Bolt.\" The active gold spans more than two decades (G1990-G2010 plus H1/H2), so the line is inaccurate. Alden, 2026-10-29."
+    }
+  ],
+  "set_enabled": []
+}

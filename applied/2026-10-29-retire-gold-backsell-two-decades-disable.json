@@ -1,0 +1,11 @@
+{
+  "changeset_id": "2026-10-29-retire-gold-backsell-two-decades-disable",
+  "sheet_id": "thebolt/proposals/2026-10-29-existing-imaging-moves.csv",
+  "applied_at": "2026-10-29T18:34:36.000Z",
+  "database": "radiodj3",
+  "moves": 0,
+  "set_enabled": 1,
+  "set_tags": 0,
+  "tag_drift_allowed": false,
+  "inverse": "inverse/2026-10-29-retire-gold-backsell-two-decades-disable.json"
+}
