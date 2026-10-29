@@ -10,7 +10,7 @@
 //
 // usage: node tools/clock-order.mjs [blockCode]
 import { pathToFileURL } from "node:url";
-import { SHAPES, IMAGING, BLOCKS, CUR, REC, GOLD, FILLER_SLOTS } from "./m4-format.mjs";
+import { SHAPES, IMAGING, BLOCKS, CUR, REC, GOLD, FILLER_SLOTS, cellFor, FORMAT_CYCLE_WEEKS } from "./m4-format.mjs";
 
 // ---- fallback policy ------------------------------------------------------------
 // A position that cannot fill takes its fallback. The rule that matters: currents
@@ -29,11 +29,79 @@ export const FALLBACK = {
   "Gold Backsells": "Liners",
   "Heritage Backsells": "Gold Backsells",
   "Station Promos": "Liners",
+  // The 10K pools are shallow (4-10 scripts each), so each falls to the nearest
+  // generic copy that still fits the spot rather than to nothing.
+  Power: "Front-sell",
+  "Discovery Sweepers": "Front-sell",
+  "Recurrent Sweepers": "Front-sell",
+  "New Music Back": "Back-sell",
+  "Gold 90s": "Liners", "Gold 00s": "Liners", "Gold 10s": "Liners",
+  "Front-sell": "Liners",
+  "Back-sell": "Liners",
 };
 // A missed per-block ID should still open the hour with a station ID, not a liner.
 // Falling back to Liners meant 24 TOH slots per day aired generic imaging while 12
 // perfectly good station IDs sat unmapped in subcat 10.
 const tohFallback = (code) => "TOH IDs";
+
+/**
+ * What a Contextual break (IMAGING in m4-format.mjs) airs, from the records either side
+ * of it. Placement rules are the 10K handoff's (pool_map.json): Power only ahead of A1/A2,
+ * since it claims "most played"; New Music Back after N only (pool_map.json says N and C,
+ * but C is a current tier, not new music); era copy next to its own
+ * decade. Every pool that fits either side is a candidate, and the one the station airs
+ * least per script wins. Load is station-wide plays per day: a pick in a block costs the
+ * hours per day that block runs, so a slot in FF (4.3 h/day) weighs eight times one in
+ * GHa. A specific pool is dropped from the candidates once a pick would make any of its
+ * scripts air more often than every MIN_GAP_H hours; the scripts are fixed for now, so
+ * the depth of the pool sets how often its copy can run. Front-sell and Back-sell fit
+ * everywhere, at half weight, and are the fallback when every specific pool is spent.
+ * Transition Up/Down wait for energy data, and Stingers stay a manual pool.
+ * New Music Front has no rule here: its scripts (subcat 55) share the New-Music Sweepers
+ * category, whose count-based slot already sits ahead of N.
+ *
+ * SCRIPTS is the 10K render count per pool (two takes each). Update it with the library.
+ */
+const SCRIPTS = {
+  Power: 4, "Discovery Sweepers": 6, "Recurrent Sweepers": 4, "New Music Back": 4, "Gold 90s": 3, "Gold 00s": 3, "Gold 10s": 3, "Front-sell": 8, "Back-sell": 8,
+};
+const GENERIC = new Set(["Front-sell", "Back-sell"]);
+const ERA_SWEEPER = { G1990: "Gold 90s", G2000: "Gold 00s", G2010: "Gold 10s" };
+const MIN_GAP_H = 8;
+const budget = (c) => (SCRIPTS[c] * 24) / MIN_GAP_H;
+// Hours per day each block runs, averaged over the format cycle.
+const HOURS_PER_DAY = {};
+for (let w = 0; w < FORMAT_CYCLE_WEEKS; w++) for (let d = 0; d < 7; d++) for (let h = 0; h < 24; h++) {
+  const c = cellFor(d, h, w);
+  HOURS_PER_DAY[c] = (HOURS_PER_DAY[c] ?? 0) + 1 / (7 * FORMAT_CYCLE_WEEKS);
+}
+function contextual(prev, next, used, here, code) {
+  // New Music Back fits only right after an N, which a break almost never is, so it is
+  // listed first and wins a tie for the few breaks that are.
+  const fits = [];
+  if (prev === "N") fits.push("New Music Back");
+  if (next === "A1" || next === "A2") fits.push("Power");
+  if (next === "Discovery") fits.push("Discovery Sweepers");
+  if (REC.includes(next)) fits.push("Recurrent Sweepers");
+  if (ERA_SWEEPER[next]) fits.push(ERA_SWEEPER[next]);
+  if (ERA_SWEEPER[prev] && ERA_SWEEPER[prev] !== ERA_SWEEPER[next]) fits.push(ERA_SWEEPER[prev]);
+  // Which generic goes first on a tie alternates by block, so neither starves.
+  const generics = [prev && "Back-sell", next && "Front-sell"].filter(Boolean);
+  if (Object.keys(BLOCKS).indexOf(code) % 2) generics.reverse();
+  fits.push(...generics);
+  const cost = HOURS_PER_DAY[code] ?? 0;
+  const inBudget = fits.filter((c) => GENERIC.has(c) || (used[c] ?? 0) + cost <= budget(c));
+  // A pool airs at most once per clock while anything else fits.
+  const fresh = inBudget.filter((c) => !here.has(c));
+  const open = fresh.length ? fresh : inBudget;
+  // Generic copy counts double, so a specific fit wins until it has aired twice as often
+  // per script as the generic pools.
+  const load = (c) => ((used[c] ?? 0) / SCRIPTS[c]) * (GENERIC.has(c) ? 2 : 1);
+  const pick = open.reduce((best, c) => (load(c) < load(best) ? c : best));
+  used[pick] = (used[pick] ?? 0) + cost;
+  here.add(pick);
+  return pick;
+}
 
 const tierOf = (c) => (CUR.includes(c) ? "cur" : REC.includes(c) ? "rec" : GOLD.includes(c) ? "gold" : "disc");
 
@@ -220,16 +288,27 @@ function applyPairing(out, policy) {
  * choice exists: a New-Music sweeper ahead of a new track, a Gold Backsell behind a
  * gold one, a Relaunch sweeper ahead of a current.
  */
-function weave(music, imaging, code) {
+const TIED = {
+  "Heritage Backsells": (prev) => prev === "H1" || prev === "H2",
+  "Gold Backsells": (prev) => GOLD.includes(prev),
+  "New-Music Sweepers": (prev, next) => next === "N",
+  "Relaunch Sweepers": (prev, next) => next === "A1" || next === "A2",
+};
+function weave(music, imaging, code, used) {
   const noBreakBefore = PAIR_SECOND[code] ?? null;
   const tohCat = `TOH ${code.startsWith("DN") ? "DN" : code.startsWith("GH") ? "GH" : code}`;
   const pool = { ...imaging };
   delete pool[tohCat];
-  const take = (pref) => {
-    for (const c of pref) if ((pool[c] ?? 0) > 0) { pool[c]--; return c; }
-    const c = Object.keys(pool).find((k) => pool[k] > 0);
-    if (c) { pool[c]--; return c; }
-    return null;
+  const here = new Set();
+  // When the preferred pools are spent, take() falls back to any pool with count left. A
+  // context-tied pool picked that way airs out of context (a Gold Backsell after R3, a
+  // New-Music sweeper ahead of G2010), so it becomes a Contextual break instead.
+  const take = (pref, prev, next) => {
+    const c = pref.find((k) => (pool[k] ?? 0) > 0) ?? Object.keys(pool).find((k) => pool[k] > 0);
+    if (!c) return null;
+    pool[c]--;
+    if (c === "Contextual" || (TIED[c] && !TIED[c](prev, next))) return contextual(prev, next, used, here, code);
+    return c;
   };
   const left = () => Object.values(pool).reduce((a, b) => a + b, 0);
 
@@ -254,10 +333,11 @@ function weave(music, imaging, code) {
       // to Gold Backsells wherever heritage copy is unavailable or unallocated.
       if (prev === "H1" || prev === "H2") pref.push("Heritage Backsells");
       if (GOLD.includes(prev)) pref.push("Gold Backsells");
-      if (next === "N" || next === "A1") pref.push("New-Music Sweepers");
+      // N only: N is the new-music category. A1 is the top current tier, not new music.
+      if (next === "N") pref.push("New-Music Sweepers");
       if (next === "A1" || next === "A2") pref.push("Relaunch Sweepers");
-      pref.push("Liners", "Station Promos");
-      out.push({ cat: take(pref), kind: "imaging" });
+      pref.push("Contextual", "Liners", "Station Promos");
+      out.push({ cat: take(pref, prev, next), kind: "imaging" });
       run = 0;
     }
     out.push({ cat, kind: "music" });
@@ -266,11 +346,16 @@ function weave(music, imaging, code) {
     const nextIsPairSecond = noBreakBefore != null && i + 2 === noBreakBefore;
     if (left() > 0 && remainingMusic > 1 && !nextIsPairSecond &&
         left() >= Math.ceil(remainingMusic / maxRun)) {
-      out.push({ cat: take(["Station Promos", "Liners"]), kind: "imaging" });
+      // Promos lead the surplus, except where the break lands after an N, next to a G2000
+      // or ahead of A1/A2: the only spots New Music Back, Gold 00s and Power fit, and the
+      // cap-driven breaks rarely fall there, so the Contextual goes there.
+      const rare = cat === "N" || cat === "G2000" || ["G2000", "A1", "A2"].includes(music[i + 1]);
+      const pref = rare ? ["Contextual", "Station Promos", "Liners"] : ["Station Promos", "Contextual", "Liners"];
+      out.push({ cat: take(pref, cat, music[i + 1]), kind: "imaging" });
       run = 0;
     }
   }
-  while (left() > 0) out.push({ cat: take(["Liners", "Station Promos"]), kind: "imaging" });
+  while (left() > 0) out.push({ cat: take(["Contextual", "Liners", "Station Promos"], music[music.length - 1]), kind: "imaging" });
   return out;
 }
 
@@ -295,8 +380,21 @@ function vanDerCorput(k) {
   return x;
 }
 
+// Every block is woven once, against one station-wide ledger of contextual plays per day,
+// busiest block first: the hours that carry the most airtime get first claim on the
+// specific pools, and the result doesn't depend on which block is asked for first.
+let WOVEN = null;
+function woven(code) {
+  if (!WOVEN) {
+    const used = {};
+    const order = Object.keys(BLOCKS).sort((a, b) => (HOURS_PER_DAY[b] ?? 0) - (HOURS_PER_DAY[a] ?? 0));
+    WOVEN = Object.fromEntries(order.map((c) => [c, weave(orderMusic(SHAPES[c], c), IMAGING[c], c, used)]));
+  }
+  return WOVEN[code].map((x) => ({ ...x }));
+}
+
 export function clockSequence(code) {
-  const seq = weave(orderMusic(SHAPES[code], code), IMAGING[code], code);
+  const seq = woven(code);
   const n = FILLER_SLOTS[code] ?? 0;
   if (n === 0) return seq;
 
@@ -314,13 +412,28 @@ export function clockSequence(code) {
   used.add(musicIdx.length);
   placements.push({ afterSeqIndex: musicIdx[musicIdx.length - 1], priority: 1 });
 
+  // A filler never splits imaging from its record: a back-sell belongs right after its
+  // song and a front-sell right before one, so a filler only goes between two songs. A
+  // spread slot that lands next to a break moves to the nearest song-to-song gap.
+  const betweenSongs = (slot) => seq[musicIdx[slot - 1] + 1]?.kind === "music";
+  const nearestOpen = (slot) => {
+    for (let d = 0; d < musicIdx.length; d++) {
+      for (const s of [slot - d, slot + d]) {
+        if (s >= 1 && s < musicIdx.length && !used.has(s) && betweenSongs(s)) return s;
+      }
+    }
+    return null;
+  };
   for (let k = 1; placements.length < n && k < n * 8; k++) {
     let slot = Math.round(vanDerCorput(k) * musicIdx.length);
     slot = Math.max(1, Math.min(musicIdx.length, slot));
     if (used.has(slot)) continue;      // collisions happen at small N; skip to the next
+    slot = nearestOpen(slot);
+    if (slot == null) break;
     used.add(slot);
     placements.push({ afterSeqIndex: musicIdx[slot - 1], priority: placements.length + 1 });
   }
+  if (placements.length < n) throw new Error(`${code}: only ${placements.length} of ${n} fillers fit between songs`);
   placements.sort((a, b) => b.afterSeqIndex - a.afterSeqIndex);
   for (const p of placements) {
     seq.splice(p.afterSeqIndex + 1, 0, { cat: "F", kind: "music", fillerPriority: p.priority });
@@ -367,6 +480,10 @@ else {
     "New-Music Sweepers": "generic imaging", "Relaunch Sweepers": "generic imaging",
     "Gold Backsells": "generic imaging", "Station Promos": "generic imaging",
     "Heritage Backsells": "falls to Gold Backsells — still context-correct for a gold record",
+    Power: "generic front-sell", "Discovery Sweepers": "generic front-sell",
+    "Recurrent Sweepers": "generic front-sell",
+    "New Music Back": "generic back-sell", "Gold 90s": "generic imaging", "Gold 00s": "generic imaging",
+    "Gold 10s": "generic imaging", "Front-sell": "generic imaging", "Back-sell": "generic imaging",
     Liners: "no fallback — a wrong-context liner is worse than none",
   };
   for (const [k, v] of Object.entries(FALLBACK)) console.log(`| ${k} | ${v ?? "—"} | ${why[k]} |`);

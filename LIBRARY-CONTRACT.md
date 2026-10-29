@@ -25,12 +25,26 @@ for history only. Song IDs also changed, so no pre-rebuild changeset can be repl
 | H2 | 36 | 22 |
 | Discovery | 30 (X) | 32 |
 | F | 25 | 66 |
-| TOH IDs (fallback for every per-block TOH pool) | 42 | 12 |
-| Liners | 37 | 41 |
-| New-Music Sweepers | 38 | 44 |
+| TOH IDs (fallback for every per-block TOH pool) | 42 | 32 |
+| Liners | 37, 52 (Positioning) | 61 |
+| New-Music Sweepers | 38, 55 (New Music Front) | 52 |
 | Relaunch Sweepers | 40 | 12 |
 | Gold Backsells | 41 | 26 |
-| Station Promos | 43 | 20 |
+| Station Promos | 43 | 28 |
+| Front-sell | 53 | 16 |
+| Back-sell | 54 | 16 |
+| New Music Back | 56 | 8 |
+| Power | 59 | 8 |
+| Discovery Sweepers | 60 | 12 |
+| Recurrent Sweepers | 61 | 8 |
+| Gold 90s | 62 | 6 |
+| Gold 00s | 63 | 6 |
+| Gold 10s | 64 | 6 |
+
+The imaging rows from TOH IDs down use 2026-10-29 counts. The 10K renders (`bolt-imaging-handoff`) were sorted
+into subcats 51–67 by changeset `2026-10-28-imaging-sort-render-10k`. On 2026-10-29, Rotavox mapped 52–56 and
+59–64 (seed SQL `2026-10-29-imaging-pools.sql`), and the clocks started calling them through Contextual breaks
+(`tools/clock-order.mjs`; applied in place by `2026-10-29-imaging-clock-placement.sql`).
 
 Mapped to an empty list (no RadioDJ subcategory yet, so the engine falls back): the nine per-block
 TOH pools (to TOH IDs), GDEEP, Heritage Backsells (to Gold Backsells).
@@ -70,30 +84,17 @@ lifecycle state:
 | 34 | K | Killed: records the PD has removed from the format for good |
 | 35 | W | Bench |
 
-### Imaging pools added 2026-10-27
+### Imaging pools added 2026-10-27, still unmapped
 
-Created for the 10K imaging renders (`bolt-imaging-handoff`) and filled by changeset
-`2026-10-28-imaging-sort-render-10k`, which also added 20 renders to TOH IDs (42, now 32 enabled)
-and 8 to Station Promos (43, now 28). None of these is mapped to a scheduler category or called by
-a clock yet. Until one is, they air only through RadioDJ's own rotations, or as track sweepers
-(65). Enabled counts are as of 2026-10-28.
+Created for the 10K imaging renders along with 52–56 and 59–64, which are now mapped (above). These have no
+clock rule yet. Until one is added, they air only through RadioDJ's own rotations, or as track sweepers (65).
+Enabled counts are as of 2026-10-28.
 
 | Subcat | Parent | Name | Enabled | Why |
 |---|---|---|---|---|
-| 51 | Station IDs | Stingers | 24 | Clock placement pending |
-| 52 | Sweepers | Positioning | 20 | Clock placement pending |
-| 53 | Sweepers | Front-sell | 16 | Clock placement pending |
-| 54 | Sweepers | Back-sell | 16 | Clock placement pending |
-| 55 | Sweepers | New Music Front | 8 | Clock placement pending |
-| 56 | Sweepers | New Music Back | 8 | Clock placement pending |
-| 57 | Sweepers | Transition Up | 10 | Clock placement pending |
-| 58 | Sweepers | Transition Down | 10 | Clock placement pending |
-| 59 | Sweepers | Power | 8 | Clock placement pending |
-| 60 | Sweepers | Discovery Sweepers | 12 | Clock placement pending |
-| 61 | Sweepers | Recurrent Sweepers | 8 | Clock placement pending |
-| 62 | Sweepers | Gold 90s | 6 | Clock placement pending |
-| 63 | Sweepers | Gold 00s | 6 | Clock placement pending |
-| 64 | Sweepers | Gold 10s | 6 | Clock placement pending |
+| 51 | Station IDs | Stingers | 24 | Kept as a manual pool; no clock rule |
+| 57 | Sweepers | Transition Up | 10 | Needs per-song energy data to place |
+| 58 | Sweepers | Transition Down | 10 | Needs per-song energy data to place |
 | 65 | Sweepers | Seasonal Halloween | 8 | Track sweepers on 8 songs until 2026-11-01; then disabled and kept for next October |
 | 66 | Sweepers | Retired Imaging | 0 | Demoted imaging goes here instead of being deleted |
 | 67 | Sweepers | Imaging Inbox | 0 | Landing spot for new imaging imports before they are sorted |

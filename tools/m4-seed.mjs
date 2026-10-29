@@ -48,8 +48,16 @@ const SUBCAT = {
   "TOH IDs": [42],
   "TOH ES": [], "TOH FF": [], "TOH HD": [], "TOH CO": [], "TOH WW": [],
   "TOH WD": [], "TOH GH": [], "TOH EM": [], "TOH DN": [],
-  Liners: [37], "New-Music Sweepers": [38], "Gold Backsells": [41],
+  // Positioning (52) is the 10K renders' brand-promise pool: generic, so it joins Liners.
+  // New Music Front (55) joins New-Music Sweepers, whose slot already sits ahead of N.
+  Liners: [37, 52], "New-Music Sweepers": [38, 55], "Gold Backsells": [41],
   "Relaunch Sweepers": [40], "Station Promos": [43], "Heritage Backsells": [],
+  // The 10K imaging pools (2026-10-27), placed by Contextual breaks (clock-order.mjs).
+  // Not mapped: Stingers 51 and Transition Up/Down 57/58 (no clock rule yet), Seasonal
+  // Halloween 65 (track sweepers), Retired Imaging 66 and Imaging Inbox 67.
+  "Front-sell": [53], "Back-sell": [54], "New Music Back": [56],
+  Power: [59], "Discovery Sweepers": [60], "Recurrent Sweepers": [61],
+  "Gold 90s": [62], "Gold 00s": [63], "Gold 10s": [64],
 };
 
 /**
@@ -186,7 +194,7 @@ w(``);
 // the M2-era failure where subcategory 34 sat unmapped and nobody noticed.
 const musicCats = new Set([...CUR, ...REC, ...GOLD, "Discovery", "F", "GDEEP"]);
 const imagingCats = [...new Set([
-  ...Object.values(IMAGING).flatMap((o) => Object.keys(o)),
+  ...Object.values(IMAGING).flatMap((o) => Object.keys(o)).filter((k) => k !== "Contextual"),
   ...Object.keys(SUBCAT).filter((k) => !musicCats.has(k)),
 ])].sort();
 w(`-- Imaging categories. Per-block TOH IDs (subcats 40-48) so the hour opens with what`);

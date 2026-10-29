@@ -101,13 +101,21 @@ export const FILLER_SLOTS = {
   DNa: 6, DNb: 6, GHa: 6, GHb: 6,
 };
 
+/**
+ * Contextual is not a category. It is a break whose pool clock-order.mjs picks from the
+ * records either side of it, out of the 10K imaging pools (2026-10): Power ahead of A1/A2,
+ * Discovery Sweepers ahead of Discovery, an era sweeper next to its gold, and so on (see
+ * CONTEXTUAL there). It took over every Liners slot but one, so each block keeps its
+ * break count and hour length; only what fills the breaks changes. Deep Night keeps its
+ * one generic liner.
+ */
 export const IMAGING = {
-  ES:  { Liners:4, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
-  FF:  { Liners:4, "New-Music Sweepers":1, "Gold Backsells":1, "Station Promos":1 },
-  HD:  { Liners:4, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
-  CO:  { Liners:3, "Gold Backsells":1, "Station Promos":1 },
-  WW:  { Liners:3, "Gold Backsells":1, "Heritage Backsells":1, "Station Promos":1 },
-  WD:  { Liners:3, "Gold Backsells":1, "Station Promos":1 },
+  ES:  { Liners:1, Contextual:3, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
+  FF:  { Liners:1, Contextual:3, "New-Music Sweepers":1, "Gold Backsells":1, "Station Promos":1 },
+  HD:  { Liners:1, Contextual:3, "New-Music Sweepers":1, "Relaunch Sweepers":1, "Station Promos":1 },
+  CO:  { Liners:1, Contextual:2, "Gold Backsells":1, "Station Promos":1 },
+  WW:  { Liners:1, Contextual:2, "Gold Backsells":1, "Heritage Backsells":1, "Station Promos":1 },
+  WD:  { Liners:1, Contextual:2, "Gold Backsells":1, "Station Promos":1 },
   // Three usable items, not two. Deep Night breaks every 4 like everywhere else -- one
   // break per quarter-hour is the rhythm -- and at 15 music slots that needs three
   // internal breaks (4/8/12). With only two the cap cannot be honoured at all and the
@@ -119,9 +127,9 @@ export const IMAGING = {
   // written for 2010s gold undersells the thing that makes the station different
   // (value proposition 2). The extra slot also gives GH the imaging inventory it needs
   // to hold its sweep length -- see MAX_RUN in clock-order.mjs.
-  GHa: { Liners:1, "Gold Backsells":1, "Heritage Backsells":2 },
-  GHb: { Liners:1, "Gold Backsells":1, "Heritage Backsells":2 },
-  EM:  { Liners:3, "New-Music Sweepers":1, "Station Promos":1 },
+  GHa: { Contextual:1, "Gold Backsells":1, "Heritage Backsells":2 },
+  GHb: { Contextual:1, "Gold Backsells":1, "Heritage Backsells":2 },
+  EM:  { Liners:1, Contextual:2, "New-Music Sweepers":1, "Station Promos":1 },
 };
 for (const code of Object.keys(IMAGING)) IMAGING[code][`TOH ${identityOf(code)}`] = 1;
 
