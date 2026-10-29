@@ -83,6 +83,7 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
   let fillerActivated = 0;
   let sacrificed = 0;
   let anchorFallbacks = 0;
+  let mergedBreaks = 0;
 
   /**
    * SIGNED top-of-hour drift carried into the next hour, ms.
@@ -429,9 +430,25 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
     // Nothing is drawn here. Every song was chosen in pass A; this walks the surviving
     // positions in clock order, stamps the times they will really air at, and records
     // separation against THOSE times.
-    const final = allPositions.filter((p) =>
+    const surviving = allPositions.filter((p) =>
       isCandidate(p) ? activated.has(p.id) : drawn.has(p.id) && !removedIds.has(p.id)
     );
+    // Two breaks never air back to back unless the clock puts them together. When the fit
+    // gives up every record between two breaks (FF, 2026-10-29: G2010 and R3 between a
+    // Front-sell and a Back-sell), the later break is dropped. The first stays, so the top
+    // of the hour's ID is never the one lost. A few seconds of imaging, inside the margin.
+    const final: EnginePosition[] = [];
+    for (const p of surviving) {
+      const prev = final[final.length - 1];
+      const separatedInClock =
+        prev != null &&
+        allPositions.some((q) => q.positionType === "category" && q.sortOrder > prev.sortOrder && q.sortOrder < p.sortOrder);
+      if (p.positionType === "sweeper" && prev?.positionType === "sweeper" && separatedInClock) {
+        mergedBreaks++;
+        continue;
+      }
+      final.push(p);
+    }
 
     let running = startAt;
     for (let fi = 0; fi < final.length; fi++) {
@@ -518,6 +535,6 @@ export function generateLog(input: GenerateLogInput): GenerateLogResult {
   return {
     items,
     warnings,
-    stats: { totalItems: items.length, violationCounts, unfillable, trimmed, fillerActivated, sacrificed, anchorFallbacks },
+    stats: { totalItems: items.length, violationCounts, unfillable, trimmed, fillerActivated, sacrificed, anchorFallbacks, mergedBreaks },
   };
 }

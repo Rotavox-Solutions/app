@@ -277,6 +277,8 @@ export interface GenerateLogResult {
     sacrificed: number;
     /** Anchored imaging redrawn from its fallback pool because its anchor was sacrificed. */
     anchorFallbacks: number;
+    /** Breaks dropped because the fit gave up every record between them and the break before. */
+    mergedBreaks: number;
     /**
      * Share of the schedulable library with a known segue point (0..1), set by the
      * caller. At 1 the predicted hour length is exact rather than approximate: the
