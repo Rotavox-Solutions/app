@@ -229,7 +229,7 @@ describe("runner operations", () => {
     await op(station.id, "upsertSongs", { songs: [{ ...song, title: "T2" }] });
     expect((await op(station.id, "libraryWatermark")).watermark.getTime()).toBe(watermark.getTime());
     expect(await op(station.id, "libraryMirror")).toEqual([
-      { id: 7, subcat: 5, enabled: true, artist: "A", title: "T2" },
+      { id: 7, subcat: 5, enabled: true, artist: "A", title: "T2", songType: 0 },
     ]);
 
     const rows = [{ rdjHistoryId: 900, rdjSongId: 7, artist: "A", airedAt: new Date() }];

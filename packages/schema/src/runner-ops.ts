@@ -241,7 +241,7 @@ export const runnerOps = {
     return { watermark: row?.watermark ? new Date(row.watermark) : null };
   },
 
-  /** What the mirror holds for the drift check: pool, enabled and tags for every song. */
+  /** What the mirror holds for the drift check: pool, enabled, tags and type for every song. */
   async libraryMirror(db: Db, stationId: string) {
     return db
       .select({
@@ -250,6 +250,7 @@ export const runnerOps = {
         enabled: songs.enabled,
         artist: songs.artist,
         title: songs.title,
+        songType: songs.songType,
       })
       .from(songs)
       .where(eq(songs.stationId, stationId));

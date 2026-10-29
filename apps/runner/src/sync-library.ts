@@ -172,10 +172,13 @@ export async function syncLibrary(log: Log = console.log): Promise<SyncResult> {
    * way, without touching date_modified. They feed artist/title separation, so a mirror
    * holding the old strings keeps scheduling "The Goo Goo Dolls" and "Goo Goo Dolls" as
    * two acts.
+   *
+   * song_type too: retyping imaging by hand (2026-10-28, 28 renders from sweeper to
+   * jingle and promo) leaves date_modified alone as well.
    */
   const [live] = await pool.query<any[]>(
     `SELECT \`${songIdCol}\` AS id, \`${subcategoryIdCol}\` AS subcat, \`${enabledCol}\` AS enabled,
-            \`${artistCol}\` AS artist, \`${titleCol}\` AS title
+            \`${artistCol}\` AS artist, \`${titleCol}\` AS title, \`${songTypeCol}\` AS songType
      FROM \`${songsTable}\``
   );
   const mirror = await api("libraryMirror");
@@ -184,13 +187,14 @@ export async function syncLibrary(log: Log = console.log): Promise<SyncResult> {
   const drifted: number[] = [];
   for (const row of live) {
     const m = mirrorById.get(row.id);
-    // Absent from the mirror, or disagreeing on pool/enabled/tags -- either way, re-pull it.
+    // Absent from the mirror, or disagreeing on pool/enabled/tags/type -- either way, re-pull it.
     if (
       !m ||
       m.subcat !== row.subcat ||
       m.enabled !== Boolean(row.enabled) ||
       m.artist !== row.artist ||
-      m.title !== row.title
+      m.title !== row.title ||
+      m.songType !== row.songType
     ) {
       drifted.push(row.id);
     }
