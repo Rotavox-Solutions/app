@@ -1,0 +1,1566 @@
+{
+  "changeset_version": 1,
+  "id": "2026-10-28-imaging-sort-render-10k-inverse",
+  "station_id": "6a42a599-acfc-404f-a524-9fb9b65d36f3",
+  "authored_at": "2026-10-28",
+  "intent": "Inverse of \"2026-10-28-imaging-sort-render-10k\". Restores the state that changeset replaced.",
+  "basis": {
+    "sheet_id": "bolt-imaging-handoff/render_list_10k.csv",
+    "sheet_captured_at": "2026-10-27"
+  },
+  "moves": [
+    {
+      "rdj_song_id": 1927,
+      "artist": "",
+      "title": "BS-01-A",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-01 take A → Back-sell by filename ID (pool_map.json); script: Yeah. That's why it's here. The Bolt."
+    },
+    {
+      "rdj_song_id": 1928,
+      "artist": "",
+      "title": "BS-01-B",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-01 take B → Back-sell by filename ID (pool_map.json); script: Yeah. That's why it's here. The Bolt."
+    },
+    {
+      "rdj_song_id": 1929,
+      "artist": "",
+      "title": "BS-02-A",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-02 take A → Back-sell by filename ID (pool_map.json); script: Tell us what you thought. Rank it at the bolt dot stream."
+    },
+    {
+      "rdj_song_id": 1930,
+      "artist": "",
+      "title": "BS-02-B",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-02 take B → Back-sell by filename ID (pool_map.json); script: Tell us what you thought. Rank it at the bolt dot stream."
+    },
+    {
+      "rdj_song_id": 1931,
+      "artist": "",
+      "title": "BS-03-A",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-03 take A → Back-sell by filename ID (pool_map.json); script: Still ringing? Good. The Bolt."
+    },
+    {
+      "rdj_song_id": 1932,
+      "artist": "",
+      "title": "BS-03-B",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-03 take B → Back-sell by filename ID (pool_map.json); script: Still ringing? Good. The Bolt."
+    },
+    {
+      "rdj_song_id": 1933,
+      "artist": "",
+      "title": "BS-04-A",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-04 take A → Back-sell by filename ID (pool_map.json); script: Rank that one. The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 1934,
+      "artist": "",
+      "title": "BS-04-B",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-04 take B → Back-sell by filename ID (pool_map.json); script: Rank that one. The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 1935,
+      "artist": "",
+      "title": "BS-05-A",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-05 take A → Back-sell by filename ID (pool_map.json); script: Played loud, on purpose. The Bolt."
+    },
+    {
+      "rdj_song_id": 1936,
+      "artist": "",
+      "title": "BS-05-B",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-05 take B → Back-sell by filename ID (pool_map.json); script: Played loud, on purpose. The Bolt."
+    },
+    {
+      "rdj_song_id": 1937,
+      "artist": "",
+      "title": "BS-06-A",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-06 take A → Back-sell by filename ID (pool_map.json); script: That one's yours now. The Bolt."
+    },
+    {
+      "rdj_song_id": 1938,
+      "artist": "",
+      "title": "BS-06-B",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-06 take B → Back-sell by filename ID (pool_map.json); script: That one's yours now. The Bolt."
+    },
+    {
+      "rdj_song_id": 1939,
+      "artist": "",
+      "title": "BS-07-A",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-07 take A → Back-sell by filename ID (pool_map.json); script: Missed what that was? It's on the site. The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 1940,
+      "artist": "",
+      "title": "BS-07-B",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-07 take B → Back-sell by filename ID (pool_map.json); script: Missed what that was? It's on the site. The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 1941,
+      "artist": "",
+      "title": "BS-08-A",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-08 take A → Back-sell by filename ID (pool_map.json); script: The Bolt. And we're not done."
+    },
+    {
+      "rdj_song_id": 1942,
+      "artist": "",
+      "title": "BS-08-B",
+      "from_subcat": 54,
+      "to_subcat": 67,
+      "reason": "Rollback of: BS-08 take B → Back-sell by filename ID (pool_map.json); script: The Bolt. And we're not done."
+    },
+    {
+      "rdj_song_id": 1943,
+      "artist": "",
+      "title": "DISC-01-A",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-01 take A → Discovery Sweepers by filename ID (pool_map.json); script: Never heard of them? That's the point. The Bolt."
+    },
+    {
+      "rdj_song_id": 1944,
+      "artist": "",
+      "title": "DISC-01-B",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-01 take B → Discovery Sweepers by filename ID (pool_map.json); script: Never heard of them? That's the point. The Bolt."
+    },
+    {
+      "rdj_song_id": 1945,
+      "artist": "",
+      "title": "DISC-02-A",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-02 take A → Discovery Sweepers by filename ID (pool_map.json); script: Here's a band you should know. The Bolt."
+    },
+    {
+      "rdj_song_id": 1946,
+      "artist": "",
+      "title": "DISC-02-B",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-02 take B → Discovery Sweepers by filename ID (pool_map.json); script: Here's a band you should know. The Bolt."
+    },
+    {
+      "rdj_song_id": 1947,
+      "artist": "",
+      "title": "DISC-03-A",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-03 take A → Discovery Sweepers by filename ID (pool_map.json); script: Discovery, on The Bolt. Somebody's new favorite starts here."
+    },
+    {
+      "rdj_song_id": 1948,
+      "artist": "",
+      "title": "DISC-03-B",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-03 take B → Discovery Sweepers by filename ID (pool_map.json); script: Discovery, on The Bolt. Somebody's new favorite starts here."
+    },
+    {
+      "rdj_song_id": 1949,
+      "artist": "",
+      "title": "DISC-04-A",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-04 take A → Discovery Sweepers by filename ID (pool_map.json); script: Before everyone else finds them... The Bolt."
+    },
+    {
+      "rdj_song_id": 1950,
+      "artist": "",
+      "title": "DISC-04-B",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-04 take B → Discovery Sweepers by filename ID (pool_map.json); script: Before everyone else finds them... The Bolt."
+    },
+    {
+      "rdj_song_id": 1951,
+      "artist": "",
+      "title": "DISC-05-A",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-05 take A → Discovery Sweepers by filename ID (pool_map.json); script: Someday you'll say you heard them here first. The Bolt."
+    },
+    {
+      "rdj_song_id": 1952,
+      "artist": "",
+      "title": "DISC-05-B",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-05 take B → Discovery Sweepers by filename ID (pool_map.json); script: Someday you'll say you heard them here first. The Bolt."
+    },
+    {
+      "rdj_song_id": 1953,
+      "artist": "",
+      "title": "DISC-06-A",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-06 take A → Discovery Sweepers by filename ID (pool_map.json); script: Rank this one. Help us decide if they stay. The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 1954,
+      "artist": "",
+      "title": "DISC-06-B",
+      "from_subcat": 60,
+      "to_subcat": 67,
+      "reason": "Rollback of: DISC-06 take B → Discovery Sweepers by filename ID (pool_map.json); script: Rank this one. Help us decide if they stay. The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 1955,
+      "artist": "",
+      "title": "DN-01-A",
+      "from_subcat": 58,
+      "to_subcat": 67,
+      "reason": "Rollback of: DN-01 take A → Transition Down by filename ID (pool_map.json); script: Breathe. The Bolt."
+    },
+    {
+      "rdj_song_id": 1956,
+      "artist": "",
+      "title": "DN-01-B",
+      "from_subcat": 58,
+      "to_subcat": 67,
+      "reason": "Rollback of: DN-01 take B → Transition Down by filename ID (pool_map.json); script: Breathe. The Bolt."
+    },
+    {
+      "rdj_song_id": 1957,
+      "artist": "",
+      "title": "DN-02-A",
+      "from_subcat": 58,
+      "to_subcat": 67,
+      "reason": "Rollback of: DN-02 take A → Transition Down by filename ID (pool_map.json); script: Taking it down a notch... not out."
+    },
+    {
+      "rdj_song_id": 1958,
+      "artist": "",
+      "title": "DN-02-B",
+      "from_subcat": 58,
+      "to_subcat": 67,
+      "reason": "Rollback of: DN-02 take B → Transition Down by filename ID (pool_map.json); script: Taking it down a notch... not out."
+    },
+    {
+      "rdj_song_id": 1959,
+      "artist": "",
+      "title": "DN-03-A",
+      "from_subcat": 58,
+      "to_subcat": 67,
+      "reason": "Rollback of: DN-03 take A → Transition Down by filename ID (pool_map.json); script: After that? You've earned this one."
+    },
+    {
+      "rdj_song_id": 1960,
+      "artist": "",
+      "title": "DN-03-B",
+      "from_subcat": 58,
+      "to_subcat": 67,
+      "reason": "Rollback of: DN-03 take B → Transition Down by filename ID (pool_map.json); script: After that? You've earned this one."
+    },
+    {
+      "rdj_song_id": 1961,
+      "artist": "",
+      "title": "DN-04-A",
+      "from_subcat": 58,
+      "to_subcat": 67,
+      "reason": "Rollback of: DN-04 take A → Transition Down by filename ID (pool_map.json); script: Still rock. Just quieter about it."
+    },
+    {
+      "rdj_song_id": 1962,
+      "artist": "",
+      "title": "DN-04-B",
+      "from_subcat": 58,
+      "to_subcat": 67,
+      "reason": "Rollback of: DN-04 take B → Transition Down by filename ID (pool_map.json); script: Still rock. Just quieter about it."
+    },
+    {
+      "rdj_song_id": 1963,
+      "artist": "",
+      "title": "DN-05-A",
+      "from_subcat": 58,
+      "to_subcat": 67,
+      "reason": "Rollback of: DN-05 take A → Transition Down by filename ID (pool_map.json); script: That one hit hard. This one sneaks up on you."
+    },
+    {
+      "rdj_song_id": 1964,
+      "artist": "",
+      "title": "DN-05-B",
+      "from_subcat": 58,
+      "to_subcat": 67,
+      "reason": "Rollback of: DN-05 take B → Transition Down by filename ID (pool_map.json); script: That one hit hard. This one sneaks up on you."
+    },
+    {
+      "rdj_song_id": 1965,
+      "artist": "",
+      "title": "FS-01-A",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-01 take A → Front-sell by filename ID (pool_map.json); script: Next up on The Bolt..."
+    },
+    {
+      "rdj_song_id": 1966,
+      "artist": "",
+      "title": "FS-01-B",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-01 take B → Front-sell by filename ID (pool_map.json); script: Next up on The Bolt..."
+    },
+    {
+      "rdj_song_id": 1967,
+      "artist": "",
+      "title": "FS-02-A",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-02 take A → Front-sell by filename ID (pool_map.json); script: Here's one worth turning up."
+    },
+    {
+      "rdj_song_id": 1968,
+      "artist": "",
+      "title": "FS-02-B",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-02 take B → Front-sell by filename ID (pool_map.json); script: Here's one worth turning up."
+    },
+    {
+      "rdj_song_id": 1969,
+      "artist": "",
+      "title": "FS-03-A",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-03 take A → Front-sell by filename ID (pool_map.json); script: Keep this one loud."
+    },
+    {
+      "rdj_song_id": 1970,
+      "artist": "",
+      "title": "FS-03-B",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-03 take B → Front-sell by filename ID (pool_map.json); script: Keep this one loud."
+    },
+    {
+      "rdj_song_id": 1971,
+      "artist": "",
+      "title": "FS-04-A",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-04 take A → Front-sell by filename ID (pool_map.json); script: Here comes the good part."
+    },
+    {
+      "rdj_song_id": 1972,
+      "artist": "",
+      "title": "FS-04-B",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-04 take B → Front-sell by filename ID (pool_map.json); script: Here comes the good part."
+    },
+    {
+      "rdj_song_id": 1973,
+      "artist": "",
+      "title": "FS-05-A",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-05 take A → Front-sell by filename ID (pool_map.json); script: Here's why you stayed."
+    },
+    {
+      "rdj_song_id": 1974,
+      "artist": "",
+      "title": "FS-05-B",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-05 take B → Front-sell by filename ID (pool_map.json); script: Here's why you stayed."
+    },
+    {
+      "rdj_song_id": 1975,
+      "artist": "",
+      "title": "FS-06-A",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-06 take A → Front-sell by filename ID (pool_map.json); script: [low] Listen to this."
+    },
+    {
+      "rdj_song_id": 1976,
+      "artist": "",
+      "title": "FS-06-B",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-06 take B → Front-sell by filename ID (pool_map.json); script: [low] Listen to this."
+    },
+    {
+      "rdj_song_id": 1977,
+      "artist": "",
+      "title": "FS-07-A",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-07 take A → Front-sell by filename ID (pool_map.json); script: Ready? Doesn't matter. Here it comes."
+    },
+    {
+      "rdj_song_id": 1978,
+      "artist": "",
+      "title": "FS-07-B",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-07 take B → Front-sell by filename ID (pool_map.json); script: Ready? Doesn't matter. Here it comes."
+    },
+    {
+      "rdj_song_id": 1979,
+      "artist": "",
+      "title": "FS-08-A",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-08 take A → Front-sell by filename ID (pool_map.json); script: Hold on to something."
+    },
+    {
+      "rdj_song_id": 1980,
+      "artist": "",
+      "title": "FS-08-B",
+      "from_subcat": 53,
+      "to_subcat": 67,
+      "reason": "Rollback of: FS-08 take B → Front-sell by filename ID (pool_map.json); script: Hold on to something."
+    },
+    {
+      "rdj_song_id": 1981,
+      "artist": "",
+      "title": "G00-01-A",
+      "from_subcat": 63,
+      "to_subcat": 67,
+      "reason": "Rollback of: G00-01 take A → Gold 00s by filename ID (pool_map.json); script: Back when every band had a scream and a chorus. The Bolt."
+    },
+    {
+      "rdj_song_id": 1982,
+      "artist": "",
+      "title": "G00-01-B",
+      "from_subcat": 63,
+      "to_subcat": 67,
+      "reason": "Rollback of: G00-01 take B → Gold 00s by filename ID (pool_map.json); script: Back when every band had a scream and a chorus. The Bolt."
+    },
+    {
+      "rdj_song_id": 1983,
+      "artist": "",
+      "title": "G00-02-A",
+      "from_subcat": 63,
+      "to_subcat": 67,
+      "reason": "Rollback of: G00-02 take A → Gold 00s by filename ID (pool_map.json); script: You knew every word to this. Still do."
+    },
+    {
+      "rdj_song_id": 1984,
+      "artist": "",
+      "title": "G00-02-B",
+      "from_subcat": 63,
+      "to_subcat": 67,
+      "reason": "Rollback of: G00-02 take B → Gold 00s by filename ID (pool_map.json); script: You knew every word to this. Still do."
+    },
+    {
+      "rdj_song_id": 1985,
+      "artist": "",
+      "title": "G00-03-A",
+      "from_subcat": 63,
+      "to_subcat": 67,
+      "reason": "Rollback of: G00-03 take A → Gold 00s by filename ID (pool_map.json); script: Remember your first M.P.3 player? This was on it."
+    },
+    {
+      "rdj_song_id": 1986,
+      "artist": "",
+      "title": "G00-03-B",
+      "from_subcat": 63,
+      "to_subcat": 67,
+      "reason": "Rollback of: G00-03 take B → Gold 00s by filename ID (pool_map.json); script: Remember your first M.P.3 player? This was on it."
+    },
+    {
+      "rdj_song_id": 1987,
+      "artist": "",
+      "title": "G10-01-A",
+      "from_subcat": 64,
+      "to_subcat": 67,
+      "reason": "Rollback of: G10-01 take A → Gold 10s by filename ID (pool_map.json); script: From the last decade. Already a classic."
+    },
+    {
+      "rdj_song_id": 1988,
+      "artist": "",
+      "title": "G10-01-B",
+      "from_subcat": 64,
+      "to_subcat": 67,
+      "reason": "Rollback of: G10-01 take B → Gold 10s by filename ID (pool_map.json); script: From the last decade. Already a classic."
+    },
+    {
+      "rdj_song_id": 1989,
+      "artist": "",
+      "title": "G10-02-A",
+      "from_subcat": 64,
+      "to_subcat": 67,
+      "reason": "Rollback of: G10-02 take A → Gold 10s by filename ID (pool_map.json); script: The decade rock got big again. The Bolt."
+    },
+    {
+      "rdj_song_id": 1990,
+      "artist": "",
+      "title": "G10-02-B",
+      "from_subcat": 64,
+      "to_subcat": 67,
+      "reason": "Rollback of: G10-02 take B → Gold 10s by filename ID (pool_map.json); script: The decade rock got big again. The Bolt."
+    },
+    {
+      "rdj_song_id": 1991,
+      "artist": "",
+      "title": "G10-03-A",
+      "from_subcat": 64,
+      "to_subcat": 67,
+      "reason": "Rollback of: G10-03 take A → Gold 10s by filename ID (pool_map.json); script: You probably saw this one live. The Bolt."
+    },
+    {
+      "rdj_song_id": 1992,
+      "artist": "",
+      "title": "G10-03-B",
+      "from_subcat": 64,
+      "to_subcat": 67,
+      "reason": "Rollback of: G10-03 take B → Gold 10s by filename ID (pool_map.json); script: You probably saw this one live. The Bolt."
+    },
+    {
+      "rdj_song_id": 1993,
+      "artist": "",
+      "title": "G90-01-A",
+      "from_subcat": 62,
+      "to_subcat": 67,
+      "reason": "Rollback of: G90-01 take A → Gold 90s by filename ID (pool_map.json); script: Flannel optional. The nineties, on The Bolt."
+    },
+    {
+      "rdj_song_id": 1994,
+      "artist": "",
+      "title": "G90-01-B",
+      "from_subcat": 62,
+      "to_subcat": 67,
+      "reason": "Rollback of: G90-01 take B → Gold 90s by filename ID (pool_map.json); script: Flannel optional. The nineties, on The Bolt."
+    },
+    {
+      "rdj_song_id": 1995,
+      "artist": "",
+      "title": "G90-02-A",
+      "from_subcat": 62,
+      "to_subcat": 67,
+      "reason": "Rollback of: G90-02 take A → Gold 90s by filename ID (pool_map.json); script: From the decade that made alternative mean something. The Bolt."
+    },
+    {
+      "rdj_song_id": 1996,
+      "artist": "",
+      "title": "G90-02-B",
+      "from_subcat": 62,
+      "to_subcat": 67,
+      "reason": "Rollback of: G90-02 take B → Gold 90s by filename ID (pool_map.json); script: From the decade that made alternative mean something. The Bolt."
+    },
+    {
+      "rdj_song_id": 1997,
+      "artist": "",
+      "title": "G90-03-A",
+      "from_subcat": 62,
+      "to_subcat": 67,
+      "reason": "Rollback of: G90-03 take A → Gold 90s by filename ID (pool_map.json); script: The nineties. Loud, weird, and right. The Bolt."
+    },
+    {
+      "rdj_song_id": 1998,
+      "artist": "",
+      "title": "G90-03-B",
+      "from_subcat": 62,
+      "to_subcat": 67,
+      "reason": "Rollback of: G90-03 take B → Gold 90s by filename ID (pool_map.json); script: The nineties. Loud, weird, and right. The Bolt."
+    },
+    {
+      "rdj_song_id": 1999,
+      "artist": "",
+      "title": "HWN-01-A",
+      "from_subcat": 65,
+      "to_subcat": 67,
+      "reason": "Rollback of: HWN-01 take A → Seasonal Halloween by filename ID (pool_map.json); script: [low] Something wicked's on The Bolt this week. Happy Halloween."
+    },
+    {
+      "rdj_song_id": 2000,
+      "artist": "",
+      "title": "HWN-01-B",
+      "from_subcat": 65,
+      "to_subcat": 67,
+      "reason": "Rollback of: HWN-01 take B → Seasonal Halloween by filename ID (pool_map.json); script: [low] Something wicked's on The Bolt this week. Happy Halloween."
+    },
+    {
+      "rdj_song_id": 2001,
+      "artist": "",
+      "title": "HWN-02-A",
+      "from_subcat": 65,
+      "to_subcat": 67,
+      "reason": "Rollback of: HWN-02 take A → Seasonal Halloween by filename ID (pool_map.json); script: Costume optional. Volume mandatory. Halloween on The Bolt."
+    },
+    {
+      "rdj_song_id": 2002,
+      "artist": "",
+      "title": "HWN-02-B",
+      "from_subcat": 65,
+      "to_subcat": 67,
+      "reason": "Rollback of: HWN-02 take B → Seasonal Halloween by filename ID (pool_map.json); script: Costume optional. Volume mandatory. Halloween on The Bolt."
+    },
+    {
+      "rdj_song_id": 2003,
+      "artist": "",
+      "title": "HWN-03-A",
+      "from_subcat": 65,
+      "to_subcat": 67,
+      "reason": "Rollback of: HWN-03 take A → Seasonal Halloween by filename ID (pool_map.json); script: [whispers] Don't look behind you. Just turn it up. The Bolt."
+    },
+    {
+      "rdj_song_id": 2004,
+      "artist": "",
+      "title": "HWN-03-B",
+      "from_subcat": 65,
+      "to_subcat": 67,
+      "reason": "Rollback of: HWN-03 take B → Seasonal Halloween by filename ID (pool_map.json); script: [whispers] Don't look behind you. Just turn it up. The Bolt."
+    },
+    {
+      "rdj_song_id": 2005,
+      "artist": "",
+      "title": "HWN-04-A",
+      "from_subcat": 65,
+      "to_subcat": 67,
+      "reason": "Rollback of: HWN-04 take A → Seasonal Halloween by filename ID (pool_map.json); script: Boo. Okay. Now the guitars. The Bolt."
+    },
+    {
+      "rdj_song_id": 2006,
+      "artist": "",
+      "title": "HWN-04-B",
+      "from_subcat": 65,
+      "to_subcat": 67,
+      "reason": "Rollback of: HWN-04 take B → Seasonal Halloween by filename ID (pool_map.json); script: Boo. Okay. Now the guitars. The Bolt."
+    },
+    {
+      "rdj_song_id": 2007,
+      "artist": "",
+      "title": "NMB-01-A",
+      "from_subcat": 56,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMB-01 take A → New Music Back by filename ID (pool_map.json); script: New music, ranked by you. Tell us at the bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2008,
+      "artist": "",
+      "title": "NMB-01-B",
+      "from_subcat": 56,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMB-01 take B → New Music Back by filename ID (pool_map.json); script: New music, ranked by you. Tell us at the bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2009,
+      "artist": "",
+      "title": "NMB-02-A",
+      "from_subcat": 56,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMB-02 take A → New Music Back by filename ID (pool_map.json); script: That one's new. It won't be for long."
+    },
+    {
+      "rdj_song_id": 2010,
+      "artist": "",
+      "title": "NMB-02-B",
+      "from_subcat": 56,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMB-02 take B → New Music Back by filename ID (pool_map.json); script: That one's new. It won't be for long."
+    },
+    {
+      "rdj_song_id": 2011,
+      "artist": "",
+      "title": "NMB-03-A",
+      "from_subcat": 56,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMB-03 take A → New Music Back by filename ID (pool_map.json); script: First on The Bolt. Not the last time you'll hear it."
+    },
+    {
+      "rdj_song_id": 2012,
+      "artist": "",
+      "title": "NMB-03-B",
+      "from_subcat": 56,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMB-03 take B → New Music Back by filename ID (pool_map.json); script: First on The Bolt. Not the last time you'll hear it."
+    },
+    {
+      "rdj_song_id": 2013,
+      "artist": "",
+      "title": "NMB-04-A",
+      "from_subcat": 56,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMB-04 take A → New Music Back by filename ID (pool_map.json); script: Keep it or kill it? You decide. Rank it at the bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2014,
+      "artist": "",
+      "title": "NMB-04-B",
+      "from_subcat": 56,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMB-04 take B → New Music Back by filename ID (pool_map.json); script: Keep it or kill it? You decide. Rank it at the bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2015,
+      "artist": "",
+      "title": "NMF-01-A",
+      "from_subcat": 55,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMF-01 take A → New Music Front by filename ID (pool_map.json); script: This one just showed up. Let's see what you think."
+    },
+    {
+      "rdj_song_id": 2016,
+      "artist": "",
+      "title": "NMF-01-B",
+      "from_subcat": 55,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMF-01 take B → New Music Front by filename ID (pool_map.json); script: This one just showed up. Let's see what you think."
+    },
+    {
+      "rdj_song_id": 2017,
+      "artist": "",
+      "title": "NMF-02-A",
+      "from_subcat": 55,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMF-02 take A → New Music Front by filename ID (pool_map.json); script: The Bolt plays new rock first. Here's proof."
+    },
+    {
+      "rdj_song_id": 2018,
+      "artist": "",
+      "title": "NMF-02-B",
+      "from_subcat": 55,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMF-02 take B → New Music Front by filename ID (pool_map.json); script: The Bolt plays new rock first. Here's proof."
+    },
+    {
+      "rdj_song_id": 2019,
+      "artist": "",
+      "title": "NMF-03-A",
+      "from_subcat": 55,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMF-03 take A → New Music Front by filename ID (pool_map.json); script: Brand new. No hype required."
+    },
+    {
+      "rdj_song_id": 2020,
+      "artist": "",
+      "title": "NMF-03-B",
+      "from_subcat": 55,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMF-03 take B → New Music Front by filename ID (pool_map.json); script: Brand new. No hype required."
+    },
+    {
+      "rdj_song_id": 2021,
+      "artist": "",
+      "title": "NMF-04-A",
+      "from_subcat": 55,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMF-04 take A → New Music Front by filename ID (pool_map.json); script: [low] New one. Listen close."
+    },
+    {
+      "rdj_song_id": 2022,
+      "artist": "",
+      "title": "NMF-04-B",
+      "from_subcat": 55,
+      "to_subcat": 67,
+      "reason": "Rollback of: NMF-04 take B → New Music Front by filename ID (pool_map.json); script: [low] New one. Listen close."
+    },
+    {
+      "rdj_song_id": 2023,
+      "artist": "",
+      "title": "POS-01-A",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-01 take A → Positioning by filename ID (pool_map.json); script: The Bolt. New rock first. Everything else has to earn it."
+    },
+    {
+      "rdj_song_id": 2024,
+      "artist": "",
+      "title": "POS-01-B",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-01 take B → Positioning by filename ID (pool_map.json); script: The Bolt. New rock first. Everything else has to earn it."
+    },
+    {
+      "rdj_song_id": 2025,
+      "artist": "",
+      "title": "POS-02-A",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-02 take A → Positioning by filename ID (pool_map.json); script: Both ends of rock. Same station. No apologies. The Bolt."
+    },
+    {
+      "rdj_song_id": 2026,
+      "artist": "",
+      "title": "POS-02-B",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-02 take B → Positioning by filename ID (pool_map.json); script: Both ends of rock. Same station. No apologies. The Bolt."
+    },
+    {
+      "rdj_song_id": 2027,
+      "artist": "",
+      "title": "POS-03-A",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-03 take A → Positioning by filename ID (pool_map.json); script: We don't play it because it's safe. We play it because it's good. The Bolt."
+    },
+    {
+      "rdj_song_id": 2028,
+      "artist": "",
+      "title": "POS-03-B",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-03 take B → Positioning by filename ID (pool_map.json); script: We don't play it because it's safe. We play it because it's good. The Bolt."
+    },
+    {
+      "rdj_song_id": 2029,
+      "artist": "",
+      "title": "POS-04-A",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-04 take A → Positioning by filename ID (pool_map.json); script: No algorithm guessed this. Someone picked it. The Bolt."
+    },
+    {
+      "rdj_song_id": 2030,
+      "artist": "",
+      "title": "POS-04-B",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-04 take B → Positioning by filename ID (pool_map.json); script: No algorithm guessed this. Someone picked it. The Bolt."
+    },
+    {
+      "rdj_song_id": 2031,
+      "artist": "",
+      "title": "POS-05-A",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-05 take A → Positioning by filename ID (pool_map.json); script: The Bolt. Where nineteen ninety-four and this week get along fine."
+    },
+    {
+      "rdj_song_id": 2032,
+      "artist": "",
+      "title": "POS-05-B",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-05 take B → Positioning by filename ID (pool_map.json); script: The Bolt. Where nineteen ninety-four and this week get along fine."
+    },
+    {
+      "rdj_song_id": 2033,
+      "artist": "",
+      "title": "POS-06-A",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-06 take A → Positioning by filename ID (pool_map.json); script: You rank the songs. We listen. The Bolt."
+    },
+    {
+      "rdj_song_id": 2034,
+      "artist": "",
+      "title": "POS-06-B",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-06 take B → Positioning by filename ID (pool_map.json); script: You rank the songs. We listen. The Bolt."
+    },
+    {
+      "rdj_song_id": 2035,
+      "artist": "",
+      "title": "POS-07-A",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-07 take A → Positioning by filename ID (pool_map.json); script: Turn it up. We already did. The Bolt."
+    },
+    {
+      "rdj_song_id": 2036,
+      "artist": "",
+      "title": "POS-07-B",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-07 take B → Positioning by filename ID (pool_map.json); script: Turn it up. We already did. The Bolt."
+    },
+    {
+      "rdj_song_id": 2037,
+      "artist": "",
+      "title": "POS-08-A",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-08 take A → Positioning by filename ID (pool_map.json); script: The Bolt. For people who still finish the song."
+    },
+    {
+      "rdj_song_id": 2038,
+      "artist": "",
+      "title": "POS-08-B",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-08 take B → Positioning by filename ID (pool_map.json); script: The Bolt. For people who still finish the song."
+    },
+    {
+      "rdj_song_id": 2039,
+      "artist": "",
+      "title": "POS-09-A",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-09 take A → Positioning by filename ID (pool_map.json); script: Every song on The Bolt had to beat a hundred others to get here."
+    },
+    {
+      "rdj_song_id": 2040,
+      "artist": "",
+      "title": "POS-09-B",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-09 take B → Positioning by filename ID (pool_map.json); script: Every song on The Bolt had to beat a hundred others to get here."
+    },
+    {
+      "rdj_song_id": 2041,
+      "artist": "",
+      "title": "POS-10-A",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-10 take A → Positioning by filename ID (pool_map.json); script: The Bolt. Part of Club F.M. All of it rock."
+    },
+    {
+      "rdj_song_id": 2042,
+      "artist": "",
+      "title": "POS-10-B",
+      "from_subcat": 52,
+      "to_subcat": 67,
+      "reason": "Rollback of: POS-10 take B → Positioning by filename ID (pool_map.json); script: The Bolt. Part of Club F.M. All of it rock."
+    },
+    {
+      "rdj_song_id": 2043,
+      "artist": "",
+      "title": "PROMO-01-A",
+      "from_subcat": 43,
+      "to_subcat": 67,
+      "reason": "Rollback of: PROMO-01 take A → Station Promos by filename ID (pool_map.json); script: Love it? Hate it? Tell us. Rank any song on The Bolt at the bolt dot stream. We read every one."
+    },
+    {
+      "rdj_song_id": 2044,
+      "artist": "",
+      "title": "PROMO-01-B",
+      "from_subcat": 43,
+      "to_subcat": 67,
+      "reason": "Rollback of: PROMO-01 take B → Station Promos by filename ID (pool_map.json); script: Love it? Hate it? Tell us. Rank any song on The Bolt at the bolt dot stream. We read every one."
+    },
+    {
+      "rdj_song_id": 2045,
+      "artist": "",
+      "title": "PROMO-02-A",
+      "from_subcat": 43,
+      "to_subcat": 67,
+      "reason": "Rollback of: PROMO-02 take A → Station Promos by filename ID (pool_map.json); script: Want to hear something? Ask. Requests are open at the bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2046,
+      "artist": "",
+      "title": "PROMO-02-B",
+      "from_subcat": 43,
+      "to_subcat": 67,
+      "reason": "Rollback of: PROMO-02 take B → Station Promos by filename ID (pool_map.json); script: Want to hear something? Ask. Requests are open at the bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2047,
+      "artist": "",
+      "title": "PROMO-03-A",
+      "from_subcat": 43,
+      "to_subcat": 67,
+      "reason": "Rollback of: PROMO-03 take A → Station Promos by filename ID (pool_map.json); script: What was that song? It's on the site. What's playing now, what just played, and a place to rank all of it. The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2048,
+      "artist": "",
+      "title": "PROMO-03-B",
+      "from_subcat": 43,
+      "to_subcat": 67,
+      "reason": "Rollback of: PROMO-03 take B → Station Promos by filename ID (pool_map.json); script: What was that song? It's on the site. What's playing now, what just played, and a place to rank all of it. The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2049,
+      "artist": "",
+      "title": "PROMO-04-A",
+      "from_subcat": 43,
+      "to_subcat": 67,
+      "reason": "Rollback of: PROMO-04 take A → Station Promos by filename ID (pool_map.json); script: The Bolt. Proudly a Club F.M. station."
+    },
+    {
+      "rdj_song_id": 2050,
+      "artist": "",
+      "title": "PROMO-04-B",
+      "from_subcat": 43,
+      "to_subcat": 67,
+      "reason": "Rollback of: PROMO-04 take B → Station Promos by filename ID (pool_map.json); script: The Bolt. Proudly a Club F.M. station."
+    },
+    {
+      "rdj_song_id": 2051,
+      "artist": "",
+      "title": "PWR-01-A",
+      "from_subcat": 59,
+      "to_subcat": 67,
+      "reason": "Rollback of: PWR-01 take A → Power by filename ID (pool_map.json); script: The song you keep asking for. The Bolt."
+    },
+    {
+      "rdj_song_id": 2052,
+      "artist": "",
+      "title": "PWR-01-B",
+      "from_subcat": 59,
+      "to_subcat": 67,
+      "reason": "Rollback of: PWR-01 take B → Power by filename ID (pool_map.json); script: The song you keep asking for. The Bolt."
+    },
+    {
+      "rdj_song_id": 2053,
+      "artist": "",
+      "title": "PWR-02-A",
+      "from_subcat": 59,
+      "to_subcat": 67,
+      "reason": "Rollback of: PWR-02 take A → Power by filename ID (pool_map.json); script: You've heard this one. You're about to hear it again. Good."
+    },
+    {
+      "rdj_song_id": 2054,
+      "artist": "",
+      "title": "PWR-02-B",
+      "from_subcat": 59,
+      "to_subcat": 67,
+      "reason": "Rollback of: PWR-02 take B → Power by filename ID (pool_map.json); script: You've heard this one. You're about to hear it again. Good."
+    },
+    {
+      "rdj_song_id": 2055,
+      "artist": "",
+      "title": "PWR-03-A",
+      "from_subcat": 59,
+      "to_subcat": 67,
+      "reason": "Rollback of: PWR-03 take A → Power by filename ID (pool_map.json); script: The Bolt's most played... for a reason."
+    },
+    {
+      "rdj_song_id": 2056,
+      "artist": "",
+      "title": "PWR-03-B",
+      "from_subcat": 59,
+      "to_subcat": 67,
+      "reason": "Rollback of: PWR-03 take B → Power by filename ID (pool_map.json); script: The Bolt's most played... for a reason."
+    },
+    {
+      "rdj_song_id": 2057,
+      "artist": "",
+      "title": "PWR-04-A",
+      "from_subcat": 59,
+      "to_subcat": 67,
+      "reason": "Rollback of: PWR-04 take A → Power by filename ID (pool_map.json); script: Can't play it enough. We tried. The Bolt."
+    },
+    {
+      "rdj_song_id": 2058,
+      "artist": "",
+      "title": "PWR-04-B",
+      "from_subcat": 59,
+      "to_subcat": 67,
+      "reason": "Rollback of: PWR-04 take B → Power by filename ID (pool_map.json); script: Can't play it enough. We tried. The Bolt."
+    },
+    {
+      "rdj_song_id": 2059,
+      "artist": "",
+      "title": "REC-01-A",
+      "from_subcat": 61,
+      "to_subcat": 67,
+      "reason": "Rollback of: REC-01 take A → Recurrent Sweepers by filename ID (pool_map.json); script: Still one of the best. The Bolt."
+    },
+    {
+      "rdj_song_id": 2060,
+      "artist": "",
+      "title": "REC-01-B",
+      "from_subcat": 61,
+      "to_subcat": 67,
+      "reason": "Rollback of: REC-01 take B → Recurrent Sweepers by filename ID (pool_map.json); script: Still one of the best. The Bolt."
+    },
+    {
+      "rdj_song_id": 2061,
+      "artist": "",
+      "title": "REC-02-A",
+      "from_subcat": 61,
+      "to_subcat": 67,
+      "reason": "Rollback of: REC-02 take A → Recurrent Sweepers by filename ID (pool_map.json); script: It was big. It's still big here."
+    },
+    {
+      "rdj_song_id": 2062,
+      "artist": "",
+      "title": "REC-02-B",
+      "from_subcat": 61,
+      "to_subcat": 67,
+      "reason": "Rollback of: REC-02 take B → Recurrent Sweepers by filename ID (pool_map.json); script: It was big. It's still big here."
+    },
+    {
+      "rdj_song_id": 2063,
+      "artist": "",
+      "title": "REC-03-A",
+      "from_subcat": 61,
+      "to_subcat": 67,
+      "reason": "Rollback of: REC-03 take A → Recurrent Sweepers by filename ID (pool_map.json); script: Not new. Not going anywhere. The Bolt."
+    },
+    {
+      "rdj_song_id": 2064,
+      "artist": "",
+      "title": "REC-03-B",
+      "from_subcat": 61,
+      "to_subcat": 67,
+      "reason": "Rollback of: REC-03 take B → Recurrent Sweepers by filename ID (pool_map.json); script: Not new. Not going anywhere. The Bolt."
+    },
+    {
+      "rdj_song_id": 2065,
+      "artist": "",
+      "title": "REC-04-A",
+      "from_subcat": 61,
+      "to_subcat": 67,
+      "reason": "Rollback of: REC-04 take A → Recurrent Sweepers by filename ID (pool_map.json); script: Still in your head? Ours too."
+    },
+    {
+      "rdj_song_id": 2066,
+      "artist": "",
+      "title": "REC-04-B",
+      "from_subcat": 61,
+      "to_subcat": 67,
+      "reason": "Rollback of: REC-04 take B → Recurrent Sweepers by filename ID (pool_map.json); script: Still in your head? Ours too."
+    },
+    {
+      "rdj_song_id": 2067,
+      "artist": "",
+      "title": "SHOT-01-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-01 take A → Stingers by filename ID (pool_map.json); script: The Bolt."
+    },
+    {
+      "rdj_song_id": 2068,
+      "artist": "",
+      "title": "SHOT-01-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-01 take B → Stingers by filename ID (pool_map.json); script: The Bolt."
+    },
+    {
+      "rdj_song_id": 2069,
+      "artist": "",
+      "title": "SHOT-02-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-02 take A → Stingers by filename ID (pool_map.json); script: The Bolt. Rock, charged."
+    },
+    {
+      "rdj_song_id": 2070,
+      "artist": "",
+      "title": "SHOT-02-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-02 take B → Stingers by filename ID (pool_map.json); script: The Bolt. Rock, charged."
+    },
+    {
+      "rdj_song_id": 2071,
+      "artist": "",
+      "title": "SHOT-03-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-03 take A → Stingers by filename ID (pool_map.json); script: On The Bolt."
+    },
+    {
+      "rdj_song_id": 2072,
+      "artist": "",
+      "title": "SHOT-03-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-03 take B → Stingers by filename ID (pool_map.json); script: On The Bolt."
+    },
+    {
+      "rdj_song_id": 2073,
+      "artist": "",
+      "title": "SHOT-04-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-04 take A → Stingers by filename ID (pool_map.json); script: This is The Bolt."
+    },
+    {
+      "rdj_song_id": 2074,
+      "artist": "",
+      "title": "SHOT-04-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-04 take B → Stingers by filename ID (pool_map.json); script: This is The Bolt."
+    },
+    {
+      "rdj_song_id": 2075,
+      "artist": "",
+      "title": "SHOT-05-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-05 take A → Stingers by filename ID (pool_map.json); script: The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2076,
+      "artist": "",
+      "title": "SHOT-05-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-05 take B → Stingers by filename ID (pool_map.json); script: The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2077,
+      "artist": "",
+      "title": "SHOT-06-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-06 take A → Stingers by filename ID (pool_map.json); script: [whispers] The Bolt."
+    },
+    {
+      "rdj_song_id": 2078,
+      "artist": "",
+      "title": "SHOT-06-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-06 take B → Stingers by filename ID (pool_map.json); script: [whispers] The Bolt."
+    },
+    {
+      "rdj_song_id": 2079,
+      "artist": "",
+      "title": "SHOT-07-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-07 take A → Stingers by filename ID (pool_map.json); script: Rock, charged."
+    },
+    {
+      "rdj_song_id": 2080,
+      "artist": "",
+      "title": "SHOT-07-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-07 take B → Stingers by filename ID (pool_map.json); script: Rock, charged."
+    },
+    {
+      "rdj_song_id": 2081,
+      "artist": "",
+      "title": "SHOT-08-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-08 take A → Stingers by filename ID (pool_map.json); script: Still The Bolt."
+    },
+    {
+      "rdj_song_id": 2082,
+      "artist": "",
+      "title": "SHOT-08-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-08 take B → Stingers by filename ID (pool_map.json); script: Still The Bolt."
+    },
+    {
+      "rdj_song_id": 2083,
+      "artist": "",
+      "title": "SHOT-09-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-09 take A → Stingers by filename ID (pool_map.json); script: The Bolt. Turn it up."
+    },
+    {
+      "rdj_song_id": 2084,
+      "artist": "",
+      "title": "SHOT-09-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-09 take B → Stingers by filename ID (pool_map.json); script: The Bolt. Turn it up."
+    },
+    {
+      "rdj_song_id": 2085,
+      "artist": "",
+      "title": "SHOT-10-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-10 take A → Stingers by filename ID (pool_map.json); script: Yeah. The Bolt."
+    },
+    {
+      "rdj_song_id": 2086,
+      "artist": "",
+      "title": "SHOT-10-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-10 take B → Stingers by filename ID (pool_map.json); script: Yeah. The Bolt."
+    },
+    {
+      "rdj_song_id": 2087,
+      "artist": "",
+      "title": "SHOT-11-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-11 take A → Stingers by filename ID (pool_map.json); script: More on The Bolt."
+    },
+    {
+      "rdj_song_id": 2088,
+      "artist": "",
+      "title": "SHOT-11-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-11 take B → Stingers by filename ID (pool_map.json); script: More on The Bolt."
+    },
+    {
+      "rdj_song_id": 2089,
+      "artist": "",
+      "title": "SHOT-12-A",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-12 take A → Stingers by filename ID (pool_map.json); script: The Bolt. Keep going."
+    },
+    {
+      "rdj_song_id": 2090,
+      "artist": "",
+      "title": "SHOT-12-B",
+      "from_subcat": 51,
+      "to_subcat": 67,
+      "reason": "Rollback of: SHOT-12 take B → Stingers by filename ID (pool_map.json); script: The Bolt. Keep going."
+    },
+    {
+      "rdj_song_id": 2091,
+      "artist": "",
+      "title": "TOH-01-A",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-01 take A → TOH IDs by filename ID (pool_map.json); script: This is The Bolt. A Club F.M. station. The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2092,
+      "artist": "",
+      "title": "TOH-01-B",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-01 take B → TOH IDs by filename ID (pool_map.json); script: This is The Bolt. A Club F.M. station. The bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2093,
+      "artist": "",
+      "title": "TOH-02-A",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-02 take A → TOH IDs by filename ID (pool_map.json); script: The Bolt. New rock first... and everything that earned its place. A Club F.M. station."
+    },
+    {
+      "rdj_song_id": 2094,
+      "artist": "",
+      "title": "TOH-02-B",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-02 take B → TOH IDs by filename ID (pool_map.json); script: The Bolt. New rock first... and everything that earned its place. A Club F.M. station."
+    },
+    {
+      "rdj_song_id": 2095,
+      "artist": "",
+      "title": "TOH-03-A",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-03 take A → TOH IDs by filename ID (pool_map.json); script: You're on The Bolt. Rock, charged. The bolt dot stream. A Club F.M. station."
+    },
+    {
+      "rdj_song_id": 2096,
+      "artist": "",
+      "title": "TOH-03-B",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-03 take B → TOH IDs by filename ID (pool_map.json); script: You're on The Bolt. Rock, charged. The bolt dot stream. A Club F.M. station."
+    },
+    {
+      "rdj_song_id": 2097,
+      "artist": "",
+      "title": "TOH-04-A",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-04 take A → TOH IDs by filename ID (pool_map.json); script: Top of the hour. Same promise as the last one. The Bolt, on Club F.M."
+    },
+    {
+      "rdj_song_id": 2098,
+      "artist": "",
+      "title": "TOH-04-B",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-04 take B → TOH IDs by filename ID (pool_map.json); script: Top of the hour. Same promise as the last one. The Bolt, on Club F.M."
+    },
+    {
+      "rdj_song_id": 2099,
+      "artist": "",
+      "title": "TOH-05-A",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-05 take A → TOH IDs by filename ID (pool_map.json); script: The Bolt. Built for the loud ones, and the honest ones. Usually the same songs. Club F.M."
+    },
+    {
+      "rdj_song_id": 2100,
+      "artist": "",
+      "title": "TOH-05-B",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-05 take B → TOH IDs by filename ID (pool_map.json); script: The Bolt. Built for the loud ones, and the honest ones. Usually the same songs. Club F.M."
+    },
+    {
+      "rdj_song_id": 2101,
+      "artist": "",
+      "title": "TOH-06-A",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-06 take A → TOH IDs by filename ID (pool_map.json); script: The Bolt. Club F.M. Wherever you've got a signal... we've got one too."
+    },
+    {
+      "rdj_song_id": 2102,
+      "artist": "",
+      "title": "TOH-06-B",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-06 take B → TOH IDs by filename ID (pool_map.json); script: The Bolt. Club F.M. Wherever you've got a signal... we've got one too."
+    },
+    {
+      "rdj_song_id": 2103,
+      "artist": "",
+      "title": "TOH-07-A",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-07 take A → TOH IDs by filename ID (pool_map.json); script: New hour. New rock. Same Bolt. A Club F.M. station, at the bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2104,
+      "artist": "",
+      "title": "TOH-07-B",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-07 take B → TOH IDs by filename ID (pool_map.json); script: New hour. New rock. Same Bolt. A Club F.M. station, at the bolt dot stream."
+    },
+    {
+      "rdj_song_id": 2105,
+      "artist": "",
+      "title": "TOH-08-A",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-08 take A → TOH IDs by filename ID (pool_map.json); script: From the first riff of the nineties to whatever dropped this week. This is The Bolt. Club F.M."
+    },
+    {
+      "rdj_song_id": 2106,
+      "artist": "",
+      "title": "TOH-08-B",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-08 take B → TOH IDs by filename ID (pool_map.json); script: From the first riff of the nineties to whatever dropped this week. This is The Bolt. Club F.M."
+    },
+    {
+      "rdj_song_id": 2107,
+      "artist": "",
+      "title": "TOH-09-A",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-09 take A → TOH IDs by filename ID (pool_map.json); script: The Bolt. Streaming at the bolt dot stream, and part of the Club F.M. network."
+    },
+    {
+      "rdj_song_id": 2108,
+      "artist": "",
+      "title": "TOH-09-B",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-09 take B → TOH IDs by filename ID (pool_map.json); script: The Bolt. Streaming at the bolt dot stream, and part of the Club F.M. network."
+    },
+    {
+      "rdj_song_id": 2109,
+      "artist": "",
+      "title": "TOH-10-A",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-10 take A → TOH IDs by filename ID (pool_map.json); script: You found it. The Bolt. The bolt dot stream. A Club F.M. station."
+    },
+    {
+      "rdj_song_id": 2110,
+      "artist": "",
+      "title": "TOH-10-B",
+      "from_subcat": 42,
+      "to_subcat": 67,
+      "reason": "Rollback of: TOH-10 take B → TOH IDs by filename ID (pool_map.json); script: You found it. The Bolt. The bolt dot stream. A Club F.M. station."
+    },
+    {
+      "rdj_song_id": 2111,
+      "artist": "",
+      "title": "UP-01-A",
+      "from_subcat": 57,
+      "to_subcat": 67,
+      "reason": "Rollback of: UP-01 take A → Transition Up by filename ID (pool_map.json); script: Okay. Enough feelings. Let's break something. The Bolt."
+    },
+    {
+      "rdj_song_id": 2112,
+      "artist": "",
+      "title": "UP-01-B",
+      "from_subcat": 57,
+      "to_subcat": 67,
+      "reason": "Rollback of: UP-01 take B → Transition Up by filename ID (pool_map.json); script: Okay. Enough feelings. Let's break something. The Bolt."
+    },
+    {
+      "rdj_song_id": 2113,
+      "artist": "",
+      "title": "UP-02-A",
+      "from_subcat": 57,
+      "to_subcat": 67,
+      "reason": "Rollback of: UP-02 take A → Transition Up by filename ID (pool_map.json); script: Shifting gears."
+    },
+    {
+      "rdj_song_id": 2114,
+      "artist": "",
+      "title": "UP-02-B",
+      "from_subcat": 57,
+      "to_subcat": 67,
+      "reason": "Rollback of: UP-02 take B → Transition Up by filename ID (pool_map.json); script: Shifting gears."
+    },
+    {
+      "rdj_song_id": 2115,
+      "artist": "",
+      "title": "UP-03-A",
+      "from_subcat": 57,
+      "to_subcat": 67,
+      "reason": "Rollback of: UP-03 take A → Transition Up by filename ID (pool_map.json); script: Gloves off. The Bolt."
+    },
+    {
+      "rdj_song_id": 2116,
+      "artist": "",
+      "title": "UP-03-B",
+      "from_subcat": 57,
+      "to_subcat": 67,
+      "reason": "Rollback of: UP-03 take B → Transition Up by filename ID (pool_map.json); script: Gloves off. The Bolt."
+    },
+    {
+      "rdj_song_id": 2117,
+      "artist": "",
+      "title": "UP-04-A",
+      "from_subcat": 57,
+      "to_subcat": 67,
+      "reason": "Rollback of: UP-04 take A → Transition Up by filename ID (pool_map.json); script: That was the calm. This is the other thing."
+    },
+    {
+      "rdj_song_id": 2118,
+      "artist": "",
+      "title": "UP-04-B",
+      "from_subcat": 57,
+      "to_subcat": 67,
+      "reason": "Rollback of: UP-04 take B → Transition Up by filename ID (pool_map.json); script: That was the calm. This is the other thing."
+    },
+    {
+      "rdj_song_id": 2119,
+      "artist": "",
+      "title": "UP-05-A",
+      "from_subcat": 57,
+      "to_subcat": 67,
+      "reason": "Rollback of: UP-05 take A → Transition Up by filename ID (pool_map.json); script: Same station. Different weight class."
+    },
+    {
+      "rdj_song_id": 2120,
+      "artist": "",
+      "title": "UP-05-B",
+      "from_subcat": 57,
+      "to_subcat": 67,
+      "reason": "Rollback of: UP-05 take B → Transition Up by filename ID (pool_map.json); script: Same station. Different weight class."
+    }
+  ],
+  "set_enabled": []
+}
