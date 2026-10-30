@@ -162,6 +162,13 @@ They never apply on their own. The model above is all they need.
    their projected Rotavox pool. Someone changed it in RadioDJ directly. The report
    offers two actions: adopt the RadioDJ change as a changeset, or re-project. It
    never silently overwrites either side.
+   Built 2026-10-30 (`findDrift`, `reprojectDrift` in changesets.ts; Music › RadioDJ
+   drift). It compares placements, not subcategory numbers, against the subcategory the
+   last library sync saw. Adopting stages the RadioDJ placement into the draft.
+   Re-projecting is an applied changeset whose items keep each song where Rotavox has
+   it, so the Runner's ordinary projection moves RadioDJ back, with live preconditions
+   and an inverse first. Its undo restores the RadioDJ subcategory. Songs with a write
+   still pending are left out, since RadioDJ hasn't caught up yet.
 
 ## 5. Consequences
 

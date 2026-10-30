@@ -606,3 +606,184 @@ export async function nextProjectionStatus(db: Db, stationId: string): Promise<"
     .limit(1);
   return (row?.projection as "pending" | "failed" | undefined) ?? null;
 }
+
+// ------------------------------------------------------------------------ drift
+
+export interface DriftRow {
+  songId: string;
+  rdjSongId: number;
+  artist: string | null;
+  title: string | null;
+  /** Where Rotavox has it. */
+  rotavox: Placement;
+  /** RadioDJ's subcategory as of the last library sync, and what that means in Rotavox terms. */
+  rdjSubcat: number;
+  /** Its name in RadioDJ, as last synced. */
+  rdjSubcatName: string | null;
+  radiodj: Placement;
+  /** RadioDJ's filing can be adopted as a change. Not when it means "active with no pool". */
+  canAccept: boolean;
+  /** Rotavox's placement has a RadioDJ subcategory to be written back to. */
+  canReproject: boolean;
+  /** In the current draft already. */
+  staged: boolean;
+}
+
+export interface DriftReport {
+  imported: boolean;
+  projects: boolean;
+  rows: DriftRow[];
+  /** Songs left out because a write to RadioDJ is still on its way, so they would read as drift. */
+  awaitingProjection: number;
+}
+
+/**
+ * Songs whose RadioDJ subcategory, as of the last library sync, disagrees with where
+ * Rotavox has them: someone changed RadioDJ directly (ADR-0002 §4.4). Compared as
+ * placements, not subcategory numbers, so a pool spread over several subcategories, or
+ * equivalent bench subcategories, never reads as drift. Left out: songs with a write to
+ * RadioDJ still pending (RadioDJ hasn't caught up yet, which isn't drift), songs never
+ * synced, and placements RadioDJ has no subcategory for, where there's nothing to compare.
+ */
+export async function findDrift(db: Db, stationId: string): Promise<DriftReport> {
+  const [station] = await db.select().from(stations).where(eq(stations.id, stationId));
+  if (!station?.membershipImportedAt) return { imported: false, projects: false, rows: [], awaitingProjection: 0 };
+  const cats = (
+    await db
+      .select({ id: categories.id, name: categories.name, rdjSubcategoryIds: categories.rdjSubcategoryIds })
+      .from(categories)
+      .where(eq(categories.stationId, stationId))
+  ) as ProjectedCategory[];
+  const lifecycle = (station.rdjLifecycleSubcats ?? null) as LifecycleSubcatMap | null;
+  if (!cats.some((c) => c.rdjSubcategoryIds?.length)) return { imported: true, projects: false, rows: [], awaitingProjection: 0 };
+
+  const awaiting = new Set(
+    (
+      await db
+        .select({ songId: changesetItems.songId })
+        .from(changesetItems)
+        .innerJoin(changesets, eq(changesets.id, changesetItems.changesetId))
+        .where(
+          and(
+            eq(changesets.stationId, stationId),
+            eq(changesets.status, "applied"),
+            inArray(changesets.projection, ["pending", "failed"])
+          )
+        )
+    ).map((r) => r.songId)
+  );
+  const draft = await findDraft(db, stationId);
+  const staged = new Set(
+    draft
+      ? (await db.select({ songId: changesetItems.songId }).from(changesetItems).where(eq(changesetItems.changesetId, draft.id))).map(
+          (r) => r.songId
+        )
+      : []
+  );
+
+  const rows = await db
+    .select({
+      id: songs.id,
+      rdjSongId: songs.rdjSongId,
+      artist: songs.artist,
+      title: songs.title,
+      state: songs.lifecycleState,
+      subcat: songs.rdjSubcategoryId,
+      categoryId: songCategories.categoryId,
+    })
+    .from(songs)
+    .leftJoin(songCategories, and(eq(songCategories.songId, songs.id), eq(songCategories.role, "primary")))
+    .where(and(eq(songs.stationId, stationId), sql`${songs.rdjSongId} > 0`, sql`${songs.rdjSubcategoryId} IS NOT NULL`))
+    .orderBy(asc(songs.artist), asc(songs.title));
+
+  const subcatNames = new Map(
+    (
+      await db
+        .select({ id: schema.rdjSubcategories.rdjSubcategoryId, name: schema.rdjSubcategories.name })
+        .from(schema.rdjSubcategories)
+        .where(eq(schema.rdjSubcategories.stationId, stationId))
+    ).map((r) => [r.id, r.name])
+  );
+  const out: DriftRow[] = [];
+  let awaitingProjection = 0;
+  for (const r of rows) {
+    const rotavox: Placement = { state: r.state as LifecycleState, categoryId: r.categoryId ?? null };
+    // Active with no pool is the Inbox's business, not drift.
+    if (rotavox.state === "active" && !rotavox.categoryId) continue;
+    const radiodj = placementForSubcat(r.subcat, cats, lifecycle, rotavox.categoryId);
+    if (samePlacement(radiodj, rotavox)) continue;
+    let canReproject = true;
+    try {
+      subcatForPlacement(rotavox, r.subcat, cats, lifecycle);
+    } catch {
+      canReproject = false;
+    }
+    // A pool RadioDJ can't express can't be compared with it: nothing drifted.
+    if (!canReproject && rotavox.state === "active") continue;
+    if (awaiting.has(r.id)) {
+      awaitingProjection++;
+      continue;
+    }
+    out.push({
+      songId: r.id,
+      rdjSongId: r.rdjSongId,
+      artist: r.artist,
+      title: r.title,
+      rotavox,
+      rdjSubcat: r.subcat!,
+      rdjSubcatName: subcatNames.get(r.subcat!) ?? null,
+      radiodj,
+      canAccept: !(radiodj.state === "active" && !radiodj.categoryId),
+      canReproject,
+      staged: staged.has(r.id),
+    });
+  }
+  return { imported: true, projects: true, rows: out, awaitingProjection };
+}
+
+/**
+ * Writes Rotavox's placement back to RadioDJ for drifted songs: an applied changeset
+ * whose items keep each song where Rotavox has it, queued for projection. Rotavox changes
+ * nothing; the Runner's projection moves the RadioDJ subcategory back through its usual
+ * validated path (live precondition, inverse first). Songs that no longer drift, or can't
+ * be written back, are skipped.
+ */
+export async function reprojectDrift(
+  db: Db,
+  stationId: string,
+  songIds: string[],
+  opts: { appliedBy?: string | null; at?: Date } = {}
+): Promise<{ changesetId: string | null; songs: number }> {
+  const report = await findDrift(db, stationId);
+  const wanted = new Set(songIds);
+  const chosen = report.rows.filter((r) => wanted.has(r.songId) && r.canReproject);
+  if (chosen.length === 0) return { changesetId: null, songs: 0 };
+  const at = opts.at ?? new Date();
+  return db.transaction(async (tx) => {
+    const [cs] = await tx
+      .insert(changesets)
+      .values({
+        stationId,
+        status: "applied",
+        intent: "Put RadioDJ back in line with Rotavox (changed in RadioDJ directly)",
+        appliedAt: at,
+        appliedBy: opts.appliedBy ?? null,
+        projection: "pending",
+      })
+      .returning({ id: changesets.id });
+    await tx.insert(changesetItems).values(
+      chosen.map((r) => ({
+        stationId,
+        changesetId: cs.id,
+        songId: r.songId,
+        fromState: r.rotavox.state,
+        fromCategoryId: r.rotavox.categoryId,
+        toState: r.rotavox.state,
+        toCategoryId: r.rotavox.categoryId,
+        reason: `RadioDJ had it in subcategory ${r.rdjSubcat}`,
+        fromRdjSubcat: r.rdjSubcat,
+      }))
+    );
+    return { changesetId: cs.id, songs: chosen.length };
+  });
+}

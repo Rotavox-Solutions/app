@@ -5,7 +5,7 @@ export interface NavItem {
   label: string;
   href?: string;
   /** Key into the counts the layout passes the sidebar, shown as a badge when non-zero. */
-  badge?: "inbox" | "changes";
+  badge?: "inbox" | "changes" | "drift";
   /** Shown only to people who have this permission (the server enforces it regardless). */
   needs?: "manage_people" | "staff";
 }
@@ -23,6 +23,7 @@ export const NAV: NavSection[] = [
       { label: "Categories", href: "/music/categories" },
       { label: "Inbox", href: "/music/inbox", badge: "inbox" },
       { label: "Changes", href: "/music/changes", badge: "changes" },
+      { label: "RadioDJ drift", href: "/music/drift", badge: "drift" },
       { label: "Library", href: "/music/library" },
       { label: "Lifecycle", href: "/music/lifecycle" },
     ],
