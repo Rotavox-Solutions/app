@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 // checked against the database by the page or route itself (lib/auth.ts); this only
 // spares a signed-out visitor a broken page.
 // The Runner API authenticates with a Runner key, checked in its route.
-const PUBLIC = [/^\/login$/, /^\/invite\//, /^\/reset\//, /^\/api\/auth\//, /^\/api\/runner\/v1\//];
+const PUBLIC = [/^\/login$/, /^\/invite\//, /^\/reset\//, /^\/api\/auth\//, /^\/api\/runner\/v1\//, /^\/api\/version$/];
 
 export function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { UpdateWatcher } from "@/components/shell/UpdateWatcher";
 import "./globals.css";
 
 // Every page reads the session, so nothing is statically prerendered.
@@ -11,7 +12,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-neutral-950 text-neutral-100 antialiased">{children}</body>
+      <body className="bg-neutral-950 text-neutral-100 antialiased">
+        {children}
+        <UpdateWatcher />
+      </body>
     </html>
   );
 }
