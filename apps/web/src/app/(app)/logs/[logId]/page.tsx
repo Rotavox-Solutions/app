@@ -19,9 +19,28 @@ export default async function LogDetailPage({ params }: { params: Promise<{ logI
         <a href="/logs" className="text-sm text-neutral-500 hover:text-neutral-300">
           ← Logs
         </a>
-        <h1 className="text-xl font-semibold">
-          {new Date(detail.log.startsAt).toLocaleString()} – {new Date(detail.log.endsAt).toLocaleString()}
-        </h1>
+        <div className="flex flex-wrap items-baseline justify-between gap-3">
+          <h1 className="text-xl font-semibold">
+            {new Date(detail.log.startsAt).toLocaleString()} – {new Date(detail.log.endsAt).toLocaleString()}
+          </h1>
+          <span className="flex items-center gap-2 text-sm">
+            <span className="text-neutral-500">{detail.log.status === "draft" ? "Download draft:" : "Download:"}</span>
+            <a
+              href={`/api/logs/${detail.log.id}/export?format=csv`}
+              className="rounded border border-neutral-700 px-3 py-1 text-neutral-200 hover:bg-neutral-900"
+              title="One row per item in air order, with station-local times, for playout systems that import a schedule"
+            >
+              CSV
+            </a>
+            <a
+              href={`/api/logs/${detail.log.id}/export?format=m3u`}
+              className="rounded border border-neutral-700 px-3 py-1 text-neutral-200 hover:bg-neutral-900"
+              title="A playlist of file paths, for playout systems that load a playlist"
+            >
+              M3U
+            </a>
+          </span>
+        </div>
       </div>
       <LogTimeline
         readOnly={!allowed(ctx, "edit_logs")}

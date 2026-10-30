@@ -11,7 +11,7 @@ import { categories, clockPositions, logItems, logs, playHistory, songs, station
  *
  * Two formats, chosen because between them they cover essentially every playout system:
  *   m3u  — extended M3U8 with #EXTINF. Universally ingestible, carries file paths.
- *   csv  — scheduled time, artist, title, duration, category, path. For systems that
+ *   csv  — local and UTC time, artist, title, album, duration, category, path. For systems that
  *          import a schedule rather than a playlist.
  */
 export type ExportFormat = "m3u" | "csv";
@@ -32,15 +32,35 @@ const csvCell = (v: unknown): string => {
 const stamp = (d: Date | null): string =>
   d ? d.toISOString().replace("T", " ").slice(0, 19) : "";
 
-export async function exportLog(logId: string, format: ExportFormat): Promise<ExportResult | null> {
-  const [log] = await db.select().from(logs).where(eq(logs.id, logId));
+/** Date and time in the station's own time zone: what the station loads the log against. */
+function localStamp(d: Date | null, timezone: string): { date: string; time: string } {
+  if (!d) return { date: "", time: "" };
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: timezone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(d);
+  const get = (t: string) => parts.find((p) => p.type === t)?.value ?? "";
+  return { date: `${get("year")}-${get("month")}-${get("day")}`, time: `${get("hour")}:${get("minute")}:${get("second")}` };
+}
+
+export async function exportLog(stationId: string, logId: string, format: ExportFormat): Promise<ExportResult | null> {
+  const [log] = await db.select().from(logs).where(and(eq(logs.id, logId), eq(logs.stationId, stationId)));
   if (!log) return null;
+  const [station] = await db.select({ timezone: stations.timezone }).from(stations).where(eq(stations.id, stationId));
+  const tz = station?.timezone ?? "UTC";
 
   const rows = await db
     .select({
       item: logItems,
       artist: songs.artist,
       title: songs.title,
+      album: songs.album,
       path: songs.path,
       durationMs: songs.durationMs,
       effectiveDurationMs: songs.effectiveDurationMs,
@@ -53,13 +73,15 @@ export async function exportLog(logId: string, format: ExportFormat): Promise<Ex
     .where(eq(logItems.logId, logId))
     .orderBy(asc(logItems.sortOrder));
 
-  const day = log.startsAt.toISOString().slice(0, 10);
-  const base = `rotavox-log-${day}`;
+  const start = localStamp(log.startsAt, tz);
+  const day = start.date;
+  // Station-local start, and a draft says so: it isn't ready to load to air.
+  const base = `rotavox-log-${day}-${start.time.slice(0, 2)}00${log.status === "draft" ? "-DRAFT" : ""}`;
 
   if (format === "m3u") {
     const lines = [
       "#EXTM3U",
-      `#PLAYLIST:Rotavox ${day} ${log.startsAt.toISOString().slice(11, 16)}`,
+      `#PLAYLIST:Rotavox ${day} ${start.time.slice(0, 5)}`,
     ];
     for (const r of rows) {
       if (!r.path) continue; // a fixed_event with no underlying file has nothing to play
@@ -76,18 +98,22 @@ export async function exportLog(logId: string, format: ExportFormat): Promise<Ex
   }
 
   const header = [
-    "scheduled_at", "sort_order", "element_type", "category",
-    "artist", "title", "duration_seconds", "rdj_song_id", "path",
+    "local_date", "local_time", "scheduled_at", "sort_order", "element_type", "category",
+    "artist", "title", "album", "duration_seconds", "rdj_song_id", "path",
   ];
   const out = [header.join(",")];
   for (const r of rows) {
+    const local = localStamp(r.item.projectedAirAt, tz);
     out.push([
+      local.date,
+      local.time,
       stamp(r.item.projectedAirAt),
       r.item.sortOrder,
       r.item.elementType,
       r.categoryName ?? "",
       r.artist ?? "",
       r.title ?? "",
+      r.album ?? "",
       Math.round((r.effectiveDurationMs ?? r.durationMs ?? 0) / 1000),
       r.item.rdjSongId ?? "",
       r.path ?? "",
