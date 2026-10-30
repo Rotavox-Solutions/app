@@ -264,8 +264,26 @@ export function positionsFromDraft(draft: ClockDraft) {
   }));
 }
 
-/** The draft as stored in a revision: positions in order, anchors by position number. */
-function snapshotOf(draft: ClockDraft | ClockForEdit) {
+/** A clock as stored in a revision: positions in order, anchors by position number (1-based). */
+export interface ClockSnapshot {
+  name: string;
+  lengthMinutes: number;
+  notes: string | null;
+  positions: {
+    kind: PositionKind;
+    categoryId: string | null;
+    fallbackCategoryId: string | null;
+    targetOffsetSeconds: number | null;
+    fillerPriority: number | null;
+    trimPriority: number | null;
+    anchorPosition: number | null;
+    fixedDurationSeconds: number | null;
+    fixedRef: string | null;
+    extra: Record<string, unknown>;
+  }[];
+}
+
+function snapshotOf(draft: ClockDraft | ClockForEdit): ClockSnapshot {
   const index = new Map(draft.positions.map((p, i) => [p.key, i + 1]));
   return {
     name: draft.name,
@@ -448,4 +466,33 @@ export async function deleteClock(db: Db, stationId: string, clockId: string): P
     }
     await tx.delete(clocks).where(eq(clocks.id, clockId));
   });
+}
+
+export interface ClockRevisionRow {
+  id: string;
+  savedAt: Date;
+  note: string | null;
+  savedByName: string | null;
+  snapshot: ClockSnapshot;
+}
+
+export const CLOCK_REVISIONS_SHOWN = 50;
+
+/** A clock's saved versions, newest first. */
+export async function listClockRevisions(db: Db, stationId: string, clockId: string): Promise<ClockRevisionRow[]> {
+  if (!UUID.test(clockId)) return [];
+  const rows = await db
+    .select({
+      id: clockRevisions.id,
+      savedAt: clockRevisions.savedAt,
+      note: clockRevisions.note,
+      savedByName: schema.users.name,
+      snapshot: clockRevisions.snapshot,
+    })
+    .from(clockRevisions)
+    .leftJoin(schema.users, eq(schema.users.id, clockRevisions.savedBy))
+    .where(and(eq(clockRevisions.stationId, stationId), eq(clockRevisions.clockId, clockId)))
+    .orderBy(sql`${clockRevisions.savedAt} desc`)
+    .limit(CLOCK_REVISIONS_SHOWN);
+  return rows.map((r) => ({ ...r, snapshot: r.snapshot as ClockSnapshot }));
 }

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { count, eq } from "drizzle-orm";
-import { formatGrid, getClockForEdit } from "@rotavox/schema";
+import { formatGrid, getClockForEdit, listClockRevisions } from "@rotavox/schema";
 import { db } from "@/lib/db";
 import { getClockCategoryOptions } from "@/lib/format-edits";
 import { allowed, requireStation } from "@/lib/auth";
@@ -14,10 +14,12 @@ export default async function ClockPage({ params }: { params: Promise<{ clockId:
   const ctx = await requireStation();
   const { stationId } = ctx;
   const { clockId } = await params;
-  const [clock, options, [grid]] = await Promise.all([
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(clockId)) notFound();
+  const [clock, options, [grid], revisions] = await Promise.all([
     getClockForEdit(db, stationId, clockId),
     getClockCategoryOptions(stationId),
     db.select({ n: count() }).from(formatGrid).where(eq(formatGrid.clockId, clockId)),
+    listClockRevisions(db, stationId, clockId),
   ]);
   if (!clock) notFound();
   const canEdit = allowed(ctx, "edit_format");
@@ -41,6 +43,7 @@ export default async function ClockPage({ params }: { params: Promise<{ clockId:
         options={options}
         gridCells={grid.n}
         timezone={ctx.station.timezone}
+        revisions={revisions.map((r) => ({ ...r, savedAt: r.savedAt.toISOString() }))}
         readOnly={!canEdit}
       />
     </div>

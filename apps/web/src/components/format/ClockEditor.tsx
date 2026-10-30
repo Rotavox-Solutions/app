@@ -2,9 +2,18 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { ClockDraft, ClockPositionDraft, PositionKind } from "@rotavox/schema";
+import type { ClockDraft, ClockPositionDraft, ClockSnapshot, PositionKind } from "@rotavox/schema";
 import type { ClockCategoryOption } from "@/lib/format-edits";
 import { ClockPreviewPanel } from "./ClockPreviewPanel";
+import { describeDifference, draftFromSnapshot } from "./revisions";
+
+export interface ClockRevisionView {
+  id: string;
+  savedAt: string;
+  note: string | null;
+  savedByName: string | null;
+  snapshot: ClockSnapshot;
+}
 
 const KIND_LABEL: Record<PositionKind, string> = {
   category: "Music",
@@ -165,6 +174,7 @@ export function ClockEditor({
   options,
   gridCells,
   timezone,
+  revisions,
   readOnly = false,
 }: {
   clockId: string;
@@ -173,6 +183,7 @@ export function ClockEditor({
   options: ClockCategoryOption[];
   gridCells: number;
   timezone: string;
+  revisions: ClockRevisionView[];
   readOnly?: boolean;
 }) {
   const router = useRouter();
@@ -182,12 +193,17 @@ export function ClockEditor({
   const [pending, setPending] = useState(false);
   const [problems, setProblems] = useState<string[]>([]);
   const [saved, setSaved] = useState<string | null>(null);
+  /** The revision loaded into the editor, until it is saved or discarded. */
+  const [restoring, setRestoring] = useState<ClockRevisionView | null>(null);
+  const when = (iso: string) =>
+    new Date(iso).toLocaleString("en-US", { timeZone: timezone, month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
   const dirty = useMemo(() => JSON.stringify(draft) !== JSON.stringify(initial), [draft, initial]);
 
   // Reset to what the server now holds after a save or a reload.
   useEffect(() => {
     setDraft(initial);
     setLoadedAt(updatedAt);
+    setRestoring(null);
   }, [initial, updatedAt]);
 
   useEffect(() => {
@@ -262,8 +278,23 @@ export function ClockEditor({
 
   const ro = readOnly || pending;
 
+  const restore = (r: ClockRevisionView) => {
+    setDraft(draftFromSnapshot(r.snapshot, initial));
+    setRestoring(r);
+    setProblems([]);
+    setSaved(null);
+    setNote(`Restored the version of ${when(r.savedAt)}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="space-y-4">
+      {restoring && dirty && (
+        <p className="rounded border border-sky-900 bg-sky-950/40 px-3 py-2 text-sm text-sky-100">
+          Loaded the version of {when(restoring.savedAt)} into the editor. Preview it, then save to restore it, or discard
+          changes to leave the clock as it is.
+        </p>
+      )}
       <div className="flex flex-wrap items-end gap-4">
         <label className="space-y-1 text-xs text-neutral-500">
           <span className="block">Name</span>
@@ -544,6 +575,8 @@ export function ClockEditor({
                 onClick={() => {
                   setDraft(initial);
                   setProblems([]);
+                  setRestoring(null);
+                  setNote("");
                 }}
                 disabled={ro}
                 className="text-sm text-neutral-400 hover:text-neutral-200"
@@ -557,6 +590,41 @@ export function ClockEditor({
           </div>
         </div>
       )}
+
+      <section className="space-y-2 pt-4">
+        <h2 className="text-sm font-medium uppercase tracking-wide text-neutral-500">History</h2>
+        {revisions.length === 0 ? (
+          <p className="text-sm text-neutral-500">
+            Not edited in Rotavox yet. The first save also keeps the clock as it stands now.
+          </p>
+        ) : (
+          <ul className="text-sm">
+            {revisions.map((r, i) => {
+              const asDraft = draftFromSnapshot(r.snapshot, initial);
+              const diff = describeDifference(asDraft, initial);
+              return (
+                <li key={r.id} className="flex flex-wrap items-baseline gap-x-3 border-b border-neutral-900 py-1.5">
+                  <span className="w-32 shrink-0 tabular-nums text-neutral-400">{when(r.savedAt)}</span>
+                  <span className="text-neutral-300">{r.savedByName ?? (i === revisions.length - 1 ? "Before Rotavox" : "—")}</span>
+                  <span className="text-neutral-500">{r.note ?? ""}</span>
+                  <span className={`text-xs ${diff === "same as now" ? "text-emerald-300" : "text-neutral-500"}`}>
+                    {diff === "same as now" ? (i === 0 ? "current" : diff) : diff}
+                  </span>
+                  {!readOnly && diff !== "same as now" && (
+                    <button
+                      onClick={() => restore(r)}
+                      disabled={pending}
+                      className="text-xs text-sky-300 hover:underline disabled:opacity-50"
+                    >
+                      Load into editor
+                    </button>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </section>
     </div>
   );
 }
