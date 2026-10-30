@@ -252,6 +252,8 @@ export function RulesEditor({
   const [preview, setPreview] = useState<RulesPreview | null>(null);
   const [previewedFor, setPreviewedFor] = useState<string | null>(null);
   const [previewHours, setPreviewHours] = useState(24);
+  /** Why a preview couldn't run, shown beside it rather than at the save bar. */
+  const [previewProblems, setPreviewProblems] = useState<string[]>([]);
   const dirty = useMemo(() => JSON.stringify(draft) !== JSON.stringify(initial), [draft, initial]);
 
   useEffect(() => {
@@ -323,16 +325,16 @@ export function RulesEditor({
 
   async function runPreview() {
     setPending(true);
-    setProblems([]);
+    setPreviewProblems([]);
     try {
       const { ok, status, data } = await send("/api/rules/preview", "POST", { rules: draft, hours: previewHours });
-      if (!ok) setProblems(data.problems?.length ? data.problems : [data.message ?? `Preview failed (${status})`]);
+      if (!ok) setPreviewProblems(data.problems?.length ? data.problems : [data.message ?? `Preview failed (${status})`]);
       else {
         setPreview(data);
         setPreviewedFor(JSON.stringify(draft));
       }
     } catch {
-      setProblems(["Preview failed — is the Cockpit reachable?"]);
+      setPreviewProblems(["Preview failed — is the Cockpit reachable?"]);
     }
     setPending(false);
   }
@@ -491,6 +493,13 @@ export function RulesEditor({
             </button>
             <span className="text-xs text-neutral-500">Generates on the real week grid with live songs and play history. Nothing is saved.</span>
           </div>
+          {previewProblems.length > 0 && (
+            <ul className="space-y-0.5 text-sm text-red-300">
+              {previewProblems.map((p) => (
+                <li key={p}>Fix first: {p}</li>
+              ))}
+            </ul>
+          )}
           {preview && (
             <div className={`space-y-3 ${stale ? "opacity-60" : ""}`}>
               {stale && <p className="text-xs text-amber-300">The rules have changed since this preview. Run it again.</p>}

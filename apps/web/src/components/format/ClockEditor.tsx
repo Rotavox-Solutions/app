@@ -335,10 +335,10 @@ export function ClockEditor({
       </p>
 
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[1100px] text-left text-sm">
+        <table className="w-full min-w-[960px] text-left text-sm">
           <thead>
             <tr className="border-b border-neutral-800 text-xs text-neutral-400">
-              <th className="py-2 pr-2 font-medium">#</th>
+              <th className="sticky left-0 z-10 bg-neutral-950 py-2 pr-2 font-medium">#</th>
               <th className="py-2 pr-2 font-medium">Kind</th>
               <th className="py-2 pr-2 font-medium">Plays</th>
               <th className="py-2 pr-2 font-medium">Falls back to</th>
@@ -355,7 +355,7 @@ export function ClockEditor({
                 About record
               </th>
               <th className="py-2 pr-2 font-medium">Fixed event</th>
-              {!readOnly && <th className="py-2 font-medium" />}
+              {!readOnly && <th className="sticky right-0 z-10 bg-neutral-950 py-2 font-medium" />}
             </tr>
           </thead>
           <tbody>
@@ -364,7 +364,7 @@ export function ClockEditor({
               const mismatch = cat && PLAYS_KIND[p.kind] && cat.kind !== PLAYS_KIND[p.kind];
               return (
                 <tr key={p.key} className={`border-b border-neutral-900 ${p.fillerPriority != null ? "bg-neutral-900/40" : ""}`}>
-                  <td className="py-1 pr-2 tabular-nums text-neutral-500">{i + 1}</td>
+                  <td className="sticky left-0 z-10 bg-neutral-950 py-1 pr-2 tabular-nums text-neutral-500">{i + 1}</td>
                   <td className="py-1 pr-2">
                     <select
                       value={p.kind}
@@ -507,7 +507,7 @@ export function ClockEditor({
                     )}
                   </td>
                   {!readOnly && (
-                    <td className="whitespace-nowrap py-1 text-xs">
+                    <td className="sticky right-0 z-10 whitespace-nowrap bg-neutral-950 py-1 pl-2 text-xs">
                       <button onClick={() => move(i, -1)} disabled={ro || i === 0} className="px-1 text-neutral-400 hover:text-neutral-100 disabled:opacity-30" aria-label={`Move position ${i + 1} up`}>
                         ↑
                       </button>
@@ -546,7 +546,7 @@ export function ClockEditor({
           >
             Add a position at the end
           </button>
-          <ClockPreviewPanel clockId={clockId} draft={draft} dirty={dirty} timezone={timezone} />
+          <ClockPreviewPanel key={loadedAt} clockId={clockId} draft={draft} dirty={dirty} timezone={timezone} />
           {problems.length > 0 && (
             <ul className="space-y-0.5 rounded border border-red-900/60 bg-red-950/30 p-3 text-sm text-red-300">
               {problems.map((p) => (
