@@ -174,3 +174,84 @@ export async function listGridRevisions(db: Db, stationId: string): Promise<Grid
     .limit(GRID_REVISIONS_SHOWN);
   return rows.map((r) => ({ ...r, snapshot: r.snapshot as GridSnapshot }));
 }
+
+export const MAX_CYCLE_WEEKS = 8;
+
+/**
+ * Changes the rotation: how many weeks the grid repeats over, and the epoch that decides
+ * which of them is airing. Saved through the grid's own lock and history, because it
+ * changes what the grid means. Growing copies week 1 into the new weeks so no hour goes
+ * silent; shrinking drops the hours of the weeks removed. The caller resolves the epoch
+ * (the web app uses the engine's weekInCycle, so "airing" matches generation exactly).
+ */
+export async function setRotation(
+  db: Db,
+  stationId: string,
+  input: { cycleWeeks: number; epoch: Date | null },
+  opts: { expectedUpdatedAt: Date; userId: string | null; note?: string | null; now?: Date }
+): Promise<{ updatedAt: Date; copied: number; dropped: number }> {
+  const now = opts.now ?? new Date();
+  if (!isWhole(input.cycleWeeks, 1, MAX_CYCLE_WEEKS)) {
+    throw new GridSaveError(`The rotation is 1 to ${MAX_CYCLE_WEEKS} weeks.`);
+  }
+  if (input.epoch && Number.isNaN(input.epoch.getTime())) throw new GridSaveError("Not a date.");
+  return db.transaction(async (tx) => {
+    const [station] = await tx
+      .select({ weeks: stations.formatCycleWeeks, epoch: stations.formatCycleEpoch, updatedAt: stations.gridUpdatedAt })
+      .from(stations)
+      .where(eq(stations.id, stationId))
+      .for("update");
+    if (!station) throw new ChangesetError("not_found", "No such station.");
+    if (station.updatedAt.getTime() !== new Date(opts.expectedUpdatedAt).getTime()) {
+      throw new ChangesetError(
+        "conflict",
+        "The grid was saved by someone else since you opened this. Reload, then make your change again."
+      );
+    }
+    const before = await tx
+      .select({ weekInCycle: formatGrid.weekInCycle, dayOfWeek: formatGrid.dayOfWeek, hour: formatGrid.hour, clockId: formatGrid.clockId })
+      .from(formatGrid)
+      .where(eq(formatGrid.stationId, stationId));
+    const oldWeeks = Math.max(1, station.weeks);
+    const [{ n: revisions }] = await tx.select({ n: count() }).from(gridRevisions).where(eq(gridRevisions.stationId, stationId));
+    if (revisions === 0) {
+      await tx.insert(gridRevisions).values({
+        stationId,
+        snapshot: { cycleWeeks: oldWeeks, cells: before } satisfies GridSnapshot,
+        note: "As it stood before the first edit in Rotavox",
+        savedAt: station.updatedAt,
+      });
+    }
+
+    let cells = before.filter((c) => c.weekInCycle < input.cycleWeeks);
+    const dropped = before.length - cells.length;
+    let copied = 0;
+    if (input.cycleWeeks > oldWeeks) {
+      const firstWeek = before.filter((c) => c.weekInCycle === 0);
+      for (let w = oldWeeks; w < input.cycleWeeks; w++) {
+        cells = [...cells, ...firstWeek.map((c) => ({ ...c, weekInCycle: w }))];
+        copied += firstWeek.length;
+      }
+    }
+    if (dropped || copied) {
+      await tx.delete(formatGrid).where(eq(formatGrid.stationId, stationId));
+      if (cells.length) await tx.insert(formatGrid).values(cells.map((c) => ({ stationId, ...c })));
+    }
+    await tx
+      .update(stations)
+      .set({ formatCycleWeeks: input.cycleWeeks, formatCycleEpoch: input.epoch ?? station.epoch, gridUpdatedAt: now })
+      .where(eq(stations.id, stationId));
+    const auto =
+      input.cycleWeeks !== oldWeeks
+        ? `Rotation ${oldWeeks} → ${input.cycleWeeks} ${input.cycleWeeks === 1 ? "week" : "weeks"}`
+        : "Moved which week is airing";
+    await tx.insert(gridRevisions).values({
+      stationId,
+      snapshot: { cycleWeeks: input.cycleWeeks, cells } satisfies GridSnapshot,
+      note: [auto, opts.note?.trim()].filter(Boolean).join(": "),
+      savedBy: opts.userId,
+      savedAt: now,
+    });
+    return { updatedAt: now, copied, dropped };
+  });
+}

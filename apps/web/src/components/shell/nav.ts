@@ -38,7 +38,7 @@ export const NAV: NavSection[] = [
     items: [
       { label: "Library & Runner", href: "/station" },
       { label: "People", href: "/station/people", needs: "manage_people" },
-      { label: "Settings" },
+      { label: "Settings", href: "/station/settings" },
     ],
   },
   { label: "Rotavox", items: [{ label: "Staff", href: "/staff", needs: "staff" }] },
