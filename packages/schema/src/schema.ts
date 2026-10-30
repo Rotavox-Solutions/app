@@ -31,6 +31,8 @@ export const stations = pgTable("stations", {
   formatCycleEpoch: timestamp("format_cycle_epoch"),
   /** Bumped on every save of the week grid from the editor: a save made against an older one is refused. */
   gridUpdatedAt: timestamp("grid_updated_at").defaultNow().notNull(),
+  /** Bumped on every save of the rules from the editor: a save made against an older one is refused. */
+  rulesUpdatedAt: timestamp("rules_updated_at").defaultNow().notNull(),
   /**
    * Adapter tier 0/1: no as-played feed exists, because the station ingests an exported
    * log itself rather than letting Rotavox drive playout (ADR-0001 §3.5c). With no
@@ -463,6 +465,24 @@ export const gridRevisions = pgTable(
     savedAt: timestamp("saved_at").defaultNow().notNull(),
   },
   (t) => [index("grid_revisions_station_idx").on(t.stationId, t.savedAt)]
+);
+
+// A snapshot of the station's rules as saved from the editor, for history and restore.
+// The first save also records the rules as they stood before.
+export const ruleRevisions = pgTable(
+  "rule_revisions",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    stationId: uuid("station_id")
+      .notNull()
+      .references(() => stations.id),
+    /** { rules: RuleDraft[] } (packages/schema/src/rules.ts). */
+    snapshot: jsonb("snapshot").notNull(),
+    note: text("note"),
+    savedBy: uuid("saved_by").references(() => users.id, { onDelete: "set null" }),
+    savedAt: timestamp("saved_at").defaultNow().notNull(),
+  },
+  (t) => [index("rule_revisions_station_idx").on(t.stationId, t.savedAt)]
 );
 
 export const rules = pgTable("rules", {

@@ -40,6 +40,8 @@ export interface PreviewRun {
   outOfTolerance: number;
   warnings: string[];
   stats: { fillerActivated: number; sacrificed: number; trimmed: number; unfillable: number; anchorFallbacks: number };
+  /** Rules relaxed to fill a slot, by violation type. */
+  violations: Record<string, number>;
 }
 
 export interface ClockPreview {
@@ -63,11 +65,12 @@ function onlyThisClock(input: GenerateLogInput, clockId: string): GenerateLogInp
   return grid;
 }
 
-function run(input: GenerateLogInput, clock: EngineClock): PreviewRun {
-  const res = generateLog({ ...input, clocks: input.clocks.map((c) => (c.id === clock.id ? clock : c)) });
+/** Generates in memory and summarises by nominal hour. Writes nothing. */
+export function runPreview(input: GenerateLogInput): PreviewRun {
+  const res = generateLog(input);
   const songById = new Map(input.songs.map((s) => [s.id, s]));
   const catName = new Map(input.categories.map((c) => [c.id, c.name]));
-  const posById = new Map(clock.positions.map((p) => [p.id, p]));
+  const posById = new Map(input.clocks.flatMap((c) => c.positions.map((p) => [p.id, p] as const)));
 
   const byHour = new Map<string, PreviewHour>();
   for (const it of res.items) {
@@ -111,8 +114,14 @@ function run(input: GenerateLogInput, clock: EngineClock): PreviewRun {
       unfillable: res.stats.unfillable,
       anchorFallbacks: res.stats.anchorFallbacks,
     },
+    violations: res.stats.violationCounts,
   };
 }
+
+const withClock = (input: GenerateLogInput, clock: EngineClock): GenerateLogInput => ({
+  ...input,
+  clocks: input.clocks.map((c) => (c.id === clock.id ? clock : c)),
+});
 
 export async function previewClock(
   stationId: string,
@@ -137,7 +146,7 @@ export async function previewClock(
     start: start.toISOString(),
     hours,
     cueFidelity,
-    saved: run(base, saved),
-    draft: run(base, draftClock),
+    saved: runPreview(withClock(base, saved)),
+    draft: runPreview(withClock(base, draftClock)),
   };
 }
