@@ -126,29 +126,47 @@ export async function replaceRdjSubcategories(
   });
 }
 
-/** Longest rest standard accepted: a year and a bit. Past that it isn't a rest. */
-export const MAX_REST_REVIEW_DAYS = 400;
+/** Bounds for each lifecycle setting on a pool; past them the number isn't meaningful. */
+export const POOL_LIFECYCLE_LIMITS = {
+  restReviewDays: { max: 400, label: "A rest standard", unit: "days" },
+  ladderRank: { max: 20, label: "A ladder rank", unit: "" },
+  fallingAfterDays: { max: 400, label: "A falling-after time", unit: "days" },
+} as const;
+export type PoolLifecycleField = keyof typeof POOL_LIFECYCLE_LIMITS;
+export type PoolLifecycleSettings = Partial<Record<PoolLifecycleField, number | null>>;
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /**
- * Sets a pool's standard rest (ADR-0002 §6.2): how long songs resting from it rest before
- * they are surfaced for a decision. Null removes it, and its resting songs are never
- * prompted. It only prompts; it never moves a song.
+ * Sets a pool's lifecycle settings; a field left out is unchanged, null clears it.
+ *   restReviewDays   — standard rest before songs resting from it come up for review (ADR-0002 §6.2)
+ *   ladderRank       — place on the currents ladder, 1 = hottest, for rising and falling
+ *   fallingAfterDays — how long a song stays active here before it counts as falling
+ * Each only changes what is shown and prompted; none moves a song.
  */
-export async function setRestReviewDays(
+export async function setPoolLifecycle(
   db: Db,
   stationId: string,
   categoryId: string,
-  days: number | null,
+  settings: PoolLifecycleSettings,
 ): Promise<void> {
-  if (days !== null && (!Number.isInteger(days) || days < 1 || days > MAX_REST_REVIEW_DAYS)) {
-    throw new ChangesetError("invalid", `A rest standard is a whole number of days, 1 to ${MAX_REST_REVIEW_DAYS}.`);
+  const patch: PoolLifecycleSettings = {};
+  for (const [field, limits] of Object.entries(POOL_LIFECYCLE_LIMITS) as [PoolLifecycleField, (typeof POOL_LIFECYCLE_LIMITS)[PoolLifecycleField]][]) {
+    if (!(field in settings)) continue;
+    const v = settings[field];
+    if (v !== null && (typeof v !== "number" || !Number.isInteger(v) || v < 1 || v > limits.max)) {
+      throw new ChangesetError(
+        "invalid",
+        `${limits.label} is a whole number${limits.unit ? ` of ${limits.unit}` : ""}, 1 to ${limits.max}.`,
+      );
+    }
+    patch[field] = v ?? null;
   }
-  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(categoryId)) {
-    throw new ChangesetError("not_found", "No such category at this station.");
-  }
+  if (Object.keys(patch).length === 0) throw new ChangesetError("invalid", "Nothing to change.");
+  if (!UUID.test(categoryId)) throw new ChangesetError("not_found", "No such category at this station.");
   const updated = await db
     .update(categories)
-    .set({ restReviewDays: days })
+    .set(patch)
     .where(and(eq(categories.stationId, stationId), eq(categories.id, categoryId)))
     .returning({ id: categories.id });
   if (updated.length === 0) throw new ChangesetError("not_found", "No such category at this station.");

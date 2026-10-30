@@ -82,6 +82,21 @@ Direction within currents (rising vs falling) is **derived, not stored**. It is 
 from the pool's position in the ladder and the time since the last transition. That
 way nobody has to maintain it by hand (FORMAT-WORKFLOW §1a, item 5; settled in §6.3).
 
+How it is computed (built 2026-10-30, migration 0011; `deriveDirection` in
+`packages/schema/src/direction.ts`). Each pool can carry a `ladder_rank` (1 = hottest;
+null = not on the ladder) and a `falling_after_days`. The song's entry into its current
+pool is the latest `lifecycle_events` row that made it active there: a move in, a return
+from rest, or the import. An active song in a ranked pool is then:
+
+- **falling** once it has been active there `falling_after_days` or longer, however it arrived;
+- otherwise **falling** if it came from a hotter pool, **rising** if from a cooler one, and
+  **rising** ("new to the ladder") if it came from no pool or an unranked one;
+- otherwise neither. That covers a return from rest in the same pool, a move between pools
+  of equal rank, and an imported song, since the import records when but not where from.
+
+Both settings only change what is shown on the Lifecycle, category, Library and song
+screens. Neither moves a song.
+
 Schema, additive (migration 0005):
 
 - `songs.lifecycle_state` text, not null, default `'active'`

@@ -5,8 +5,9 @@ import { db } from "@/lib/db";
 import { getSongDetail, type SongEvent } from "@/lib/library";
 import { getPlaceableCategories, getPoolEditing, suggestedRestExit } from "@/lib/music-edits";
 import { RECENT_SPINS_DAYS } from "@/lib/queries";
+import { directionsFor } from "@/lib/direction";
 import { allowed, requireStation } from "@/lib/auth";
-import { fmtAgo, fmtDuration, fmtStateIn, fmtWhenShort } from "@/components/music/format";
+import { fmtAgo, fmtDirectionWhy, fmtDuration, fmtStateIn, fmtWhenShort } from "@/components/music/format";
 import { LifecycleCell } from "@/components/music/song-actions";
 import { SongPageActions } from "@/components/music/SongPageActions";
 
@@ -70,6 +71,7 @@ export default async function SongPage({ params }: { params: Promise<{ songId: s
   ]);
   if (!detail) notFound();
   const { song } = detail;
+  const direction = (await directionsFor(stationId, [song]))[song.id];
   const tz = station?.timezone ?? "UTC";
   const canEdit = editing.imported && allowed(ctx, "edit_music");
 
@@ -100,7 +102,8 @@ export default async function SongPage({ params }: { params: Promise<{ songId: s
             )}
           </Field>
           <Field label="State">
-            <LifecycleCell state={song.state} since={song.since} reviewDays={song.restReviewDays} />
+            <LifecycleCell state={song.state} since={song.since} reviewDays={song.restReviewDays} direction={direction} />
+            {direction && <span className="text-neutral-500"> · {fmtDirectionWhy(direction).toLowerCase()}</span>}
           </Field>
           <Field label="In RadioDJ">
             {song.enabled ? "enabled" : <span className="text-neutral-500">disabled</span>} · song {song.rdjSongId}

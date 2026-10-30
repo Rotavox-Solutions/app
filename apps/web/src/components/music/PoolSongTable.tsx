@@ -1,5 +1,6 @@
 "use client";
 
+import type { DirectionResult } from "@rotavox/schema";
 import { useMemo, useState } from "react";
 import type { PoolSongRow } from "@/lib/queries";
 import type { CategoryOption } from "@/lib/music-edits";
@@ -24,6 +25,7 @@ export function PoolSongTable({
   staged,
   restExit,
   spinsDays,
+  directions = {},
   readOnly = false,
 }: {
   songs: PoolSongRow[];
@@ -33,6 +35,8 @@ export function PoolSongTable({
   /** The suggested rest exit (R1). */
   restExit: CategoryOption | null;
   spinsDays: number;
+  /** Rising or falling, by song id, for songs on the currents ladder. */
+  directions?: Record<string, DirectionResult>;
   readOnly?: boolean;
 }) {
   const [filter, setFilter] = useState("");
@@ -145,7 +149,7 @@ export function PoolSongTable({
                     )}
                   </td>
                   <td className="py-1.5">
-                    <LifecycleCell state={s.lifecycleState} since={s.lifecycleSince} reviewDays={category.restReviewDays} />
+                    <LifecycleCell state={s.lifecycleState} since={s.lifecycleSince} reviewDays={category.restReviewDays} direction={directions[s.id]} />
                   </td>
                   <td className="py-1.5 text-right tabular-nums text-neutral-400">{fmtDuration(s.durationMs)}</td>
                   <td className="py-1.5 pl-6 text-neutral-400">{fmtAgo(s.lastAiredAt)}</td>

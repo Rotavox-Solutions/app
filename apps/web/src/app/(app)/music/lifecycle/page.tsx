@@ -7,7 +7,7 @@ import { RECENT_SPINS_DAYS } from "@/lib/queries";
 import { allowed, requireStation } from "@/lib/auth";
 import { fmtStateIn, fmtWhenShort } from "@/components/music/format";
 import { LibraryTable } from "@/components/music/LibraryTable";
-import { RestStandards } from "@/components/music/RestStandards";
+import { PoolLifecycleSettings } from "@/components/music/PoolLifecycleSettings";
 
 // Live view over current DB state — never statically prerendered.
 export const dynamic = "force-dynamic";
@@ -39,9 +39,11 @@ export default async function LifecyclePage() {
   const due = overview.resting.filter((r) => isRestDue(r, now));
   const restingOn = overview.resting.filter((r) => !isRestDue(r, now));
   const restExit = suggestedRestExit(options);
+  const onLadder = overview.standards.some((p) => p.ladderRank != null);
   const table = (rows: typeof due) => (
     <LibraryTable
       rows={rows}
+      directions={overview.directions}
       options={options}
       staged={editing.staged}
       restExit={restExit}
@@ -85,6 +87,26 @@ export default async function LifecyclePage() {
       )}
 
       <section className="space-y-2">
+        <Heading>Falling{onLadder ? ` (${overview.falling.length})` : ""}</Heading>
+        {!onLadder ? (
+          <p className="max-w-2xl text-sm text-neutral-500">
+            Give the currents pools a ladder rank under Pool settings below (1 = hottest) and songs that came down
+            the ladder, or have stayed in a pool past its falling-after time, show here.
+          </p>
+        ) : overview.falling.length === 0 ? (
+          <p className="text-sm text-neutral-500">No song on the ladder is falling.</p>
+        ) : (
+          <>
+            <p className="text-sm text-neutral-500">
+              Came down from a hotter pool, or active past the pool&apos;s falling-after time. Hover a song&apos;s state
+              for which. Nothing moves on its own.
+            </p>
+            {table(overview.falling)}
+          </>
+        )}
+      </section>
+
+      <section className="space-y-2">
         <Heading>Rest reviews due ({due.length})</Heading>
         {due.length === 0 ? (
           <p className="text-sm text-neutral-500">No song has rested past its pool&apos;s standard.</p>
@@ -113,12 +135,15 @@ export default async function LifecyclePage() {
       </section>
 
       <section className="space-y-2">
-        <Heading>Rest standards</Heading>
+        <Heading>Pool settings</Heading>
         <p className="max-w-2xl text-sm text-neutral-500">
-          How long songs rest from each pool before they come up for review. Leave it blank and that pool&apos;s
-          resting songs are never prompted. Changing a standard moves no song.
+          <strong className="font-medium text-neutral-400">Ladder rank</strong> places a currents pool on the ladder, 1
+          = hottest; a song that arrives from a hotter pool is falling, from a cooler one rising.{" "}
+          <strong className="font-medium text-neutral-400">Falling after</strong> marks a song falling once it has been
+          active in the pool that long. <strong className="font-medium text-neutral-400">Standard rest</strong> is how
+          long songs rest before they come up for review. Blank turns each off. None of them moves a song.
         </p>
-        <RestStandards rows={overview.standards} readOnly={!canEditMusic} />
+        <PoolLifecycleSettings rows={overview.standards} readOnly={!canEditMusic} />
       </section>
 
       <section className="space-y-2">

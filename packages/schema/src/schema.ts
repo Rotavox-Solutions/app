@@ -199,6 +199,14 @@ export const categories = pgTable("categories", {
   /** Standard rest for songs resting from this pool; past it they are surfaced for a decision. */
   restReviewDays: integer("rest_review_days"),
   /**
+   * Place on the currents ladder, 1 = hottest. A song that came here from a hotter pool is
+   * falling; from a cooler one, rising. Null = not on the ladder (ADR-0002 §3: direction
+   * is derived, never stored on the song).
+   */
+  ladderRank: integer("ladder_rank"),
+  /** A song active here longer than this is falling, however it arrived. Null = never by time. */
+  fallingAfterDays: integer("falling_after_days"),
+  /**
    * Projection map to the playout library (ADR-0002 §3): the RadioDJ subcategories this
    * category corresponds to. Null or empty = not projected. Replaces the SUBCAT table
    * that lived only in tools/m4-seed.mjs.

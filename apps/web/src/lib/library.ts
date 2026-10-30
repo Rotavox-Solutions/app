@@ -10,9 +10,11 @@ import {
   songCategories,
   songs,
   utcTimestamp,
+  type DirectionResult,
   type LifecycleState,
 } from "@rotavox/schema";
 import { db } from "./db";
+import { directionsFor } from "./direction";
 import { HOUR_MS } from "./constants";
 import { RECENT_SPINS_DAYS } from "./queries";
 
@@ -287,13 +289,16 @@ export async function getSongDetail(stationId: string, songId: string): Promise<
   };
 }
 
-export interface RestStandardRow {
+export interface PoolLifecycleRow {
   id: string;
   name: string;
   group: string | null;
   restReviewDays: number | null;
+  ladderRank: number | null;
+  fallingAfterDays: number | null;
   resting: number;
   due: number;
+  falling: number;
 }
 
 export interface RecentTransition {
@@ -314,8 +319,11 @@ export interface LifecycleOverview {
   counts: Record<LifecycleState, number>;
   /** Every resting song, longest-rested first. */
   resting: LibraryRow[];
-  /** Music pools a song can rest from, with their standard and how many rest from each. */
-  standards: RestStandardRow[];
+  /** Music pools, with their lifecycle settings and how many songs rest or fall in each. */
+  standards: PoolLifecycleRow[];
+  /** Active songs on the currents ladder that are falling, longest in their pool first. */
+  falling: LibraryRow[];
+  directions: Record<string, DirectionResult>;
   /** Transitions made in Rotavox (not the one-time import), newest first. */
   recent: RecentTransition[];
 }
@@ -336,7 +344,7 @@ export function isRestDue(row: Pick<LibraryRow, "state" | "since" | "restReviewD
 export async function getLifecycleOverview(stationId: string): Promise<LifecycleOverview> {
   const inventory = and(eq(songs.stationId, stationId), sql`${songs.rdjSongId} > 0`);
   const since = new Date(Date.now() - RECENT_TRANSITION_DAYS * 24 * HOUR_MS);
-  const [countRows, restingRows, cats, events] = await Promise.all([
+  const [countRows, restingRows, ladderRows, cats, events] = await Promise.all([
     db
       .select({ state: songs.lifecycleState, n: sql<number>`count(*)` })
       .from(songs)
@@ -345,6 +353,9 @@ export async function getLifecycleOverview(stationId: string): Promise<Lifecycle
     songRows()
       .where(and(inventory, eq(songs.lifecycleState, "resting")))
       .orderBy(sql`${songs.lifecycleSince} asc nulls first`, asc(songs.artist), asc(songs.title)),
+    songRows()
+      .where(and(inventory, eq(songs.lifecycleState, "active"), sql`${categories.ladderRank} is not null`))
+      .orderBy(asc(songs.artist), asc(songs.title)),
     db
       .select({
         id: categories.id,
@@ -352,6 +363,8 @@ export async function getLifecycleOverview(stationId: string): Promise<Lifecycle
         kind: categories.kind,
         parentId: categories.parentId,
         restReviewDays: categories.restReviewDays,
+        ladderRank: categories.ladderRank,
+        fallingAfterDays: categories.fallingAfterDays,
       })
       .from(categories)
       .where(eq(categories.stationId, stationId)),
@@ -394,6 +407,10 @@ export async function getLifecycleOverview(stationId: string): Promise<Lifecycle
   for (const r of countRows) if (r.state in counts) counts[r.state as LifecycleState] = Number(r.n);
 
   const resting = await withAirplay(stationId, restingRows);
+  const directions = await directionsFor(stationId, ladderRows);
+  const falling = (await withAirplay(stationId, ladderRows.filter((r) => directions[r.id]?.direction === "falling"))).sort(
+    (a, b) => directions[b.id].days - directions[a.id].days
+  );
   const now = new Date();
   const nameOf = new Map(cats.map((c) => [c.id, c.name]));
   const parents = new Set(cats.map((c) => c.parentId).filter(Boolean));
@@ -406,16 +423,27 @@ export async function getLifecycleOverview(stationId: string): Promise<Lifecycle
         name: c.name,
         group: c.parentId ? nameOf.get(c.parentId) ?? null : null,
         restReviewDays: c.restReviewDays,
+        ladderRank: c.ladderRank,
+        fallingAfterDays: c.fallingAfterDays,
         resting: from.length,
         due: from.filter((r) => isRestDue(r, now)).length,
+        falling: falling.filter((r) => r.poolId === c.id).length,
       };
     })
-    .sort((a, b) => (a.group ?? a.name).localeCompare(b.group ?? b.name) || a.name.localeCompare(b.name));
+    // The ladder first, hottest first, then the rest as the Categories page orders them.
+    .sort(
+      (a, b) =>
+        (a.ladderRank ?? Infinity) - (b.ladderRank ?? Infinity) ||
+        (a.group ?? a.name).localeCompare(b.group ?? b.name) ||
+        a.name.localeCompare(b.name)
+    );
 
   return {
     counts,
     resting,
     standards,
+    falling,
+    directions,
     recent: events.map((e) => ({
       id: e.id,
       at: e.at,

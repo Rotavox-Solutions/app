@@ -4,6 +4,7 @@ import { LIFECYCLE_STATES } from "@rotavox/schema";
 import { LIBRARY_PAGE_SIZE, parseLibraryFilter, searchLibrary, type LibraryFilter } from "@/lib/library";
 import { getPlaceableCategories, getPoolEditing, suggestedRestExit } from "@/lib/music-edits";
 import { RECENT_SPINS_DAYS } from "@/lib/queries";
+import { directionsFor } from "@/lib/direction";
 import { allowed, requireStation } from "@/lib/auth";
 
 // Live view over current DB state — never statically prerendered.
@@ -32,6 +33,7 @@ export default async function LibraryPage({
     getPlaceableCategories(stationId),
     getPoolEditing(stationId),
   ]);
+  const directions = await directionsFor(stationId, result.rows);
   const canEdit = allowed(ctx, "edit_music");
   const stagedCount = Object.keys(editing.staged).length;
   const first = (result.page - 1) * LIBRARY_PAGE_SIZE + 1;
@@ -116,6 +118,7 @@ export default async function LibraryPage({
             staged={editing.staged}
             restExit={suggestedRestExit(options)}
             spinsDays={RECENT_SPINS_DAYS}
+            directions={directions}
             readOnly={!editing.imported || !canEdit}
           />
           {result.pageCount > 1 && (

@@ -1,5 +1,6 @@
 "use client";
 
+import type { DirectionResult } from "@rotavox/schema";
 import { useMemo, useState } from "react";
 import type { LibraryRow } from "@/lib/library";
 import type { CategoryOption } from "@/lib/music-edits";
@@ -25,6 +26,7 @@ export function LibraryTable({
   staged,
   restExit,
   spinsDays,
+  directions = {},
   readOnly = false,
 }: {
   rows: LibraryRow[];
@@ -32,6 +34,8 @@ export function LibraryTable({
   staged: Record<string, Placement>;
   restExit: CategoryOption | null;
   spinsDays: number;
+  /** Rising or falling, by song id, for songs on the currents ladder. */
+  directions?: Record<string, DirectionResult>;
   readOnly?: boolean;
 }) {
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -125,7 +129,7 @@ export function LibraryTable({
                     )}
                   </td>
                   <td className="py-1.5">
-                    <LifecycleCell state={r.state} since={r.since} reviewDays={r.restReviewDays} />
+                    <LifecycleCell state={r.state} since={r.since} reviewDays={r.restReviewDays} direction={directions[r.id]} />
                   </td>
                   <td className="py-1.5 text-right tabular-nums text-neutral-400">{fmtDuration(r.durationMs)}</td>
                   <td className="py-1.5 pl-6 text-neutral-400">{fmtAgo(r.lastAiredAt)}</td>

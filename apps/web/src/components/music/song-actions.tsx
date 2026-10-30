@@ -6,7 +6,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { CategoryOption } from "@/lib/music-edits";
-import { groupOptions } from "./format";
+import type { DirectionResult } from "@rotavox/schema";
+import { fmtDirectionWhy, groupOptions } from "./format";
 import { stage, unstageSongs, type StageItem } from "./changes-client";
 
 export interface Placement {
@@ -178,8 +179,25 @@ export function StagedBadge({ text, disabled, onUndo }: { text: string; disabled
 
 const daysSince = (at: Date | null) => (at ? Math.floor((Date.now() - at.getTime()) / 86_400_000) : null);
 
-export function LifecycleCell({ state, since, reviewDays }: { state: string; since: Date | null; reviewDays: number | null }) {
-  if (state === "active") return <span className="text-neutral-500">active</span>;
+export function LifecycleCell({
+  state,
+  since,
+  reviewDays,
+  direction,
+}: {
+  state: string;
+  since: Date | null;
+  reviewDays: number | null;
+  direction?: DirectionResult;
+}) {
+  if (state === "active") {
+    if (!direction) return <span className="text-neutral-500">active</span>;
+    return (
+      <span className={direction.direction === "falling" ? "text-orange-300" : "text-emerald-300"} title={fmtDirectionWhy(direction)}>
+        {direction.direction}
+      </span>
+    );
+  }
   const days = daysSince(since);
   const due = state === "resting" && reviewDays != null && days != null && days >= reviewDays;
   return (

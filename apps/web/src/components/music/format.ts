@@ -56,3 +56,13 @@ export function fmtStateIn(state: string | null, pool: string | null): string {
   if (state === "resting") return pool ? `resting from ${pool}` : "resting";
   return state;
 }
+
+/** Why a song is rising or falling, in a PD's words. */
+export function fmtDirectionWhy(d: { why: string; days: number }): string {
+  const span = d.days === 1 ? "1 day" : `${d.days} days`;
+  const when = d.days === 0 ? "today" : `${span} ago`;
+  if (d.why === "time") return `Active in this pool ${span}, past its falling-after time`;
+  if (d.why === "came_down") return `Came down from a hotter pool ${when}`;
+  if (d.why === "came_up") return `Came up from a cooler pool ${when}`;
+  return `New to the ladder ${when}`;
+}

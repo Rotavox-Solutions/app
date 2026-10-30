@@ -5,6 +5,7 @@ import { BalanceStatusBadge, STATUS_HELP } from "@/components/music/BalanceStatu
 import { fmtSlots, fmtTurnover } from "@/components/music/format";
 import { PoolSongTable } from "@/components/music/PoolSongTable";
 import { getPlaceableCategories, getPoolEditing, suggestedRestExit } from "@/lib/music-edits";
+import { directionsFor } from "@/lib/direction";
 import { allowed, requireStation } from "@/lib/auth";
 
 // Live view over current DB state — never statically prerendered.
@@ -36,6 +37,11 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
     getPoolEditing(stationId),
   ]);
   const restExit = suggestedRestExit(options);
+  // "also" rows take their direction from their primary pool, which is elsewhere.
+  const directions = await directionsFor(
+    stationId,
+    songs.map((s) => ({ id: s.id, state: s.lifecycleState, poolId: s.role === "primary" ? category.id : null }))
+  );
   const needed = requiredDepth(category);
 
   return (
@@ -123,6 +129,7 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
               staged={editing.staged}
               restExit={restExit && restExit.id !== category.id ? restExit : null}
               spinsDays={RECENT_SPINS_DAYS}
+              directions={directions}
               readOnly={!editing.imported || !allowed(ctx, "edit_music")}
             />
           </>
