@@ -221,6 +221,9 @@ describe("request guards", () => {
     expect(sameOrigin(req("GET", { origin: "https://evil.example", host: "localhost:3000" }))).toBe(true);
   });
 
+  // Public beyond sign-in: the deployed commit, so a page left open notices a deploy.
+  const PUBLIC_OUTSIDE_AUTH = new Set([path.join("version", "route.ts")]);
+
   it("puts every API route behind a guard, and only sign-in routes in public", () => {
     const root = path.resolve(__dirname, "../src/app/api");
     const walk = (dir: string): string[] =>
@@ -236,7 +239,7 @@ describe("request guards", () => {
       // Every exported handler is built by a guard, never a bare function.
       expect(src, rel).not.toMatch(/export (async )?function (GET|POST|PUT|PATCH|DELETE)/);
       expect(src, rel).toMatch(/export const (GET|POST|PUT|PATCH|DELETE) = (stationRoute|userRoute|publicRoute|runnerRoute)/);
-      if (/publicRoute\(/.test(src)) expect(rel.startsWith("auth/"), rel).toBe(true);
+      if (/publicRoute\(/.test(src)) expect(rel.startsWith("auth/") || PUBLIC_OUTSIDE_AUTH.has(rel), rel).toBe(true);
       if (/runnerRoute\(/.test(src)) expect(rel.startsWith("runner/v1/"), rel).toBe(true);
     }
   });

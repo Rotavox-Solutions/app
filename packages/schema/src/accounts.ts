@@ -31,12 +31,12 @@ export const ROLE_DESCRIPTION: Record<StationRole, string> = {
  * person can't use.
  */
 export type Permission =
-  "view" | "edit_music" | "edit_logs" | "run_runner" | "manage_station" | "manage_people" | "staff";
+  "view" | "edit_music" | "edit_format" | "edit_logs" | "run_runner" | "manage_station" | "manage_people" | "staff";
 
 const GRANTS: Record<StationRole, readonly Permission[]> = {
   viewer: ["view"],
-  programmer: ["view", "edit_music", "edit_logs", "run_runner"],
-  admin: ["view", "edit_music", "edit_logs", "run_runner", "manage_station", "manage_people"],
+  programmer: ["view", "edit_music", "edit_format", "edit_logs", "run_runner"],
+  admin: ["view", "edit_music", "edit_format", "edit_logs", "run_runner", "manage_station", "manage_people"],
 };
 
 export function can(who: { isStaff: boolean; role: StationRole | null }, permission: Permission): boolean {

@@ -396,7 +396,28 @@ export const clocks = pgTable("clocks", {
   name: text("name").notNull(),
   lengthMinutes: integer("length_minutes").default(60),
   notes: text("notes"),
+  /** Bumped on every save from the editor: a save made against an older one is refused. */
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+// A snapshot of a clock as saved from the editor, for history and restore. The first
+// save also records the clock as it stood before, so the seeded original is never lost.
+export const clockRevisions = pgTable(
+  "clock_revisions",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    stationId: uuid("station_id").notNull().references(() => stations.id),
+    clockId: uuid("clock_id")
+      .notNull()
+      .references(() => clocks.id, { onDelete: "cascade" }),
+    /** The clock in ClockDraft's shape (packages/schema/src/clocks.ts). */
+    snapshot: jsonb("snapshot").notNull(),
+    note: text("note"),
+    savedBy: uuid("saved_by").references(() => users.id, { onDelete: "set null" }),
+    savedAt: timestamp("saved_at").defaultNow().notNull(),
+  },
+  (t) => [index("clock_revisions_clock_idx").on(t.clockId, t.savedAt)]
+);
 
 export const clockPositions = pgTable("clock_positions", {
   id: uuid("id").defaultRandom().primaryKey(),
