@@ -23,7 +23,7 @@ export const NAV: NavSection[] = [
       { label: "Categories", href: "/music/categories" },
       { label: "Inbox", href: "/music/inbox", badge: "inbox" },
       { label: "Changes", href: "/music/changes", badge: "changes" },
-      { label: "Library" },
+      { label: "Library", href: "/music/library" },
       { label: "Lifecycle" },
     ],
   },

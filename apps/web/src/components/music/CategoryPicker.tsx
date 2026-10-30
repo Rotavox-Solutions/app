@@ -1,16 +1,7 @@
 "use client";
 
 import type { CategoryOption } from "@/lib/music-edits";
-
-/** Pools grouped the way the Categories page is: music first, by parent, then imaging. */
-export function groupOptions(options: CategoryOption[]): [string, CategoryOption[]][] {
-  const groups = new Map<string, CategoryOption[]>();
-  for (const o of options) {
-    const key = o.kind === "music" ? o.group ?? "Music" : "Imaging & other";
-    groups.set(key, [...(groups.get(key) ?? []), o]);
-  }
-  return [...groups];
-}
+import { groupOptions } from "./format";
 
 /** A pool picker, grouped by groupOptions. */
 export function CategoryPicker({

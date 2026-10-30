@@ -1,3 +1,5 @@
+import type { CategoryOption } from "@/lib/music-edits";
+
 /** Turnover as a PD says it: hours under two days, days beyond. */
 export function fmtTurnover(hours: number | null): string {
   if (hours == null) return "—";
@@ -35,4 +37,14 @@ export function fmtPlacement(p: { state: string; categoryId: string | null }, na
 
 export function fmtWhenShort(at: Date, timeZone: string): string {
   return at.toLocaleString("en-US", { timeZone, month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+}
+
+/** Pools grouped the way the Categories page is: music first, by parent, then imaging. */
+export function groupOptions(options: CategoryOption[]): [string, CategoryOption[]][] {
+  const groups = new Map<string, CategoryOption[]>();
+  for (const o of options) {
+    const key = o.kind === "music" ? o.group ?? "Music" : "Imaging & other";
+    groups.set(key, [...(groups.get(key) ?? []), o]);
+  }
+  return [...groups];
 }
