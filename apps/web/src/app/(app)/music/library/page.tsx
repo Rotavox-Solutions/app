@@ -1,6 +1,7 @@
 import { LibraryTable } from "@/components/music/LibraryTable";
 import { groupOptions } from "@/components/music/format";
-import { LIFECYCLE_STATES } from "@rotavox/schema";
+import { LIFECYCLE_STATES, stationHasRunner } from "@rotavox/schema";
+import { db } from "@/lib/db";
 import { LIBRARY_PAGE_SIZE, parseLibraryFilter, searchLibrary, type LibraryFilter } from "@/lib/library";
 import { getPlaceableCategories, getPoolEditing, getRestExits } from "@/lib/music-edits";
 import { RECENT_SPINS_DAYS } from "@/lib/queries";
@@ -33,7 +34,11 @@ export default async function LibraryPage({
     getPlaceableCategories(stationId),
     getPoolEditing(stationId),
   ]);
-  const [directions, restExits] = await Promise.all([directionsFor(stationId, result.rows), getRestExits(stationId, options)]);
+  const [directions, restExits, hasRunner] = await Promise.all([
+    directionsFor(stationId, result.rows),
+    getRestExits(stationId, options),
+    stationHasRunner(db, stationId),
+  ]);
   const canEdit = allowed(ctx, "edit_music");
   const stagedCount = Object.keys(editing.staged).length;
   const first = (result.page - 1) * LIBRARY_PAGE_SIZE + 1;
@@ -42,7 +47,17 @@ export default async function LibraryPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold">Library</h1>
+        <div className="flex flex-wrap items-baseline justify-between gap-3">
+          <h1 className="text-xl font-semibold">Library</h1>
+          {!hasRunner && allowed(ctx, "edit_music") && (
+            <a
+              href="/music/library/import"
+              className="rounded border border-neutral-700 px-3 py-1 text-sm text-neutral-200 hover:bg-neutral-900"
+            >
+              Import a library file
+            </a>
+          )}
+        </div>
         <p className="mt-1 max-w-2xl text-sm text-neutral-500">
           Every song the station holds, in a pool or not. Open a song for its history. Changes stage like everywhere
           else; nothing changes until you apply them.
