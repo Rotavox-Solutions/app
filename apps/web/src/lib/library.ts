@@ -18,6 +18,8 @@ import { RECENT_SPINS_DAYS } from "./queries";
 
 export const LIBRARY_PAGE_SIZE = 100;
 
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export interface LibraryFilter {
   q?: string;
   state?: LifecycleState;
@@ -58,11 +60,12 @@ export function parseLibraryFilter(params: Record<string, string | string[] | un
     return (Array.isArray(v) ? v[0] : v)?.trim() || undefined;
   };
   const state = one("state");
+  const pool = one("pool");
   const page = Number(one("page"));
   return {
     q: one("q"),
     state: LIFECYCLE_STATES.includes(state as LifecycleState) ? (state as LifecycleState) : undefined,
-    pool: one("pool"),
+    pool: pool === "none" || (pool && UUID.test(pool)) ? pool : undefined,
     page: Number.isInteger(page) && page > 1 ? page : 1,
   };
 }
@@ -83,7 +86,32 @@ export async function searchLibrary(stationId: string, filter: LibraryFilter): P
   if (filter.pool === "none") where.push(sql`${songCategories.categoryId} is null`);
   else if (filter.pool) where.push(eq(songCategories.categoryId, filter.pool));
 
-  const base = db
+  const base = songRows().where(and(...where));
+
+  const [{ n }] = await db
+    .select({ n: sql<number>`count(*)` })
+    .from(songs)
+    .leftJoin(songCategories, and(eq(songCategories.songId, songs.id), eq(songCategories.role, "primary")))
+    .where(and(...where));
+  const total = Number(n);
+  const pageCount = Math.max(1, Math.ceil(total / LIBRARY_PAGE_SIZE));
+  const page = Math.min(filter.page ?? 1, pageCount);
+  const rows = await base
+    .orderBy(asc(songs.artist), asc(songs.title), asc(songs.rdjSongId))
+    .limit(LIBRARY_PAGE_SIZE)
+    .offset((page - 1) * LIBRARY_PAGE_SIZE);
+
+  return {
+    rows: await withAirplay(stationId, rows),
+    total,
+    page,
+    pageCount,
+  };
+}
+
+/** A song with its primary pool, in LibraryRow's shape less airplay. */
+function songRows() {
+  return db
     .select({
       id: songs.id,
       rdjSongId: songs.rdjSongId,
@@ -102,32 +130,16 @@ export async function searchLibrary(stationId: string, filter: LibraryFilter): P
     .from(songs)
     .leftJoin(songCategories, and(eq(songCategories.songId, songs.id), eq(songCategories.role, "primary")))
     .leftJoin(categories, eq(categories.id, songCategories.categoryId))
-    .where(and(...where));
+    .$dynamic();
+}
 
-  const [{ n }] = await db
-    .select({ n: sql<number>`count(*)` })
-    .from(songs)
-    .leftJoin(songCategories, and(eq(songCategories.songId, songs.id), eq(songCategories.role, "primary")))
-    .where(and(...where));
-  const total = Number(n);
-  const pageCount = Math.max(1, Math.ceil(total / LIBRARY_PAGE_SIZE));
-  const page = Math.min(filter.page ?? 1, pageCount);
-  const rows = await base
-    .orderBy(asc(songs.artist), asc(songs.title), asc(songs.rdjSongId))
-    .limit(LIBRARY_PAGE_SIZE)
-    .offset((page - 1) * LIBRARY_PAGE_SIZE);
-
+async function withAirplay<T extends { id: string }>(stationId: string, rows: T[]) {
   const airplay = await airplayFor(stationId, rows.map((r) => r.id));
-  return {
-    rows: rows.map((r) => ({
-      ...r,
-      lastAiredAt: airplay.get(r.id)?.lastAiredAt ?? null,
-      recentSpins: airplay.get(r.id)?.recentSpins ?? 0,
-    })),
-    total,
-    page,
-    pageCount,
-  };
+  return rows.map((r) => ({
+    ...r,
+    lastAiredAt: airplay.get(r.id)?.lastAiredAt ?? null,
+    recentSpins: airplay.get(r.id)?.recentSpins ?? 0,
+  }));
 }
 
 async function airplayFor(stationId: string, songIds: string[]) {
@@ -272,5 +284,150 @@ export async function getSongDetail(stationId: string, songId: string): Promise<
     plays,
     spins30d: Number(counts?.last30 ?? 0),
     spinsTotal: Number(counts?.total ?? 0),
+  };
+}
+
+export interface RestStandardRow {
+  id: string;
+  name: string;
+  group: string | null;
+  restReviewDays: number | null;
+  resting: number;
+  due: number;
+}
+
+export interface RecentTransition {
+  id: string;
+  at: Date;
+  songId: string;
+  artist: string | null;
+  title: string | null;
+  fromState: string | null;
+  toState: string;
+  fromCategoryName: string | null;
+  toCategoryName: string | null;
+  changesetId: string | null;
+  reason: string;
+}
+
+export interface LifecycleOverview {
+  counts: Record<LifecycleState, number>;
+  /** Every resting song, longest-rested first. */
+  resting: LibraryRow[];
+  /** Music pools a song can rest from, with their standard and how many rest from each. */
+  standards: RestStandardRow[];
+  /** Transitions made in Rotavox (not the one-time import), newest first. */
+  recent: RecentTransition[];
+}
+
+export const RECENT_TRANSITION_DAYS = 30;
+const RECENT_TRANSITIONS_SHOWN = 100;
+
+/** Past its pool's standard rest, so waiting on a decision (ADR-0002 §6.2). */
+export function isRestDue(row: Pick<LibraryRow, "state" | "since" | "restReviewDays">, now = new Date()): boolean {
+  return (
+    row.state === "resting" &&
+    row.restReviewDays != null &&
+    row.since != null &&
+    now.getTime() - row.since.getTime() >= row.restReviewDays * 86_400_000
+  );
+}
+
+export async function getLifecycleOverview(stationId: string): Promise<LifecycleOverview> {
+  const inventory = and(eq(songs.stationId, stationId), sql`${songs.rdjSongId} > 0`);
+  const since = new Date(Date.now() - RECENT_TRANSITION_DAYS * 24 * HOUR_MS);
+  const [countRows, restingRows, cats, events] = await Promise.all([
+    db
+      .select({ state: songs.lifecycleState, n: sql<number>`count(*)` })
+      .from(songs)
+      .where(inventory)
+      .groupBy(songs.lifecycleState),
+    songRows()
+      .where(and(inventory, eq(songs.lifecycleState, "resting")))
+      .orderBy(sql`${songs.lifecycleSince} asc nulls first`, asc(songs.artist), asc(songs.title)),
+    db
+      .select({
+        id: categories.id,
+        name: categories.name,
+        kind: categories.kind,
+        parentId: categories.parentId,
+        restReviewDays: categories.restReviewDays,
+      })
+      .from(categories)
+      .where(eq(categories.stationId, stationId)),
+    db
+      .select({
+        id: lifecycleEvents.id,
+        at: lifecycleEvents.at,
+        songId: lifecycleEvents.songId,
+        artist: songs.artist,
+        title: songs.title,
+        fromState: lifecycleEvents.fromState,
+        toState: lifecycleEvents.toState,
+        fromCategoryId: lifecycleEvents.fromCategoryId,
+        toCategoryId: lifecycleEvents.toCategoryId,
+        reason: lifecycleEvents.reason,
+        changesetId: changesets.id,
+      })
+      .from(lifecycleEvents)
+      .innerJoin(songs, eq(songs.id, lifecycleEvents.songId))
+      .leftJoin(
+        changesets,
+        and(
+          eq(lifecycleEvents.source, "changeset"),
+          eq(sql`${changesets.id}::text`, lifecycleEvents.sourceRef),
+          eq(changesets.stationId, stationId)
+        )
+      )
+      .where(
+        and(
+          eq(lifecycleEvents.stationId, stationId),
+          sql`${lifecycleEvents.source} <> 'import'`,
+          sql`${lifecycleEvents.at} >= ${since.toISOString()}`
+        )
+      )
+      .orderBy(desc(lifecycleEvents.at))
+      .limit(RECENT_TRANSITIONS_SHOWN),
+  ]);
+
+  const counts = Object.fromEntries(LIFECYCLE_STATES.map((s) => [s, 0])) as Record<LifecycleState, number>;
+  for (const r of countRows) if (r.state in counts) counts[r.state as LifecycleState] = Number(r.n);
+
+  const resting = await withAirplay(stationId, restingRows);
+  const now = new Date();
+  const nameOf = new Map(cats.map((c) => [c.id, c.name]));
+  const parents = new Set(cats.map((c) => c.parentId).filter(Boolean));
+  const standards = cats
+    .filter((c) => c.kind === "music" && !parents.has(c.id))
+    .map((c) => {
+      const from = resting.filter((r) => r.poolId === c.id);
+      return {
+        id: c.id,
+        name: c.name,
+        group: c.parentId ? nameOf.get(c.parentId) ?? null : null,
+        restReviewDays: c.restReviewDays,
+        resting: from.length,
+        due: from.filter((r) => isRestDue(r, now)).length,
+      };
+    })
+    .sort((a, b) => (a.group ?? a.name).localeCompare(b.group ?? b.name) || a.name.localeCompare(b.name));
+
+  return {
+    counts,
+    resting,
+    standards,
+    recent: events.map((e) => ({
+      id: e.id,
+      at: e.at,
+      songId: e.songId,
+      artist: e.artist,
+      title: e.title,
+      fromState: e.fromState,
+      toState: e.toState,
+      fromCategoryName: e.fromCategoryId ? nameOf.get(e.fromCategoryId) ?? null : null,
+      toCategoryName: e.toCategoryId ? nameOf.get(e.toCategoryId) ?? null : null,
+      changesetId: e.changesetId,
+      reason: e.reason,
+    })),
   };
 }

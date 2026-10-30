@@ -161,6 +161,9 @@ export default async function TodayPage() {
                 </li>
               ))}
             </ul>
+            <a href="/music/lifecycle" className="text-neutral-200 hover:underline">
+              Review them in Lifecycle →
+            </a>
           </Card>
         )}
 

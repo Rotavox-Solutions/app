@@ -125,3 +125,31 @@ export async function replaceRdjSubcategories(
     );
   });
 }
+
+/** Longest rest standard accepted: a year and a bit. Past that it isn't a rest. */
+export const MAX_REST_REVIEW_DAYS = 400;
+
+/**
+ * Sets a pool's standard rest (ADR-0002 §6.2): how long songs resting from it rest before
+ * they are surfaced for a decision. Null removes it, and its resting songs are never
+ * prompted. It only prompts; it never moves a song.
+ */
+export async function setRestReviewDays(
+  db: Db,
+  stationId: string,
+  categoryId: string,
+  days: number | null,
+): Promise<void> {
+  if (days !== null && (!Number.isInteger(days) || days < 1 || days > MAX_REST_REVIEW_DAYS)) {
+    throw new ChangesetError("invalid", `A rest standard is a whole number of days, 1 to ${MAX_REST_REVIEW_DAYS}.`);
+  }
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(categoryId)) {
+    throw new ChangesetError("not_found", "No such category at this station.");
+  }
+  const updated = await db
+    .update(categories)
+    .set({ restReviewDays: days })
+    .where(and(eq(categories.stationId, stationId), eq(categories.id, categoryId)))
+    .returning({ id: categories.id });
+  if (updated.length === 0) throw new ChangesetError("not_found", "No such category at this station.");
+}

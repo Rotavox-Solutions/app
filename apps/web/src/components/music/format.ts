@@ -48,3 +48,11 @@ export function groupOptions(options: CategoryOption[]): [string, CategoryOption
   }
   return [...groups];
 }
+
+/** A state and pool by name, as a song's history reads: "A1", "resting from A1", "benched". */
+export function fmtStateIn(state: string | null, pool: string | null): string {
+  if (!state) return "—";
+  if (state === "active") return pool ?? "no pool";
+  if (state === "resting") return pool ? `resting from ${pool}` : "resting";
+  return state;
+}

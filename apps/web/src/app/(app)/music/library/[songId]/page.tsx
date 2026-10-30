@@ -6,7 +6,7 @@ import { getSongDetail, type SongEvent } from "@/lib/library";
 import { getPlaceableCategories, getPoolEditing, suggestedRestExit } from "@/lib/music-edits";
 import { RECENT_SPINS_DAYS } from "@/lib/queries";
 import { allowed, requireStation } from "@/lib/auth";
-import { fmtAgo, fmtDuration, fmtWhenShort } from "@/components/music/format";
+import { fmtAgo, fmtDuration, fmtStateIn, fmtWhenShort } from "@/components/music/format";
 import { LifecycleCell } from "@/components/music/song-actions";
 import { SongPageActions } from "@/components/music/SongPageActions";
 
@@ -14,13 +14,6 @@ import { SongPageActions } from "@/components/music/SongPageActions";
 export const dynamic = "force-dynamic";
 
 const SOURCE: Record<string, string> = { import: "Imported from RadioDJ", changeset: "Change", ui: "Edited" };
-
-function where(state: string | null, pool: string | null): string {
-  if (!state) return "—";
-  if (state === "active") return pool ?? "no pool";
-  if (state === "resting") return pool ? `resting from ${pool}` : "resting";
-  return state;
-}
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -39,13 +32,13 @@ function EventRow({ e, tz }: { e: SongEvent; tz: string }) {
         <span className="tabular-nums text-neutral-400">{fmtWhenShort(e.at, tz)}</span>
         <span>
           {e.fromState == null ? (
-            where(e.toState, e.toCategoryName)
+            fmtStateIn(e.toState, e.toCategoryName)
           ) : moved ? (
             <>
-              {where(e.fromState, e.fromCategoryName)} → {where(e.toState, e.toCategoryName)}
+              {fmtStateIn(e.fromState, e.fromCategoryName)} → {fmtStateIn(e.toState, e.toCategoryName)}
             </>
           ) : (
-            <>{where(e.toState, e.toCategoryName)} (unchanged)</>
+            <>{fmtStateIn(e.toState, e.toCategoryName)} (unchanged)</>
           )}
         </span>
         <span className="text-xs text-neutral-500">

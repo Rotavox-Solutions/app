@@ -24,7 +24,7 @@ export const NAV: NavSection[] = [
       { label: "Inbox", href: "/music/inbox", badge: "inbox" },
       { label: "Changes", href: "/music/changes", badge: "changes" },
       { label: "Library", href: "/music/library" },
-      { label: "Lifecycle" },
+      { label: "Lifecycle", href: "/music/lifecycle" },
     ],
   },
   {
