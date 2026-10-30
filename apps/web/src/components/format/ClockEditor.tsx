@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ClockDraft, ClockPositionDraft, PositionKind } from "@rotavox/schema";
 import type { ClockCategoryOption } from "@/lib/format-edits";
+import { ClockPreviewPanel } from "./ClockPreviewPanel";
 
 const KIND_LABEL: Record<PositionKind, string> = {
   category: "Music",
@@ -163,6 +164,7 @@ export function ClockEditor({
   updatedAt,
   options,
   gridCells,
+  timezone,
   readOnly = false,
 }: {
   clockId: string;
@@ -170,6 +172,7 @@ export function ClockEditor({
   updatedAt: string;
   options: ClockCategoryOption[];
   gridCells: number;
+  timezone: string;
   readOnly?: boolean;
 }) {
   const router = useRouter();
@@ -512,6 +515,7 @@ export function ClockEditor({
           >
             Add a position at the end
           </button>
+          <ClockPreviewPanel clockId={clockId} draft={draft} dirty={dirty} timezone={timezone} />
           {problems.length > 0 && (
             <ul className="space-y-0.5 rounded border border-red-900/60 bg-red-950/30 p-3 text-sm text-red-300">
               {problems.map((p) => (

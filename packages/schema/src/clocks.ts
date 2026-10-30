@@ -246,6 +246,24 @@ function constraintsFor(p: ClockPositionDraft, sortOrderByKey: Map<string, numbe
   return Object.keys(c).length ? c : null;
 }
 
+/**
+ * A draft's positions as they would be stored: numbered in order, anchors resolved to
+ * their record's number. What a save writes, and what a preview hands the engine (new
+ * positions take their draft key as id).
+ */
+export function positionsFromDraft(draft: ClockDraft) {
+  const sortOrderByKey = new Map(draft.positions.map((p, i) => [p.key, i + 1]));
+  return draft.positions.map((p, i) => ({
+    id: p.id ?? p.key,
+    sortOrder: i + 1,
+    positionType: p.kind,
+    categoryId: p.kind === "fixed_event" ? null : p.categoryId,
+    targetOffsetSeconds: p.targetOffsetSeconds,
+    constraints: constraintsFor(p, sortOrderByKey),
+    fixedRef: p.fixedRef?.trim() || null,
+  }));
+}
+
 /** The draft as stored in a revision: positions in order, anchors by position number. */
 function snapshotOf(draft: ClockDraft | ClockForEdit) {
   const index = new Map(draft.positions.map((p, i) => [p.key, i + 1]));
@@ -329,7 +347,7 @@ export async function saveClock(
       });
     }
 
-    const sortOrderByKey = new Map(draft.positions.map((p, i) => [p.key, i + 1]));
+    const stored = positionsFromDraft(draft);
     const keptIds = new Set(draft.positions.map((p) => p.id).filter((id): id is string => !!id));
     const removedIds = existing.map((p) => p.id).filter((id) => !keptIds.has(id));
     if (removedIds.length) {
@@ -340,14 +358,7 @@ export async function saveClock(
     }
     let added = 0;
     for (const [i, p] of draft.positions.entries()) {
-      const values = {
-        sortOrder: i + 1,
-        positionType: p.kind,
-        categoryId: p.kind === "fixed_event" ? null : p.categoryId,
-        targetOffsetSeconds: p.targetOffsetSeconds,
-        constraints: constraintsFor(p, sortOrderByKey),
-        fixedRef: p.fixedRef?.trim() || null,
-      };
+      const { id: _id, ...values } = stored[i];
       if (p.id) {
         await tx.update(clockPositions).set(values).where(eq(clockPositions.id, p.id));
       } else {

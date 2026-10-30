@@ -40,6 +40,7 @@ export default async function ClockPage({ params }: { params: Promise<{ clockId:
         updatedAt={updatedAt.toISOString()}
         options={options}
         gridCells={grid.n}
+        timezone={ctx.station.timezone}
         readOnly={!canEdit}
       />
     </div>
