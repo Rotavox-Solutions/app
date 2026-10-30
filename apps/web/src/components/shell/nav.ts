@@ -29,7 +29,7 @@ export const NAV: NavSection[] = [
   },
   {
     label: "Format",
-    items: [{ label: "Clocks", href: "/format/clocks" }, { label: "Week grid" }, { label: "Rules" }],
+    items: [{ label: "Clocks", href: "/format/clocks" }, { label: "Week grid", href: "/format/grid" }, { label: "Rules" }],
   },
   { label: "Logs", items: [{ label: "Logs", href: "/logs" }] },
   { label: "Reports", items: [{ label: "As-run", href: "/reports/as-run" }] },

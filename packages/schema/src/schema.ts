@@ -29,6 +29,8 @@ export const stations = pgTable("stations", {
   // cycleWeeks=1) means no rotation and the engine only ever reads week_in_cycle=0.
   formatCycleWeeks: integer("format_cycle_weeks").default(1).notNull(),
   formatCycleEpoch: timestamp("format_cycle_epoch"),
+  /** Bumped on every save of the week grid from the editor: a save made against an older one is refused. */
+  gridUpdatedAt: timestamp("grid_updated_at").defaultNow().notNull(),
   /**
    * Adapter tier 0/1: no as-played feed exists, because the station ingests an exported
    * log itself rather than letting Rotavox drive playout (ADR-0001 §3.5c). With no
@@ -443,6 +445,24 @@ export const formatGrid = pgTable(
     clockId: uuid("clock_id").notNull().references(() => clocks.id),
   },
   (t) => [unique("format_grid_cell_unique").on(t.stationId, t.weekInCycle, t.dayOfWeek, t.hour)]
+);
+
+// A snapshot of the week grid as saved from the editor, for history and restore. The first
+// save also records the grid as it stood before.
+export const gridRevisions = pgTable(
+  "grid_revisions",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    stationId: uuid("station_id")
+      .notNull()
+      .references(() => stations.id),
+    /** { cycleWeeks, cells: [{ weekInCycle, dayOfWeek, hour, clockId }] } (packages/schema/src/grid.ts). */
+    snapshot: jsonb("snapshot").notNull(),
+    note: text("note"),
+    savedBy: uuid("saved_by").references(() => users.id, { onDelete: "set null" }),
+    savedAt: timestamp("saved_at").defaultNow().notNull(),
+  },
+  (t) => [index("grid_revisions_station_idx").on(t.stationId, t.savedAt)]
 );
 
 export const rules = pgTable("rules", {
