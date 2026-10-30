@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { stations } from "@rotavox/schema";
 import { db } from "@/lib/db";
 import { getSongDetail, type SongEvent } from "@/lib/library";
-import { getPlaceableCategories, getPoolEditing, suggestedRestExit } from "@/lib/music-edits";
+import { getPlaceableCategories, getPoolEditing, getRestExits } from "@/lib/music-edits";
 import { RECENT_SPINS_DAYS } from "@/lib/queries";
 import { directionsFor } from "@/lib/direction";
 import { allowed, requireStation } from "@/lib/auth";
@@ -71,7 +71,8 @@ export default async function SongPage({ params }: { params: Promise<{ songId: s
   ]);
   if (!detail) notFound();
   const { song } = detail;
-  const direction = (await directionsFor(stationId, [song]))[song.id];
+  const [directions, restExits] = await Promise.all([directionsFor(stationId, [song]), getRestExits(stationId, options)]);
+  const direction = directions[song.id];
   const tz = station?.timezone ?? "UTC";
   const canEdit = editing.imported && allowed(ctx, "edit_music");
 
@@ -116,7 +117,7 @@ export default async function SongPage({ params }: { params: Promise<{ songId: s
             song={{ id: song.id, state: song.state, poolId: song.poolId, poolName: song.poolName }}
             options={options}
             staged={editing.staged[song.id] ?? null}
-            restExit={suggestedRestExit(options)}
+            restExit={song.poolId ? restExits[song.poolId] ?? null : null}
           />
         )}
       </section>

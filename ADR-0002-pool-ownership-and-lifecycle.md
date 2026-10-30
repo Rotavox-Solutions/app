@@ -143,6 +143,24 @@ one filter, next to `enabled`.
 (time rested, spins accumulated, chart position) and *draft* changesets for review.
 They never apply on their own. The model above is all they need.
 
+Built 2026-10-30 (`suggestMoves` in `packages/schema/src/lifecycle-rules.ts`, migration
+0015). The PD chose suggestions listed on Lifecycle and Today, accepted into the draft
+one click at a time, rather than auto-staging, with every number set per pool. A song
+gets at most one suggestion, in this order:
+
+1. **Rest exit**: rested past the pool's standard, so suggest the pool's
+   `rest_exit_category_id`, or back to its own pool. This replaces the "a pool named R1"
+   default wherever a pool sets one.
+2. **Bench**: not aired in `bench_after_unaired_days`, counted from its last play or its
+   arrival in the pool, whichever is later.
+3. **Falling**: past the pool's `falling_after_days`, so suggest the next pool down the
+   ladder, or rest from the bottom rung.
+4. **Promote**: active `promote_after_days` in the pool, so suggest
+   `promote_to_category_id` (recurrent to gold).
+
+"Not now" hides a suggestion for 30 days (`lifecycle_suggestion_dismissals`). Chart
+position isn't an input yet: there is no chart source.
+
 ## 4. Migration (one-time, per station)
 
 1. Re-sync the library, so `rdj_subcategory_id` is current.

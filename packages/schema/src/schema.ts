@@ -210,6 +210,14 @@ export const categories = pgTable("categories", {
   ladderRank: integer("ladder_rank"),
   /** A song active here longer than this is falling, however it arrived. Null = never by time. */
   fallingAfterDays: integer("falling_after_days"),
+  /** Standing lifecycle rules (ADR-0002 §3): suggestions only, never moves. */
+  /** Where a song leaving rest from this pool is suggested to go. Null = back to this pool. */
+  restExitCategoryId: uuid("rest_exit_category_id"),
+  /** After this many days active here, suggest moving on to promoteToCategoryId (recurrent → gold, say). */
+  promoteAfterDays: integer("promote_after_days"),
+  promoteToCategoryId: uuid("promote_to_category_id"),
+  /** An active song here that hasn't aired in this many days is suggested for the bench. */
+  benchAfterUnairedDays: integer("bench_after_unaired_days"),
   /**
    * Projection map to the playout library (ADR-0002 §3): the RadioDJ subcategories this
    * category corresponds to. Null or empty = not projected. Replaces the SUBCAT table
@@ -275,6 +283,27 @@ export const lifecycleEvents = pgTable(
     at: timestamp("at").defaultNow().notNull(),
   },
   (t) => [index("lifecycle_events_song_idx").on(t.songId, t.at)]
+);
+
+// A standing lifecycle rule's suggestion the PD has set aside, so it isn't shown again
+// until `until`. One per song and rule.
+export const lifecycleSuggestionDismissals = pgTable(
+  "lifecycle_suggestion_dismissals",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    stationId: uuid("station_id")
+      .notNull()
+      .references(() => stations.id),
+    songId: uuid("song_id")
+      .notNull()
+      .references(() => songs.id, { onDelete: "cascade" }),
+    // 'rest_exit' | 'falling' | 'promote' | 'bench'
+    rule: text("rule").notNull(),
+    until: timestamp("until").notNull(),
+    dismissedBy: uuid("dismissed_by").references(() => users.id, { onDelete: "set null" }),
+    dismissedAt: timestamp("dismissed_at").defaultNow().notNull(),
+  },
+  (t) => [unique("lifecycle_suggestion_dismissals_song_rule").on(t.songId, t.rule)]
 );
 
 // A UI-authored changeset (ADR-0002 §2.3): the reviewable, reversible unit every pool and

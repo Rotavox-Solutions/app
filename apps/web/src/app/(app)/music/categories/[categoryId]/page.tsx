@@ -4,7 +4,7 @@ import { requiredDepth } from "@/lib/balance";
 import { BalanceStatusBadge, STATUS_HELP } from "@/components/music/BalanceStatusBadge";
 import { fmtSlots, fmtTurnover } from "@/components/music/format";
 import { PoolSongTable } from "@/components/music/PoolSongTable";
-import { getPlaceableCategories, getPoolEditing, suggestedRestExit } from "@/lib/music-edits";
+import { getPlaceableCategories, getPoolEditing, getRestExits } from "@/lib/music-edits";
 import { directionsFor } from "@/lib/direction";
 import { allowed, requireStation } from "@/lib/auth";
 
@@ -36,7 +36,7 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
     getPlaceableCategories(stationId),
     getPoolEditing(stationId),
   ]);
-  const restExit = suggestedRestExit(options);
+  const restExit = (await getRestExits(stationId, options))[category.id] ?? null;
   // "also" rows take their direction from their primary pool, which is elsewhere.
   const directions = await directionsFor(
     stationId,
@@ -127,7 +127,7 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
               category={{ id: category.id, name: category.name, restReviewDays: category.restReviewDays }}
               options={options}
               staged={editing.staged}
-              restExit={restExit && restExit.id !== category.id ? restExit : null}
+              restExit={restExit}
               spinsDays={RECENT_SPINS_DAYS}
               directions={directions}
               readOnly={!editing.imported || !allowed(ctx, "edit_music")}

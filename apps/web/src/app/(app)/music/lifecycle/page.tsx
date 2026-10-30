@@ -2,12 +2,14 @@ import { eq } from "drizzle-orm";
 import { LIFECYCLE_STATES, stations } from "@rotavox/schema";
 import { db } from "@/lib/db";
 import { getLifecycleOverview, isRestDue, RECENT_TRANSITION_DAYS } from "@/lib/library";
-import { getPlaceableCategories, getPoolEditing, suggestedRestExit } from "@/lib/music-edits";
+import { getCategoryNames, getPlaceableCategories, getPoolEditing, getRestExits } from "@/lib/music-edits";
+import { DISMISS_DAYS, getSuggestions } from "@/lib/suggestions";
 import { RECENT_SPINS_DAYS } from "@/lib/queries";
 import { allowed, requireStation } from "@/lib/auth";
 import { fmtStateIn, fmtWhenShort } from "@/components/music/format";
 import { LibraryTable } from "@/components/music/LibraryTable";
-import { PoolLifecycleSettings } from "@/components/music/PoolLifecycleSettings";
+import { PoolLifecycleSettings, PoolMoveSettings } from "@/components/music/PoolLifecycleSettings";
+import { SuggestionsTable } from "@/components/music/SuggestionsTable";
 
 // Live view over current DB state — never statically prerendered.
 export const dynamic = "force-dynamic";
@@ -26,11 +28,13 @@ function Heading({ children }: { children: React.ReactNode }) {
 export default async function LifecyclePage() {
   const ctx = await requireStation();
   const { stationId } = ctx;
-  const [overview, options, editing, [station]] = await Promise.all([
+  const [overview, options, editing, [station], suggestions, names] = await Promise.all([
     getLifecycleOverview(stationId),
     getPlaceableCategories(stationId),
     getPoolEditing(stationId),
     db.select({ timezone: stations.timezone }).from(stations).where(eq(stations.id, stationId)),
+    getSuggestions(stationId),
+    getCategoryNames(stationId),
   ]);
   const tz = station?.timezone ?? "UTC";
   const canEditMusic = allowed(ctx, "edit_music");
@@ -38,7 +42,7 @@ export default async function LifecyclePage() {
   const now = new Date();
   const due = overview.resting.filter((r) => isRestDue(r, now));
   const restingOn = overview.resting.filter((r) => !isRestDue(r, now));
-  const restExit = suggestedRestExit(options);
+  const restExits = await getRestExits(stationId, options);
   const onLadder = overview.standards.some((p) => p.ladderRank != null);
   const table = (rows: typeof due) => (
     <LibraryTable
@@ -46,7 +50,7 @@ export default async function LifecyclePage() {
       directions={overview.directions}
       options={options}
       staged={editing.staged}
-      restExit={restExit}
+      restExits={restExits}
       spinsDays={RECENT_SPINS_DAYS}
       readOnly={readOnly}
     />
@@ -87,6 +91,31 @@ export default async function LifecyclePage() {
       )}
 
       <section className="space-y-2">
+        <Heading>Suggested moves ({suggestions.rows.length})</Heading>
+        {suggestions.rows.length === 0 ? (
+          <p className="max-w-2xl text-sm text-neutral-500">
+            Nothing to suggest.{suggestions.dismissed ? ` ${suggestions.dismissed} set aside for now.` : ""} Suggestions come
+            from each pool&apos;s settings below: where songs leave rest to, when they move on, when a song that isn&apos;t
+            airing is benched, and the ladder for falling songs. Nothing moves until you stage and apply it.
+          </p>
+        ) : (
+          <>
+            <p className="max-w-2xl text-sm text-neutral-500">
+              From each pool&apos;s settings below. Stage the ones you agree with and apply them under Changes; &ldquo;Not
+              now&rdquo; hides one for {DISMISS_DAYS} days.
+              {suggestions.dismissed ? ` ${suggestions.dismissed} set aside for now.` : ""}
+            </p>
+            <SuggestionsTable
+              rows={suggestions.rows}
+              categoryNames={Object.fromEntries(names)}
+              dismissDays={DISMISS_DAYS}
+              readOnly={readOnly}
+            />
+          </>
+        )}
+      </section>
+
+      <section className="space-y-2">
         <Heading>Falling{onLadder ? ` (${overview.falling.length})` : ""}</Heading>
         {!onLadder ? (
           <p className="max-w-2xl text-sm text-neutral-500">
@@ -113,7 +142,8 @@ export default async function LifecyclePage() {
         ) : (
           <>
             <p className="text-sm text-neutral-500">
-              Decide where each goes next{restExit ? `: ${restExit.name} is suggested, or back to its own pool` : ""}.
+              Decide where each goes next: its pool&apos;s rest exit, or back to its own pool. They&apos;re also under
+              Suggested moves above.
             </p>
             {table(due)}
           </>
@@ -144,6 +174,13 @@ export default async function LifecyclePage() {
           long songs rest before they come up for review. Blank turns each off. None of them moves a song.
         </p>
         <PoolLifecycleSettings rows={overview.standards} readOnly={!canEditMusic} />
+        <h3 className="pt-4 text-sm font-medium text-neutral-300">What songs are suggested to do next</h3>
+        <p className="max-w-2xl text-sm text-neutral-500">
+          Feeds Suggested moves above. A song leaving rest goes back to its own pool unless you choose another; a song
+          that has been active in a pool past its move-on time is suggested for the next pool (recurrent to gold, say);
+          a song that hasn&apos;t aired in the given time is suggested for the bench.
+        </p>
+        <PoolMoveSettings rows={overview.standards} readOnly={!canEditMusic} />
       </section>
 
       <section className="space-y-2">

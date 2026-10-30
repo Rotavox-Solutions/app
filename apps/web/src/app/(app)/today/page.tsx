@@ -1,6 +1,7 @@
 import { getCategoryBalance, getTodaySummary } from "@/lib/queries";
 import { getChangesStatus } from "@/lib/music-edits";
 import { getRunnerStatus } from "@/lib/runner-status";
+import { getSuggestions } from "@/lib/suggestions";
 import { needsAttention } from "@/lib/balance";
 import { HOUR_MS } from "@/lib/constants";
 import { fmtAgo, fmtTurnover } from "@/components/music/format";
@@ -46,11 +47,12 @@ function fmtWhen(at: Date, timezone: string): string {
 
 export default async function TodayPage() {
   const { stationId } = await requireStation();
-  const [summary, balance, changes, runner] = await Promise.all([
+  const [summary, balance, changes, runner, suggestions] = await Promise.all([
     getTodaySummary(stationId),
     getCategoryBalance(stationId),
     getChangesStatus(stationId),
     getRunnerStatus(stationId),
+    getSuggestions(stationId),
   ]);
   if (!summary) {
     return <p className="text-sm text-neutral-500">This station no longer exists.</p>;
@@ -148,6 +150,17 @@ export default async function TodayPage() {
           </a>
         </Card>
 
+        {suggestions.rows.length > 0 && (
+          <Card title="Suggested moves" tone="warn">
+            <p>
+              The lifecycle rules suggest {suggestions.rows.length} {suggestions.rows.length === 1 ? "move" : "moves"}. Nothing
+              moves until you stage and apply it.
+            </p>
+            <a href="/music/lifecycle" className="text-neutral-200 hover:underline">
+              Review them in Lifecycle →
+            </a>
+          </Card>
+        )}
         {restDue.length > 0 && (
           <Card title="Rest reviews due" tone="warn">
             <p>These songs have rested past their pool&apos;s standard rest. Decide where each one goes next.</p>

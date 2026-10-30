@@ -279,9 +279,28 @@ export async function getPoolEditing(stationId: string): Promise<PoolEditing> {
 }
 
 /**
- * Where a song leaving rest is suggested to go (ADR-0002 §6.1): R1, when the station has
- * one. Returning to its own pool is always offered alongside.
+ * Where a song leaving rest is suggested to go when its pool doesn't say (ADR-0002 §6.1):
+ * R1, when the station has one. Returning to its own pool is always offered alongside.
  */
 export function suggestedRestExit(options: CategoryOption[]): CategoryOption | null {
   return options.find((o) => o.kind === "music" && o.name.toUpperCase() === "R1") ?? null;
+}
+
+/**
+ * Each pool's rest exit: its "leaves rest to" setting, else the R1 default. Null where a
+ * song leaving rest just goes back to its own pool.
+ */
+export async function getRestExits(stationId: string, options: CategoryOption[]): Promise<Record<string, CategoryOption | null>> {
+  const rows = await db
+    .select({ id: categories.id, exit: categories.restExitCategoryId })
+    .from(categories)
+    .where(eq(categories.stationId, stationId));
+  const byId = new Map(options.map((o) => [o.id, o]));
+  const fallback = suggestedRestExit(options);
+  return Object.fromEntries(
+    rows.map((r) => {
+      const exit = (r.exit ? byId.get(r.exit) : undefined) ?? fallback;
+      return [r.id, exit && exit.id !== r.id ? exit : null];
+    })
+  );
 }

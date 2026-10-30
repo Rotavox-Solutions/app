@@ -296,6 +296,10 @@ export interface PoolLifecycleRow {
   restReviewDays: number | null;
   ladderRank: number | null;
   fallingAfterDays: number | null;
+  restExitCategoryId: string | null;
+  promoteAfterDays: number | null;
+  promoteToCategoryId: string | null;
+  benchAfterUnairedDays: number | null;
   resting: number;
   due: number;
   falling: number;
@@ -365,6 +369,10 @@ export async function getLifecycleOverview(stationId: string): Promise<Lifecycle
         restReviewDays: categories.restReviewDays,
         ladderRank: categories.ladderRank,
         fallingAfterDays: categories.fallingAfterDays,
+        restExitCategoryId: categories.restExitCategoryId,
+        promoteAfterDays: categories.promoteAfterDays,
+        promoteToCategoryId: categories.promoteToCategoryId,
+        benchAfterUnairedDays: categories.benchAfterUnairedDays,
       })
       .from(categories)
       .where(eq(categories.stationId, stationId)),
@@ -425,6 +433,10 @@ export async function getLifecycleOverview(stationId: string): Promise<Lifecycle
         restReviewDays: c.restReviewDays,
         ladderRank: c.ladderRank,
         fallingAfterDays: c.fallingAfterDays,
+        restExitCategoryId: c.restExitCategoryId,
+        promoteAfterDays: c.promoteAfterDays,
+        promoteToCategoryId: c.promoteToCategoryId,
+        benchAfterUnairedDays: c.benchAfterUnairedDays,
         resting: from.length,
         due: from.filter((r) => isRestDue(r, now)).length,
         falling: falling.filter((r) => r.poolId === c.id).length,

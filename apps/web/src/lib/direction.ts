@@ -21,36 +21,7 @@ export async function directionsFor(stationId: string, rows: DirectionSong[]): P
   const candidates = rows.filter((r) => r.state === "active" && r.poolId && pools.get(r.poolId)?.ladderRank != null);
   if (candidates.length === 0) return {};
 
-  // The latest event that made each song active in its current primary pool: a move in, a
-  // return from rest or the bench, or the import (which knows when, not from where).
-  const entries = await db
-    .selectDistinctOn([lifecycleEvents.songId], {
-      songId: lifecycleEvents.songId,
-      at: lifecycleEvents.at,
-      fromCategoryId: lifecycleEvents.fromCategoryId,
-      source: lifecycleEvents.source,
-    })
-    .from(lifecycleEvents)
-    .innerJoin(
-      songCategories,
-      and(
-        eq(songCategories.songId, lifecycleEvents.songId),
-        eq(songCategories.role, "primary"),
-        eq(songCategories.categoryId, lifecycleEvents.toCategoryId)
-      )
-    )
-    .where(
-      and(
-        eq(lifecycleEvents.stationId, stationId),
-        inArray(lifecycleEvents.songId, candidates.map((c) => c.id)),
-        eq(lifecycleEvents.toState, "active"),
-        sql`(${lifecycleEvents.source} = 'import'
-          OR ${lifecycleEvents.fromCategoryId} IS DISTINCT FROM ${lifecycleEvents.toCategoryId}
-          OR ${lifecycleEvents.fromState} IS DISTINCT FROM 'active')`
-      )
-    )
-    .orderBy(lifecycleEvents.songId, sql`${lifecycleEvents.at} desc`);
-  const entryBySong = new Map(entries.map((e) => [e.songId, e]));
+  const entryBySong = await poolEntryRows(stationId, candidates.map((c) => c.id));
 
   const now = new Date();
   const out: Record<string, DirectionResult> = {};
@@ -71,4 +42,46 @@ export async function directionsFor(stationId: string, rows: DirectionSong[]): P
     if (result) out[r.id] = result;
   }
   return out;
+}
+
+export interface PoolEntryRow {
+  at: Date;
+  fromCategoryId: string | null;
+  source: string;
+}
+
+/**
+ * The latest event that made each song active in its current primary pool: a move in, a
+ * return from rest or the bench, or the import (which knows when, not from where).
+ */
+export async function poolEntryRows(stationId: string, songIds: string[]): Promise<Map<string, PoolEntryRow>> {
+  if (songIds.length === 0) return new Map();
+  const entries = await db
+    .selectDistinctOn([lifecycleEvents.songId], {
+      songId: lifecycleEvents.songId,
+      at: lifecycleEvents.at,
+      fromCategoryId: lifecycleEvents.fromCategoryId,
+      source: lifecycleEvents.source,
+    })
+    .from(lifecycleEvents)
+    .innerJoin(
+      songCategories,
+      and(
+        eq(songCategories.songId, lifecycleEvents.songId),
+        eq(songCategories.role, "primary"),
+        eq(songCategories.categoryId, lifecycleEvents.toCategoryId)
+      )
+    )
+    .where(
+      and(
+        eq(lifecycleEvents.stationId, stationId),
+        inArray(lifecycleEvents.songId, songIds),
+        eq(lifecycleEvents.toState, "active"),
+        sql`(${lifecycleEvents.source} = 'import'
+          OR ${lifecycleEvents.fromCategoryId} IS DISTINCT FROM ${lifecycleEvents.toCategoryId}
+          OR ${lifecycleEvents.fromState} IS DISTINCT FROM 'active')`
+      )
+    )
+    .orderBy(lifecycleEvents.songId, sql`${lifecycleEvents.at} desc`);
+  return new Map(entries.map(({ songId, ...e }) => [songId, e]));
 }

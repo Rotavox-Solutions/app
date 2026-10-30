@@ -24,7 +24,7 @@ export function LibraryTable({
   rows,
   options,
   staged,
-  restExit,
+  restExits,
   spinsDays,
   directions = {},
   readOnly = false,
@@ -32,7 +32,8 @@ export function LibraryTable({
   rows: LibraryRow[];
   options: CategoryOption[];
   staged: Record<string, Placement>;
-  restExit: CategoryOption | null;
+  /** Each pool's rest exit, by pool id. */
+  restExits: Record<string, CategoryOption | null>;
   spinsDays: number;
   /** Rising or falling, by song id, for songs on the currents ladder. */
   directions?: Record<string, DirectionResult>;
@@ -144,7 +145,7 @@ export function LibraryTable({
                             <RestExitButtons
                               poolId={r.poolId}
                               poolName={r.poolName}
-                              restExit={restExit}
+                              restExit={restExits[r.poolId ?? ""] ?? null}
                               disabled={pending}
                               onAction={onAction}
                             />

@@ -131,9 +131,17 @@ export const POOL_LIFECYCLE_LIMITS = {
   restReviewDays: { max: 400, label: "A rest standard", unit: "days" },
   ladderRank: { max: 20, label: "A ladder rank", unit: "" },
   fallingAfterDays: { max: 400, label: "A falling-after time", unit: "days" },
+  promoteAfterDays: { max: 730, label: "A move-on time", unit: "days" },
+  benchAfterUnairedDays: { max: 365, label: "An unaired-for time", unit: "days" },
 } as const;
 export type PoolLifecycleField = keyof typeof POOL_LIFECYCLE_LIMITS;
-export type PoolLifecycleSettings = Partial<Record<PoolLifecycleField, number | null>>;
+/** Settings that name another pool. */
+export const POOL_LIFECYCLE_REFS = {
+  restExitCategoryId: "Where songs leave rest to",
+  promoteToCategoryId: "Where songs move on to",
+} as const;
+export type PoolLifecycleRef = keyof typeof POOL_LIFECYCLE_REFS;
+export type PoolLifecycleSettings = Partial<Record<PoolLifecycleField, number | null> & Record<PoolLifecycleRef, string | null>>;
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -142,7 +150,10 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
  *   restReviewDays   — standard rest before songs resting from it come up for review (ADR-0002 §6.2)
  *   ladderRank       — place on the currents ladder, 1 = hottest, for rising and falling
  *   fallingAfterDays — how long a song stays active here before it counts as falling
- * Each only changes what is shown and prompted; none moves a song.
+ *   restExitCategoryId — where a song leaving rest from here is suggested to go (null: back here)
+ *   promoteAfterDays + promoteToCategoryId — after so long here, suggest moving on there
+ *   benchAfterUnairedDays — suggest benching a song here that hasn't aired in so long
+ * Each only changes what is shown and suggested; none moves a song.
  */
 export async function setPoolLifecycle(
   db: Db,
@@ -162,8 +173,22 @@ export async function setPoolLifecycle(
     }
     patch[field] = v ?? null;
   }
-  if (Object.keys(patch).length === 0) throw new ChangesetError("invalid", "Nothing to change.");
   if (!UUID.test(categoryId)) throw new ChangesetError("not_found", "No such category at this station.");
+  for (const [field, label] of Object.entries(POOL_LIFECYCLE_REFS) as [PoolLifecycleRef, string][]) {
+    if (!(field in settings)) continue;
+    const v = settings[field];
+    if (v !== null) {
+      if (typeof v !== "string" || !UUID.test(v)) throw new ChangesetError("invalid", `${label}: choose a pool.`);
+      if (v === categoryId) throw new ChangesetError("invalid", `${label}: choose a different pool.`);
+      const [other] = await db
+        .select({ id: categories.id })
+        .from(categories)
+        .where(and(eq(categories.stationId, stationId), eq(categories.id, v)));
+      if (!other) throw new ChangesetError("invalid", `${label}: that pool isn't at this station.`);
+    }
+    patch[field] = v ?? null;
+  }
+  if (Object.keys(patch).length === 0) throw new ChangesetError("invalid", "Nothing to change.");
   const updated = await db
     .update(categories)
     .set(patch)

@@ -4,9 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { PoolLifecycleRow } from "@/lib/library";
 
-type Field = "restReviewDays" | "ladderRank" | "fallingAfterDays";
+type Field = "restReviewDays" | "ladderRank" | "fallingAfterDays" | "promoteAfterDays" | "benchAfterUnairedDays";
+type RefField = "restExitCategoryId" | "promoteToCategoryId";
 
-async function save(categoryId: string, field: Field, value: number | null): Promise<string | null> {
+async function save(categoryId: string, field: Field | RefField, value: number | string | null): Promise<string | null> {
   try {
     const res = await fetch(`/api/categories/${categoryId}/lifecycle`, {
       method: "PUT",
@@ -82,6 +83,107 @@ function NumberCell({
       )}
       {error && <span className="text-xs text-red-400">{error}</span>}
     </form>
+  );
+}
+
+/** A pool picker that saves as soon as it changes. */
+function RefCell({
+  row,
+  field,
+  pools,
+  none,
+  label,
+  readOnly,
+}: {
+  row: PoolLifecycleRow;
+  field: RefField;
+  pools: { id: string; name: string }[];
+  none: string;
+  label: string;
+  readOnly: boolean;
+}) {
+  const router = useRouter();
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const value = row[field];
+  if (readOnly) {
+    return <>{value ? pools.find((p) => p.id === value)?.name ?? "?" : <span className="text-neutral-600">{none}</span>}</>;
+  }
+  return (
+    <span className="flex items-center gap-2">
+      <select
+        value={value ?? ""}
+        disabled={pending}
+        aria-label={`${label} for ${row.name}`}
+        onChange={async (e) => {
+          setPending(true);
+          setError(null);
+          const err = await save(row.id, field, e.target.value || null);
+          setPending(false);
+          if (err) setError(err);
+          else router.refresh();
+        }}
+        className="max-w-[10rem] rounded border border-neutral-700 bg-neutral-900 px-1.5 py-0.5 text-sm text-neutral-100 disabled:opacity-50"
+      >
+        <option value="">{none}</option>
+        {pools
+          .filter((p) => p.id !== row.id)
+          .map((p) => (
+            <option key={p.id} value={p.id}>
+              {p.name}
+            </option>
+          ))}
+      </select>
+      {error && <span className="text-xs text-red-400">{error}</span>}
+    </span>
+  );
+}
+
+/** What each pool's songs are suggested to do next (standing lifecycle rules). Suggestions only. */
+export function PoolMoveSettings({ rows, readOnly = false }: { rows: PoolLifecycleRow[]; readOnly?: boolean }) {
+  const pools = rows.map((r) => ({ id: r.id, name: r.name }));
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full min-w-[760px] text-left text-sm">
+        <thead>
+          <tr className="border-b border-neutral-800 text-neutral-400">
+            <th className="py-2 font-medium">Pool</th>
+            <th className="py-2 font-medium" title="Where a song leaving rest from this pool is suggested to go, once its standard rest is up.">
+              Leaves rest to
+            </th>
+            <th className="py-2 font-medium" title="After this long active in the pool, suggest moving the song on.">
+              Moves on to
+            </th>
+            <th className="py-2 font-medium">after</th>
+            <th className="py-2 font-medium" title="An active song that hasn't aired in this long is suggested for the bench.">
+              Bench if unaired for
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.id} className="border-b border-neutral-900">
+              <td className="py-1.5">
+                {r.name}
+                {r.group && <span className="ml-2 text-xs text-neutral-500">{r.group}</span>}
+              </td>
+              <td className="py-1.5">
+                <RefCell row={r} field="restExitCategoryId" pools={pools} none="back to this pool" label="Leaves rest to" readOnly={readOnly} />
+              </td>
+              <td className="py-1.5">
+                <RefCell row={r} field="promoteToCategoryId" pools={pools} none="—" label="Moves on to" readOnly={readOnly} />
+              </td>
+              <td className="py-1.5">
+                <NumberCell row={r} field="promoteAfterDays" unit="days" label="Moves on after" readOnly={readOnly} />
+              </td>
+              <td className="py-1.5">
+                <NumberCell row={r} field="benchAfterUnairedDays" unit="days" label="Bench if unaired for" readOnly={readOnly} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

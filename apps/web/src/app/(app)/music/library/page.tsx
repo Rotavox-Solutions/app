@@ -2,7 +2,7 @@ import { LibraryTable } from "@/components/music/LibraryTable";
 import { groupOptions } from "@/components/music/format";
 import { LIFECYCLE_STATES } from "@rotavox/schema";
 import { LIBRARY_PAGE_SIZE, parseLibraryFilter, searchLibrary, type LibraryFilter } from "@/lib/library";
-import { getPlaceableCategories, getPoolEditing, suggestedRestExit } from "@/lib/music-edits";
+import { getPlaceableCategories, getPoolEditing, getRestExits } from "@/lib/music-edits";
 import { RECENT_SPINS_DAYS } from "@/lib/queries";
 import { directionsFor } from "@/lib/direction";
 import { allowed, requireStation } from "@/lib/auth";
@@ -33,7 +33,7 @@ export default async function LibraryPage({
     getPlaceableCategories(stationId),
     getPoolEditing(stationId),
   ]);
-  const directions = await directionsFor(stationId, result.rows);
+  const [directions, restExits] = await Promise.all([directionsFor(stationId, result.rows), getRestExits(stationId, options)]);
   const canEdit = allowed(ctx, "edit_music");
   const stagedCount = Object.keys(editing.staged).length;
   const first = (result.page - 1) * LIBRARY_PAGE_SIZE + 1;
@@ -116,7 +116,7 @@ export default async function LibraryPage({
             rows={result.rows}
             options={options}
             staged={editing.staged}
-            restExit={suggestedRestExit(options)}
+            restExits={restExits}
             spinsDays={RECENT_SPINS_DAYS}
             directions={directions}
             readOnly={!editing.imported || !canEdit}
