@@ -259,3 +259,29 @@ export async function getChangesStatus(stationId: string): Promise<ChangesStatus
     failedProjection: Number(proj?.failed ?? 0),
   };
 }
+
+export interface PoolEditing {
+  imported: boolean;
+  /** Where the draft would put each staged song, by song id. */
+  staged: Record<string, Placement>;
+}
+
+/** What the category page needs to edit its songs: whether edits are open yet, and the draft's targets. */
+export async function getPoolEditing(stationId: string): Promise<PoolEditing> {
+  const [[station], draft] = await Promise.all([
+    db.select({ importedAt: stations.membershipImportedAt }).from(stations).where(eq(stations.id, stationId)),
+    getDraft(db, stationId),
+  ]);
+  return {
+    imported: station?.importedAt != null,
+    staged: Object.fromEntries((draft?.items ?? []).map((i) => [i.songId, i.to])),
+  };
+}
+
+/**
+ * Where a song leaving rest is suggested to go (ADR-0002 §6.1): R1, when the station has
+ * one. Returning to its own pool is always offered alongside.
+ */
+export function suggestedRestExit(options: CategoryOption[]): CategoryOption | null {
+  return options.find((o) => o.kind === "music" && o.name.toUpperCase() === "R1") ?? null;
+}

@@ -2,24 +2,13 @@ import { notFound } from "next/navigation";
 import { getCategoryBalance, getPoolSongs, RECENT_SPINS_DAYS } from "@/lib/queries";
 import { requiredDepth } from "@/lib/balance";
 import { BalanceStatusBadge, STATUS_HELP } from "@/components/music/BalanceStatusBadge";
-import { fmtAgo, fmtDuration, fmtSlots, fmtTurnover } from "@/components/music/format";
-import { requireStation } from "@/lib/auth";
+import { fmtSlots, fmtTurnover } from "@/components/music/format";
+import { PoolSongTable } from "@/components/music/PoolSongTable";
+import { getPlaceableCategories, getPoolEditing, suggestedRestExit } from "@/lib/music-edits";
+import { allowed, requireStation } from "@/lib/auth";
 
 // Live view over current DB state — never statically prerendered.
 export const dynamic = "force-dynamic";
-
-function LifecycleCell({ state, since, reviewDays }: { state: string; since: Date | null; reviewDays: number | null }) {
-  if (state === "active") return <span className="text-neutral-500">active</span>;
-  const days = since ? Math.floor((Date.now() - since.getTime()) / 86_400_000) : null;
-  const due = state === "resting" && reviewDays != null && days != null && days >= reviewDays;
-  return (
-    <span className={due ? "text-amber-300" : "text-sky-300"} title={due ? "Past this pool's standard rest — decide where it goes next" : undefined}>
-      {state}
-      {days != null && ` ${days}d`}
-      {due && " · review"}
-    </span>
-  );
-}
 
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
@@ -32,7 +21,8 @@ function Stat({ label, value, sub }: { label: string; value: string; sub?: strin
 }
 
 export default async function CategoryDetailPage({ params }: { params: Promise<{ categoryId: string }> }) {
-  const { stationId } = await requireStation();
+  const ctx = await requireStation();
+  const { stationId } = ctx;
   const { categoryId } = await params;
   const balance = await getCategoryBalance(stationId);
   const category = balance.find((b) => b.id === categoryId);
@@ -40,7 +30,12 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
 
   const parent = balance.find((b) => b.id === category.parentId);
   const children = balance.filter((b) => b.parentId === category.id);
-  const songs = await getPoolSongs(stationId, category.id);
+  const [songs, options, editing] = await Promise.all([
+    getPoolSongs(stationId, category.id),
+    getPlaceableCategories(stationId),
+    getPoolEditing(stationId),
+  ]);
+  const restExit = suggestedRestExit(options);
   const needed = requiredDepth(category);
 
   return (
@@ -111,52 +106,26 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
             {children.length > 0 ? "Songs sit in the sub-pools above." : "No songs in this category."}
           </p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[640px] text-left text-sm">
-              <thead>
-                <tr className="border-b border-neutral-800 text-neutral-400">
-                  <th className="py-2 font-medium">Artist</th>
-                  <th className="py-2 font-medium">Title</th>
-                  <th className="py-2 font-medium">State</th>
-                  <th className="py-2 text-right font-medium">Length</th>
-                  <th className="py-2 pl-6 font-medium">Last aired</th>
-                  <th className="py-2 text-right font-medium">Spins, {RECENT_SPINS_DAYS}d</th>
-                </tr>
-              </thead>
-              <tbody>
-                {songs.map((s) => (
-                  <tr
-                    key={s.id}
-                    className={`border-b border-neutral-900 ${
-                      s.enabled && s.lifecycleState === "active" ? "" : "text-neutral-600"
-                    }`}
-                    title={s.enabled ? undefined : "Disabled in the playout library — not schedulable"}
-                  >
-                    <td className="py-1.5">{s.artist ?? "—"}</td>
-                    <td className="py-1.5">
-                      {s.title ?? "—"}
-                      {!s.enabled && <span className="ml-2 text-xs uppercase tracking-wide">disabled</span>}
-                      {s.role === "also" && (
-                        <span className="ml-2 text-xs uppercase tracking-wide text-neutral-500" title="Primary pool is elsewhere">
-                          also
-                        </span>
-                      )}
-                    </td>
-                    <td className="py-1.5">
-                      <LifecycleCell
-                        state={s.lifecycleState}
-                        since={s.lifecycleSince}
-                        reviewDays={category.restReviewDays}
-                      />
-                    </td>
-                    <td className="py-1.5 text-right tabular-nums text-neutral-400">{fmtDuration(s.durationMs)}</td>
-                    <td className="py-1.5 pl-6 text-neutral-400">{fmtAgo(s.lastAiredAt)}</td>
-                    <td className="py-1.5 text-right tabular-nums text-neutral-400">{s.recentSpins}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <>
+            {!editing.imported && allowed(ctx, "edit_music") && (
+              <p className="text-sm text-neutral-500">
+                Pools for this station still come from RadioDJ&apos;s subcategories. Import them on the{" "}
+                <a href="/station" className="underline hover:text-neutral-300">
+                  Station
+                </a>{" "}
+                page to change songs here.
+              </p>
+            )}
+            <PoolSongTable
+              songs={songs}
+              category={{ id: category.id, name: category.name, restReviewDays: category.restReviewDays }}
+              options={options}
+              staged={editing.staged}
+              restExit={restExit && restExit.id !== category.id ? restExit : null}
+              spinsDays={RECENT_SPINS_DAYS}
+              readOnly={!editing.imported || !allowed(ctx, "edit_music")}
+            />
+          </>
         )}
       </section>
     </div>

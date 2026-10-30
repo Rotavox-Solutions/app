@@ -2,7 +2,17 @@
 
 import type { CategoryOption } from "@/lib/music-edits";
 
-/** A pool picker grouped the way the Categories page is: music first, by parent, then imaging. */
+/** Pools grouped the way the Categories page is: music first, by parent, then imaging. */
+export function groupOptions(options: CategoryOption[]): [string, CategoryOption[]][] {
+  const groups = new Map<string, CategoryOption[]>();
+  for (const o of options) {
+    const key = o.kind === "music" ? o.group ?? "Music" : "Imaging & other";
+    groups.set(key, [...(groups.get(key) ?? []), o]);
+  }
+  return [...groups];
+}
+
+/** A pool picker, grouped by groupOptions. */
 export function CategoryPicker({
   options,
   value,
@@ -16,11 +26,6 @@ export function CategoryPicker({
   placeholder?: string;
   disabled?: boolean;
 }) {
-  const groups = new Map<string, CategoryOption[]>();
-  for (const o of options) {
-    const key = o.kind === "music" ? o.group ?? "Music" : "Imaging & other";
-    groups.set(key, [...(groups.get(key) ?? []), o]);
-  }
   return (
     <select
       value={value}
@@ -29,7 +34,7 @@ export function CategoryPicker({
       className="rounded border border-neutral-700 bg-neutral-900 px-2 py-1 text-sm text-neutral-100 disabled:opacity-50"
     >
       <option value="">{placeholder}</option>
-      {[...groups].map(([label, opts]) => (
+      {groupOptions(options).map(([label, opts]) => (
         <optgroup key={label} label={label}>
           {opts.map((o) => (
             <option key={o.id} value={o.id}>
