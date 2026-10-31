@@ -53,6 +53,7 @@ export default async function LogDetailPage({ params }: { params: Promise<{ logI
         </div>
       </div>
       <LogTimeline
+        timezone={ctx.station.timezone}
         readOnly={!allowed(ctx, "edit_logs")}
         logId={detail.log.id}
         logStatus={detail.log.status as "draft" | "approved"}

@@ -8,9 +8,10 @@ import { StatusBadge } from "./ViolationBadge";
 import { ReplaceModal } from "./ReplaceModal";
 import { LogActions } from "./LogActions";
 
-function fmtTime(date: Date | string | null): string {
+/** In the station's time zone, whatever the browser's is. */
+function fmtTime(date: Date | string | null, timeZone: string): string {
   if (!date) return "—";
-  return new Date(date).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  return new Date(date).toLocaleTimeString("en-US", { timeZone, hour: "2-digit", minute: "2-digit", second: "2-digit" });
 }
 
 function deltaLabel(projected: Date | string | null, aired: Date | string | null): string | null {
@@ -38,9 +39,11 @@ interface Props {
   items: LogItemDetail[];
   /** For a Viewer: the timeline without approve, replace, swap or lock. */
   readOnly?: boolean;
+  /** The station's time zone: every time shown is in it. */
+  timezone: string;
 }
 
-export function LogTimeline({ logId, logStatus, displayStatus, items, readOnly = false }: Props) {
+export function LogTimeline({ logId, logStatus, displayStatus, items, readOnly = false, timezone }: Props) {
   const router = useRouter();
   const [swapSelection, setSwapSelection] = useState<string[]>([]);
   const [replaceTarget, setReplaceTarget] = useState<{ itemId: string; categoryId: string | null } | null>(null);
@@ -151,11 +154,11 @@ export function LogTimeline({ logId, logStatus, displayStatus, items, readOnly =
             return (
               <tr key={item.id} className={`border-b border-neutral-900 ${selected ? "bg-purple-950/30" : ""}`}>
                 <td className="py-1.5 pr-2 text-neutral-500">{item.sortOrder}</td>
-                <td className="py-1.5 pr-2 text-neutral-300">{fmtTime(item.projectedAirAt)}</td>
+                <td className="py-1.5 pr-2 text-neutral-300">{fmtTime(item.projectedAirAt, timezone)}</td>
                 <td className="py-1.5 pr-2">
                   {item.airedAt ? (
                     <span className={delta && delta !== "on time" ? "text-amber-400" : "text-emerald-400"}>
-                      {fmtTime(item.airedAt)} {delta && `(${delta})`}
+                      {fmtTime(item.airedAt, timezone)} {delta && `(${delta})`}
                     </span>
                   ) : (
                     <span className="text-neutral-600">—</span>

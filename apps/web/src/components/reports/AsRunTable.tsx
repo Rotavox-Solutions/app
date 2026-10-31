@@ -1,12 +1,13 @@
 import type { AsRunRow } from "@/lib/queries";
 
-function fmtHour(date: Date): string {
-  return new Date(date).toLocaleString("en-US", { month: "short", day: "2-digit", hour: "2-digit", minute: "2-digit" });
+// Both in the station's time zone, whatever the server's is.
+function fmtHour(date: Date, timeZone: string): string {
+  return new Date(date).toLocaleString("en-US", { timeZone, month: "short", day: "2-digit", hour: "2-digit", minute: "2-digit" });
 }
 
-function fmtTime(date: Date | null): string {
+function fmtTime(date: Date | null, timeZone: string): string {
   if (!date) return "—";
-  return new Date(date).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  return new Date(date).toLocaleTimeString("en-US", { timeZone, hour: "2-digit", minute: "2-digit", second: "2-digit" });
 }
 
 function deltaColor(delta: number | null): string {
@@ -17,7 +18,7 @@ function deltaColor(delta: number | null): string {
   return "text-red-400";
 }
 
-export function AsRunTable({ rows }: { rows: AsRunRow[] }) {
+export function AsRunTable({ rows, timezone }: { rows: AsRunRow[]; timezone: string }) {
   if (rows.length === 0) {
     return <p className="text-sm text-neutral-500">No TOH-locked elements found in the selected range.</p>;
   }
@@ -36,9 +37,9 @@ export function AsRunTable({ rows }: { rows: AsRunRow[] }) {
       <tbody>
         {rows.map((row, i) => (
           <tr key={i} className="border-b border-neutral-900">
-            <td className="py-1.5 pr-2 text-neutral-300">{fmtHour(row.hour)}</td>
-            <td className="py-1.5 pr-2 text-neutral-400">{fmtTime(row.projectedAirAt)}</td>
-            <td className="py-1.5 pr-2 text-neutral-400">{fmtTime(row.airedAt)}</td>
+            <td className="py-1.5 pr-2 text-neutral-300">{fmtHour(row.hour, timezone)}</td>
+            <td className="py-1.5 pr-2 text-neutral-400">{fmtTime(row.projectedAirAt, timezone)}</td>
+            <td className="py-1.5 pr-2 text-neutral-400">{fmtTime(row.airedAt, timezone)}</td>
             <td className={`py-1.5 pr-2 font-medium ${deltaColor(row.deltaSeconds)}`}>
               {row.deltaSeconds === null ? "—" : `${row.deltaSeconds > 0 ? "+" : ""}${row.deltaSeconds}s`}
             </td>

@@ -1,12 +1,13 @@
 import type { LogListRow } from "@/lib/queries";
 import { StatusBadge, ViolationBadge } from "./ViolationBadge";
 
-function fmt(date: Date | null): string {
+/** In the station's time zone, whatever the server's is. */
+function fmt(date: Date | null, timeZone: string): string {
   if (!date) return "—";
-  return new Date(date).toLocaleString("en-US", { month: "short", day: "2-digit", hour: "2-digit", minute: "2-digit" });
+  return new Date(date).toLocaleString("en-US", { timeZone, month: "short", day: "2-digit", hour: "2-digit", minute: "2-digit" });
 }
 
-export function LogsTable({ logs }: { logs: LogListRow[] }) {
+export function LogsTable({ logs, timezone }: { logs: LogListRow[]; timezone: string }) {
   if (logs.length === 0) {
     return <p className="text-sm text-neutral-500">No logs yet — generate one to get started.</p>;
   }
@@ -32,10 +33,10 @@ export function LogsTable({ logs }: { logs: LogListRow[] }) {
             </td>
             <td className="py-2">
               <a href={`/logs/${log.id}`} className="text-neutral-200 hover:underline">
-                {fmt(log.startsAt)} – {fmt(log.endsAt)}
+                {fmt(log.startsAt, timezone)} – {fmt(log.endsAt, timezone)}
               </a>
             </td>
-            <td className="py-2 text-neutral-400">{fmt(log.generatedAt)}</td>
+            <td className="py-2 text-neutral-400">{fmt(log.generatedAt, timezone)}</td>
             <td className="py-2 text-neutral-400">{log.itemCount}</td>
             <td className="py-2">
               <ViolationBadge count={log.violationCount} />

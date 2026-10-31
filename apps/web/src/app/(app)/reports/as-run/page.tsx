@@ -6,7 +6,7 @@ import { requireStation } from "@/lib/auth";
 export const dynamic = "force-dynamic";
 
 export default async function AsRunReportPage() {
-  const { stationId } = await requireStation();
+  const { stationId, station } = await requireStation();
   const rows = await getAsRunReport(stationId);
 
   return (
@@ -16,7 +16,7 @@ export default async function AsRunReportPage() {
         Scheduled vs. actual air time for each hour&apos;s top-of-hour element. Reporting only — no compliance
         guarantee (that&apos;s M5).
       </p>
-      <AsRunTable rows={rows} />
+      <AsRunTable rows={rows} timezone={station.timezone} />
     </div>
   );
 }

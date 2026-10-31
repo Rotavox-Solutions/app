@@ -17,7 +17,7 @@ export default async function LogsPage() {
         <h1 className="text-xl font-semibold">Logs</h1>
         {allowed(ctx, "edit_logs") && <GenerateControl />}
       </div>
-      <LogsTable logs={logs} />
+      <LogsTable logs={logs} timezone={ctx.station.timezone} />
     </div>
   );
 }
