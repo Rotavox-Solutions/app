@@ -322,6 +322,9 @@ A station's tier is recorded as `stations.playout`, chosen by Rotavox staff when
 set the station up: `file` is tier 0 (library imported from a file, logs exported,
 approved logs assumed aired, Rotavox owning pools from day one), `radiodj` is the
 Runner (tiers 1-3).
+Staff can change it later. To `file` needs the Runner's key revoked first; to `radiodj`
+only while the station has no songs, because the Runner's library sync matches songs by
+RadioDJ song number and imported songs don't carry RadioDJ's numbers.
 
 ### 3.6 Rotavox does not become the playout system
 

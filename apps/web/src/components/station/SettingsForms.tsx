@@ -186,3 +186,57 @@ export function RotationForm({
     </div>
   );
 }
+
+const PLAYOUT_LABEL = {
+  file: "Exported to the station's own playout system",
+  radiodj: "RadioDJ, with a Runner on the broadcast box",
+} as const;
+
+const PLAYOUT_EFFECT = {
+  file: "The Runner stops being part of it: the library comes from file imports, logs are downloaded, and approving a log records its songs as played. Rotavox keeps the pools as they are now.",
+  radiodj: "The Runner syncs the library from RadioDJ and paces logs into it, and play history comes from RadioDJ. Make the Runner's key on the Station page next.",
+} as const;
+
+/** Rotavox staff only: switch how logs reach air, with what the switch does. */
+export function PlayoutForm({ playout, readOnly }: { playout: "radiodj" | "file"; readOnly: boolean }) {
+  const router = useRouter();
+  const [value, setValue] = useState(playout);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  if (readOnly) return <span>{PLAYOUT_LABEL[playout]}</span>;
+  return (
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setPending(true);
+        setError(null);
+        const err = await put("/api/station/playout", { playout: value });
+        setPending(false);
+        if (err) setError(err);
+        // The sidebar and Station page change with it, so reload the whole page.
+        else window.location.reload();
+      }}
+      className="space-y-2"
+    >
+      <div className="flex flex-wrap items-center gap-2">
+        <select
+          value={value}
+          onChange={(e) => setValue(e.target.value as "radiodj" | "file")}
+          disabled={pending}
+          className={field}
+          aria-label="How logs reach air"
+        >
+          <option value="file">{PLAYOUT_LABEL.file}</option>
+          <option value="radiodj">{PLAYOUT_LABEL.radiodj}</option>
+        </select>
+        {value !== playout && (
+          <button disabled={pending} className="rounded border border-neutral-700 px-3 py-1 text-sm text-neutral-200 hover:bg-neutral-900">
+            Switch
+          </button>
+        )}
+      </div>
+      {value !== playout && <p className="max-w-2xl text-xs text-amber-300">{PLAYOUT_EFFECT[value]}</p>}
+      {error && <p className="max-w-2xl text-sm text-red-400">{error}</p>}
+    </form>
+  );
+}

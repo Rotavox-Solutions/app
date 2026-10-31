@@ -1,9 +1,9 @@
 // Station-level settings edited from Station › Settings. The rotation lives with the grid
 // (grid.ts setRotation), since it changes what the grid means.
-import { eq } from "drizzle-orm";
+import { and, eq, isNull, sql } from "drizzle-orm";
 import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import * as schema from "./schema.js";
-import { stations } from "./schema.js";
+import { runnerKeys, songs, stations } from "./schema.js";
 import { ChangesetError } from "./changesets.js";
 
 type Db = PostgresJsDatabase<typeof schema>;
@@ -58,4 +58,52 @@ export async function createStation(
     })
     .returning({ id: stations.id, name: stations.name });
   return row;
+}
+
+/**
+ * Changes how a station's logs reach air (Rotavox staff only).
+ *
+ * To 'file': only with no live Runner key, since a connected Runner would keep syncing the
+ * library and pacing logs. Approved logs count as aired from then on, and Rotavox takes
+ * over the pools as they stand if it didn't own them already.
+ *
+ * To 'radiodj': only while the station has no songs. The Runner's sync matches songs by
+ * RadioDJ song number, and imported songs carry numbers from another system or assigned
+ * by Rotavox: the sync would overwrite them with unrelated RadioDJ songs, mixing up their
+ * pools and play history. With nothing to collide with, the station starts like any
+ * RadioDJ station: the Runner syncs the library, then the one-time pool import.
+ */
+export async function setPlayout(db: Db, stationId: string, playout: Playout, now: Date = new Date()): Promise<void> {
+  if (!PLAYOUTS.includes(playout)) throw new ChangesetError("invalid", "Choose how logs reach air.");
+  const [station] = await db.select().from(stations).where(eq(stations.id, stationId));
+  if (!station) throw new ChangesetError("not_found", "No such station.");
+  if (station.playout === playout) return;
+
+  if (playout === "file") {
+    const [key] = await db
+      .select({ id: runnerKeys.id })
+      .from(runnerKeys)
+      .where(and(eq(runnerKeys.stationId, stationId), isNull(runnerKeys.revokedAt)))
+      .limit(1);
+    if (key) {
+      throw new ChangesetError(
+        "invalid",
+        "Revoke the Runner's key on the Station page first: a connected Runner would keep syncing the library and pacing logs into RadioDJ."
+      );
+    }
+    await db
+      .update(stations)
+      .set({ playout, assumeLogAired: true, membershipImportedAt: station.membershipImportedAt ?? now })
+      .where(eq(stations.id, stationId));
+    return;
+  }
+
+  const [{ count }] = await db.select({ count: sql<number>`count(*)::int` }).from(songs).where(eq(songs.stationId, stationId));
+  if (count > 0) {
+    throw new ChangesetError(
+      "invalid",
+      `This station has ${count === 1 ? "a song" : `${count.toLocaleString("en-US")} songs`} from file imports. RadioDJ's library sync matches songs by RadioDJ's song numbers, which imported songs don't carry, so it would overwrite them with unrelated songs. Only a station with no library yet can move to RadioDJ.`
+    );
+  }
+  await db.update(stations).set({ playout, assumeLogAired: false, membershipImportedAt: null }).where(eq(stations.id, stationId));
 }

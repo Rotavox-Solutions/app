@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { createRunnerKey, createStation, isTimeZone, libraryFromFile, stations } from "@rotavox/schema";
+import { createRunnerKey, createStation, isTimeZone, libraryFromFile, revokeRunnerKey, setPlayout, stations } from "@rotavox/schema";
 import { eq } from "drizzle-orm";
 import { db } from "../src/lib/db";
 import { getSetupSteps } from "../src/lib/station-setup";
@@ -56,5 +56,41 @@ describe("setup steps", () => {
     expect(steps.find((s) => s.key === "clocks")).toMatchObject({ done: true, detail: "1 clock" });
     expect(steps.find((s) => s.key === "library")?.detail).toBe("1 song");
     void empty;
+  });
+});
+
+describe("changing playout after setup", () => {
+  const read = async (id: string) => (await db.select().from(stations).where(eq(stations.id, id)))[0];
+
+  it("moves a RadioDJ station to file once its Runner key is revoked, taking over the pools", async () => {
+    const { id } = await createStation(db, { name: "A", timezone: "UTC", playout: "radiodj" });
+    const { row: key } = await createRunnerKey(db, { stationId: id, label: "Box", createdBy: null });
+    await expect(setPlayout(db, id, "file")).rejects.toMatchObject({ code: "invalid" });
+    expect((await read(id)).playout).toBe("radiodj");
+
+    await revokeRunnerKey(db, id, key.id);
+    const now = new Date("2026-10-31T12:00:00Z");
+    await setPlayout(db, id, "file", now);
+    expect(await read(id)).toMatchObject({ playout: "file", assumeLogAired: true, membershipImportedAt: now });
+    expect(await libraryFromFile(db, id)).toBe(true);
+  });
+
+  it("keeps an earlier pool takeover date", async () => {
+    const then = new Date("2026-10-20T00:00:00Z");
+    const { id } = await createStation(db, { name: "A", timezone: "UTC", playout: "radiodj" });
+    await db.update(stations).set({ membershipImportedAt: then }).where(eq(stations.id, id));
+    await setPlayout(db, id, "file");
+    expect((await read(id)).membershipImportedAt).toEqual(then);
+  });
+
+  it("moves a file station to RadioDJ only while it has no songs", async () => {
+    const { id } = await createStation(db, { name: "A", timezone: "UTC", playout: "file" });
+    await seedSong(id, 1);
+    await expect(setPlayout(db, id, "radiodj")).rejects.toMatchObject({ code: "invalid" });
+    expect((await read(id)).playout).toBe("file");
+
+    const empty = await createStation(db, { name: "B", timezone: "UTC", playout: "file" });
+    await setPlayout(db, empty.id, "radiodj");
+    expect(await read(empty.id)).toMatchObject({ playout: "radiodj", assumeLogAired: false, membershipImportedAt: null });
   });
 });

@@ -3,7 +3,7 @@ import { weekInCycle } from "@rotavox/engine";
 import { getGridForEdit, MAX_CYCLE_WEEKS, stations } from "@rotavox/schema";
 import { db } from "@/lib/db";
 import { allowed, requireStation } from "@/lib/auth";
-import { RotationForm, StationNameForm } from "@/components/station/SettingsForms";
+import { PlayoutForm, RotationForm, StationNameForm } from "@/components/station/SettingsForms";
 
 // Live view over current DB state — never statically prerendered.
 export const dynamic = "force-dynamic";
@@ -56,6 +56,16 @@ export default async function StationSettingsPage() {
           help="Every grid hour, log and report is in this time zone. Changing it moves every hour of the format and the AutoDJ fail-safe, so Rotavox staff change it with you."
         >
           {station.timezone}
+        </Row>
+        <Row
+          label="Logs reach air"
+          help={
+            allowed(ctx, "staff")
+              ? "Only Rotavox staff can change this. A station with a library from file imports can't move to RadioDJ, because RadioDJ's sync matches songs by its own song numbers."
+              : "Rotavox staff change this with you."
+          }
+        >
+          <PlayoutForm playout={station.playout} readOnly={!allowed(ctx, "staff")} />
         </Row>
         <Row
           label="Play history"
