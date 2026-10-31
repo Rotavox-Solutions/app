@@ -318,6 +318,11 @@ better than no separation memory at all. And at tier 0 or 1 the station keeps it
 fallback rotation entirely; the projection in §3.5 is a tier-3 capability, not a
 baseline.
 
+A station's tier is recorded as `stations.playout`, chosen by Rotavox staff when they
+set the station up: `file` is tier 0 (library imported from a file, logs exported,
+approved logs assumed aired, Rotavox owning pools from day one), `radiodj` is the
+Runner (tiers 1-3).
+
 ### 3.6 Rotavox does not become the playout system
 
 Not soon, and possibly not ever. Playout is hard-realtime, 24/7, and

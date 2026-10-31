@@ -22,7 +22,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
     <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 md:flex-row md:gap-10 md:px-6 md:py-8">
       <aside className="md:w-44 md:shrink-0">
         <Sidebar
-          station={ctx.station ? { id: ctx.station.id, name: ctx.station.name } : null}
+          station={ctx.station ? { id: ctx.station.id, name: ctx.station.name, playout: ctx.station.playout } : null}
           stations={stations.map((s) => ({ id: s.id, name: s.name }))}
           user={{
             name: ctx.user.name,

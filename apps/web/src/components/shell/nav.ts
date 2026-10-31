@@ -8,6 +8,10 @@ export interface NavItem {
   badge?: "inbox" | "changes" | "drift";
   /** Shown only to people who have this permission (the server enforces it regardless). */
   needs?: "manage_people" | "staff";
+  /** Shown only at stations whose logs reach air this way (stations.playout). */
+  playout?: "radiodj" | "file";
+  /** The label at a 'file' (tier-0) station, where there is no Runner. */
+  fileLabel?: string;
 }
 
 export interface NavSection {
@@ -23,7 +27,7 @@ export const NAV: NavSection[] = [
       { label: "Categories", href: "/music/categories" },
       { label: "Inbox", href: "/music/inbox", badge: "inbox" },
       { label: "Changes", href: "/music/changes", badge: "changes" },
-      { label: "RadioDJ drift", href: "/music/drift", badge: "drift" },
+      { label: "RadioDJ drift", href: "/music/drift", badge: "drift", playout: "radiodj" },
       { label: "Library", href: "/music/library" },
       { label: "Lifecycle", href: "/music/lifecycle" },
     ],
@@ -33,11 +37,11 @@ export const NAV: NavSection[] = [
     items: [{ label: "Clocks", href: "/format/clocks" }, { label: "Week grid", href: "/format/grid" }, { label: "Rules", href: "/format/rules" }],
   },
   { label: "Logs", items: [{ label: "Logs", href: "/logs" }] },
-  { label: "Reports", items: [{ label: "As-run", href: "/reports/as-run" }] },
+  { label: "Reports", items: [{ label: "As-run", href: "/reports/as-run", playout: "radiodj" }] },
   {
     label: "Station",
     items: [
-      { label: "Library & Runner", href: "/station" },
+      { label: "Library & Runner", href: "/station", fileLabel: "Setup" },
       { label: "People", href: "/station/people", needs: "manage_people" },
       { label: "Settings", href: "/station/settings" },
     ],

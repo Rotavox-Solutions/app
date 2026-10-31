@@ -10,6 +10,7 @@ import {
 } from "@rotavox/schema";
 import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth";
+import { NewStation } from "@/components/account/NewStation";
 import { StaffInvite } from "@/components/account/StaffInvite";
 import { StationPicker } from "@/components/account/StationPicker";
 import { AutoRefresh } from "@/components/station/AutoRefresh";
@@ -121,6 +122,12 @@ export default async function StaffPage() {
           currentId={ctx.station?.id ?? null}
           stations={stations.map((s) => ({ id: s.id, name: s.name, role: "" }))}
         />
+        <details className="pt-2">
+          <summary className="cursor-pointer text-sm text-neutral-300 hover:text-neutral-100">Set up a new station</summary>
+          <div className="mt-3">
+            <NewStation timeZones={["UTC", ...Intl.supportedValuesOf("timeZone").filter((tz) => tz.includes("/"))]} />
+          </div>
+        </details>
       </section>
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wide text-neutral-500">Runners</h2>

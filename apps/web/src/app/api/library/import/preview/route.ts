@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { categories, stationHasRunner } from "@rotavox/schema";
+import { categories, libraryFromFile } from "@rotavox/schema";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { stationRoute } from "@/lib/auth";
@@ -24,7 +24,7 @@ export const POST = stationRoute("edit_music", async (request, { stationId }) =>
       matchBy: plan.matchBy,
       problems: plan.problems,
       rows,
-      hasRunner: await stationHasRunner(db, stationId),
+      fromRadioDJ: !(await libraryFromFile(db, stationId)),
       unknownPools: await unknownPools(stationId, plan.rows),
     });
   } catch (err) {

@@ -1,0 +1,1 @@
+ALTER TABLE "stations" ADD COLUMN "playout" text DEFAULT 'radiodj' NOT NULL;

@@ -133,7 +133,7 @@ export interface SessionContext {
   sessionId: string;
   user: PublicUser;
   /** The station this browser is working on; null for staff yet to pick one, or someone with no stations. */
-  station: { id: string; name: string; timezone: string } | null;
+  station: { id: string; name: string; timezone: string; playout: "radiodj" | "file" } | null;
   /** Their role there; null for staff working at a station they aren't a member of. */
   role: StationRole | null;
 }
@@ -212,7 +212,7 @@ export async function resolveSession(db: Db, token: string, now: Date = new Date
   }
   const [station] = stationId
     ? await db
-        .select({ id: stations.id, name: stations.name, timezone: stations.timezone })
+        .select({ id: stations.id, name: stations.name, timezone: stations.timezone, playout: stations.playout })
         .from(stations)
         .where(eq(stations.id, stationId))
     : [];

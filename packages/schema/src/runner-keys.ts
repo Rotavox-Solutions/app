@@ -97,8 +97,9 @@ export interface FleetStation {
 }
 
 /**
- * Every station's Runners, for the staff console: what each key last reported and when,
- * and the last update asked of it. Staff only; it crosses stations by design.
+ * Every RadioDJ station's Runners, for the staff console: what each key last reported and
+ * when, and the last update asked of it. A 'file' station has no Runner to list unless one
+ * was installed anyway. Staff only; it crosses stations by design.
  */
 export async function listRunnerFleet(db: Db): Promise<FleetStation[]> {
   const rows = await db
@@ -112,6 +113,7 @@ export async function listRunnerFleet(db: Db): Promise<FleetStation[]> {
     })
     .from(stations)
     .leftJoin(runnerKeys, and(eq(runnerKeys.stationId, stations.id), isNull(runnerKeys.revokedAt)))
+    .where(sql`${stations.playout} = 'radiodj' OR ${runnerKeys.id} IS NOT NULL`)
     .orderBy(asc(stations.name), sql`${runnerKeys.lastUsedAt} DESC NULLS LAST`);
   const latest = await db.execute<{ id: string }>(sql`
     SELECT DISTINCT ON (station_id) id FROM runner_jobs

@@ -1,6 +1,6 @@
 import { LibraryTable } from "@/components/music/LibraryTable";
 import { groupOptions } from "@/components/music/format";
-import { LIFECYCLE_STATES, stationHasRunner } from "@rotavox/schema";
+import { LIFECYCLE_STATES, libraryFromFile } from "@rotavox/schema";
 import { db } from "@/lib/db";
 import { LIBRARY_PAGE_SIZE, parseLibraryFilter, searchLibrary, type LibraryFilter } from "@/lib/library";
 import { getPlaceableCategories, getPoolEditing, getRestExits } from "@/lib/music-edits";
@@ -34,10 +34,10 @@ export default async function LibraryPage({
     getPlaceableCategories(stationId),
     getPoolEditing(stationId),
   ]);
-  const [directions, restExits, hasRunner] = await Promise.all([
+  const [directions, restExits, fromFile] = await Promise.all([
     directionsFor(stationId, result.rows),
     getRestExits(stationId, options),
-    stationHasRunner(db, stationId),
+    libraryFromFile(db, stationId),
   ]);
   const canEdit = allowed(ctx, "edit_music");
   const stagedCount = Object.keys(editing.staged).length;
@@ -49,7 +49,7 @@ export default async function LibraryPage({
       <div>
         <div className="flex flex-wrap items-baseline justify-between gap-3">
           <h1 className="text-xl font-semibold">Library</h1>
-          {!hasRunner && allowed(ctx, "edit_music") && (
+          {fromFile && allowed(ctx, "edit_music") && (
             <a
               href="/music/library/import"
               className="rounded border border-neutral-700 px-3 py-1 text-sm text-neutral-200 hover:bg-neutral-900"

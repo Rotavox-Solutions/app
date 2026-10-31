@@ -12,7 +12,7 @@ function isActive(pathname: string, href: string): boolean {
 export type NavCounts = Partial<Record<NonNullable<NavItem["badge"]>, number>>;
 
 interface Props {
-  station: { id: string; name: string } | null;
+  station: { id: string; name: string; playout: "radiodj" | "file" } | null;
   stations: { id: string; name: string }[];
   user: { name: string; role: string };
   permissions: NonNullable<NavItem["needs"]>[];
@@ -32,7 +32,9 @@ export function Sidebar({ station, stations, user, permissions, counts = {} }: P
   const [busy, setBusy] = useState(false);
   const sections = NAV.map((s) => ({
     ...s,
-    items: s.items.filter((i) => !i.needs || permissions.includes(i.needs)),
+    items: s.items
+      .filter((i) => (!i.needs || permissions.includes(i.needs)) && (!i.playout || i.playout === station?.playout))
+      .map((i) => (station?.playout === "file" && i.fileLabel ? { ...i, label: i.fileLabel } : i)),
   })).filter((s) => s.items.length > 0);
 
   async function switchTo(id: string) {

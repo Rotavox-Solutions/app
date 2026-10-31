@@ -16,6 +16,7 @@ import { RunnerButton } from "@/components/station/RunnerButton";
 import { RunnerKeys } from "@/components/station/RunnerKeys";
 import { fmtAgo, fmtWhenShort } from "@/components/music/format";
 import { allowed, requireStation } from "@/lib/auth";
+import { getSetupSteps, type SetupStep } from "@/lib/station-setup";
 
 // Live view over current DB state — never statically prerendered.
 export const dynamic = "force-dynamic";
@@ -55,6 +56,7 @@ export default async function StationPage() {
       .where(and(eq(syncState.stationId, stationId), eq(syncState.syncKey, AUTODJ_EVENTS_SYNC_KEY))),
   ]);
   if (!station) return <p className="text-sm text-neutral-500">This station no longer exists.</p>;
+  if (station.playout === "file") return <FileStationPage station={station} />;
   const tz = station.timezone;
   const sync = status.latest.sync_library;
   const syncOpen = sync && (sync.status === "queued" || sync.status === "running");
@@ -224,6 +226,153 @@ export default async function StationPage() {
             ))}
           </ul>
         )}
+      </section>
+    </div>
+  );
+}
+
+const STEP_TEXT: Record<SetupStep["key"], { title: string; how: React.ReactNode }> = {
+  library: {
+    title: "Bring in the library",
+    how: (
+      <>
+        Export it from the playout system as CSV and{" "}
+        <a href="/music/library/import" className="underline hover:text-neutral-300">
+          import it
+        </a>
+        . Re-import whenever it changes.
+      </>
+    ),
+  },
+  pools: {
+    title: "Make the categories",
+    how: (
+      <>
+        The pools clocks draw from, under{" "}
+        <a href="/music/categories" className="underline hover:text-neutral-300">
+          Categories
+        </a>
+        . Made before the import, a file&apos;s Category column places songs straight into them.
+      </>
+    ),
+  },
+  placed: {
+    title: "Place the songs",
+    how: (
+      <>
+        Songs with no category wait in the{" "}
+        <a href="/music/inbox" className="underline hover:text-neutral-300">
+          Inbox
+        </a>
+        .
+      </>
+    ),
+  },
+  clocks: {
+    title: "Build the clocks",
+    how: (
+      <>
+        What each hour plays, in{" "}
+        <a href="/format/clocks" className="underline hover:text-neutral-300">
+          Clocks
+        </a>
+        .
+      </>
+    ),
+  },
+  grid: {
+    title: "Lay out the week",
+    how: (
+      <>
+        Which clock airs each hour, on the{" "}
+        <a href="/format/grid" className="underline hover:text-neutral-300">
+          Week grid
+        </a>
+        . Then check the{" "}
+        <a href="/format/rules" className="underline hover:text-neutral-300">
+          Rules
+        </a>
+        .
+      </>
+    ),
+  },
+  log: {
+    title: "Generate and approve a log",
+    how: (
+      <>
+        On{" "}
+        <a href="/logs" className="underline hover:text-neutral-300">
+          Logs
+        </a>
+        . Download it as CSV or M3U from the log&apos;s page and load it into the playout system.
+      </>
+    ),
+  },
+  people: {
+    title: "Invite the station's people",
+    how: (
+      <>
+        PDs, MDs and anyone who should look, from{" "}
+        <a href="/station/people" className="underline hover:text-neutral-300">
+          People
+        </a>
+        .
+      </>
+    ),
+  },
+};
+
+/**
+ * A station on adapter tier 0 (ADR-0001 §3.5c): no Runner, a library imported from a file,
+ * and logs exported for the station's own playout system to load.
+ */
+async function FileStationPage({ station }: { station: typeof stations.$inferSelect }) {
+  const steps = await getSetupSteps(station.id);
+  const remaining = steps.filter((s) => !s.done).length;
+  return (
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-xl font-semibold">Setup</h1>
+        <p className="mt-1 text-sm text-neutral-500">
+          {station.name} · {station.timezone} · logs are exported to the station&apos;s own playout system
+        </p>
+      </div>
+
+      <section className="space-y-3">
+        <h2 className="text-sm font-medium uppercase tracking-wide text-neutral-500">
+          {remaining ? "Getting on air" : "Set up"}
+        </h2>
+        {!remaining && (
+          <p className="text-sm text-emerald-300">Every step is done. Keep the library current by re-importing it.</p>
+        )}
+        <ol className="max-w-3xl divide-y divide-neutral-900 text-sm">
+          {steps.map((s, i) => (
+            <li key={s.key} className="flex gap-3 py-2.5">
+              <span
+                className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs ${
+                  s.done ? "bg-emerald-900 text-emerald-200" : "border border-neutral-700 text-neutral-400"
+                }`}
+              >
+                {s.done ? "✓" : i + 1}
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                  <span className={s.done ? "text-neutral-400" : "text-neutral-100"}>{STEP_TEXT[s.key].title}</span>
+                  <span className="text-xs text-neutral-500">{s.detail}</span>
+                </div>
+                <p className="text-xs text-neutral-500">{STEP_TEXT[s.key].how}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="text-sm font-medium uppercase tracking-wide text-neutral-500">Play history</h2>
+        <p className="max-w-2xl text-sm text-neutral-400">
+          The playout system doesn&apos;t tell Rotavox what aired, so approving a log records its songs as played.
+          Separation and rotation work from that, so approve only what will really air.
+        </p>
       </section>
     </div>
   );

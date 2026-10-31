@@ -13,7 +13,7 @@ export default async function StationsPage() {
       {stations.length === 0 ? (
         <p className="max-w-xl text-sm text-neutral-400">
           {ctx.user.isStaff
-            ? "There are no stations yet."
+            ? "There are no stations yet. Set one up from the Staff page."
             : "Your account isn't part of any station right now. Ask your station admin to invite you again."}
         </p>
       ) : (

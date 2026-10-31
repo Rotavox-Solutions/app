@@ -266,14 +266,20 @@ export function planImport(rows: string[][], mapping: ImportMapping, existing: E
   return { header, mapping, rows: out, counts, notInFile, matchBy, problems };
 }
 
-/** A station with a Runner gets its library from RadioDJ; an upload would fight the sync. */
-export async function stationHasRunner(db: Db, stationId: string): Promise<boolean> {
+/**
+ * Whether this station's library comes from file imports: a 'file' (tier-0) station with
+ * no Runner. A RadioDJ station gets its library from the Runner's sync, and an upload would
+ * fight it, even before its Runner first connects.
+ */
+export async function libraryFromFile(db: Db, stationId: string): Promise<boolean> {
+  const [station] = await db.select({ playout: stations.playout }).from(stations).where(eq(stations.id, stationId));
+  if (station?.playout !== "file") return false;
   const [key] = await db
     .select({ id: runnerKeys.id })
     .from(runnerKeys)
     .where(and(eq(runnerKeys.stationId, stationId), isNull(runnerKeys.revokedAt)))
     .limit(1);
-  return !!key;
+  return !key;
 }
 
 export async function existingSongs(db: Db, stationId: string): Promise<ExistingSong[]> {
@@ -309,7 +315,7 @@ export interface ImportResult {
  */
 export async function applyImport(db: Db, stationId: string, plan: ImportPlan, now: Date = new Date()): Promise<ImportResult> {
   if (plan.problems.length) throw new ChangesetError("invalid", plan.problems[0]);
-  if (await stationHasRunner(db, stationId)) {
+  if (!(await libraryFromFile(db, stationId))) {
     throw new ChangesetError(
       "invalid",
       "This station's library comes from RadioDJ through the Runner, so it can't be imported from a file."

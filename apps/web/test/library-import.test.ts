@@ -93,7 +93,7 @@ describe("applying an import", () => {
   beforeEach(resetDb);
 
   it("updates matched songs, adds new ones into their pool or the Inbox, and takes over the pools", async () => {
-    const station = await seedStation();
+    const station = await seedStation({ playout: "file" });
     const a1 = await seedCategory(station.id, { name: "A1" });
     await seedSong(station.id, 10, { artist: "Deftones", title: "Mountain" });
     const rows = parseCsv("id,artist,title,category\n10,Deftones,Mountain (Edit),A1\n,New Band,Into A1,a1\n,Other,Nowhere,Z9");
@@ -112,11 +112,13 @@ describe("applying an import", () => {
 
   });
 
-  it("refuses a station with a Runner", async () => {
-    const station = await seedStation();
-    await createRunnerKey(db, { stationId: station.id, label: "Box", createdBy: null });
+  it("refuses a RadioDJ station, and a file station once it has a Runner", async () => {
     const rows = parseCsv("artist,title\nA,B");
     const plan = planImport(rows, detectMapping(rows[0]), []);
-    await expect(applyImport(db, station.id, plan)).rejects.toMatchObject({ code: "invalid" });
+    const rdj = await seedStation();
+    await expect(applyImport(db, rdj.id, plan)).rejects.toMatchObject({ code: "invalid" });
+    const file = await seedStation({ playout: "file" });
+    await createRunnerKey(db, { stationId: file.id, label: "Box", createdBy: null });
+    await expect(applyImport(db, file.id, plan)).rejects.toMatchObject({ code: "invalid" });
   });
 });

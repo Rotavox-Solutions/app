@@ -6,6 +6,16 @@ import { allowed, requireStation } from "@/lib/auth";
 // Live ops view over current DB state — never statically prerendered.
 export const dynamic = "force-dynamic";
 
+/** The hour in the station's own time zone, whatever the server's is: "Sat, Oct 31, 2:00 PM – 3:00 PM". */
+function fmtHour(start: Date, end: Date, timeZone: string): string {
+  const day = { timeZone, weekday: "short", month: "short", day: "numeric" } as const;
+  const time = { timeZone, hour: "numeric", minute: "2-digit" } as const;
+  const sameDay = start.toLocaleDateString("en-US", day) === end.toLocaleDateString("en-US", day);
+  return `${start.toLocaleString("en-US", { ...day, ...time })} – ${
+    sameDay ? end.toLocaleTimeString("en-US", time) : end.toLocaleString("en-US", { ...day, ...time })
+  }`;
+}
+
 export default async function LogDetailPage({ params }: { params: Promise<{ logId: string }> }) {
   const ctx = await requireStation();
   const { stationId } = ctx;
@@ -21,7 +31,7 @@ export default async function LogDetailPage({ params }: { params: Promise<{ logI
         </a>
         <div className="flex flex-wrap items-baseline justify-between gap-3">
           <h1 className="text-xl font-semibold">
-            {new Date(detail.log.startsAt).toLocaleString()} – {new Date(detail.log.endsAt).toLocaleString()}
+            {fmtHour(new Date(detail.log.startsAt), new Date(detail.log.endsAt), ctx.station.timezone)}
           </h1>
           <span className="flex items-center gap-2 text-sm">
             <span className="text-neutral-500">{detail.log.status === "draft" ? "Download draft:" : "Download:"}</span>

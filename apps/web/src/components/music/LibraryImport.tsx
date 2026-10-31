@@ -30,7 +30,7 @@ interface Preview {
   matchBy: string;
   problems: string[];
   rows: PlanRow[];
-  hasRunner: boolean;
+  fromRadioDJ: boolean;
   unknownPools: { name: string; songs: number }[];
 }
 
@@ -112,7 +112,7 @@ export function LibraryImport() {
   }
 
   const changing = preview ? preview.counts.create + preview.counts.update : 0;
-  const blocked = !preview || preview.problems.length > 0 || preview.hasRunner || changing === 0;
+  const blocked = !preview || preview.problems.length > 0 || preview.fromRadioDJ || changing === 0;
 
   return (
     <div className="space-y-5">
@@ -138,7 +138,7 @@ export function LibraryImport() {
 
       {preview && (
         <>
-          {preview.hasRunner && (
+          {preview.fromRadioDJ && (
             <p className="rounded border border-amber-900/60 bg-amber-950/30 p-3 text-sm text-amber-200">
               This station&apos;s library comes from RadioDJ through the Runner, so it can&apos;t be imported from a file.
             </p>

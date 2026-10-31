@@ -1,4 +1,4 @@
-import { stationHasRunner } from "@rotavox/schema";
+import { libraryFromFile } from "@rotavox/schema";
 import { db } from "@/lib/db";
 import { allowed, requireStation } from "@/lib/auth";
 import { LibraryImport } from "@/components/music/LibraryImport";
@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function LibraryImportPage() {
   const ctx = await requireStation();
-  const hasRunner = await stationHasRunner(db, ctx.stationId);
+  const fromFile = await libraryFromFile(db, ctx.stationId);
 
   return (
     <div className="space-y-6">
@@ -23,7 +23,7 @@ export default async function LibraryImportPage() {
           library changes.
         </p>
       </div>
-      {hasRunner ? (
+      {!fromFile ? (
         <p className="text-sm text-neutral-500">
           This station&apos;s library comes from RadioDJ through the Runner, and syncs on its own every 15 minutes, so
           there&apos;s nothing to import. See{" "}

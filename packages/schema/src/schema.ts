@@ -22,6 +22,12 @@ export const stations = pgTable("stations", {
   name: text("name").notNull(),
   timezone: text("timezone").notNull(),
   rdjConnectionRef: text("rdj_connection_ref"),
+  /**
+   * How logs reach air (ADR-0001 §3.5c): 'radiodj' = a Runner on the broadcast box syncs
+   * the library and paces logs into RadioDJ; 'file' = adapter tier 0, the station imports
+   * its library from a file and loads exported logs into its own playout system.
+   */
+  playout: text("playout").$type<"radiodj" | "file">().default("radiodj").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   // Format rotation (§ clock scheduling): the format_grid repeats over this many
   // weeks; 1 = a plain static weekly grid. `formatCycleEpoch` anchors week 0 of the
